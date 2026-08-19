@@ -4,12 +4,7 @@ import React, { useState, useEffect } from 'react';
 import {
   FileCheck2,
   Plus,
-  Trash2,
   CheckCircle2,
-  ShieldCheck,
-  Building,
-  Radio,
-  FileCode,
 } from 'lucide-react';
 import { fetchApi } from '@/lib/api-client';
 
@@ -105,109 +100,99 @@ export default function DltPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-zinc-850">
         <div>
-          <div className="inline-flex items-center space-x-2 text-xs font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full mb-2">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            <span>TRAI DLT Portal Regulation</span>
-          </div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">DLT Headers & Content Templates</h1>
-          <p className="text-sm text-gray-400 mt-0.5">
-            Register 6-character alphanumeric Sender IDs and approved message templates with variable tags.
+          <h1 className="text-xl font-bold text-zinc-100 tracking-tight">DLT Headers & Templates</h1>
+          <p className="text-xs text-zinc-400 mt-0.5">
+            Manage TRAI approved 6-character alphanumeric Sender IDs and registered content templates.
           </p>
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2">
           <button
             onClick={() => setHeaderModal(true)}
-            className="flex items-center space-x-2 bg-gray-900 hover:bg-gray-800 border border-gray-800 text-gray-200 text-xs font-semibold px-4 py-2.5 rounded-xl transition"
+            className="inline-flex items-center space-x-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 text-xs font-medium px-3 py-1.5 rounded-lg transition"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-3.5 h-3.5" />
             <span>Add Sender ID</span>
           </button>
           <button
             onClick={() => setTemplateModal(true)}
-            className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-lg shadow-blue-600/25 transition"
+            className="inline-flex items-center space-x-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg shadow-sm transition"
           >
-            <Plus className="w-4 h-4" />
-            <span>New DLT Template</span>
+            <Plus className="w-3.5 h-3.5" />
+            <span>New Template</span>
           </button>
         </div>
       </div>
 
-      {/* DLT Sender IDs Section */}
-      <div className="glass-panel rounded-2xl p-6 border border-gray-800 space-y-4">
-        <h2 className="text-base font-bold text-white flex items-center justify-between">
-          <span>Approved Sender IDs (DLT Headers)</span>
-          <span className="text-xs text-gray-400 font-normal">{headers.length} Approved Headers</span>
-        </h2>
+      {/* Headers Section */}
+      <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-5 space-y-3">
+        <h2 className="text-sm font-semibold text-zinc-200">Registered Sender IDs (DLT Headers)</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {headers.map((h) => (
             <div
               key={h.id}
-              className="p-4 rounded-xl bg-gray-900/60 border border-gray-800 flex items-center justify-between"
+              className="p-3 rounded-lg bg-zinc-900/80 border border-zinc-800 flex items-center justify-between"
             >
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-mono font-bold text-sm">
+              <div className="flex items-center space-x-2.5">
+                <div className="w-8 h-8 rounded-md bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300 font-mono font-bold text-xs">
                   {h.headerName.substring(0, 2)}
                 </div>
                 <div>
-                  <div className="text-sm font-bold text-white font-mono tracking-wider flex items-center space-x-1.5">
+                  <div className="text-xs font-bold text-zinc-200 font-mono flex items-center space-x-1">
                     <span>{h.headerName}</span>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    <CheckCircle2 className="w-3 h-3 text-emerald-400" />
                   </div>
-                  <div className="text-[11px] text-gray-400">{h.headerType}</div>
+                  <div className="text-[10px] text-zinc-500">{h.headerType}</div>
                 </div>
               </div>
 
-              <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-950 border border-emerald-800 text-emerald-400">
-                ACTIVE
+              <span className="px-1.5 py-0.2 rounded text-[10px] bg-emerald-950/60 border border-emerald-800/80 text-emerald-400">
+                Active
               </span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* DLT Templates Section */}
-      <div className="glass-panel rounded-2xl p-6 border border-gray-800 space-y-4">
-        <h2 className="text-base font-bold text-white flex items-center justify-between">
-          <span>Registered DLT Content Templates</span>
-          <span className="text-xs text-gray-400 font-normal">{templates.length} Active Templates</span>
-        </h2>
+      {/* Templates Section */}
+      <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-5 space-y-3">
+        <h2 className="text-sm font-semibold text-zinc-200">Registered Content Templates</h2>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-gray-800 text-gray-400 uppercase tracking-wider">
-                <th className="pb-3 font-semibold">Template Name</th>
-                <th className="pb-3 font-semibold">DLT Template ID</th>
-                <th className="pb-3 font-semibold">Header</th>
-                <th className="pb-3 font-semibold">Type</th>
-                <th className="pb-3 font-semibold">Content ({'{#var#}'})</th>
-                <th className="pb-3 font-semibold">Status</th>
+              <tr className="border-b border-zinc-850 text-zinc-500 uppercase tracking-wider text-[10px]">
+                <th className="pb-2.5 font-medium">Template Name</th>
+                <th className="pb-2.5 font-medium">DLT Template ID</th>
+                <th className="pb-2.5 font-medium">Header</th>
+                <th className="pb-2.5 font-medium">Type</th>
+                <th className="pb-2.5 font-medium">Content</th>
+                <th className="pb-2.5 font-medium text-right">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-800/60 font-mono">
+            <tbody className="divide-y divide-zinc-800/50 font-mono">
               {templates.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-6 text-center text-gray-400 font-sans">
+                  <td colSpan={6} className="py-6 text-center text-zinc-500 font-sans">
                     No DLT templates found.
                   </td>
                 </tr>
               ) : (
                 templates.map((t) => (
-                  <tr key={t.id} className="hover:bg-gray-900/40 transition">
-                    <td className="py-3 font-semibold text-white font-sans">{t.templateName}</td>
-                    <td className="py-3 text-blue-400">{t.templateIdCode}</td>
-                    <td className="py-3 font-bold text-gray-200">{t.header?.headerName || 'TFISMS'}</td>
-                    <td className="py-3 text-gray-400 font-sans">{t.templateType}</td>
-                    <td className="py-3 text-gray-300 font-sans max-w-md truncate">{t.content}</td>
-                    <td className="py-3 font-sans">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-950 border border-emerald-800 text-emerald-400">
-                        APPROVED
+                  <tr key={t.id} className="hover:bg-zinc-900/60 transition">
+                    <td className="py-2.5 font-medium text-zinc-200 font-sans">{t.templateName}</td>
+                    <td className="py-2.5 text-zinc-400">{t.templateIdCode}</td>
+                    <td className="py-2.5 font-bold text-zinc-300">{t.header?.headerName || 'TFISMS'}</td>
+                    <td className="py-2.5 text-zinc-500 font-sans">{t.templateType}</td>
+                    <td className="py-2.5 text-zinc-300 font-sans max-w-md truncate">{t.content}</td>
+                    <td className="py-2.5 font-sans text-right">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] bg-emerald-950/60 border border-emerald-800/80 text-emerald-400">
+                        Approved
                       </span>
                     </td>
                   </tr>
@@ -220,13 +205,13 @@ export default function DltPage() {
 
       {/* Modal: Add Sender ID */}
       {headerModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="glass-panel w-full max-w-md rounded-2xl border border-gray-750 p-6 space-y-5 shadow-2xl">
-            <h3 className="text-lg font-bold text-white">Register DLT Sender ID (Header)</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+          <div className="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-xl p-6 space-y-4 shadow-xl">
+            <h3 className="text-base font-semibold text-zinc-100">Register Sender ID (Header)</h3>
 
-            <form onSubmit={handleCreateHeader} className="space-y-4">
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-gray-300">Sender ID (6 Chars)</label>
+            <form onSubmit={handleCreateHeader} className="space-y-3.5">
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-zinc-300">Sender ID (6 Alphanumeric Characters)</label>
                 <input
                   type="text"
                   maxLength={6}
@@ -234,37 +219,37 @@ export default function DltPage() {
                   placeholder="e.g. TFISMS"
                   value={newHeaderName}
                   onChange={(e) => setNewHeaderName(e.target.value.toUpperCase())}
-                  className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3.5 py-2.5 text-sm font-mono uppercase text-white focus:outline-none focus:border-blue-500"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-xs font-mono uppercase text-zinc-100 focus:outline-none focus:border-blue-500"
                 />
               </div>
 
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-gray-300">Header Category</label>
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-zinc-300">Category</label>
                 <select
                   value={newHeaderType}
                   onChange={(e) => setNewHeaderType(e.target.value)}
-                  className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-100 focus:outline-none focus:border-blue-500"
                 >
-                  <option value="TRANSACTIONAL">Transactional (OTP, Banking, Security)</option>
-                  <option value="SERVICE_IMPLICIT">Service Implicit (Account updates, Invoices)</option>
+                  <option value="TRANSACTIONAL">Transactional (OTP, Security, Banking)</option>
+                  <option value="SERVICE_IMPLICIT">Service Implicit (Invoices, Alerts)</option>
                   <option value="SERVICE_EXPLICIT">Service Explicit (Consented alerts)</option>
-                  <option value="PROMOTIONAL">Promotional (Discounts, Marketing)</option>
+                  <option value="PROMOTIONAL">Promotional (Offers, Marketing)</option>
                 </select>
               </div>
 
-              <div className="flex justify-end space-x-3 pt-4 border-t border-gray-800">
+              <div className="flex justify-end space-x-2 pt-3 border-t border-zinc-800">
                 <button
                   type="button"
                   onClick={() => setHeaderModal(false)}
-                  className="px-4 py-2 text-xs font-semibold text-gray-400 hover:text-white"
+                  className="px-3 py-1.5 text-xs text-zinc-400 hover:text-white"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow"
+                  className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium px-3.5 py-1.5 rounded-lg shadow-sm"
                 >
-                  Register Header
+                  Register
                 </button>
               </div>
             </form>
@@ -274,17 +259,17 @@ export default function DltPage() {
 
       {/* Modal: New Template */}
       {templateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="glass-panel w-full max-w-lg rounded-2xl border border-gray-750 p-6 space-y-5 shadow-2xl">
-            <h3 className="text-lg font-bold text-white">Register DLT Content Template</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+          <div className="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-xl p-6 space-y-4 shadow-xl">
+            <h3 className="text-base font-semibold text-zinc-100">Register Content Template</h3>
 
-            <form onSubmit={handleCreateTemplate} className="space-y-4">
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-gray-300">Target Sender ID</label>
+            <form onSubmit={handleCreateTemplate} className="space-y-3.5">
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-zinc-300">Sender ID</label>
                 <select
                   value={newTemplateHeaderId}
                   onChange={(e) => setNewTemplateHeaderId(e.target.value)}
-                  className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3.5 py-2.5 text-sm text-white font-mono"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-xs font-mono text-zinc-100"
                 >
                   {headers.map((h) => (
                     <option key={h.id} value={h.id}>
@@ -294,64 +279,64 @@ export default function DltPage() {
                 </select>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-gray-300">DLT Template ID</label>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-zinc-300">DLT Template ID</label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. 140716158291030"
+                    placeholder="140716158291030"
                     value={newTemplateCode}
                     onChange={(e) => setNewTemplateCode(e.target.value)}
-                    className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-blue-500"
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-xs font-mono text-zinc-100 focus:outline-none focus:border-blue-500"
                   />
                 </div>
 
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-gray-300">Template Title</label>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-zinc-300">Title</label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Login OTP Alert"
+                    placeholder="Login Alert"
                     value={newTemplateName}
                     onChange={(e) => setNewTemplateName(e.target.value)}
-                    className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-100 focus:outline-none focus:border-blue-500"
                   />
                 </div>
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 <div className="flex justify-between items-center">
-                  <label className="text-xs font-semibold text-gray-300">Template Content</label>
+                  <label className="text-xs font-medium text-zinc-300">Template Content</label>
                   <button
                     type="button"
                     onClick={() => setNewTemplateContent((prev) => prev + '{#var#}')}
-                    className="text-[11px] text-blue-400 hover:text-blue-300 font-mono font-semibold"
+                    className="text-[11px] text-blue-400 hover:text-blue-300 font-mono"
                   >
-                    + Insert {'{#var#}'}
+                    + Add {'{#var#}'}
                   </button>
                 </div>
                 <textarea
                   rows={3}
                   required
-                  placeholder="Dear {#var#}, your transaction OTP is {#var#}. Valid 10m. - TFISMS"
+                  placeholder="Dear {#var#}, your OTP is {#var#}. Valid 10m. - TFISMS"
                   value={newTemplateContent}
                   onChange={(e) => setNewTemplateContent(e.target.value)}
-                  className="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-blue-500 font-sans"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 text-xs text-zinc-100 focus:outline-none focus:border-blue-500"
                 />
               </div>
 
-              <div className="flex justify-end space-x-3 pt-4 border-t border-gray-800">
+              <div className="flex justify-end space-x-2 pt-3 border-t border-zinc-800">
                 <button
                   type="button"
                   onClick={() => setTemplateModal(false)}
-                  className="px-4 py-2 text-xs font-semibold text-gray-400 hover:text-white"
+                  className="px-3 py-1.5 text-xs text-zinc-400 hover:text-white"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow"
+                  className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium px-3.5 py-1.5 rounded-lg shadow-sm"
                 >
                   Save Template
                 </button>

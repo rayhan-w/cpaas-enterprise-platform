@@ -12,87 +12,120 @@ import {
   CreditCard,
   BarChart3,
   History,
-  ShieldCheck,
   Radio,
+  ChevronDown,
 } from 'lucide-react';
 
-const navigation = [
-  { name: 'Dashboard Overview', href: '/', icon: LayoutDashboard },
-  { name: 'Send SMS Campaign', href: '/dashboard/campaigns', icon: Send },
-  { name: 'DLT Headers & Templates', href: '/dashboard/dlt', icon: FileCheck2 },
-  { name: 'Contacts & Phonebook', href: '/dashboard/contacts', icon: Users },
-  { name: 'Developer API Keys', href: '/dashboard/developer-api', icon: KeyRound, badge: 'REST API' },
-  { name: 'Billing & Recharge', href: '/dashboard/billing', icon: CreditCard },
-  { name: 'Reports & Analytics', href: '/dashboard/reports', icon: BarChart3 },
-  { name: 'Activity & Audit Logs', href: '/dashboard/activity', icon: History },
+const mainNavigation = [
+  { name: 'Overview', href: '/', icon: LayoutDashboard },
+  { name: 'Campaigns', href: '/dashboard/campaigns', icon: Send },
+  { name: 'DLT Templates', href: '/dashboard/dlt', icon: FileCheck2 },
+  { name: 'Contacts', href: '/dashboard/contacts', icon: Users },
+  { name: 'Reports & Logs', href: '/dashboard/reports', icon: BarChart3 },
+];
+
+const developerNavigation = [
+  { name: 'API Keys', href: '/dashboard/developer-api', icon: KeyRound, badge: 'v1' },
+  { name: 'Billing & Wallet', href: '/dashboard/billing', icon: CreditCard },
+  { name: 'Audit Logs', href: '/dashboard/activity', icon: History },
 ];
 
 export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-gray-950 border-r border-gray-850 flex flex-col justify-between shrink-0 h-screen sticky top-0">
+    <aside className="w-60 bg-zinc-950 border-r border-zinc-850 flex flex-col justify-between shrink-0 h-screen sticky top-0">
       <div>
-        {/* Brand Header */}
-        <div className="h-16 flex items-center px-6 border-b border-gray-800 space-x-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
-            <Radio className="w-5 h-5 text-white animate-pulse" />
-          </div>
-          <div>
-            <div className="text-base font-bold text-white tracking-tight flex items-center space-x-1.5">
-              <span>CloudSMS</span>
-              <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 bg-blue-500/20 text-blue-400 rounded">
-                CPaaS
-              </span>
+        {/* Workspace Brand Switcher */}
+        <div className="h-14 flex items-center justify-between px-4 border-b border-zinc-850">
+          <div className="flex items-center space-x-2.5">
+            <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-sm">
+              <Radio className="w-4 h-4" />
             </div>
-            <div className="text-[11px] text-gray-400 font-medium">Enterprise Telephony</div>
+            <div>
+              <div className="text-xs font-semibold text-zinc-100 flex items-center space-x-1">
+                <span>CloudSMS</span>
+                <span className="text-[10px] text-zinc-500 font-mono">CPaaS</span>
+              </div>
+              <div className="text-[10px] text-zinc-500">Enterprise Workspace</div>
+            </div>
           </div>
+          <ChevronDown className="w-3.5 h-3.5 text-zinc-500" />
         </div>
 
-        {/* Navigation Links */}
-        <nav className="p-4 space-y-1.5">
-          <div className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider px-3 mb-2">
-            Messaging & Core
-          </div>
-          {navigation.map((item) => {
-            const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
-            const Icon = item.icon;
+        {/* Navigation Sections */}
+        <div className="p-3 space-y-5">
+          {/* Main Messaging */}
+          <div className="space-y-1">
+            <div className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider px-2.5 mb-1.5">
+              Messaging
+            </div>
+            {mainNavigation.map((item) => {
+              const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+              const Icon = item.icon;
 
-            return (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                  isActive
-                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25 font-semibold'
-                    : 'text-gray-400 hover:text-gray-200 hover:bg-gray-900/80'
-                }`}
-              >
-                <div className="flex items-center space-x-3">
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-gray-400'}`} />
-                  <span>{item.name}</span>
-                </div>
-                {item.badge && (
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
-                    isActive ? 'bg-blue-700 text-white' : 'bg-gray-800 text-blue-400'
-                  }`}>
-                    {item.badge}
-                  </span>
-                )}
-              </Link>
-            );
-          })}
-        </nav>
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                    isActive
+                      ? 'bg-zinc-800 text-zinc-100 font-semibold'
+                      : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60'
+                  }`}
+                >
+                  <div className="flex items-center space-x-2.5">
+                    <Icon className={`w-4 h-4 ${isActive ? 'text-blue-400' : 'text-zinc-500'}`} />
+                    <span>{item.name}</span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Developer & Admin */}
+          <div className="space-y-1">
+            <div className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider px-2.5 mb-1.5">
+              Developer & Admin
+            </div>
+            {developerNavigation.map((item) => {
+              const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+              const Icon = item.icon;
+
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                    isActive
+                      ? 'bg-zinc-800 text-zinc-100 font-semibold'
+                      : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60'
+                  }`}
+                >
+                  <div className="flex items-center space-x-2.5">
+                    <Icon className={`w-4 h-4 ${isActive ? 'text-blue-400' : 'text-zinc-500'}`} />
+                    <span>{item.name}</span>
+                  </div>
+                  {item.badge && (
+                    <span className="text-[10px] px-1.5 py-0.2 rounded font-mono bg-zinc-850 text-zinc-400 border border-zinc-800">
+                      {item.badge}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
-      {/* Footer Security Badge */}
-      <div className="p-4 border-t border-gray-900">
-        <div className="bg-gray-900/70 border border-gray-800 rounded-xl p-3 flex items-center space-x-3">
-          <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
-          <div className="text-xs">
-            <div className="text-gray-200 font-medium">TRAI / DLT Compliant</div>
-            <div className="text-gray-400 text-[10px]">SHA-256 HMAC & Encryption</div>
+      {/* Footer Network Badge */}
+      <div className="p-3 border-t border-zinc-850">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-2.5 flex items-center justify-between">
+          <div className="text-[11px]">
+            <div className="text-zinc-300 font-medium">Telecom SMPP</div>
+            <div className="text-zinc-500 text-[10px]">Latency: 42ms</div>
           </div>
+          <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
         </div>
       </div>
     </aside>

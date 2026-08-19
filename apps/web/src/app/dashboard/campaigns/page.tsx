@@ -4,14 +4,10 @@ import React, { useState, useEffect } from 'react';
 import {
   Send,
   Smartphone,
-  CheckCircle,
-  FileCheck2,
+  CheckCircle2,
   Users,
-  FileSpreadsheet,
-  AlertTriangle,
-  Zap,
   RefreshCw,
-  Clock,
+  Zap,
 } from 'lucide-react';
 import { fetchApi } from '@/lib/api-client';
 
@@ -21,13 +17,13 @@ export default function CampaignsPage() {
   const [groups, setGroups] = useState<any[]>([]);
 
   // Form State
-  const [campaignName, setCampaignName] = useState('Promotional Flash Broadcast');
+  const [campaignName, setCampaignName] = useState('Transactional OTP Broadcast');
   const [selectedHeaderId, setSelectedHeaderId] = useState('');
   const [selectedTemplateId, setSelectedTemplateId] = useState('');
-  const [audienceType, setAudienceType] = useState<'MANUAL' | 'GROUP' | 'CSV'>('MANUAL');
+  const [audienceType, setAudienceType] = useState<'MANUAL' | 'GROUP'>('MANUAL');
   const [manualPhone, setManualPhone] = useState('919876543210');
   const [selectedGroupId, setSelectedGroupId] = useState('');
-  const [customVariables, setCustomVariables] = useState<string[]>(['Customer', '982310']);
+  const [customVariables, setCustomVariables] = useState<string[]>(['Rahul', '849201']);
   const [isSending, setIsSending] = useState(false);
   const [resultSuccess, setResultSuccess] = useState<any | null>(null);
 
@@ -66,7 +62,7 @@ export default function CampaignsPage() {
   if (selectedTemplate?.content) {
     let temp = selectedTemplate.content;
     customVariables.forEach((v) => {
-      temp = temp.replace(/\{#var#\}/, v || '{variable}');
+      temp = temp.replace(/\{#var#\}/, v || '{var}');
     });
     previewText = temp;
   }
@@ -116,89 +112,82 @@ export default function CampaignsPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Header */}
-      <div>
-        <div className="inline-flex items-center space-x-2 text-xs font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full mb-2">
-          <Zap className="w-3.5 h-3.5" />
-          <span>High-Speed Telecom Dispatcher</span>
-        </div>
-        <h1 className="text-2xl font-bold text-white tracking-tight">Create & Dispatch SMS Campaign</h1>
-        <p className="text-sm text-gray-400 mt-0.5">
-          DLT approved template variable substitution, TRAI scrubbing, and instant multi-operator routing.
+      <div className="pb-2 border-b border-zinc-850">
+        <h1 className="text-xl font-bold text-zinc-100 tracking-tight">Create Campaign</h1>
+        <p className="text-xs text-zinc-400 mt-0.5">
+          Dispatch DLT-compliant bulk SMS with dynamic variable placeholders and real-time carrier delivery.
         </p>
       </div>
 
       {resultSuccess && (
-        <div className="p-6 bg-emerald-950/80 border border-emerald-700/80 rounded-2xl space-y-3 animate-in fade-in">
+        <div className="p-4 bg-zinc-900 border border-emerald-800/80 rounded-xl space-y-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <CheckCircle className="w-6 h-6 text-emerald-400 shrink-0" />
+            <div className="flex items-center space-x-2.5">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
               <div>
-                <h3 className="text-base font-bold text-white">Campaign Dispatched Successfully!</h3>
-                <p className="text-xs text-emerald-200">
-                  Targeted {resultSuccess.totalRecipients} recipients via Sender ID &quot;{resultSuccess.senderId}&quot;.
+                <h3 className="text-xs font-semibold text-zinc-100">Campaign Dispatched Successfully</h3>
+                <p className="text-[11px] text-zinc-400">
+                  Processed {resultSuccess.totalRecipients} recipients via Sender ID &quot;{resultSuccess.senderId}&quot;.
                 </p>
               </div>
             </div>
             <button
               onClick={() => setResultSuccess(null)}
-              className="text-xs text-emerald-400 hover:text-white"
+              className="text-xs text-zinc-400 hover:text-white"
             >
               Dismiss
             </button>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-emerald-800/80 text-xs">
-            <div className="p-2.5 rounded-xl bg-emerald-900/50">
-              <span className="text-emerald-300 block">Delivered</span>
-              <strong className="text-white font-mono text-sm">{resultSuccess.summary?.delivered || 0}</strong>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-zinc-800 text-xs font-mono">
+            <div className="p-2 bg-zinc-950 rounded border border-zinc-850">
+              <span className="text-[10px] text-zinc-500 block font-sans">Delivered</span>
+              <strong className="text-emerald-400">{resultSuccess.summary?.delivered || 0}</strong>
             </div>
-            <div className="p-2.5 rounded-xl bg-blue-900/50">
-              <span className="text-blue-300 block">Transit (Sent)</span>
-              <strong className="text-white font-mono text-sm">{resultSuccess.summary?.sent || 0}</strong>
+            <div className="p-2 bg-zinc-950 rounded border border-zinc-850">
+              <span className="text-[10px] text-zinc-500 block font-sans">In Transit</span>
+              <strong className="text-blue-400">{resultSuccess.summary?.sent || 0}</strong>
             </div>
-            <div className="p-2.5 rounded-xl bg-amber-900/50">
-              <span className="text-amber-300 block">DND Filtered</span>
-              <strong className="text-white font-mono text-sm">{resultSuccess.summary?.dndFiltered || 0}</strong>
+            <div className="p-2 bg-zinc-950 rounded border border-zinc-850">
+              <span className="text-[10px] text-zinc-500 block font-sans">DND Scrubbed</span>
+              <strong className="text-amber-400">{resultSuccess.summary?.dndFiltered || 0}</strong>
             </div>
-            <div className="p-2.5 rounded-xl bg-gray-900/50">
-              <span className="text-gray-300 block">Remaining Credits</span>
-              <strong className="text-emerald-400 font-mono text-sm">{resultSuccess.remainingCredits}</strong>
+            <div className="p-2 bg-zinc-950 rounded border border-zinc-850">
+              <span className="text-[10px] text-zinc-500 block font-sans">Remaining Credits</span>
+              <strong className="text-zinc-200">{resultSuccess.remainingCredits}</strong>
             </div>
           </div>
         </div>
       )}
 
-      {/* Main Campaign Builder Grid */}
-      <form onSubmit={handleDispatch} className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Form: Parameters (7 Cols) */}
-        <div className="lg:col-span-7 space-y-6">
-          {/* Step 1: Campaign Basics */}
-          <div className="glass-panel p-6 rounded-2xl border border-gray-800 space-y-4">
-            <h2 className="text-base font-bold text-white flex items-center space-x-2">
-              <span className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">1</span>
-              <span>Campaign Information</span>
-            </h2>
+      {/* Main Grid */}
+      <form onSubmit={handleDispatch} className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Left Form (7 Cols) */}
+        <div className="lg:col-span-7 space-y-4">
+          {/* Section 1 */}
+          <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-5 space-y-3.5">
+            <h2 className="text-sm font-semibold text-zinc-200">1. Campaign Details</h2>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-gray-300">Campaign Title</label>
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-zinc-300">Campaign Name</label>
               <input
                 type="text"
                 required
                 value={campaignName}
                 onChange={(e) => setCampaignName(e.target.value)}
-                className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500"
+                className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-100 focus:outline-none focus:border-blue-500"
               />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-gray-300">DLT Sender ID (Header)</label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-zinc-300">Sender ID (DLT Header)</label>
                 <select
                   value={selectedHeaderId}
                   onChange={(e) => setSelectedHeaderId(e.target.value)}
-                  className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 font-mono font-semibold"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-xs font-mono font-medium text-zinc-100 focus:outline-none focus:border-blue-500"
                 >
                   {headers.map((h) => (
                     <option key={h.id} value={h.id}>
@@ -208,16 +197,16 @@ export default function CampaignsPage() {
                 </select>
               </div>
 
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-gray-300">DLT Content Template</label>
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-zinc-300">DLT Template</label>
                 <select
                   value={selectedTemplateId}
                   onChange={(e) => setSelectedTemplateId(e.target.value)}
-                  className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-100 focus:outline-none focus:border-blue-500"
                 >
                   {templates.map((t) => (
                     <option key={t.id} value={t.id}>
-                      {t.templateName} ({t.templateIdCode})
+                      {t.templateName}
                     </option>
                   ))}
                 </select>
@@ -225,65 +214,54 @@ export default function CampaignsPage() {
             </div>
           </div>
 
-          {/* Step 2: Variable Values */}
-          <div className="glass-panel p-6 rounded-2xl border border-gray-800 space-y-4">
-            <h2 className="text-base font-bold text-white flex items-center space-x-2">
-              <span className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">2</span>
-              <span>Template Variables ({'{#var#}'})</span>
-            </h2>
+          {/* Section 2: Template Variables */}
+          <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-5 space-y-3">
+            <h2 className="text-sm font-semibold text-zinc-200">2. Template Variables</h2>
+            <p className="text-[11px] text-zinc-500">Substituted into dynamic {'{#var#}'} tags:</p>
 
-            <div className="space-y-3">
-              <p className="text-xs text-gray-400">
-                Populate values for dynamic tags defined in the selected DLT template:
-              </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-1">
+                <span className="text-[11px] font-mono text-zinc-400">{'{#var#}'} 1:</span>
+                <input
+                  type="text"
+                  value={customVariables[0] || ''}
+                  onChange={(e) => {
+                    const copy = [...customVariables];
+                    copy[0] = e.target.value;
+                    setCustomVariables(copy);
+                  }}
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-zinc-100 focus:outline-none focus:border-blue-500"
+                  placeholder="e.g. Rahul"
+                />
+              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <span className="text-[11px] font-mono text-blue-400 font-semibold">{'{#var#}'} 1:</span>
-                  <input
-                    type="text"
-                    value={customVariables[0] || ''}
-                    onChange={(e) => {
-                      const copy = [...customVariables];
-                      copy[0] = e.target.value;
-                      setCustomVariables(copy);
-                    }}
-                    className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
-                    placeholder="e.g. Customer Name"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <span className="text-[11px] font-mono text-blue-400 font-semibold">{'{#var#}'} 2:</span>
-                  <input
-                    type="text"
-                    value={customVariables[1] || ''}
-                    onChange={(e) => {
-                      const copy = [...customVariables];
-                      copy[1] = e.target.value;
-                      setCustomVariables(copy);
-                    }}
-                    className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
-                    placeholder="e.g. OTP or Discount Code"
-                  />
-                </div>
+              <div className="space-y-1">
+                <span className="text-[11px] font-mono text-zinc-400">{'{#var#}'} 2:</span>
+                <input
+                  type="text"
+                  value={customVariables[1] || ''}
+                  onChange={(e) => {
+                    const copy = [...customVariables];
+                    copy[1] = e.target.value;
+                    setCustomVariables(copy);
+                  }}
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-zinc-100 focus:outline-none focus:border-blue-500"
+                  placeholder="e.g. 849201"
+                />
               </div>
             </div>
           </div>
 
-          {/* Step 3: Audience & Recipients */}
-          <div className="glass-panel p-6 rounded-2xl border border-gray-800 space-y-4">
-            <h2 className="text-base font-bold text-white flex items-center space-x-2">
-              <span className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">3</span>
-              <span>Target Audience</span>
-            </h2>
+          {/* Section 3: Audience */}
+          <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-5 space-y-3">
+            <h2 className="text-sm font-semibold text-zinc-200">3. Recipients</h2>
 
-            <div className="flex items-center space-x-2 p-1 bg-gray-900 border border-gray-800 rounded-xl">
+            <div className="flex items-center space-x-1 bg-zinc-950 p-1 rounded-lg border border-zinc-800">
               <button
                 type="button"
                 onClick={() => setAudienceType('MANUAL')}
-                className={`flex-1 py-2 text-xs font-semibold rounded-lg transition ${
-                  audienceType === 'MANUAL' ? 'bg-blue-600 text-white shadow' : 'text-gray-400 hover:text-gray-200'
+                className={`flex-1 py-1.5 text-xs font-medium rounded-md transition ${
+                  audienceType === 'MANUAL' ? 'bg-zinc-800 text-zinc-100 shadow-sm' : 'text-zinc-400 hover:text-zinc-200'
                 }`}
               >
                 Direct Numbers
@@ -291,8 +269,8 @@ export default function CampaignsPage() {
               <button
                 type="button"
                 onClick={() => setAudienceType('GROUP')}
-                className={`flex-1 py-2 text-xs font-semibold rounded-lg transition ${
-                  audienceType === 'GROUP' ? 'bg-blue-600 text-white shadow' : 'text-gray-400 hover:text-gray-200'
+                className={`flex-1 py-1.5 text-xs font-medium rounded-md transition ${
+                  audienceType === 'GROUP' ? 'bg-zinc-800 text-zinc-100 shadow-sm' : 'text-zinc-400 hover:text-zinc-200'
                 }`}
               >
                 Contact Group
@@ -300,24 +278,23 @@ export default function CampaignsPage() {
             </div>
 
             {audienceType === 'MANUAL' ? (
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-gray-300">Recipient Phone Number(s)</label>
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-zinc-300">Phone Number(s)</label>
                 <textarea
                   rows={2}
                   value={manualPhone}
                   onChange={(e) => setManualPhone(e.target.value)}
-                  placeholder="Enter 10 or 12 digit numbers separated by commas (e.g. 919876543210, 919812345678)"
-                  className="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-xs font-mono text-white focus:outline-none focus:border-blue-500"
+                  placeholder="e.g. 919876543210, 919812345678"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 text-xs font-mono text-zinc-100 focus:outline-none focus:border-blue-500"
                 />
-                <span className="text-[11px] text-gray-400 block">TRAI standard: Automatically formats to 91XXXXXXXXXX</span>
               </div>
             ) : (
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-gray-300">Select Contact Group</label>
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-zinc-300">Select Group</label>
                 <select
                   value={selectedGroupId}
                   onChange={(e) => setSelectedGroupId(e.target.value)}
-                  className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500"
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-100 focus:outline-none focus:border-blue-500"
                 >
                   {groups.map((g) => (
                     <option key={g.id} value={g.id}>
@@ -330,64 +307,56 @@ export default function CampaignsPage() {
           </div>
         </div>
 
-        {/* Right Preview Simulator (5 Cols) */}
-        <div className="lg:col-span-5 space-y-6">
-          <div className="glass-panel p-6 rounded-2xl border border-gray-800 space-y-5 sticky top-24">
-            <h2 className="text-base font-bold text-white flex items-center space-x-2">
-              <Smartphone className="w-4 h-4 text-blue-400" />
-              <span>Live Smartphone Preview</span>
+        {/* Right Preview (5 Cols) */}
+        <div className="lg:col-span-5 space-y-4">
+          <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-5 space-y-4 sticky top-20">
+            <h2 className="text-sm font-semibold text-zinc-200 flex items-center space-x-1.5">
+              <Smartphone className="w-4 h-4 text-zinc-400" />
+              <span>Message Preview</span>
             </h2>
 
-            {/* Simulated Phone Chassis */}
-            <div className="w-full max-w-[280px] mx-auto rounded-[32px] border-4 border-gray-800 bg-gray-950 p-4 shadow-2xl space-y-3">
-              {/* Phone Speaker & Notch */}
-              <div className="w-20 h-3 bg-gray-800 rounded-full mx-auto"></div>
-
-              {/* Message Header */}
-              <div className="text-center pb-2 border-b border-gray-900">
-                <div className="text-[11px] font-bold text-white font-mono uppercase tracking-wider">
+            {/* Clean Phone Simulation Frame */}
+            <div className="w-full max-w-[270px] mx-auto rounded-2xl border border-zinc-800 bg-zinc-950 p-3.5 space-y-3 shadow-inner">
+              <div className="text-center pb-2 border-b border-zinc-850">
+                <div className="text-xs font-mono font-bold text-zinc-200">
                   {selectedHeader?.headerName || 'TFISMS'}
                 </div>
-                <div className="text-[9px] text-gray-400">TRAI Verified Sender ID</div>
+                <div className="text-[10px] text-zinc-500">TRAI DLT Verified</div>
               </div>
 
-              {/* Message Bubble */}
-              <div className="bg-blue-600/90 text-white rounded-2xl rounded-tl-none p-3.5 text-xs shadow-md space-y-1.5 leading-relaxed">
-                <div>{previewText}</div>
-                <div className="text-[9px] text-blue-200 text-right">Just now • SMS</div>
+              <div className="bg-zinc-900 border border-zinc-800 text-zinc-200 rounded-xl rounded-tl-none p-3 text-xs leading-relaxed space-y-1">
+                <p>{previewText}</p>
+                <div className="text-[9px] text-zinc-500 text-right font-mono">SMS • Just now</div>
               </div>
-
-              {/* Footer Phone Home Bar */}
-              <div className="w-24 h-1 bg-gray-800 rounded-full mx-auto pt-1"></div>
             </div>
 
-            {/* Campaign Metric Breakdown */}
-            <div className="space-y-2 text-xs pt-3 border-t border-gray-800">
-              <div className="flex justify-between text-gray-400">
-                <span>Character Length:</span>
-                <span className="text-white font-mono font-semibold">{charCount} Chars</span>
+            {/* Telemetry info */}
+            <div className="space-y-1.5 text-xs pt-2 border-t border-zinc-800">
+              <div className="flex justify-between text-zinc-400">
+                <span>Characters:</span>
+                <span className="font-mono text-zinc-200">{charCount}</span>
               </div>
-              <div className="flex justify-between text-gray-400">
+              <div className="flex justify-between text-zinc-400">
                 <span>SMS Segments:</span>
-                <span className="text-white font-mono font-semibold">{segmentCount} Segment(s)</span>
+                <span className="font-mono text-zinc-200">{segmentCount}</span>
               </div>
-              <div className="flex justify-between text-gray-400">
-                <span>Estimated Credit Cost:</span>
-                <span className="text-emerald-400 font-mono font-bold">1 SMS Credit / Recipient</span>
+              <div className="flex justify-between text-zinc-400">
+                <span>Cost:</span>
+                <span className="font-mono text-emerald-400 font-medium">1 Credit / SMS</span>
               </div>
             </div>
 
             <button
               type="submit"
               disabled={isSending}
-              className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-sm font-bold py-3.5 rounded-xl shadow-lg shadow-blue-600/30 transition disabled:opacity-50"
+              className="w-full flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold py-2.5 rounded-lg shadow-sm transition disabled:opacity-50"
             >
               {isSending ? (
                 <RefreshCw className="w-4 h-4 animate-spin" />
               ) : (
                 <>
-                  <Send className="w-4 h-4" />
-                  <span>Dispatch Campaign Now</span>
+                  <Send className="w-3.5 h-3.5" />
+                  <span>Dispatch Campaign</span>
                 </>
               )}
             </button>

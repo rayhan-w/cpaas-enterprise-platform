@@ -3,14 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
-  Wallet, 
+  Coins, 
   Building2, 
   Bell, 
   CheckCircle2, 
   Plus, 
-  User as UserIcon,
+  RefreshCw,
   Zap,
-  RefreshCw
 } from 'lucide-react';
 import { fetchApi } from '@/lib/api-client';
 
@@ -36,7 +35,7 @@ export function Topbar() {
         });
       }
     } catch {
-      // Fallback gracefully to default seeded values
+      // Graceful fallback
     } finally {
       setIsRefreshing(false);
     }
@@ -49,85 +48,78 @@ export function Topbar() {
   }, []);
 
   return (
-    <header className="h-16 border-b border-gray-800 bg-gray-950/80 backdrop-blur-md sticky top-0 z-40 px-6 flex items-center justify-between">
-      {/* Left: Platform Status & Entity ID */}
-      <div className="flex items-center space-x-4">
-        <div className="flex items-center space-x-2 bg-emerald-950/60 border border-emerald-800/60 text-emerald-400 text-xs px-3 py-1.5 rounded-full font-medium">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span className="hidden sm:inline">DLT Gateway Live:</span>
-          <span className="font-mono font-semibold">AIRTEL / JIO / VI</span>
+    <header className="h-14 border-b border-zinc-850 bg-zinc-950/90 backdrop-blur-sm sticky top-0 z-40 px-6 flex items-center justify-between">
+      {/* Left: Telecom status & Entity ID */}
+      <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 text-xs text-zinc-400 bg-zinc-900 border border-zinc-800 px-2.5 py-1 rounded-md">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          <span className="font-medium text-zinc-300">Airtel / Jio SMPP Direct</span>
         </div>
 
-        <div className="hidden md:flex items-center space-x-2 text-xs text-gray-400 bg-gray-900/90 border border-gray-800 px-3 py-1.5 rounded-lg">
-          <Building2 className="w-3.5 h-3.5 text-blue-400" />
-          <span>Entity (PE_ID):</span>
-          <span className="font-mono text-gray-200 font-semibold">{balance.entityId}</span>
-          <span title="TRAI Verified"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /></span>
+        <div className="hidden md:flex items-center space-x-1.5 text-xs text-zinc-400 bg-zinc-900 border border-zinc-800 px-2.5 py-1 rounded-md">
+          <Building2 className="w-3.5 h-3.5 text-zinc-500" />
+          <span className="text-zinc-500">PE ID:</span>
+          <span className="font-mono text-zinc-200 font-medium">{balance.entityId}</span>
+          <span title="TRAI Verified"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /></span>
         </div>
       </div>
 
-      {/* Right: Wallet Balance, Quick Recharge, Notifications & Profile */}
-      <div className="flex items-center space-x-3">
-        {/* Dynamic Balance Card */}
-        <div className="flex items-center bg-gradient-to-r from-blue-950/70 to-indigo-950/70 border border-blue-800/50 rounded-xl px-3.5 py-1.5 shadow-sm space-x-3">
-          <div className="flex items-center space-x-2">
-            <div className="p-1.5 rounded-lg bg-blue-500/20 text-blue-400">
-              <Wallet className="w-4 h-4" />
-            </div>
-            <div>
-              <div className="text-[11px] text-blue-300/80 font-medium leading-none">Available Credits</div>
-              <div className="text-sm font-bold text-white leading-tight font-mono">
-                ₹{balance.balanceInr.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
-                <span className="text-gray-400 font-normal mx-1">/</span>
-                <span className="text-emerald-400 font-bold">{balance.smsCredit.toLocaleString('en-IN')} SMS</span>
-              </div>
+      {/* Right: Balance, Quick Recharge, Profile */}
+      <div className="flex items-center space-x-2.5">
+        {/* Dynamic Balance Pill */}
+        <div className="flex items-center bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-1 space-x-2.5">
+          <div className="flex items-center space-x-1.5">
+            <Coins className="w-3.5 h-3.5 text-zinc-400" />
+            <div className="text-xs font-mono font-medium text-zinc-200">
+              ₹{balance.balanceInr.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+              <span className="text-zinc-600 mx-1.5">|</span>
+              <span className="text-emerald-400 font-semibold">{balance.smsCredit.toLocaleString('en-IN')} SMS</span>
             </div>
           </div>
 
           <button
             onClick={loadBalance}
             disabled={isRefreshing}
-            title="Refresh Balance"
-            className="p-1 text-gray-400 hover:text-white transition"
+            title="Refresh balance"
+            className="text-zinc-500 hover:text-zinc-300 transition"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin text-blue-400' : ''}`} />
+            <RefreshCw className={`w-3 h-3 ${isRefreshing ? 'animate-spin text-blue-400' : ''}`} />
           </button>
 
           <Link
             href="/dashboard/billing"
-            className="hidden sm:inline-flex items-center space-x-1 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-2.5 py-1 rounded-lg shadow transition"
+            className="inline-flex items-center space-x-1 bg-zinc-800 hover:bg-zinc-750 text-zinc-200 hover:text-white text-[11px] font-medium px-2 py-0.5 rounded border border-zinc-700 transition"
           >
-            <Plus className="w-3.5 h-3.5" />
-            <span>Recharge</span>
+            <Plus className="w-3 h-3" />
+            <span>Top up</span>
           </Link>
         </div>
 
-        {/* Action Button: Quick Send */}
+        {/* Quick Send Button */}
         <Link
           href="/dashboard/campaigns"
-          className="hidden lg:flex items-center space-x-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-semibold px-3 py-2 rounded-xl shadow-lg transition"
+          className="hidden sm:inline-flex items-center space-x-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg shadow-sm transition"
         >
           <Zap className="w-3.5 h-3.5" />
           <span>New SMS</span>
         </Link>
 
-        {/* Notification Bell */}
+        {/* Notifications */}
         <button 
-          className="p-2 rounded-xl bg-gray-900 border border-gray-800 text-gray-400 hover:text-white transition relative"
+          className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-200 transition relative"
           title="Notifications"
         >
-          <Bell className="w-4 h-4" />
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-500 rounded-full"></span>
+          <Bell className="w-3.5 h-3.5" />
+          <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
         </button>
 
-        {/* User Badge */}
-        <div className="flex items-center space-x-2 pl-2 border-l border-gray-800">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xs shadow">
+        {/* User Avatar */}
+        <div className="flex items-center space-x-2 pl-2 border-l border-zinc-800">
+          <div className="w-7 h-7 rounded-md bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-200 font-semibold text-xs">
             EA
           </div>
-          <div className="hidden xl:block text-left">
-            <div className="text-xs font-semibold text-gray-200">{balance.name}</div>
-            <div className="text-[10px] text-gray-400">Enterprise Admin</div>
+          <div className="hidden lg:block text-left leading-none">
+            <div className="text-xs font-medium text-zinc-200">{balance.name}</div>
           </div>
         </div>
       </div>

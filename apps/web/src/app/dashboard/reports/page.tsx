@@ -3,13 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import {
   FileSpreadsheet,
-  Filter,
   Download,
   Search,
-  Calendar,
   RefreshCw,
-  CheckCircle2,
-  AlertCircle,
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
@@ -91,41 +87,36 @@ export default function ReportsPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-zinc-850">
         <div>
-          <div className="inline-flex items-center space-x-2 text-xs font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full mb-2">
-            <FileSpreadsheet className="w-3.5 h-3.5" />
-            <span>Telemetry & Logs</span>
-          </div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Campaign & API Message Reports</h1>
-          <p className="text-sm text-gray-400 mt-0.5">
-            Audit message delivery logs, DND filtering records, carrier latencies, and export data directly to CSV.
+          <h1 className="text-xl font-bold text-zinc-100 tracking-tight">Reports & Logs</h1>
+          <p className="text-xs text-zinc-400 mt-0.5">
+            Audit message delivery logs, DND scrubbed records, and export data directly to CSV.
           </p>
         </div>
 
         <button
           onClick={handleExportCsv}
           disabled={isExporting}
-          className="flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-lg shadow-emerald-600/25 transition disabled:opacity-50"
+          className="inline-flex items-center space-x-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 text-xs font-medium px-3.5 py-2 rounded-lg transition disabled:opacity-50"
         >
           {isExporting ? (
-            <RefreshCw className="w-4 h-4 animate-spin" />
+            <RefreshCw className="w-3.5 h-3.5 animate-spin" />
           ) : (
-            <Download className="w-4 h-4" />
+            <Download className="w-3.5 h-3.5" />
           )}
-          <span>Export to CSV / Excel</span>
+          <span>Export CSV</span>
         </button>
       </div>
 
-      {/* Filter Bar */}
-      <div className="glass-panel p-5 rounded-2xl border border-gray-800 space-y-4">
+      {/* Filters */}
+      <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-          {/* Status Filter */}
           <div>
-            <label className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider block mb-1">
-              Delivery Status
+            <label className="text-[10px] font-medium text-zinc-500 uppercase tracking-wider block mb-1">
+              Status
             </label>
             <select
               value={status}
@@ -133,20 +124,19 @@ export default function ReportsPage() {
                 setStatus(e.target.value);
                 setPage(1);
               }}
-              className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-2.5 py-1.5 text-xs text-zinc-200 focus:outline-none focus:border-blue-500"
             >
               <option value="ALL">All Statuses</option>
               <option value="DELIVERED">Delivered</option>
-              <option value="SENT">Sent / Operator Transit</option>
+              <option value="SENT">Sent / Transit</option>
               <option value="DND_FILTERED">DND Filtered</option>
               <option value="FAILED">Failed</option>
             </select>
           </div>
 
-          {/* Source Filter */}
           <div>
-            <label className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider block mb-1">
-              Dispatch Source
+            <label className="text-[10px] font-medium text-zinc-500 uppercase tracking-wider block mb-1">
+              Source
             </label>
             <select
               value={source}
@@ -154,7 +144,7 @@ export default function ReportsPage() {
                 setSource(e.target.value);
                 setPage(1);
               }}
-              className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-2.5 py-1.5 text-xs text-zinc-200 focus:outline-none focus:border-blue-500"
             >
               <option value="ALL">All Sources</option>
               <option value="UI">Portal Web UI</option>
@@ -162,43 +152,40 @@ export default function ReportsPage() {
             </select>
           </div>
 
-          {/* Start Date */}
           <div>
-            <label className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider block mb-1">
+            <label className="text-[10px] font-medium text-zinc-500 uppercase tracking-wider block mb-1">
               From Date
             </label>
             <input
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-2.5 py-1.5 text-xs text-zinc-200 focus:outline-none focus:border-blue-500"
             />
           </div>
 
-          {/* End Date */}
           <div>
-            <label className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider block mb-1">
+            <label className="text-[10px] font-medium text-zinc-500 uppercase tracking-wider block mb-1">
               To Date
             </label>
             <input
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-2.5 py-1.5 text-xs text-zinc-200 focus:outline-none focus:border-blue-500"
             />
           </div>
 
-          {/* Search Input & Button */}
-          <div className="flex items-end space-x-2">
+          <div className="flex items-end space-x-1.5">
             <div className="relative flex-1">
-              <Search className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
+              <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-2.5 top-2.5" />
               <input
                 type="text"
-                placeholder="Search phone or text..."
+                placeholder="Search..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && loadReports()}
-                className="w-full bg-gray-900 border border-gray-800 rounded-xl pl-8 pr-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+                className="w-full bg-zinc-950 border border-zinc-800 rounded-lg pl-7 pr-2.5 py-1.5 text-xs text-zinc-200 focus:outline-none focus:border-blue-500"
               />
             </div>
             <button
@@ -206,7 +193,7 @@ export default function ReportsPage() {
                 setPage(1);
                 loadReports();
               }}
-              className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition shrink-0"
+              className="bg-zinc-800 hover:bg-zinc-750 text-zinc-200 text-xs font-medium px-3 py-1.5 rounded-lg border border-zinc-700 transition shrink-0"
             >
               Filter
             </button>
@@ -215,71 +202,69 @@ export default function ReportsPage() {
       </div>
 
       {/* Reports Table */}
-      <div className="glass-panel rounded-2xl p-6 border border-gray-800 space-y-4">
+      <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-5 space-y-3">
         <div className="flex items-center justify-between">
-          <div className="text-xs text-gray-400">
-            Showing <strong className="text-white">{messages.length}</strong> of{' '}
-            <strong className="text-white">{pagination.total}</strong> total logs
+          <div className="text-xs text-zinc-400">
+            Showing <strong className="text-zinc-200">{messages.length}</strong> of{' '}
+            <strong className="text-zinc-200">{pagination.total}</strong> logs
           </div>
           <button
             onClick={loadReports}
-            className="text-xs text-blue-400 hover:underline flex items-center space-x-1"
+            className="text-xs text-zinc-400 hover:text-zinc-200 flex items-center space-x-1"
           >
             <RefreshCw className={`w-3 h-3 ${loading ? 'animate-spin' : ''}`} />
-            <span>Refresh Table</span>
+            <span>Refresh</span>
           </button>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-gray-800 text-gray-400 uppercase tracking-wider">
-                <th className="pb-3 font-semibold">Recipient MSISDN</th>
-                <th className="pb-3 font-semibold">Dispatched Content</th>
-                <th className="pb-3 font-semibold">Source</th>
-                <th className="pb-3 font-semibold">Status</th>
-                <th className="pb-3 font-semibold">Cost (INR)</th>
-                <th className="pb-3 font-semibold">Error / DND Details</th>
-                <th className="pb-3 font-semibold">Timestamp</th>
+              <tr className="border-b border-zinc-800 text-zinc-500 uppercase tracking-wider text-[10px]">
+                <th className="pb-2.5 font-medium">Recipient</th>
+                <th className="pb-2.5 font-medium">Message</th>
+                <th className="pb-2.5 font-medium">Source</th>
+                <th className="pb-2.5 font-medium">Status</th>
+                <th className="pb-2.5 font-medium">Cost</th>
+                <th className="pb-2.5 font-medium">Details</th>
+                <th className="pb-2.5 font-medium text-right">Date & Time</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-800/60 font-mono">
+            <tbody className="divide-y divide-zinc-800/50 font-mono">
               {messages.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-gray-400 font-sans">
-                    No message logs found matching the selected filters.
+                  <td colSpan={7} className="py-8 text-center text-zinc-500 font-sans">
+                    No message logs found.
                   </td>
                 </tr>
               ) : (
                 messages.map((log) => (
-                  <tr key={log.id} className="hover:bg-gray-900/40 transition">
-                    <td className="py-3.5 font-bold text-white">+{log.recipient}</td>
-                    <td className="py-3.5 text-gray-300 font-sans max-w-sm truncate">{log.message}</td>
-                    <td className="py-3.5 font-sans">
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-semibold ${
-                        log.source === 'API' ? 'bg-purple-900/60 text-purple-300' : 'bg-blue-900/60 text-blue-300'
-                      }`}>
+                  <tr key={log.id} className="hover:bg-zinc-900/60 transition">
+                    <td className="py-2.5 font-medium text-zinc-200">+{log.recipient}</td>
+                    <td className="py-2.5 text-zinc-300 font-sans max-w-sm truncate">{log.message}</td>
+                    <td className="py-2.5 font-sans">
+                      <span className="px-1.5 py-0.5 rounded text-[10px] bg-zinc-800 text-zinc-300 border border-zinc-700">
                         {log.source}
                       </span>
                     </td>
-                    <td className="py-3.5 font-sans">
-                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${
+                    <td className="py-2.5 font-sans">
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${
                         log.status === 'DELIVERED'
-                          ? 'bg-emerald-950 border border-emerald-800 text-emerald-400'
+                          ? 'bg-emerald-950/60 border border-emerald-800/80 text-emerald-400'
                           : log.status === 'SENT'
-                          ? 'bg-blue-950 border border-blue-800 text-blue-400'
+                          ? 'bg-blue-950/60 border border-blue-800/80 text-blue-400'
                           : log.status === 'DND_FILTERED'
-                          ? 'bg-amber-950 border border-amber-800 text-amber-400'
-                          : 'bg-rose-950 border border-rose-800 text-rose-400'
+                          ? 'bg-amber-950/60 border border-amber-800/80 text-amber-400'
+                          : 'bg-rose-950/60 border border-rose-800/80 text-rose-400'
                       }`}>
                         {log.status}
                       </span>
                     </td>
-                    <td className="py-3.5 text-gray-200 font-semibold">₹{log.cost.toFixed(2)}</td>
-                    <td className="py-3.5 text-gray-400 font-sans text-[11px] truncate max-w-xs">
+                    <td className="py-2.5 text-zinc-300">₹{log.cost.toFixed(2)}</td>
+                    <td className="py-2.5 text-zinc-500 font-sans text-[11px] truncate max-w-xs">
                       {log.errorMessage || '—'}
                     </td>
-                    <td className="py-3.5 text-gray-400 font-sans text-[11px]">
+                    <td className="py-2.5 text-zinc-500 font-sans text-[11px] text-right">
                       {new Date(log.createdAt).toLocaleString()}
                     </td>
                   </tr>
@@ -291,25 +276,25 @@ export default function ReportsPage() {
 
         {/* Pagination */}
         {pagination.totalPages > 1 && (
-          <div className="flex items-center justify-between pt-4 border-t border-gray-800">
+          <div className="flex items-center justify-between pt-3 border-t border-zinc-800">
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-gray-900 text-xs text-gray-300 hover:text-white disabled:opacity-50"
+              className="flex items-center space-x-1 px-2.5 py-1 rounded bg-zinc-800 text-xs text-zinc-300 hover:text-white disabled:opacity-50"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-3.5 h-3.5" />
               <span>Previous</span>
             </button>
-            <span className="text-xs text-gray-400">
-              Page <strong className="text-white">{page}</strong> of <strong className="text-white">{pagination.totalPages}</strong>
+            <span className="text-xs text-zinc-500">
+              Page <strong className="text-zinc-200">{page}</strong> of <strong className="text-zinc-200">{pagination.totalPages}</strong>
             </span>
             <button
               onClick={() => setPage((p) => Math.min(pagination.totalPages, p + 1))}
               disabled={page === pagination.totalPages}
-              className="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-gray-900 text-xs text-gray-300 hover:text-white disabled:opacity-50"
+              className="flex items-center space-x-1 px-2.5 py-1 rounded bg-zinc-800 text-xs text-zinc-300 hover:text-white disabled:opacity-50"
             >
               <span>Next</span>
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
         )}
