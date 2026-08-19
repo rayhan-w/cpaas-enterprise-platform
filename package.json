@@ -1,0 +1,29 @@
+{
+  "name": "cpaas-enterprise-platform",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:api": "npm run start:dev --prefix apps/api",
+    "dev:web": "npm run dev --prefix apps/web",
+    "build:api": "npm run build --prefix apps/api",
+    "build:web": "npm run build --prefix apps/web",
+    "build": "npm run build:api && npm run build:web",
+    "test:api": "npm run test --prefix apps/api",
+    "test:e2e": "npm run test:e2e --prefix apps/api",
+    "test": "npm run test:api",
+    "lint": "npm run lint --prefix apps/api && npm run lint --prefix apps/web"
+  },
+  "workspaces": [
+    "apps/*"
+  ],
+  "keywords": [
+    "cpaas",
+    "bulk-sms",
+    "enterprise",
+    "dlt",
+    "nestjs",
+    "nextjs"
+  ],
+  "author": "",
+  "license": "MIT"
+}

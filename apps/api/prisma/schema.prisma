@@ -1,0 +1,216 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum HeaderType {
+  PROMOTIONAL
+  TRANSACTIONAL
+  SERVICE_IMPLICIT
+  SERVICE_EXPLICIT
+}
+
+enum DltStatus {
+  PENDING
+  ACTIVE
+  REJECTED
+}
+
+enum MessageStatus {
+  SENT
+  DELIVERED
+  FAILED
+  DND_FILTERED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model User {
+  id            String         @id @default(uuid())
+  name          String
+  email         String         @unique
+  passwordHash  String
+  role          String         @default("USER") // ADMIN or USER
+  entityId      String         @default("17011582910283") // DLT Principal Entity ID (PE_ID)
+  balanceInr    Float          @default(1692.08)
+  smsCredit     Int            @default(14101)
+  status        String         @default("ACTIVE") // ACTIVE, SUSPENDED, PENDING
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  headers       DltHeader[]
+  templates     DltTemplate[]
+  contactGroups ContactGroup[]
+  campaigns     Campaign[]
+  messageLogs   MessageLog[]
+  apiKeys       ApiKey[]
+  paymentOrders PaymentOrder[]
+  activityLogs  ActivityLog[]
+
+  @@map("users")
+}
+
+model DltHeader {
+  id         String     @id @default(uuid())
+  userId     String
+  headerType String     @default("TRANSACTIONAL") // PROMOTIONAL, TRANSACTIONAL, SERVICE
+  headerName String     // 6-character alphanumeric sender ID, e.g. "TFISMS", "AIRTEL", "HDFCBK"
+  status     String     @default("ACTIVE") // PENDING, ACTIVE, REJECTED
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  templates  DltTemplate[]
+  campaigns  Campaign[]
+
+  @@map("dlt_headers")
+}
+
+model DltTemplate {
+  id             String    @id @default(uuid())
+  userId         String
+  headerId       String
+  templateIdCode String    // DLT Registration code e.g. "140716158291028"
+  templateName   String
+  templateType   String    @default("TRANSACTIONAL") // PROMOTIONAL, TRANSACTIONAL, OTP
+  content        String    // E.g. "Dear {#var#}, your OTP for transaction is {#var#}. Valid for 10 mins."
+  status         String    @default("ACTIVE") // PENDING, ACTIVE, REJECTED
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  header         DltHeader @relation(fields: [headerId], references: [id], onDelete: Cascade)
+  campaigns      Campaign[]
+
+  @@map("dlt_templates")
+}
+
+model ContactGroup {
+  id        String    @id @default(uuid())
+  userId    String
+  name      String    // e.g. "VIP Customers", "Bangalore Leads"
+  code      String    @default("GRP_01")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contacts  Contact[]
+
+  @@map("contact_groups")
+}
+
+model Contact {
+  id          String       @id @default(uuid())
+  groupId     String
+  phoneNumber String       // E.g. "919876543210"
+  name        String?
+  customVars  String?      // JSON stringified custom variables: {"name": "Rahul", "company": "TechCorp"}
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  group       ContactGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@map("contacts")
+}
+
+model Campaign {
+  id             String       @id @default(uuid())
+  userId         String
+  senderId       String       // References DltHeader ID or headerName
+  templateId     String?      // References DltTemplate ID
+  name           String       @default("SMS Campaign")
+  messageType    String       @default("SEND_NOW") // SEND_NOW, CSV_UPLOAD, GROUP_BROADCAST, SCHEDULED
+  recipientCount Int          @default(0)
+  creditsUsed    Int          @default(0)
+  costInr        Float        @default(0.0)
+  status         String       @default("COMPLETED") // QUEUED, PROCESSING, COMPLETED, FAILED
+  scheduledAt    DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  header         DltHeader    @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  template       DltTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
+  messageLogs    MessageLog[]
+
+  @@map("campaigns")
+}
+
+model MessageLog {
+  id           String    @id @default(uuid())
+  userId       String
+  campaignId   String?
+  recipient    String    // Phone number: "919876543210"
+  message      String    // The actual populated text sent
+  status       String    @default("SENT") // SENT, DELIVERED, FAILED, DND_FILTERED
+  cost         Float     @default(0.12)
+  source       String    @default("UI") // UI or API
+  errorMessage String?
+  createdAt    DateTime  @default(now())
+
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  campaign     Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+
+  @@map("message_logs")
+}
+
+model ApiKey {
+  id          String    @id @default(uuid())
+  userId      String
+  name        String    // e.g. "Production Shopify Integration", "ERP Backend"
+  keyHash     String    // SHA-256 hash of the generated API token
+  keyPrefix   String    // First 8 characters for display e.g. "cpaas_li..."
+  permissions String    @default("sms:send,sms:read") // Comma-separated permissions
+  isActive    Boolean   @default(true)
+  lastUsedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("api_keys")
+}
+
+model PaymentOrder {
+  id                  String   @id @default(uuid())
+  userId              String
+  orderId             String   @unique // e.g. "order_cpaas_991823"
+  gateway             String   // "RAZORPAY" or "PHONEPE"
+  amountInr           Float    // E.g. 500.00
+  smsCreditsCredited  Int      // E.g. 4166 credits
+  status              String   @default("PENDING") // PENDING, SUCCESS, FAILED
+  paymentId           String?  // Gateway transaction / payment ID
+  signature           String?  // HMAC signature received
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("payment_orders")
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  userId    String
+  action    String   // LOGIN, PROFILE_UPDATE, REPORT_EXPORT, API_KEY_CREATED, API_KEY_REVOKED, CAMPAIGN_DISPATCHED, WALLET_RECHARGE
+  ipAddress String?  @default("127.0.0.1")
+  details   String?  // JSON string or descriptive text
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("activity_logs")
+}
