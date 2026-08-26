@@ -1,0 +1,524 @@
+[
+  {
+    "name": "Dr. Md Nakib Hayat Chowdhury",
+    "designation": "Head of the Department",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Professor",
+    "designation": "Professor Dr. S.M. Jahangir Alam",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Professor Dr. S.M. Jahangir Alam",
+    "designation": "Professor",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Dr. Engr. Mohammed Sowket Ali",
+    "designation": "Associate Professor",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Engr. Md. Mamun Hossain",
+    "designation": "Associate Professor",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Taher Muhammad Mahdee",
+    "designation": "Associate Professor",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Fatema Tuz Zohra",
+    "designation": "Assistant Professor",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Ashrafun Zannat",
+    "designation": "Assistant Professor",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Md. Mahadi Hasan",
+    "designation": "Assistant Professor",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Munira Akter Mou",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Anite Halim Sagor",
+    "designation": "Lecturer | Professor Under Officer ...",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Md Zahim Hassan",
+    "designation": "Lecturer & Program Coordinator",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Shifa Tasmiah Tisha",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Mst. Sabrina Zaman",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Saad Ahmed",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Md. Osama",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "A K Z Rasel Rahman",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Abdullah Al Asif",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "S. M Golam Rifat",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Maskur Al Shal Sabil",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Roman Raihan",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Md. Minhazul Islam",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Md. Rakib Trofder",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Iqramul Islam",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Khandker Moniruzzaman",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Gourab Chandra Biswas",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "MD. Rabby Hossain",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Md. Sirajul Islam",
+    "designation": "Lecturer",
+    "department": "Department of CSE",
+    "degrees": "Faculty member at BAUST (CSE)"
+  },
+  {
+    "name": "Dr. Mst. Rubina Aktar",
+    "designation": "Associate Professor & Head of the Dept.",
+    "department": "Department of EEE",
+    "degrees": "Faculty member at BAUST (EEE)"
+  },
+  {
+    "name": "Muhammad Khairuzzaman",
+    "designation": "Assistant Professor",
+    "department": "Department of EEE",
+    "degrees": "Faculty member at BAUST (EEE)"
+  },
+  {
+    "name": "Mafin Muntasir Rahman",
+    "designation": "Assistant Professor",
+    "department": "Department of EEE",
+    "degrees": "Faculty member at BAUST (EEE)"
+  },
+  {
+    "name": "Mst. Humayra Khanom",
+    "designation": "Assistant Professor",
+    "department": "Department of EEE",
+    "degrees": "Faculty member at BAUST (EEE)"
+  },
+  {
+    "name": "Nawshad Ahmed",
+    "designation": "Assistant Professor",
+    "department": "Department of EEE",
+    "degrees": "Faculty member at BAUST (EEE)"
+  },
+  {
+    "name": "Sifat Hossain",
+    "designation": "Assistant Professor",
+    "department": "Department of EEE",
+    "degrees": "Faculty member at BAUST (EEE)"
+  },
+  {
+    "name": "Md. Shahriar Kabir",
+    "designation": "Assistant Professor & Program ...",
+    "department": "Department of EEE",
+    "degrees": "Faculty member at BAUST (EEE)"
+  },
+  {
+    "name": "Md. Mehedi Hasan",
+    "designation": "Assistant Professor",
+    "department": "Department of EEE",
+    "degrees": "Faculty member at BAUST (EEE)"
+  },
+  {
+    "name": "Md. Hasib Mahbub",
+    "designation": "Assistant Professor",
+    "department": "Department of EEE",
+    "degrees": "Faculty member at BAUST (EEE)"
+  },
+  {
+    "name": "Thuifique Alam",
+    "designation": "Lecturer",
+    "department": "Department of EEE",
+    "degrees": "Faculty member at BAUST (EEE)"
+  },
+  {
+    "name": "Md. Rifkat Jahin",
+    "designation": "Lecturer",
+    "department": "Department of EEE",
+    "degrees": "Faculty member at BAUST (EEE)"
+  },
+  {
+    "name": "Sanzida Rahman",
+    "designation": "Lecturer",
+    "department": "Department of EEE",
+    "degrees": "Faculty member at BAUST (EEE)"
+  },
+  {
+    "name": "Noor Md. Zuhaer Ahanaf",
+    "designation": "Lecturer",
+    "department": "Department of EEE",
+    "degrees": "Faculty member at BAUST (EEE)"
+  },
+  {
+    "name": "Md. Mahmudul Adil",
+    "designation": "Assistant Professor and Head, Dept. of ...",
+    "department": "Department of ME",
+    "degrees": "Faculty member at BAUST (ME)"
+  },
+  {
+    "name": "Prof. Dr. Imtiaz Ahmed Choudhury",
+    "designation": "Professor and Dean, Faculty of ME.",
+    "department": "Department of ME",
+    "degrees": "Faculty member at BAUST (ME)"
+  },
+  {
+    "name": "Dr. Md. Syful Islam",
+    "designation": "Professor",
+    "department": "Department of ME",
+    "degrees": "Faculty member at BAUST (ME)"
+  },
+  {
+    "name": "Md. Waheduzzaman Basunia Nouman",
+    "designation": "Assistant Professor",
+    "department": "Department of ME",
+    "degrees": "Faculty member at BAUST (ME)"
+  },
+  {
+    "name": "Md. Abu Daud",
+    "designation": "Lecturer",
+    "department": "Department of ME",
+    "degrees": "Faculty member at BAUST (ME)"
+  },
+  {
+    "name": "Md. Abdullah Al Mohotadi",
+    "designation": "Lecturer",
+    "department": "Department of ME",
+    "degrees": "Faculty member at BAUST (ME)"
+  },
+  {
+    "name": "Kabid Ahmed Akib",
+    "designation": "Lecturer and DPC",
+    "department": "Department of ME",
+    "degrees": "Faculty member at BAUST (ME)"
+  },
+  {
+    "name": "Md. Tausifuz Zaman",
+    "designation": "Lecturer",
+    "department": "Department of ME",
+    "degrees": "Faculty member at BAUST (ME)"
+  },
+  {
+    "name": "Eftekher Ahmed Reyad",
+    "designation": "Lecturer",
+    "department": "Department of ME",
+    "degrees": "Faculty member at BAUST (ME)"
+  },
+  {
+    "name": "Md. Masud Parves",
+    "designation": "Lecturer",
+    "department": "Department of ME",
+    "degrees": "Faculty member at BAUST (ME)"
+  },
+  {
+    "name": "Md Mozammal Hossain Ashik",
+    "designation": "Lecturer",
+    "department": "Department of ME",
+    "degrees": "Faculty member at BAUST (ME)"
+  },
+  {
+    "name": "Monjurul Alam",
+    "designation": "Lecturer",
+    "department": "Department of ME",
+    "degrees": "Faculty member at BAUST (ME)"
+  },
+  {
+    "name": "Professor Dr. A.K.M. Nurul Amin",
+    "designation": "Head of the Department",
+    "department": "Department of IPE",
+    "degrees": "Faculty member at BAUST (IPE)"
+  },
+  {
+    "name": "Prof. Dr. A.K.M. Nurul Amin",
+    "designation": "Professor and Head of the Department",
+    "department": "Department of IPE",
+    "degrees": "Faculty member at BAUST (IPE)"
+  },
+  {
+    "name": "Prof. Dr. Md Shameem Reza",
+    "designation": "Professor",
+    "department": "Department of IPE",
+    "degrees": "Faculty member at BAUST (IPE)"
+  },
+  {
+    "name": "Md. Ariful Alam",
+    "designation": "Assistant Professor",
+    "department": "Department of IPE",
+    "degrees": "Faculty member at BAUST (IPE)"
+  },
+  {
+    "name": "Md. Ragib Abid",
+    "designation": "Lecturer",
+    "department": "Department of IPE",
+    "degrees": "Faculty member at BAUST (IPE)"
+  },
+  {
+    "name": "Md. Mahabub-A-Khoda",
+    "designation": "Lecturer",
+    "department": "Department of IPE",
+    "degrees": "Faculty member at BAUST (IPE)"
+  },
+  {
+    "name": "Abdul Halim",
+    "designation": "Lecturer",
+    "department": "Department of IPE",
+    "degrees": "Faculty member at BAUST (IPE)"
+  },
+  {
+    "name": "A.S.M. Shahriar Hossain Alvee",
+    "designation": "Lecturer",
+    "department": "Department of IPE",
+    "degrees": "Faculty member at BAUST (IPE)"
+  },
+  {
+    "name": "Md. Al Amin",
+    "designation": "Lecturer",
+    "department": "Department of IPE",
+    "degrees": "Faculty member at BAUST (IPE)"
+  },
+  {
+    "name": "Jannatul Maoya Hossain",
+    "designation": "Lecturer",
+    "department": "Department of IPE",
+    "degrees": "Faculty member at BAUST (IPE)"
+  },
+  {
+    "name": "Dr. Md. Anowar Hossain",
+    "designation": "Associate Professor & Head of the Dept.",
+    "department": "Department of DBA (BBA/MBA)",
+    "degrees": "Faculty member at BAUST (DBA (BBA/MBA))"
+  },
+  {
+    "name": "Dr. Md. Shah Alam",
+    "designation": "Professor",
+    "department": "Department of DBA (BBA/MBA)",
+    "degrees": "Faculty member at BAUST (DBA (BBA/MBA))"
+  },
+  {
+    "name": "Md. Zaber Hossain",
+    "designation": "Associate Professor & (MBA ...",
+    "department": "Department of DBA (BBA/MBA)",
+    "degrees": "Faculty member at BAUST (DBA (BBA/MBA))"
+  },
+  {
+    "name": "Shamima Islam",
+    "designation": "Assistant Professor in Marketing",
+    "department": "Department of DBA (BBA/MBA)",
+    "degrees": "Faculty member at BAUST (DBA (BBA/MBA))"
+  },
+  {
+    "name": "Samiya Bint Halim",
+    "designation": "Assistant Professor (Marketing)",
+    "department": "Department of DBA (BBA/MBA)",
+    "degrees": "Faculty member at BAUST (DBA (BBA/MBA))"
+  },
+  {
+    "name": "Md. Rabiul Awal",
+    "designation": "Assistant Professor in Management",
+    "department": "Department of DBA (BBA/MBA)",
+    "degrees": "Faculty member at BAUST (DBA (BBA/MBA))"
+  },
+  {
+    "name": "Md. Shahadat Hossain",
+    "designation": "Assistant Professor in Management",
+    "department": "Department of DBA (BBA/MBA)",
+    "degrees": "Faculty member at BAUST (DBA (BBA/MBA))"
+  },
+  {
+    "name": "Farhana Rahman",
+    "designation": "Assistant Professor (Management)",
+    "department": "Department of DBA (BBA/MBA)",
+    "degrees": "Faculty member at BAUST (DBA (BBA/MBA))"
+  },
+  {
+    "name": "Md. Ridoy Hasan",
+    "designation": "Assistant Professor (Management)",
+    "department": "Department of DBA (BBA/MBA)",
+    "degrees": "Faculty member at BAUST (DBA (BBA/MBA))"
+  },
+  {
+    "name": "Md. Merajul Islam",
+    "designation": "Lecturer (Management)",
+    "department": "Department of DBA (BBA/MBA)",
+    "degrees": "Faculty member at BAUST (DBA (BBA/MBA))"
+  },
+  {
+    "name": "Most. Karima Ali",
+    "designation": "Lecturer (Marketing)",
+    "department": "Department of DBA (BBA/MBA)",
+    "degrees": "Faculty member at BAUST (DBA (BBA/MBA))"
+  },
+  {
+    "name": "Rakibul Islam",
+    "designation": "Assistant Professor & Head of the Dept.",
+    "department": "Department of AIS",
+    "degrees": "Faculty member at BAUST (AIS)"
+  },
+  {
+    "name": "Md. Azmir Sharif",
+    "designation": "Assistant Professor",
+    "department": "Department of AIS",
+    "degrees": "Faculty member at BAUST (AIS)"
+  },
+  {
+    "name": "Md. Hafizul Islam",
+    "designation": "Lecturer & Program Coordinator",
+    "department": "Department of AIS",
+    "degrees": "Faculty member at BAUST (AIS)"
+  },
+  {
+    "name": "Md. Saifur Rahman",
+    "designation": "Lecturer",
+    "department": "Department of AIS",
+    "degrees": "Faculty member at BAUST (AIS)"
+  },
+  {
+    "name": "Md. Kamrul Hassan Tuhin, ITP",
+    "designation": "Lecturer",
+    "department": "Department of AIS",
+    "degrees": "Faculty member at BAUST (AIS)"
+  },
+  {
+    "name": "Mst. Nurjahan Akter",
+    "designation": "Lecturer",
+    "department": "Department of AIS",
+    "degrees": "Faculty member at BAUST (AIS)"
+  },
+  {
+    "name": "Md. Abdun Noor Polok",
+    "designation": "Lecturer & Program Coordinator",
+    "department": "Department of ICT",
+    "degrees": "Faculty member at BAUST (ICT)"
+  },
+  {
+    "name": "Asif Idris Tuhin",
+    "designation": "Lecturer",
+    "department": "Department of ICT",
+    "degrees": "Faculty member at BAUST (ICT)"
+  },
+  {
+    "name": "Md. Sirazul Islam Sobuj",
+    "designation": "Lecturer",
+    "department": "Department of ICT",
+    "degrees": "Faculty member at BAUST (ICT)"
+  },
+  {
+    "name": "Brig Gen Mohammad Mobarak Hossain Majumder, psc",
+    "designation": "Vice Chancellor's Office",
+    "department": "Department of VC Office",
+    "degrees": "Faculty member at BAUST (VC Office)"
+  },
+  {
+    "name": "Md. Golam Shahariar",
+    "designation": "Proctor",
+    "department": "Department of Proctor Office",
+    "degrees": "Faculty member at BAUST (Proctor Office)"
+  },
+  {
+    "name": "Md. Nazrul Islam",
+    "designation": "Section Officer",
+    "department": "Department of Controller of Exam",
+    "degrees": "Faculty member at BAUST (Controller of Exam)"
+  },
+  {
+    "name": "Md. Iqbal Mahmud",
+    "designation": "Section Officer",
+    "department": "Department of Admission Office",
+    "degrees": "Faculty member at BAUST (Admission Office)"
+  }
+]

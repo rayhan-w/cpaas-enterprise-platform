@@ -1,0 +1,96 @@
+[
+  {
+    "name": "Brig. Gen. A B M Humayun Kabir, SGP, ndc, psc",
+    "name_bn": "ব্রিগেডিয়ার জেনারেল এ বি এম হুমায়ুন কবীর, এসজিপি, এনডিসি, পিএসসি",
+    "designation": "Vice Chancellor (VC)",
+    "department": "Administration / Vice Chancellor's Office",
+    "bio": "Honorable Vice Chancellor of Bangladesh Army University of Science and Technology (BAUST), Saidpur.",
+    "keywords": [
+      "vc",
+      "vice chancellor",
+      "ভিসি",
+      "ভাইস চ্যান্সেলর",
+      "humayun kabir",
+      "হুমায়ুন কবীর"
+    ]
+  },
+  {
+    "name": "Dr. Md. Nakib Hayat Chowdhury",
+    "name_bn": "ড. মো. নকীব হায়াত চৌধুরী",
+    "designation": "Associate Professor & Head of the Department",
+    "department": "Department of Computer Science and Engineering (CSE)",
+    "degrees": "PhD in Biomedical Engineering, UKM, Malaysia; Research Fellow, ICTP, Trieste, Italy; M.Sc. and B.Sc. in CSE, Rajshahi University (RU)",
+    "bio": "Dr. Md. Nakib Hayat Chowdhury is an Associate Professor and currently serving as the Head of the Department of Computer Science & Engineering (CSE) at BAUST.",
+    "keywords": [
+      "nakib",
+      "nakib hayat",
+      "nakib hayat chowdhury",
+      "chowdhury",
+      "cse head",
+      "head of cse",
+      "নকীব",
+      "নকীব হায়াত চৌধুরী",
+      "সিএসই হেড"
+    ]
+  },
+  {
+    "name": "Prof. Dr. S.M. Jahangir Alam",
+    "name_bn": "প্রফেসর ড. এস.এম. জাহাঙ্গীর আলম",
+    "designation": "Professor",
+    "department": "Department of Computer Science and Engineering (CSE)",
+    "degrees": "Ph.D. (Doctor of Engineering; Specialized in AI & Computer Vision), Xiamen University, China",
+    "bio": "Professor at the Department of Computer Science and Engineering (CSE), specializing in Artificial Intelligence and Computer Vision.",
+    "keywords": [
+      "jahangir",
+      "jahangir alam",
+      "জাহাঙ্গীর আলম",
+      "prof jahangir"
+    ]
+  },
+  {
+    "name": "Dr. Engr. Mohammed Sowket Ali",
+    "name_bn": "ড. ইঞ্জি. মোহাম্মদ শওকত আলী",
+    "designation": "Associate Professor",
+    "department": "Department of Computer Science and Engineering (CSE)",
+    "degrees": "PhD & M.Engg. (South Korea), B.Sc. Engg., FIEB, FBCS, Senior Member - IACSIT, Member - IAENG",
+    "bio": "Associate Professor at CSE Department, BAUST.",
+    "keywords": [
+      "sowket",
+      "sowket ali",
+      "শওকত আলী"
+    ]
+  },
+  {
+    "name": "Engr. Md. Mamun Hossain",
+    "name_bn": "ইঞ্জি. মো. মামুন হোসেন",
+    "designation": "Associate Professor",
+    "department": "Department of Computer Science and Engineering (CSE)",
+    "degrees": "Ph.D. (Pursuing) in CSE, RUET; M.Sc. (Thesis) in CSE & B.Sc. Engg. in CSE, SUST",
+    "bio": "Associate Professor at CSE Department, BAUST.",
+    "keywords": [
+      "mamun",
+      "mamun hossain",
+      "মামুন হোসেন"
+    ]
+  },
+  {
+    "name": "Dr. Md Nakib Hayat Chowdhury",
+    "designation": "Head of the Department",
+    "department": "Department of CSE",
+    "bio": "Dr. Md Nakib Hayat Chowdhury is the Head of the Department of CSE at BAUST.",
+    "keywords": [
+      "dr. md nakib hayat chowdhury",
+      "department of cse head"
+    ]
+  },
+  {
+    "name": "Professor Dr. A.K.M. Nurul Amin",
+    "designation": "Head of the Department",
+    "department": "Department of IPE (Industrial & Production)",
+    "bio": "Professor Dr. A.K.M. Nurul Amin is the Head of the Department of IPE (Industrial & Production) at BAUST.",
+    "keywords": [
+      "professor dr. a.k.m. nurul amin",
+      "department of ipe (industrial & production) head"
+    ]
+  }
+]

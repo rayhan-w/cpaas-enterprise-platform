@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#1b4332">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>BAUST AI Chatbot — Bangladesh Army University of Science & Technology</title>
+  <link rel="icon" href="logo.png">
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Marked for Markdown parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Main Chat Window -->
+    <main class="chat-main">
+      <!-- Header -->
+      <header class="app-header">
+        <div class="header-left">
+          <div class="university-brand">
+            <div class="brand-avatar">
+              <img src="logo.png" alt="BAUST Logo">
+              <span class="online-indicator"></span>
+            </div>
+            <div class="brand-text">
+              <h1>BAUST AI Assistant</h1>
+              <p>Bangladesh Army University of Science and Technology • Saidpur</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button id="btn-knowledge" class="btn-action" title="Browse BAUST Knowledge Base">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Knowledge Base</span>
+          </button>
+          <button id="btn-embed" class="btn-action" title="Get Website Embed Code">
+            <i class="fa-solid fa-code"></i>
+            <span>Embed Widget</span>
+          </button>
+          <button id="btn-clear" class="btn-icon" title="Clear Chat">
+            <i class="fa-solid fa-rotate-right"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Chat History Area -->
+      <section class="chat-container" id="chat-container">
+        <!-- Welcome Hero -->
+        <div class="welcome-hero" id="welcome-hero">
+          <div class="hero-logo-wrapper">
+            <img src="logo.png" alt="BAUST Logo" class="hero-logo">
+          </div>
+          <div class="hero-badge">
+            <i class="fa-solid fa-shield-halved"></i> Official University AI Assistant
+          </div>
+          <h2>Welcome to BAUST Smart Assistant!</h2>
+          <p>স্বাগতম! বিএইউএসটি ভর্তি, টিউশন ফি, ডিপার্টমেন্ট, হল, পরিবহন ও স্কলারশিপ সংক্রান্ত যেকোনো প্রশ্ন করুন।</p>
+
+          <!-- Quick Suggestion Chips -->
+          <div class="quick-chips">
+            <button class="chip" data-query="CSE and EEE tuition fees and total cost">
+              <i class="fa-solid fa-money-bill-wave"></i> CSE ও EEE এর টিউশন ফি কত?
+            </button>
+            <button class="chip" data-query="Undergraduate admission requirements and minimum GPA">
+              <i class="fa-solid fa-graduation-cap"></i> ভর্তির যোগ্যতা ও ন্যূনতম GPA
+            </button>
+            <button class="chip" data-query="Hostel and residential hall facilities for male and female">
+              <i class="fa-solid fa-building-user"></i> আবাসিক হল ও হোস্টেল সুবিধা
+            </button>
+            <button class="chip" data-query="Scholarship waiver and Army quota details">
+              <i class="fa-solid fa-award"></i> স্কলারশিপ ও আর্মি কোটা ওয়েভার
+            </button>
+            <button class="chip" data-query="Bus routes and transport facilities">
+              <i class="fa-solid fa-bus"></i> বাস সার্ভিস ও যাতায়াত রুট
+            </button>
+            <button class="chip" data-query="Admission office contact numbers and hotline">
+              <i class="fa-solid fa-phone"></i> ভর্তি অফিসের যোগাযোগ নম্বর
+            </button>
+          </div>
+        </div>
+
+        <!-- Messages stream -->
+        <div class="messages-list" id="messages-list"></div>
+      </section>
+
+      <!-- Chat Input Area -->
+      <footer class="chat-footer">
+        <form class="chat-form" id="chat-form">
+          <div class="input-wrapper">
+            <textarea 
+              id="user-input" 
+              placeholder="Type your question here (Bangla, English, Banglish)..." 
+              rows="1"
+              autocomplete="off"
+            ></textarea>
+
+            <div class="input-actions">
+              <button type="button" id="btn-voice" class="btn-input-action" title="Voice Input (Speech-to-Text)">
+                <i class="fa-solid fa-microphone"></i>
+              </button>
+              <button type="submit" id="btn-send" class="btn-send" title="Send Message">
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="footer-note">
+          <span>Powered by BAUST Live Web Data & Intelligent RAG Engine • <a href="https://www.baust.edu.bd/" target="_blank">baust.edu.bd</a></span>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- MODAL: Knowledge Explorer -->
+  <div class="modal-overlay" id="modal-knowledge">
+    <div class="modal-box modal-lg">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <h3>BAUST Scraped Knowledge Base</h3>
+        </div>
+        <button class="modal-close" data-close="modal-knowledge">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="kb-search-bar">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="kb-search-input" placeholder="Search categories, departments, policies...">
+        </div>
+        <div class="kb-categories-grid" id="kb-categories-grid">
+          <!-- Loaded via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Embed Widget Generator -->
+  <div class="modal-overlay" id="modal-embed">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-code"></i>
+          <h3>Embed Chatbot in Any Website</h3>
+        </div>
+        <button class="modal-close" data-close="modal-embed">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">
+          আপনার যেকোনো ওয়েবসাইট বা ব্লগে (HTML, WordPress, React, Next.js) চ্যাটবট যুক্ত করতে নিচের কোডটি কপি করে পেস্ট করুন:
+        </p>
+
+        <div class="embed-section">
+          <h4>1. ১-লাইনের স্ক্রিপ্ট ট্যাগ (Floating Widget):</h4>
+          <p class="subtext">আপনার ওয়েবসাইটের <code>&lt;body&gt;</code> ট্যাগের ভেতর নিচের লাইনটি যুক্ত করুন:</p>
+          <div class="code-block-wrapper">
+            <pre><code id="embed-script-code">&lt;script src="http://localhost:5000/widget.js" async&gt;&lt;/script&gt;</code></pre>
+            <button class="btn-copy" data-target="embed-script-code"><i class="fa-regular fa-copy"></i> Copy</button>
+          </div>
+        </div>
+
+        <div class="embed-section">
+          <h4>2. আইফ্রেম এমবেড (Iframe Full View):</h4>
+          <div class="code-block-wrapper">
+            <pre><code id="embed-iframe-code">&lt;iframe src="http://localhost:5000" width="420" height="650" style="border:none; border-radius:16px; box-shadow:0 8px 32px rgba(0,0,0,0.15);" allow="microphone"&gt;&lt;/iframe&gt;</code></pre>
+            <button class="btn-copy" data-target="embed-iframe-code"><i class="fa-regular fa-copy"></i> Copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
