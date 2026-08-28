@@ -22,8 +22,10 @@ export function SiteFooter() {
                 <span>24/7 Support Desk: support@solvear.in</span>
               </p>
               <p className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-primary" />
-                <span>Sales: +91 98765 43210 / +880 1700 000000</span>
+                <Phone className="h-4 w-4 text-primary" aria-hidden />
+                <a href="tel:+918016081188" className="hover:text-primary font-bold">
+                  +91 80160 81188
+                </a>
               </p>
             </div>
           </div>

@@ -31,7 +31,7 @@ const CARDS = [
   {
     icon: Phone,
     title: "Talk to Sales",
-    lines: ["+880 1700 000000 (Dhaka)", "+91 92300 00000 (Kolkata)"],
+    lines: ["+91 80160 81188 (Direct / WhatsApp)", "Monday – Saturday: 9am – 8pm IST"],
   },
   { icon: Mail, title: "Email Us", lines: ["hello@solvear.io", "support@solvear.io"] },
   {

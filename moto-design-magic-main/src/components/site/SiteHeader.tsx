@@ -38,14 +38,8 @@ export function SiteHeader() {
           <p className="flex items-center gap-2">
             <Headphones className="h-4 w-4 text-primary" aria-hidden />
             <span className="font-semibold">Talk to Sales:</span>
-            <a href="tel:+8801700000000" className="hover:text-primary">
-              +880 1700 000000 (Dhaka)
-            </a>
-            <span aria-hidden className="opacity-40">
-              |
-            </span>
-            <a href="tel:+919230000000" className="hover:text-primary">
-              +91 92300 00000 (Kolkata)
+            <a href="tel:+918016081188" className="hover:text-primary font-bold">
+              +91 80160 81188
             </a>
           </p>
           <nav aria-label="Utility" className="flex items-center gap-4">
@@ -158,10 +152,10 @@ export function SiteHeader() {
                 </Link>
               )}
               <a
-                href="tel:+8801700000000"
+                href="tel:+918016081188"
                 className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-primary"
               >
-                <Phone className="h-4 w-4" aria-hidden /> +880 1700 000000
+                <Phone className="h-4 w-4" aria-hidden /> +91 80160 81188
               </a>
             </nav>
           </div>
