@@ -1,58 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: #09090b;
-    --foreground: #f4f4f5;
-    --card: #111114;
-    --card-foreground: #fafafa;
-    --border: #27272a;
-    --input: #1f1f23;
-    --primary: #3b82f6;
+    --radius: 0.75rem;
+    --background: #ffffff;
+    --foreground: #101524;
+    --card: #ffffff;
+    --card-foreground: #101524;
+    --border: #e2e8f0;
+    --input: #f1f5f9;
+    --primary: #e11d48; /* Hot pink brand accent */
+    --primary-hover: #be123c;
     --primary-foreground: #ffffff;
-    --muted: #18181b;
-    --muted-foreground: #a1a1aa;
-    --accent: #27272a;
-    --accent-foreground: #fafafa;
+    --secondary: #f8fafc;
+    --secondary-foreground: #1e293b;
+    --muted: #f1f5f9;
+    --muted-foreground: #64748b;
+    --accent: #fff1f2;
+    --accent-foreground: #9f1239;
+    --navy: #1a2238;
+    --navy-deep: #101524;
+    --navy-soft: #232d4b;
+    --navy-foreground: #f8fafc;
+    --surface: #f8fafc;
   }
+
+  .dark {
+    --background: #101524;
+    --foreground: #f8fafc;
+    --card: #1a2238;
+    --card-foreground: #f8fafc;
+    --border: #232d4b;
+    --input: #232d4b;
+    --primary: #e11d48;
+    --primary-foreground: #ffffff;
+    --secondary: #1a2238;
+    --secondary-foreground: #f8fafc;
+    --muted: #1e293b;
+    --muted-foreground: #94a3b8;
+    --navy: #1a2238;
+    --navy-deep: #0b0f19;
+    --navy-soft: #232d4b;
+    --navy-foreground: #f8fafc;
+    --surface: #1a2238;
+  }
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Helvetica Neue", Arial, sans-serif;
-  letter-spacing: -0.01em;
+  background-color: var(--background);
+  font-family: 'Manrope', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.015em;
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  width: 100%;
 }
 
-/* Crisp Enterprise Scrollbars */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Sora', 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.025em;
+  font-weight: 700;
 }
 
-::-webkit-scrollbar-track {
-  background: #09090b;
+.font-display {
+  font-family: 'Sora', sans-serif;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #27272a;
-  border-radius: 3px;
+/* Custom Shadows */
+.shadow-elevated {
+  box-shadow: 0 18px 40px -18px rgba(16, 21, 36, 0.25);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+.shadow-pink {
+  box-shadow: 0 14px 34px -14px rgba(225, 29, 72, 0.55);
 }
 
-/* Professional card utility */
-.card-enterprise {
-  background-color: #111114;
-  border: 1px solid #222226;
-  border-radius: 12px;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+.shadow-pink-hover:hover {
+  box-shadow: 0 20px 40px -12px rgba(225, 29, 72, 0.65);
 }
 
-.card-enterprise:hover {
-  border-color: #33333a;
+/* Background Utility Classes */
+.bg-navy-deep {
+  background-color: #101524;
+}
+
+.bg-navy {
+  background-color: #1a2238;
+}
+
+.bg-navy-soft {
+  background-color: #232d4b;
+}
+
+.text-navy-foreground {
+  color: #f8fafc;
+}
+
+.bg-surface {
+  background-color: #f8fafc;
+}
+
+.section-y {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  .section-y {
+    padding-top: 6.5rem;
+    padding-bottom: 6.5rem;
+  }
 }

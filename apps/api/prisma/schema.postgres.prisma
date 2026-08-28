@@ -1,0 +1,471 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  RESELLER_ADMIN
+  BUSINESS_USER
+  TEAM_AGENT
+}
+
+enum ChannelType {
+  WHATSAPP
+  INSTAGRAM
+  TELEGRAM
+  FACEBOOK_MESSENGER
+  SMS
+  EMAIL
+  WEBCHAT
+}
+
+enum DltHeaderType {
+  PROMOTIONAL
+  TRANSACTIONAL
+  SERVICE_IMPLICIT
+  SERVICE_EXPLICIT
+  GOVERNMENT
+}
+
+enum DltStatus {
+  PENDING
+  ACTIVE
+  REJECTED
+  SUSPENDED
+}
+
+enum MessageStatus {
+  QUEUED
+  DISPATCHED_TO_CARRIER
+  SENT
+  DELIVERED
+  READ
+  FAILED
+  DND_FILTERED
+  REJECTED_BY_CARRIER
+}
+
+enum PaymentGateway {
+  RAZORPAY
+  STRIPE
+  PHONEPE
+  WHATSAPP_PAY
+  PAYPAL
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+// -------------------------------------------------------------
+// 1. Multi-Tenant & User Management
+// -------------------------------------------------------------
+model Tenant {
+  id               String   @id @default(uuid())
+  name             String
+  cnameDomain      String?  @unique // e.g. "cpaas.agencybrand.com"
+  customLogoUrl    String?
+  customBrandColor String?  @default("#2563eb")
+  customFaviconUrl String?
+  isWhiteLabel     Boolean  @default(false)
+  supportEmail     String?  @default("support@solvear.in")
+  supportPhone     String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  users            User[]
+  campaigns        Campaign[]
+  messageLogs      MessageLog[]
+
+  @@map("tenants")
+}
+
+model User {
+  id               String         @id @default(uuid())
+  tenantId         String?
+  name             String
+  email            String         @unique
+  passwordHash     String
+  role             Role           @default(BUSINESS_USER)
+  entityId         String         @default("17011582910283") // TRAI DLT Principal Entity ID
+  balanceInr       Float          @default(1692.08)
+  smsCredits       Int            @default(14101)
+  aiTokensBalance  Int            @default(10000)
+  status           String         @default("ACTIVE") // ACTIVE, SUSPENDED, PENDING
+  timezone         String         @default("Asia/Kolkata")
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  tenant           Tenant?        @relation(fields: [tenantId], references: [id], onDelete: SetNull)
+  wabaAccounts     WabaAccount[]
+  instagramAccounts InstagramAccount[]
+  telegramBots     TelegramBot[]
+  headers          DltHeader[]
+  templates        DltTemplate[]
+  contactGroups    ContactGroup[]
+  campaigns        Campaign[]
+  messageLogs      MessageLog[]
+  apiKeys          ApiKey[]
+  paymentOrders    PaymentOrder[]
+  aiTokenLedgers   AiTokenLedger[]
+  workflows        Workflow[]
+  webhookEndpoints WebhookEndpoint[]
+  activityLogs     ActivityLog[]
+
+  @@index([email])
+  @@index([tenantId])
+  @@map("users")
+}
+
+// -------------------------------------------------------------
+// 2. WhatsApp Official Cloud API & Catalogs
+// -------------------------------------------------------------
+model WabaAccount {
+  id              String         @id @default(uuid())
+  userId          String
+  wabaId          String         @unique // Meta WhatsApp Business Account ID
+  phoneNumberId   String         @unique // Meta Phone Number ID
+  displayPhone    String         // E.g. "+919876543210"
+  verifiedName    String         // Meta verified business name
+  qualityRating   String         @default("GREEN") // GREEN, YELLOW, RED
+  tierLimit       String         @default("TIER_10K") // TIER_1K, TIER_10K, TIER_100K, TIER_UNLIMITED
+  accessTokenEnc  String         // AES-256 encrypted permanent system user token
+  webhookSecret   String?        // Webhook verification token
+  status          String         @default("ACTIVE")
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  catalogs        WabaCatalog[]
+  campaigns       Campaign[]
+
+  @@map("waba_accounts")
+}
+
+model WabaCatalog {
+  id          String         @id @default(uuid())
+  wabaId      String
+  catalogId   String         @unique // Meta Catalog ID
+  name        String
+  currency    String         @default("INR")
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  waba        WabaAccount    @relation(fields: [wabaId], references: [id], onDelete: Cascade)
+  products    CatalogProduct[]
+
+  @@map("waba_catalogs")
+}
+
+model CatalogProduct {
+  id          String      @id @default(uuid())
+  catalogId   String
+  sku         String
+  title       String
+  description String?
+  price       Float
+  currency    String      @default("INR")
+  imageUrl    String
+  inStock     Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  catalog     WabaCatalog @relation(fields: [catalogId], references: [id], onDelete: Cascade)
+
+  @@map("catalog_products")
+}
+
+// -------------------------------------------------------------
+// 3. Instagram DM & Telegram Channels
+// -------------------------------------------------------------
+model InstagramAccount {
+  id               String   @id @default(uuid())
+  userId           String
+  instagramId      String   @unique
+  username         String
+  pageId           String
+  accessTokenEnc   String
+  autoReplyComment Boolean  @default(true)
+  autoReplyDm      Boolean  @default(true)
+  status           String   @default("ACTIVE")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("instagram_accounts")
+}
+
+model TelegramBot {
+  id          String   @id @default(uuid())
+  userId      String
+  botTokenEnc String   // AES-256 encrypted Telegram bot token
+  botUsername String
+  botName     String?
+  status      String   @default("ACTIVE")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("telegram_bots")
+}
+
+// -------------------------------------------------------------
+// 4. TRAI DLT Compliance Engine
+// -------------------------------------------------------------
+model DltHeader {
+  id         String        @id @default(uuid())
+  userId     String
+  headerType DltHeaderType @default(TRANSACTIONAL)
+  headerName String        // 6-character alphanumeric sender ID, e.g. "TFISMS"
+  status     DltStatus     @default(ACTIVE)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  templates  DltTemplate[]
+  campaigns  Campaign[]
+
+  @@map("dlt_headers")
+}
+
+model DltTemplate {
+  id             String    @id @default(uuid())
+  userId         String
+  headerId       String
+  templateIdCode String    // DLT Registration code e.g. "140716158291028"
+  templateName   String
+  templateType   String    @default("TRANSACTIONAL")
+  content        String    // E.g. "Dear {#var#}, your OTP for transaction is {#var#}. Valid for 10 mins."
+  status         DltStatus @default(ACTIVE)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  header         DltHeader @relation(fields: [headerId], references: [id], onDelete: Cascade)
+  campaigns      Campaign[]
+
+  @@map("dlt_templates")
+}
+
+// -------------------------------------------------------------
+// 5. Campaigns & High-Throughput Message Logs
+// -------------------------------------------------------------
+model Campaign {
+  id             String       @id @default(uuid())
+  tenantId       String?
+  userId         String
+  channel        ChannelType  @default(WHATSAPP)
+  wabaAccountId  String?
+  headerId       String?
+  templateId     String?
+  name           String       @default("Multi-Channel Campaign")
+  recipientCount Int          @default(0)
+  deliveredCount Int          @default(0)
+  readCount      Int          @default(0)
+  failedCount    Int          @default(0)
+  creditsUsed    Int          @default(0)
+  costInr        Float        @default(0.0)
+  status         String       @default("COMPLETED") // QUEUED, PROCESSING, COMPLETED, FAILED
+  scheduledAt    DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  tenant         Tenant?      @relation(fields: [tenantId], references: [id], onDelete: SetNull)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  wabaAccount    WabaAccount? @relation(fields: [wabaAccountId], references: [id], onDelete: SetNull)
+  header         DltHeader?   @relation(fields: [headerId], references: [id], onDelete: SetNull)
+  template       DltTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
+  messageLogs    MessageLog[]
+
+  @@index([userId, status, createdAt])
+  @@map("campaigns")
+}
+
+model MessageLog {
+  id               String        @id @default(uuid())
+  tenantId         String?
+  userId           String
+  campaignId       String?
+  channel          ChannelType   @default(WHATSAPP)
+  recipient        String        // Phone or chat ID
+  message          String        // Rendered text
+  mediaUrl         String?
+  status           MessageStatus @default(SENT)
+  sqsMessageId     String?       // Amazon SQS FIFO message ID
+  carrierMessageId String?       // Meta / Telecom carrier dispatch ID
+  carrierLatencyMs Int?          @default(38)
+  costInr          Float         @default(0.12)
+  source           String        @default("API") // API, UI, AUTOMATION, SHOPIFY
+  errorMessage     String?
+  createdAt        DateTime      @default(now())
+
+  tenant           Tenant?       @relation(fields: [tenantId], references: [id], onDelete: SetNull)
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  campaign         Campaign?     @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+
+  @@index([userId, status, createdAt])
+  @@index([recipient])
+  @@index([sqsMessageId])
+  @@map("message_logs")
+}
+
+// -------------------------------------------------------------
+// 6. Visual Flow Builder & Workflows
+// -------------------------------------------------------------
+model Workflow {
+  id            String   @id @default(uuid())
+  userId        String
+  name          String
+  triggerType   String   // INCOMING_MESSAGE, KEYWORD, SHOPIFY_ORDER, ABANDONED_CART, GOOGLE_SHEET_ROW
+  triggerConfig String   // JSON string of trigger parameters
+  flowGraph     String   // JSON string of nodes, branches and edges
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("workflows")
+}
+
+// -------------------------------------------------------------
+// 7. Contacts & Audience Segmentation
+// -------------------------------------------------------------
+model ContactGroup {
+  id        String    @id @default(uuid())
+  userId    String
+  name      String    // e.g. "VIP Customers"
+  code      String    @default("GRP_01")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contacts  Contact[]
+
+  @@map("contact_groups")
+}
+
+model Contact {
+  id          String       @id @default(uuid())
+  groupId     String
+  phoneNumber String       // E.g. "919876543210"
+  name        String?
+  email       String?
+  customVars  String?      // JSON stringified custom variables: {"company": "TechCorp", "tier": "Gold"}
+  tags        String?      // Comma-separated tags: "vip,cart_abandoned"
+  isOptedOut  Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  group       ContactGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@index([phoneNumber])
+  @@map("contacts")
+}
+
+// -------------------------------------------------------------
+// 8. AI Token Ledger & AI Cost Accounting
+// -------------------------------------------------------------
+model AiTokenLedger {
+  id            String   @id @default(uuid())
+  userId        String
+  model         String   // "gpt-4o", "gemini-1.5-pro", "gemini-1.5-flash"
+  promptTokens  Int
+  compTokens    Int
+  totalTokens   Int
+  costInr       Float
+  purpose       String   // "BOT_REPLY", "SENTIMENT_ANALYSIS", "RAG_EMBEDDING"
+  createdAt     DateTime @default(now())
+
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@map("ai_token_ledgers")
+}
+
+// -------------------------------------------------------------
+// 9. API Keys & Webhooks
+// -------------------------------------------------------------
+model ApiKey {
+  id          String    @id @default(uuid())
+  userId      String
+  name        String    // e.g. "Shopify Webhook Key"
+  keyHash     String    // SHA-256 hash of the generated API token
+  keyPrefix   String    // First 8 characters for display
+  permissions String    @default("messages:dispatch,contacts:read")
+  isActive    Boolean   @default(true)
+  lastUsedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("api_keys")
+}
+
+model WebhookEndpoint {
+  id          String   @id @default(uuid())
+  userId      String
+  url         String   // E.g. "https://store.myshopify.com/webhooks/solvear"
+  secretKey   String   // HMAC signing secret
+  events      String   // Comma-separated: "message.sent,message.delivered,order.confirmed"
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("webhook_endpoints")
+}
+
+// -------------------------------------------------------------
+// 10. Payments, Orders & Invoices
+// -------------------------------------------------------------
+model PaymentOrder {
+  id                  String         @id @default(uuid())
+  userId              String
+  orderId             String         @unique
+  idempotencyKey      String?        @unique
+  gateway             PaymentGateway @default(RAZORPAY)
+  amountInr           Float
+  creditsCredited     Int
+  aiTokensCredited    Int            @default(0)
+  status              PaymentStatus  @default(PENDING)
+  gatewayPaymentId    String?
+  gatewaySignature    String?
+  invoicePdfUrl       String?
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+
+  user                User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("payment_orders")
+}
+
+// -------------------------------------------------------------
+// 11. Compliance & Security Audit Logs
+// -------------------------------------------------------------
+model ActivityLog {
+  id        String   @id @default(uuid())
+  userId    String
+  action    String   // LOGIN, DLT_SCRUB, CAMPAIGN_DISPATCH, API_KEY_GENERATE
+  ipAddress String?  @default("127.0.0.1")
+  userAgent String?
+  details   String?  // JSON string
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@map("activity_logs")
+}

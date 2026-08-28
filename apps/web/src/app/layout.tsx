@@ -1,11 +1,18 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Topbar } from '@/components/layout/Topbar';
-import { Sidebar } from '@/components/layout/Sidebar';
 
 export const metadata: Metadata = {
-  title: 'CloudSMS - Enterprise Bulk SMS & CPaaS Platform',
-  description: 'High-throughput Enterprise Bulk SMS, DLT Route Management, Developer REST APIs, and Billing Infrastructure.',
+  title: 'Solvear.in - All-in-One WhatsApp Marketing, AI Chatbot & CPaaS Platform',
+  description:
+    'Turn WhatsApp into your #1 Sales Channel. Chat, sell & scale with AI across WhatsApp, Instagram, Telegram, Facebook Messenger & Webchat. WooCommerce, Shopify, Catalogs, Form Flows, and White-Label Reseller solution.',
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
@@ -14,15 +21,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="bg-gray-950 text-gray-100 flex min-h-screen antialiased">
-        <Sidebar />
-        <div className="flex-1 flex flex-col min-w-0">
-          <Topbar />
-          <main className="flex-1 p-6 md:p-8 overflow-y-auto max-w-7xl w-full mx-auto">
-            {children}
-          </main>
-        </div>
+    <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="alternate icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="bg-background text-foreground min-h-screen font-sans antialiased selection:bg-primary selection:text-white">
+        {children}
       </body>
     </html>
   );

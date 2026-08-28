@@ -1,0 +1,16 @@
+{
+  "name": "Solvear.in - WhatsApp Marketing & CPaaS Platform",
+  "short_name": "Solvear",
+  "description": "Turn WhatsApp into your #1 Sales Channel with AI Chatbots, Broadcasts, and Omni-Channel Shared Inbox.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#101524",
+  "theme_color": "#e11d48",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

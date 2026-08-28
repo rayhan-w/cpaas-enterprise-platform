@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "chatbot": "node apps/chatbot/server.js",
+    "dev:chatbot": "node apps/chatbot/server.js",
     "dev:api": "npm run start:dev --prefix apps/api",
     "dev:web": "npm run dev --prefix apps/web",
     "build:api": "npm run build --prefix apps/api",

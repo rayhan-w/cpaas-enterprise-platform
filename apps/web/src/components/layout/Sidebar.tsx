@@ -14,10 +14,11 @@ import {
   History,
   Radio,
   ChevronDown,
+  Globe,
 } from 'lucide-react';
 
 const mainNavigation = [
-  { name: 'Overview', href: '/', icon: LayoutDashboard },
+  { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Campaigns', href: '/dashboard/campaigns', icon: Send },
   { name: 'DLT Templates', href: '/dashboard/dlt', icon: FileCheck2 },
   { name: 'Contacts', href: '/dashboard/contacts', icon: Users },
@@ -38,18 +39,18 @@ export function Sidebar() {
       <div>
         {/* Workspace Brand Switcher */}
         <div className="h-14 flex items-center justify-between px-4 border-b border-zinc-850">
-          <div className="flex items-center space-x-2.5">
+          <Link href="/dashboard" className="flex items-center space-x-2.5">
             <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-sm">
               <Radio className="w-4 h-4" />
             </div>
             <div>
               <div className="text-xs font-semibold text-zinc-100 flex items-center space-x-1">
-                <span>CloudSMS</span>
-                <span className="text-[10px] text-zinc-500 font-mono">CPaaS</span>
+                <span>Solvear</span>
+                <span className="text-[10px] text-blue-400 font-mono bg-blue-950/60 px-1 py-0.2 rounded border border-blue-900">CPaaS</span>
               </div>
               <div className="text-[10px] text-zinc-500">Enterprise Workspace</div>
             </div>
-          </div>
+          </Link>
           <ChevronDown className="w-3.5 h-3.5 text-zinc-500" />
         </div>
 
@@ -58,10 +59,10 @@ export function Sidebar() {
           {/* Main Messaging */}
           <div className="space-y-1">
             <div className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider px-2.5 mb-1.5">
-              Messaging
+              Messaging & Automation
             </div>
             {mainNavigation.map((item) => {
-              const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+              const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
               const Icon = item.icon;
 
               return (
@@ -86,10 +87,10 @@ export function Sidebar() {
           {/* Developer & Admin */}
           <div className="space-y-1">
             <div className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider px-2.5 mb-1.5">
-              Developer & Admin
+              Developer & Security
             </div>
             {developerNavigation.map((item) => {
-              const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+              const isActive = pathname === item.href || pathname.startsWith(item.href);
               const Icon = item.icon;
 
               return (
@@ -115,6 +116,17 @@ export function Sidebar() {
               );
             })}
           </div>
+
+          {/* Public Portal Link */}
+          <div className="pt-2 border-t border-zinc-850/80">
+            <Link
+              href="/"
+              className="flex items-center space-x-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition"
+            >
+              <Globe className="w-4 h-4 text-emerald-400" />
+              <span>Public Landing Page</span>
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -122,10 +134,13 @@ export function Sidebar() {
       <div className="p-3 border-t border-zinc-850">
         <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-2.5 flex items-center justify-between">
           <div className="text-[11px]">
-            <div className="text-zinc-300 font-medium">Telecom SMPP</div>
-            <div className="text-zinc-500 text-[10px]">Latency: 42ms</div>
+            <div className="text-zinc-300 font-medium flex items-center space-x-1.5">
+              <span>HAProxy + SQS</span>
+              <span className="text-[9px] px-1 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">Live</span>
+            </div>
+            <div className="text-zinc-500 text-[10px]">SMPP Latency: 38ms</div>
           </div>
-          <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
         </div>
       </div>
     </aside>

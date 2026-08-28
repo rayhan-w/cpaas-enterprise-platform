@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
+import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
@@ -11,12 +12,14 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const port = configService.get<number>('PORT') || 4000;
-  const corsOrigins = configService.get<string>('CORS_ORIGINS') || 'http://localhost:3000,http://localhost:3001,http://127.0.0.1:3000';
+  const corsOrigins =
+    configService.get<string>('CORS_ORIGINS') ||
+    'http://localhost:3000,http://localhost:3001,http://127.0.0.1:3000,https://solvear.in';
 
   // 1. Layer 1: Helmet security headers
   app.use(
     helmet({
-      contentSecurityPolicy: false, // Allows Next.js iframe/asset integrations if proxied
+      contentSecurityPolicy: false,
       crossOriginEmbedderPolicy: false,
     }),
   );
@@ -25,7 +28,13 @@ async function bootstrap() {
   const allowedOrigins = corsOrigins.split(',').map((o) => o.trim());
   app.enableCors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes('*') || origin.includes('localhost') || origin.includes('127.0.0.1')) {
+      if (
+        !origin ||
+        allowedOrigins.includes(origin) ||
+        allowedOrigins.includes('*') ||
+        origin.includes('localhost') ||
+        origin.includes('127.0.0.1')
+      ) {
         callback(null, true);
       } else {
         callback(new Error(`Origin ${origin} not allowed by CORS`));
@@ -33,7 +42,8 @@ async function bootstrap() {
     },
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
-    allowedHeaders: 'Content-Type, Accept, Authorization, X-API-Key, X-Requested-With, x-razorpay-signature, x-verify',
+    allowedHeaders:
+      'Content-Type, Accept, Authorization, X-API-Key, X-Requested-With, x-razorpay-signature, x-verify',
   });
 
   // 3. Layer 3: Global Validation Pipe & Input Sanitization
@@ -46,10 +56,14 @@ async function bootstrap() {
     }),
   );
 
-  // 4. Global Exception Filter
+  // 4. Global Exception Filter & Logging Interceptor
   app.useGlobalFilters(new AllExceptionsFilter());
+  app.useGlobalInterceptors(new LoggingInterceptor());
 
-  // Global Prefix for internal API endpoints (e.g. /api/auth/login) while public is /api/v1/sms/send
+  // 5. Graceful shutdown hooks
+  app.enableShutdownHooks();
+
+  // 6. Global API Prefix
   app.setGlobalPrefix('api');
 
   await app.listen(port);

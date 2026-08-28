@@ -7,37 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  ADMIN
-  USER
-}
-
-enum HeaderType {
-  PROMOTIONAL
-  TRANSACTIONAL
-  SERVICE_IMPLICIT
-  SERVICE_EXPLICIT
-}
-
-enum DltStatus {
-  PENDING
-  ACTIVE
-  REJECTED
-}
-
-enum MessageStatus {
-  SENT
-  DELIVERED
-  FAILED
-  DND_FILTERED
-}
-
-enum PaymentStatus {
-  PENDING
-  SUCCESS
-  FAILED
-}
-
 model User {
   id            String         @id @default(uuid())
   name          String
@@ -205,7 +174,7 @@ model PaymentOrder {
 model ActivityLog {
   id        String   @id @default(uuid())
   userId    String
-  action    String   // LOGIN, PROFILE_UPDATE, REPORT_EXPORT, API_KEY_CREATED, API_KEY_REVOKED, CAMPAIGN_DISPATCHED, WALLET_RECHARGE
+  action    String   // LOGIN, PROFILE_UPDATE, REPORT_EXPORT, API_KEY_CREATED, API_KEY_REVOKED, CAMPAIGN_DISPATCH, WALLET_RECHARGE
   ipAddress String?  @default("127.0.0.1")
   details   String?  // JSON string or descriptive text
   createdAt DateTime @default(now())

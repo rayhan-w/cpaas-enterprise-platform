@@ -1,0 +1,138 @@
+version: '3.8'
+
+services:
+  # -------------------------------------------------------------
+  # 1. Primary PostgreSQL 16 Database
+  # -------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: solvear-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-solvear_cpaas}
+      POSTGRES_USER: ${POSTGRES_USER:-solvear_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-solvear_secure_password_2026}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-solvear_admin} -d ${POSTGRES_DB:-solvear_cpaas}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cpaas-network
+
+  # -------------------------------------------------------------
+  # 2. Redis 7 Cache & WebSocket Pub/Sub
+  # -------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: solvear-redis
+    restart: always
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:-redis_secure_pass_2026}"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-redis_secure_pass_2026}", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cpaas-network
+
+  # -------------------------------------------------------------
+  # 3. NestJS Modular Monolith API
+  # -------------------------------------------------------------
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: solvear-api
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-solvear_admin}:${POSTGRES_PASSWORD:-solvear_secure_password_2026}@postgres:5432/${POSTGRES_DB:-solvear_cpaas}?schema=public&sslmode=prefer
+      REDIS_URL: redis://:${REDIS_PASSWORD:-redis_secure_pass_2026}@redis:6379
+      JWT_SECRET: ${JWT_SECRET:-solvear_jwt_super_secret_key_2026_enterprise}
+      META_WABA_APP_ID: ${META_WABA_APP_ID}
+      META_WABA_APP_SECRET: ${META_WABA_APP_SECRET}
+      META_SYSTEM_ACCESS_TOKEN: ${META_SYSTEM_ACCESS_TOKEN}
+      AWS_SQS_QUEUE_URL: ${AWS_SQS_QUEUE_URL}
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - cpaas-network
+
+  # -------------------------------------------------------------
+  # 4. FastAPI & Node AI Bot Sidecar
+  # -------------------------------------------------------------
+  chatbot:
+    build:
+      context: .
+      dockerfile: Dockerfile.chatbot
+    container_name: solvear-chatbot
+    restart: always
+    environment:
+      PORT: 5000
+      NODE_ENV: production
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      API_BACKEND_URL: http://api:4000
+    depends_on:
+      - api
+    networks:
+      - cpaas-network
+
+  # -------------------------------------------------------------
+  # 5. Next.js 15 Web Frontend (Standalone)
+  # -------------------------------------------------------------
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: solvear-web
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      API_URL: http://api:4000
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-https://solvear.in}
+    depends_on:
+      - api
+    networks:
+      - cpaas-network
+
+  # -------------------------------------------------------------
+  # 6. HAProxy Edge Load Balancer
+  # -------------------------------------------------------------
+  haproxy:
+    image: haproxy:3.0-alpine
+    container_name: solvear-haproxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    depends_on:
+      - web
+      - api
+      - chatbot
+    networks:
+      - cpaas-network
+
+networks:
+  cpaas-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
