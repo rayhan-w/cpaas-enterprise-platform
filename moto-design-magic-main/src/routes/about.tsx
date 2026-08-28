@@ -107,7 +107,7 @@ function About() {
             className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-border bg-surface hover:bg-muted font-bold text-xs transition"
           >
             <Phone className="w-4 h-4 text-primary" />
-            <span>Call +91 80160 81188 (West Bengal)</span>
+            <span>Call +91 80160 81188 (India)</span>
           </a>
         </div>
       </PageHero>
@@ -256,7 +256,7 @@ function About() {
 
       <CtaBand
         title="Want to see how we'd run your messaging infrastructure?"
-        description="Talk with our technical team in West Bengal to review your message volumes and routing setup."
+        description="Talk with our technical team in India to review your message volumes and routing setup."
       />
     </>
   );

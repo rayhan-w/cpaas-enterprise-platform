@@ -50,7 +50,7 @@ export function SiteFooter() {
             <li className="flex items-center gap-3">
               <Phone className="h-4 w-4 text-primary" aria-hidden />
               <a href="tel:+918016081188" className="hover:text-primary font-bold">
-                +91 80160 81188 (West Bengal)
+                +91 80160 81188 (India)
               </a>
             </li>
             <li className="flex items-center gap-3">

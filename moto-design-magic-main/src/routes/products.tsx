@@ -209,7 +209,7 @@ function Products() {
 
       <CtaBand
         title="Ready to upgrade your customer engagement stack?"
-        description="Talk to our telecom and API specialists in West Bengal to configure your custom pricing."
+        description="Talk to our telecom and API specialists in India to configure your custom pricing."
       />
     </>
   );
