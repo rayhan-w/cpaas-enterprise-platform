@@ -495,17 +495,6 @@ function Home() {
         </div>
       </section>
 
-      {/* 9. Floating WhatsApp Quick-Chat Widget */}
-      <a
-        href="https://wa.me/918016081188?text=Hello%20Solvear%20Team%2C%20I%20am%20interested%20in%20your%20CPaaS%20platform"
-        target="_blank"
-        rel="noopener noreferrer"
-        title="Chat with Solvear on WhatsApp"
-        className="fixed bottom-6 right-6 z-50 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-2xl transition-transform hover:scale-110 hover:shadow-emerald-500/50"
-      >
-        <MessageCircle className="h-7 w-7 fill-white text-[#25D366]" />
-      </a>
-
       {/* 10. Slide-Out "Schedule a Consultation" Modal */}
       {isConsultOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
