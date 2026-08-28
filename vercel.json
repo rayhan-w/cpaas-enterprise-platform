@@ -1,6 +1,6 @@
 {
   "buildCommand": "cd moto-design-magic-main && npm install && npm run build",
-  "outputDirectory": "moto-design-magic-main/dist/client",
+  "outputDirectory": "moto-design-magic-main/dist",
   "framework": "vite",
   "rewrites": [
     {
