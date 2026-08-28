@@ -240,7 +240,7 @@ export function SiteHeader() {
           </nav>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             {user ? (
               <Button asChild variant="outline" className="hidden sm:inline-flex rounded-xl font-bold text-xs">
                 <Link to="/dashboard">
@@ -255,6 +255,15 @@ export function SiteHeader() {
             <Button asChild className="hidden shadow-pink sm:inline-flex rounded-xl font-bold text-xs">
               <Link to="/contact">Schedule a Consultation</Link>
             </Button>
+
+            {/* Quick Call on Mobile */}
+            <a
+              href="tel:+918016081188"
+              className="inline-flex lg:hidden items-center justify-center p-2.5 rounded-xl bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-white transition"
+              title="Call Sales (+91 80160 81188)"
+            >
+              <Phone className="h-4 w-4" />
+            </a>
 
             {/* Mobile Menu Trigger */}
             <button
@@ -271,8 +280,8 @@ export function SiteHeader() {
 
         {/* Mobile Navigation Drawer */}
         {mobileOpen && (
-          <div className="border-t border-border bg-background lg:hidden animate-in fade-in max-h-[85vh] overflow-y-auto">
-            <nav aria-label="Mobile" className="mx-auto flex max-w-7xl flex-col px-6 py-4 space-y-1">
+          <div className="border-t border-border bg-background lg:hidden animate-in fade-in max-h-[80vh] overflow-y-auto shadow-2xl">
+            <nav aria-label="Mobile" className="mx-auto flex max-w-7xl flex-col px-5 py-4 space-y-1">
               {NAV_GROUPS.map((group) => {
                 const hasDropdown = !!group.items && group.items.length > 0;
                 const isExpanded = !!mobileExpanded[group.label];
@@ -283,7 +292,7 @@ export function SiteHeader() {
                       key={group.label}
                       to={group.to!}
                       onClick={() => setMobileOpen(false)}
-                      className="py-2.5 text-sm font-semibold text-foreground/90 border-b border-border/40"
+                      className="py-3 px-3 text-sm font-semibold text-foreground/90 border-b border-border/40 rounded-lg hover:bg-surface"
                     >
                       {group.label}
                     </Link>
@@ -295,24 +304,24 @@ export function SiteHeader() {
                     <button
                       type="button"
                       onClick={() => toggleMobileGroup(group.label)}
-                      className="flex w-full items-center justify-between py-2 text-sm font-bold text-foreground"
+                      className="flex w-full items-center justify-between py-2.5 px-3 text-sm font-bold text-foreground rounded-lg hover:bg-surface"
                     >
                       <span>{group.label}</span>
                       <ChevronDown
-                        className={`h-4 w-4 transition-transform ${isExpanded ? "rotate-180 text-primary" : ""}`}
+                        className={`h-4 w-4 transition-transform duration-200 ${isExpanded ? "rotate-180 text-primary" : "text-muted-foreground"}`}
                       />
                     </button>
                     {isExpanded && (
-                      <div className="pl-3 pb-2 space-y-1.5 border-l-2 border-primary/40 my-1">
+                      <div className="pl-4 pr-2 pb-2 space-y-1 border-l-2 border-primary/40 my-1 ml-3">
                         {group.items!.map((item) => (
                           <Link
                             key={item.title}
                             to={item.to}
                             onClick={() => setMobileOpen(false)}
-                            className="block py-1 text-xs text-muted-foreground hover:text-primary"
+                            className="block py-2 px-2 text-xs text-muted-foreground hover:text-primary rounded-md hover:bg-surface transition"
                           >
-                            <span className="font-semibold">{item.title}</span>
-                            {item.desc && <span className="block text-[10px] opacity-75">{item.desc}</span>}
+                            <span className="font-bold text-foreground block">{item.title}</span>
+                            {item.desc && <span className="block text-[10px] text-muted-foreground mt-0.5">{item.desc}</span>}
                           </Link>
                         ))}
                       </div>
@@ -321,20 +330,27 @@ export function SiteHeader() {
                 );
               })}
 
-              <div className="pt-3 space-y-2">
-                <Link
-                  to="/auth"
-                  onClick={() => setMobileOpen(false)}
-                  className="block py-2 text-sm font-bold text-foreground"
-                >
-                  Login / Sign Up
-                </Link>
-                <a
-                  href="tel:+918016081188"
-                  className="inline-flex items-center gap-2 text-sm font-bold text-primary"
-                >
-                  <Phone className="h-4 w-4" aria-hidden /> +91 80160 81188 (West Bengal)
-                </a>
+              <div className="pt-4 space-y-2.5">
+                <Button asChild className="w-full shadow-pink rounded-xl text-xs font-bold py-5">
+                  <Link to="/contact" onClick={() => setMobileOpen(false)}>
+                    Schedule a Consultation
+                  </Link>
+                </Button>
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <Link
+                    to="/auth"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center justify-center py-2.5 px-3 text-xs font-bold text-foreground bg-surface border border-border rounded-xl hover:bg-muted text-center"
+                  >
+                    Login / Register
+                  </Link>
+                  <a
+                    href="tel:+918016081188"
+                    className="flex items-center justify-center gap-1.5 py-2.5 px-3 text-xs font-bold text-primary bg-primary/10 border border-primary/20 rounded-xl hover:bg-primary hover:text-white transition text-center"
+                  >
+                    <Phone className="h-3.5 w-3.5" /> Call Sales
+                  </a>
+                </div>
               </div>
             </nav>
           </div>

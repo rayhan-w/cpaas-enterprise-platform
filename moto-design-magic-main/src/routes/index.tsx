@@ -203,31 +203,31 @@ function Home() {
           className="absolute inset-0 -z-10 bg-gradient-to-r from-navy-deep via-navy-deep/90 to-navy-deep/40"
         />
 
-        <div className="mx-auto flex max-w-7xl flex-col justify-center px-6 py-20 md:py-28">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/20 border border-primary/30 text-primary text-xs font-extrabold uppercase tracking-widest w-fit mb-6">
-            <ShieldCheck className="w-4 h-4" />
-            <span>Official Meta Business Partner &amp; DLT Compliant</span>
+        <div className="mx-auto flex max-w-7xl flex-col justify-center px-4 sm:px-6 py-16 sm:py-24 md:py-32">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 border border-primary/30 text-primary text-[11px] sm:text-xs font-extrabold uppercase tracking-widest w-fit mb-4 sm:mb-6">
+            <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span>Official Meta Partner &amp; DLT Compliant</span>
           </div>
 
-          <h1 className="max-w-3xl font-display text-4xl font-extrabold leading-[1.1] text-white md:text-6xl">
+          <h1 className="max-w-3xl font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.15] text-white">
             CPaaS Platform in India for Customer Engagement
           </h1>
 
-          <p className="mt-6 max-w-2xl text-base text-navy-foreground/80 md:text-lg leading-relaxed">
+          <p className="mt-4 sm:mt-6 max-w-2xl text-sm sm:text-base md:text-lg text-navy-foreground/80 leading-relaxed">
             Run DLT-compliant Bulk SMS, WhatsApp Business API, RCS, Voice and IVR from one platform with automation, APIs, reporting and support built for growing businesses.
           </p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-4">
+          <div className="mt-8 sm:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
             <Button
               size="lg"
               onClick={() => setIsConsultOpen(true)}
-              className="shadow-pink text-sm font-bold px-8 py-6 rounded-xl"
+              className="shadow-pink text-xs sm:text-sm font-bold px-7 py-5 sm:py-6 rounded-xl w-full sm:w-auto"
             >
               Request a Demo
             </Button>
             <a
               href="tel:+918016081188"
-              className="inline-flex items-center gap-3 px-6 py-3.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white font-bold text-sm transition"
+              className="inline-flex items-center justify-center gap-2.5 px-5 py-3 sm:py-3.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white font-bold text-xs sm:text-sm transition w-full sm:w-auto text-center"
             >
               <Phone className="w-4 h-4 text-primary" />
               <span>Talk to Expert (+91 80160 81188)</span>
@@ -236,26 +236,22 @@ function Home() {
           </div>
 
           {/* Accreditations & Verified Badges */}
-          <div className="mt-14 pt-8 border-t border-white/10 flex flex-wrap items-center gap-6 sm:gap-10 text-xs font-semibold text-navy-foreground/75">
-            <div className="flex items-center gap-2">
+          <div className="mt-10 sm:mt-14 pt-6 sm:pt-8 border-t border-white/10 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-6 lg:gap-8 text-[11px] sm:text-xs font-semibold text-navy-foreground/75">
+            <div className="flex items-center gap-1.5">
               <span className="text-yellow-400 font-extrabold text-sm">★★★★★</span>
-              <span><strong>4.8/5</strong> on Google Reviews</span>
+              <span><strong>4.8/5</strong> Google Reviews</span>
             </div>
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <div className="flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
               <span>TRAI DLT Compliant</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Award className="w-4 h-4 text-primary" />
+            <div className="flex items-center gap-1.5">
+              <Award className="w-4 h-4 text-primary shrink-0" />
               <span>ISO 9001:2018 Certified</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Building2 className="w-4 h-4 text-sky-400" />
+            <div className="flex items-center gap-1.5">
+              <Building2 className="w-4 h-4 text-sky-400 shrink-0" />
               <span>MSME Registered</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-yellow-400" />
-              <span>GeM Approved</span>
             </div>
           </div>
         </div>
