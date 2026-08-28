@@ -1,5 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Globe, Palette, Wallet, LayoutDashboard, PlugZap, Headset } from "lucide-react";
+import {
+  TrendingUp,
+  Code,
+  Palette,
+  FileText,
+  Sparkles,
+  Globe,
+  Wallet,
+  LayoutDashboard,
+  PlugZap,
+  Headset,
+  CheckCircle2,
+  Phone,
+  ArrowRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/site/PageHero";
 import { SectionHeading } from "@/components/site/SectionHeading";
@@ -8,24 +22,91 @@ import { CtaBand } from "@/components/site/CtaBand";
 export const Route = createFileRoute("/white-label")({
   head: () => ({
     meta: [
-      { title: "White-label Reseller Platform | Solvear" },
+      { title: "Digital Services & SaaS Solutions — SOLVEAR ADVERTISING" },
       {
         name: "description",
         content:
-          "Launch your own branded chatbot SaaS with Solvear's white-label reseller solution — custom domain, your pricing, add-on selling and a dedicated reseller dashboard.",
+          "Digital Marketing (SEO, PPC, SMM, Video), SaaS Development, UI/UX Design, Content Marketing, Graphics Design and White-label Reseller Platform.",
       },
-      { property: "og:title", content: "Solvear White-label — Build Your Own Chatbot SaaS" },
+      { property: "og:title", content: "Solvear Services & SaaS Solutions" },
       {
         property: "og:description",
-        content:
-          "Rebrand the entire platform, set your own pricing and resell without managing infrastructure.",
+        content: "High-performance digital marketing, bespoke custom software development and white-label CPaaS reseller infrastructure.",
       },
     ],
   }),
   component: WhiteLabel,
 });
 
-const BENEFITS = [
+const SERVICES = [
+  {
+    id: "digital-marketing",
+    icon: TrendingUp,
+    title: "Digital Marketing",
+    subtitle: "Grow Your Brand Online",
+    desc: "Data-backed performance marketing campaigns designed to generate high-intent customer inquiries and revenue.",
+    deliverables: [
+      "Search Engine Optimization (SEO) & Google Ranking",
+      "Social Media Marketing (SMM) across Meta, LinkedIn & Instagram",
+      "Google Paid Search (PPC) & High-ROI Display Campaigns",
+      "YouTube Video Marketing & Influencer Campaign Outreach",
+    ],
+  },
+  {
+    id: "saas",
+    icon: Code,
+    title: "SaaS & Custom Software Development",
+    subtitle: "Software as a Service",
+    desc: "Bespoke web applications, high-throughput cloud portals, and mobile apps built with modern React, Next.js, Node and microservices.",
+    deliverables: [
+      "Custom Enterprise Web Development & Portals",
+      "iOS and Android Native / Flutter Mobile App Development",
+      "Progressive Web Apps (PWA) with Offline Sync",
+      "Custom CRM, ERP, and API Integration Middleware",
+    ],
+  },
+  {
+    id: "ui-ux",
+    icon: Palette,
+    title: "UI/UX Design",
+    subtitle: "Intuitive, Modern & High-Conversion Interfaces",
+    desc: "Human-centric interface design that turns complex business workflows into seamless, delightful customer journeys.",
+    deliverables: [
+      "User research, persona mapping & UX wireframing",
+      "Figma design systems & interactive prototypes",
+      "Mobile app UX and responsive web application design",
+      "Usability audits and conversion rate optimization (CRO)",
+    ],
+  },
+  {
+    id: "content-marketing",
+    icon: FileText,
+    title: "Content Marketing",
+    subtitle: "Copywriting that Educates & Converts",
+    desc: "Compelling storytelling, SEO blog posts, high-converting ad copy, and automated email/WhatsApp newsletter sequences.",
+    deliverables: [
+      "High-ranking SEO content strategy & technical blog writing",
+      "Ad copywriting for Google Ads, Facebook & Instagram",
+      "WhatsApp & email sequence broadcast copy",
+      "Case studies, whitepapers & product documentation",
+    ],
+  },
+  {
+    id: "graphics-design",
+    icon: Sparkles,
+    title: "Graphics Design & Brand Identity",
+    subtitle: "Distinctive Visual Assets",
+    desc: "Establish an unforgettable brand presence with custom logos, social media creatives, banner ads, and print assets.",
+    deliverables: [
+      "Corporate brand identity, logo design & brand style guides",
+      "High-engagement social media creatives & promotional banners",
+      "Marketing pitch decks, brochures & trade-fair collateral",
+      "Custom vector illustrations & motion graphics assets",
+    ],
+  },
+];
+
+const RESELLER_BENEFITS = [
   { icon: Globe, title: "Your Own Domain", copy: "Run the platform on app.yourbrand.com with managed SSL and branded emails." },
   { icon: Palette, title: "Full Rebranding", copy: "Your logo, colours, favicon and login screen. Solvear stays invisible." },
   { icon: Wallet, title: "Your Pricing & Margins", copy: "Create plans, set prices per client and collect payments through your own gateway." },
@@ -34,75 +115,110 @@ const BENEFITS = [
   { icon: Headset, title: "Backend Support", copy: "We maintain infrastructure, uptime and API updates while you own the customer." },
 ];
 
-const STEPS = [
-  { n: "01", title: "Pick your tier", copy: "Choose sub-account volume and the add-ons you want to resell." },
-  { n: "02", title: "Brand the platform", copy: "Upload your identity, connect your domain and configure billing." },
-  { n: "03", title: "Set your pricing", copy: "Build plans with your own margins and trial rules." },
-  { n: "04", title: "Start onboarding", copy: "Create client workspaces in minutes and let automation do the rest." },
-];
-
 function WhiteLabel() {
   return (
     <>
       <PageHero
-        eyebrow="White-label"
-        title="Build your own brand on a platform that's ready to resell"
-        description="Fully customisable, scalable and production-ready. Launch a chatbot SaaS business without worrying about infrastructure or maintenance."
+        eyebrow="Services & SaaS"
+        title="Comprehensive digital marketing, bespoke software & reseller solutions"
+        description="From performance marketing to custom software engineering and turnkey white-label CPaaS infrastructure."
       >
-        <div className="flex flex-wrap gap-3">
-          <Button asChild size="lg" className="shadow-pink">
-            <Link to="/contact">Become a Reseller</Link>
+        <div className="flex flex-wrap items-center gap-3">
+          <Button asChild size="lg" className="shadow-pink font-bold rounded-xl">
+            <Link to="/contact">Discuss a Project</Link>
           </Button>
-          <Button asChild size="lg" variant="outline" className="border-navy-foreground/30 bg-transparent text-navy-foreground hover:bg-navy-foreground/10 hover:text-navy-foreground">
-            <Link to="/pricing">See Reseller Pricing</Link>
-          </Button>
+          <a
+            href="tel:+918016081188"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-border bg-surface hover:bg-muted font-bold text-xs transition"
+          >
+            <Phone className="w-4 h-4 text-primary" />
+            <span>Call +91 80160 81188 (West Bengal)</span>
+          </a>
         </div>
       </PageHero>
 
-      <section className="section-y">
-        <div className="mx-auto max-w-7xl px-6">
+      {/* 5 Core Digital Services */}
+      <section className="section-y bg-background">
+        <div className="mx-auto max-w-7xl px-6 space-y-12">
           <SectionHeading
-            eyebrow="What you get"
-            title="Everything rebranded, nothing rebuilt"
-            description="A complete SaaS product under your name, with the operational load handled for you."
+            eyebrow="Core Services"
+            title="Digital Services Delivered by SOLVEAR ADVERTISING"
+            description="Our specialized creative, engineering, and marketing wings help businesses scale online."
           />
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {BENEFITS.map((b) => (
-              <article key={b.title} className="rounded-xl border border-border bg-card p-7">
-                <b.icon className="h-7 w-7 text-primary" aria-hidden />
-                <h3 className="mt-5 font-display text-lg font-bold">{b.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{b.copy}</p>
+
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
+            {SERVICES.map((s) => (
+              <article
+                key={s.id}
+                id={s.id}
+                className="scroll-mt-28 rounded-3xl border border-border bg-card p-8 shadow-sm transition-all hover:border-primary/40 hover:shadow-elevated flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center gap-3.5">
+                    <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/15 text-primary">
+                      <s.icon className="h-6 w-6" aria-hidden />
+                    </span>
+                    <div>
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-primary">
+                        {s.subtitle}
+                      </span>
+                      <h2 className="font-display text-2xl font-extrabold text-foreground">{s.title}</h2>
+                    </div>
+                  </div>
+
+                  <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+
+                  <div className="mt-6 pt-5 border-t border-border space-y-2.5">
+                    {s.deliverables.map((d) => (
+                      <div key={d} className="flex items-start gap-2.5 text-xs font-semibold text-foreground/85">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" aria-hidden />
+                        <span>{d}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-4 border-t border-border flex items-center justify-between">
+                  <Button asChild size="sm" className="shadow-pink text-xs font-bold rounded-xl">
+                    <Link to="/contact">Inquire for {s.title}</Link>
+                  </Button>
+                  <Link
+                    to="/contact"
+                    className="text-xs font-bold text-primary hover:underline inline-flex items-center gap-1"
+                  >
+                    <span>Request Proposal</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-navy text-navy-foreground section-y">
+      {/* White-label Reseller Hub */}
+      <section className="bg-surface section-y">
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeading
-            inverted
-            eyebrow="How it works"
-            title="Live in weeks, not quarters"
+            eyebrow="Reseller Hub"
+            title="White-label CPaaS & Chatbot Reseller Solution"
+            description="A complete SaaS platform under your own brand, with infrastructure and carrier routing managed for you."
           />
-          <ol className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {STEPS.map((s) => (
-              <li
-                key={s.n}
-                className="rounded-xl border border-navy-foreground/15 bg-navy-deep/40 p-7"
-              >
-                <span className="font-display text-3xl font-bold text-primary">{s.n}</span>
-                <h3 className="mt-4 font-display text-lg font-bold">{s.title}</h3>
-                <p className="mt-2 text-sm text-navy-foreground/70">{s.copy}</p>
-              </li>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {RESELLER_BENEFITS.map((b) => (
+              <article key={b.title} className="rounded-2xl border border-border bg-card p-7">
+                <b.icon className="h-7 w-7 text-primary" aria-hidden />
+                <h3 className="mt-5 font-display text-lg font-bold text-foreground">{b.title}</h3>
+                <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{b.copy}</p>
+              </article>
             ))}
-          </ol>
+          </div>
         </div>
       </section>
 
       <CtaBand
-        title="Own the brand. We'll run the platform."
-        description="Talk to our partnerships team about white-label volumes, margins and onboarding support."
+        title="Ready to partner with SOLVEAR ADVERTISING?"
+        description="Speak with our solutions director to discuss service retainers or custom platform licensing."
       />
     </>
   );

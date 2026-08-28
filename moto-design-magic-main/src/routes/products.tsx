@@ -1,13 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   MessageCircle,
-  Facebook,
-  Instagram,
-  Send,
-  Globe,
-  Phone,
-  MessageSquare,
+  Radio,
+  PhoneCall,
+  Bot,
+  Building2,
+  Headset,
   Check,
+  Zap,
+  ArrowRight,
+  ShieldCheck,
+  Send,
+  MessageSquare,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/site/PageHero";
@@ -16,64 +20,113 @@ import { CtaBand } from "@/components/site/CtaBand";
 export const Route = createFileRoute("/products")({
   head: () => ({
     meta: [
-      { title: "Products — WhatsApp API, SMS, Voice & Social | Solvear" },
+      { title: "Products & Messaging Solutions — Solvear CPaaS" },
       {
         name: "description",
         content:
-          "WhatsApp Business API, Bulk SMS, RCS, Voice & IVR, Messenger, Instagram, Telegram and Webchat — every Solvear channel product in one place.",
+          "Explore Bulk SMS, RCS, WhatsApp Business API, Voice Call, IVR, Cloud BPO and Contact Center solutions built for high-growth enterprises.",
       },
-      { property: "og:title", content: "Solvear Products — Messaging Channels for Business" },
+      { property: "og:title", content: "Solvear Products — CPaaS Messaging Suite" },
       {
         property: "og:description",
-        content: "Explore every Solvear channel: WhatsApp API, SMS, Voice, Instagram and more.",
+        content: "Explore every Solvear channel: Bulk SMS, RCS, WhatsApp API, Voice, IVR and Contact Center.",
       },
     ],
   }),
   component: Products,
 });
 
-const PRODUCTS = [
+const ALL_PRODUCTS = [
   {
-    icon: MessageCircle,
-    name: "WhatsApp Business API",
-    copy: "Official Meta-approved API with verified business profile, template management and unlimited agents.",
-    points: ["Green tick verification", "Template & broadcast manager", "Catalog and payments", "99.9% delivery uptime"],
-  },
-  {
+    id: "bulk-sms",
     icon: MessageSquare,
     name: "Bulk SMS",
-    copy: "High-throughput transactional and promotional SMS with sender ID management and compliance built in.",
-    points: ["OTP routes with fallback", "DLT / regulator compliant", "Unicode & long SMS", "Real-time DLR reports"],
+    tagline: "Reach Thousands in Seconds",
+    copy: "High-throughput DLT-compliant transactional, promotional, and OTP SMS delivery across all major Indian telecom operators with 99.9% uptime.",
+    points: [
+      "Instant OTP delivery with intelligent fallback routing",
+      "DLT registration & sender ID template approval support",
+      "Unicode, regional languages & long SMS support",
+      "Real-time DLR reports & delivery timestamp analytics",
+    ],
   },
   {
-    icon: Phone,
-    name: "Voice & IVR",
-    copy: "Outbound voice campaigns, click-to-call and multi-level IVR menus connected to your CRM.",
-    points: ["Multi-level IVR builder", "Call recording & logs", "Missed-call services", "Number masking"],
+    id: "rcs",
+    icon: Radio,
+    name: "RCS (Rich Communication Services)",
+    tagline: "Next-Gen Messaging Beyond SMS",
+    copy: "Deliver interactive carousels, action buttons, HD media cards, and verified checkmark branding directly inside default Android SMS inboxes without requiring WhatsApp.",
+    points: [
+      "Verified brand logo and verified sender name",
+      "Rich media carousels with 1-tap call-to-action buttons",
+      "Suggested reply chips and instant app deep-links",
+      "Real-time read receipts and click engagement tracking",
+    ],
   },
   {
-    icon: Facebook,
-    name: "Messenger",
-    copy: "Automate Facebook page inboxes, comment replies and lead-ad follow-ups without extra tooling.",
-    points: ["Comment-to-DM automation", "Persistent menus", "Lead ad sync", "Handover to agents"],
+    id: "whatsapp",
+    icon: MessageCircle,
+    name: "Business WhatsApp API",
+    tagline: "Official Meta Business Partner API",
+    copy: "Run high-converting broadcasts, drag-and-drop conversational chatbots, product catalogs, and 24/7 automated customer support over the world's most popular messaging app.",
+    points: [
+      "Green tick verified business badge approval",
+      "Automated WhatsApp bot builder with conditional logic",
+      "E-commerce catalog checkout & COD confirmation",
+      "Unlimited team agents in a unified shared inbox",
+    ],
   },
   {
-    icon: Instagram,
-    name: "Instagram DM",
-    copy: "Convert story replies, mentions and product questions into tracked conversations.",
-    points: ["Story reply triggers", "Quick replies & icebreakers", "Product tagging", "Unified inbox"],
+    id: "voice-call",
+    icon: PhoneCall,
+    name: "Voice Call Solutions",
+    tagline: "Connect Instantly with Just One Call",
+    copy: "Launch automated outbound voice broadcasts, click-to-call buttons for websites, number masking for delivery riders, and high-volume audio campaigns.",
+    points: [
+      "Text-to-speech & pre-recorded studio audio broadcasts",
+      "Click-to-call web widget for instant sales connection",
+      "Number masking to protect customer & agent privacy",
+      "Comprehensive call detail records (CDR) and audio logs",
+    ],
   },
   {
-    icon: Send,
-    name: "Telegram",
-    copy: "Run bots, channels and community selling flows alongside your other channels.",
-    points: ["Bot flow builder", "Channel broadcasts", "Group moderation", "Inline keyboards"],
+    id: "ivr",
+    icon: Bot,
+    name: "Interactive Voice Response (IVR)",
+    tagline: "Smart Automation for Smarter Conversations",
+    copy: "Build intelligent multi-level IVR menus (e.g. Press 1 for Sales, Press 2 for Support), route calls based on agent availability, and capture after-hours voicemail leads.",
+    points: [
+      "Visual drag-and-drop IVR call flow designer",
+      "Dynamic skill-based agent routing and queuing",
+      "Missed call alert & automated SMS/WhatsApp trigger",
+      "CRM webhook sync for incoming caller details",
+    ],
   },
   {
-    icon: Globe,
-    name: "Webchat Widget",
-    copy: "Drop a single script on your site and reuse the same bots, routing and inbox.",
-    points: ["Custom branding", "Offline capture", "Multilingual", "Visitor context"],
+    id: "cloud-bpo",
+    icon: Building2,
+    name: "Cloud BPO Solutions",
+    tagline: "Smart, Flexible & Cost-Effective Cloud BPO",
+    copy: "End-to-end cloud-hosted contact center and BPO infrastructure that scales seamlessly with zero on-premise hardware costs.",
+    points: [
+      "Work-from-anywhere browser-based agent softphones",
+      "Real-time live call monitoring, whispering & barging",
+      "Detailed agent productivity and resolution metrics",
+      "Custom SLA management and ticket escalation rules",
+    ],
+  },
+  {
+    id: "contact-center",
+    icon: Headset,
+    name: "Contact Center Solutions",
+    tagline: "Clear conversations. Faster resolutions.",
+    copy: "Unify voice, WhatsApp, SMS, webchat, and email support in one single screen so your support agents never lose customer context.",
+    points: [
+      "Omnichannel customer conversation timeline",
+      "AI-suggested replies and automated FAQ macros",
+      "Integrated CSAT and customer feedback surveys",
+      "Enterprise encryption and SOC2 / ISO compliance",
+    ],
   },
 ];
 
@@ -81,43 +134,82 @@ function Products() {
   return (
     <>
       <PageHero
-        eyebrow="Products"
+        eyebrow="Products Suite"
         title="Every messaging channel your customers actually use"
-        description="Start with one channel or run them all. Same bots, same inbox, same reporting — no duplicated work."
+        description="Start with one channel or run them all. Same bots, same inbox, same reporting — built for modern Indian businesses."
       >
-        <Button asChild size="lg" className="shadow-pink">
-          <Link to="/contact">Talk to an Expert</Link>
-        </Button>
+        <div className="flex flex-wrap items-center gap-3">
+          <Button asChild size="lg" className="shadow-pink font-bold rounded-xl">
+            <Link to="/contact">Talk to an Expert</Link>
+          </Button>
+          <a
+            href="tel:+918016081188"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-border bg-surface hover:bg-muted font-bold text-xs transition"
+          >
+            <PhoneCall className="w-4 h-4 text-primary" />
+            <span>Call +91 80160 81188</span>
+          </a>
+        </div>
       </PageHero>
 
-      <section className="section-y">
-        <div className="mx-auto grid max-w-7xl gap-6 px-6 md:grid-cols-2">
-          {PRODUCTS.map((p) => (
-            <article
-              key={p.name}
-              className="rounded-xl border border-border bg-card p-8 transition-shadow hover:shadow-elevated"
-            >
-              <span className="grid h-12 w-12 place-items-center rounded-lg bg-accent text-primary">
-                <p.icon className="h-6 w-6" aria-hidden />
-              </span>
-              <h2 className="mt-5 font-display text-xl font-bold">{p.name}</h2>
-              <p className="mt-2 text-sm text-muted-foreground">{p.copy}</p>
-              <ul className="mt-5 grid gap-2 sm:grid-cols-2">
-                {p.points.map((pt) => (
-                  <li key={pt} className="flex items-start gap-2 text-sm text-foreground/80">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden />
-                    {pt}
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
+      <section className="section-y bg-background">
+        <div className="mx-auto max-w-7xl px-6 space-y-12">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
+            {ALL_PRODUCTS.map((p) => (
+              <article
+                key={p.id}
+                id={p.id}
+                className="scroll-mt-28 rounded-3xl border border-border bg-card p-8 shadow-sm transition-all hover:border-primary/40 hover:shadow-elevated flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/15 text-primary">
+                      <p.icon className="h-6 w-6" aria-hidden />
+                    </span>
+                    <div>
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-primary">
+                        {p.tagline}
+                      </span>
+                      <h2 className="font-display text-2xl font-extrabold text-foreground">{p.name}</h2>
+                    </div>
+                  </div>
+
+                  <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{p.copy}</p>
+
+                  <div className="mt-6 pt-5 border-t border-border space-y-2.5">
+                    {p.points.map((pt) => (
+                      <div key={pt} className="flex items-start gap-2.5 text-xs font-semibold text-foreground/85">
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden />
+                        <span>{pt}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-4 border-t border-border flex items-center justify-between">
+                  <Button asChild size="sm" className="shadow-pink text-xs font-bold rounded-xl">
+                    <Link to="/contact">Get Started</Link>
+                  </Button>
+                  {p.id === "whatsapp" && (
+                    <Link
+                      to="/channels/$slug"
+                      params={{ slug: "whatsapp" }}
+                      className="text-xs font-bold text-primary hover:underline inline-flex items-center gap-1"
+                    >
+                      <span>Channel Guide</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
       <CtaBand
-        title="Not sure which channel to start with?"
-        description="Tell us about your customers and we'll map the fastest route to measurable results."
+        title="Ready to upgrade your customer engagement stack?"
+        description="Talk to our telecom and API specialists in West Bengal to configure your custom pricing."
       />
     </>
   );

@@ -44,45 +44,45 @@ const NAV_GROUPS: NavGroup[] = [
   {
     label: "Products",
     items: [
-      { title: "Bulk SMS", desc: "Reach Thousands in Seconds", to: "/products", icon: MessageSquare },
-      { title: "RCS", desc: "Next-Gen Messaging Beyond SMS", to: "/products", icon: Radio },
+      { title: "Bulk SMS", desc: "Reach Thousands in Seconds", to: "/products#bulk-sms", icon: MessageSquare },
+      { title: "RCS", desc: "Next-Gen Messaging Beyond SMS", to: "/products#rcs", icon: Radio },
       { title: "Business WhatsApp API", desc: "Official Meta Business Partner API", to: "/channels/whatsapp", icon: MessageCircle },
-      { title: "Voice Call", desc: "Connect Instantly with Just One Call", to: "/products", icon: PhoneCall },
-      { title: "IVR", desc: "Smart Automation For Smarter Conversations", to: "/products", icon: Bot },
-      { title: "Cloud BPO Solutions", desc: "Smart, Flexible & Cost-Effective Cloud BPO", to: "/products", icon: Building2 },
-      { title: "Contact Center", desc: "Clear conversations. Faster resolutions.", to: "/products", icon: Headset },
+      { title: "Voice Call", desc: "Connect Instantly with Just One Call", to: "/products#voice-call", icon: PhoneCall },
+      { title: "IVR", desc: "Smart Automation For Smarter Conversations", to: "/products#ivr", icon: Bot },
+      { title: "Cloud BPO Solutions", desc: "Smart, Flexible & Cost-Effective Cloud BPO", to: "/products#cloud-bpo", icon: Building2 },
+      { title: "Contact Center", desc: "Clear conversations. Faster resolutions.", to: "/products#contact-center", icon: Headset },
     ],
   },
   {
     label: "Solutions",
     items: [
-      { title: "Bank and Financial Services", to: "/features" },
-      { title: "E-commerce", to: "/features" },
-      { title: "Transport and logistics", to: "/features" },
-      { title: "Healthcare", to: "/features" },
-      { title: "Education", to: "/features" },
-      { title: "Travel and Tourism", to: "/features" },
-      { title: "Real Estate", to: "/features" },
-      { title: "Government", to: "/features" },
+      { title: "Bank and Financial Services", to: "/features#banking" },
+      { title: "E-commerce", to: "/features#ecommerce" },
+      { title: "Transport and logistics", to: "/features#transport" },
+      { title: "Healthcare", to: "/features#healthcare" },
+      { title: "Education", to: "/features#education" },
+      { title: "Travel and Tourism", to: "/features#travel" },
+      { title: "Real Estate", to: "/features#real-estate" },
+      { title: "Government", to: "/features#government" },
     ],
   },
   {
     label: "Company",
     items: [
-      { title: "About (With Our Journey)", to: "/about" },
-      { title: "Leadership", to: "/about" },
-      { title: "Newsroom", to: "/about" },
-      { title: "Careers", to: "/about" },
+      { title: "About (With Our Journey)", to: "/about#journey" },
+      { title: "Leadership", to: "/about#leadership" },
+      { title: "Newsroom", to: "/about#newsroom" },
+      { title: "Careers", to: "/about#careers" },
     ],
   },
   {
     label: "Services",
     items: [
-      { title: "Digital Marketing", desc: "Grow Your Brand Online", to: "/white-label", icon: TrendingUp },
-      { title: "SaaS", desc: "Software as a Service", to: "/white-label", icon: Code },
-      { title: "UI/UX Design", to: "/white-label", icon: Palette },
-      { title: "Content Marketing", to: "/white-label", icon: FileText },
-      { title: "Graphics Design", to: "/white-label", icon: Sparkles },
+      { title: "Digital Marketing", desc: "Grow Your Brand Online", to: "/white-label#digital-marketing", icon: TrendingUp },
+      { title: "SaaS", desc: "Software as a Service", to: "/white-label#saas", icon: Code },
+      { title: "UI/UX Design", to: "/white-label#ui-ux", icon: Palette },
+      { title: "Content Marketing", to: "/white-label#content-marketing", icon: FileText },
+      { title: "Graphics Design", to: "/white-label#graphics-design", icon: Sparkles },
     ],
   },
   { label: "Integrations", to: "/integrations" },
@@ -214,11 +214,14 @@ export function SiteHeader() {
                       <div className="w-72 sm:w-80 rounded-2xl border border-border bg-card/98 p-2.5 shadow-2xl backdrop-blur-md">
                         <div className="space-y-1">
                           {group.items!.map((item) => (
-                            <Link
+                            <a
                               key={item.title}
-                              to={item.to}
-                              onClick={() => setActiveDropdown(null)}
-                              className="group flex flex-col rounded-xl px-3.5 py-2.5 text-left transition-all hover:bg-surface"
+                              href={item.to}
+                              onClick={() => {
+                                setActiveDropdown(null);
+                                setMobileOpen(false);
+                              }}
+                              className="group flex flex-col rounded-xl px-3.5 py-2.5 text-left transition-all hover:bg-surface cursor-pointer"
                             >
                               <span className="text-xs font-bold text-foreground group-hover:text-primary transition-colors">
                                 {item.title}
@@ -228,7 +231,7 @@ export function SiteHeader() {
                                   {item.desc}
                                 </span>
                               )}
-                            </Link>
+                            </a>
                           ))}
                         </div>
                       </div>
@@ -314,15 +317,15 @@ export function SiteHeader() {
                     {isExpanded && (
                       <div className="pl-4 pr-2 pb-2 space-y-1 border-l-2 border-primary/40 my-1 ml-3">
                         {group.items!.map((item) => (
-                          <Link
+                          <a
                             key={item.title}
-                            to={item.to}
+                            href={item.to}
                             onClick={() => setMobileOpen(false)}
-                            className="block py-2 px-2 text-xs text-muted-foreground hover:text-primary rounded-md hover:bg-surface transition"
+                            className="block py-2 px-2 text-xs text-muted-foreground hover:text-primary rounded-md hover:bg-surface transition cursor-pointer"
                           >
                             <span className="font-bold text-foreground block">{item.title}</span>
                             {item.desc && <span className="block text-[10px] text-muted-foreground mt-0.5">{item.desc}</span>}
-                          </Link>
+                          </a>
                         ))}
                       </div>
                     )}
