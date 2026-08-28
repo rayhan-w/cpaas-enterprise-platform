@@ -118,7 +118,7 @@ export function SiteHeader() {
             <Headphones className="h-4 w-4 text-primary" aria-hidden />
             <span className="font-semibold">Talk to Sales:</span>
             <a href="tel:+918016081188" className="hover:text-primary font-bold transition">
-              +91 80160 81188
+              +91 80160 81188 (West Bengal)
             </a>
           </p>
           <nav aria-label="Utility" className="flex items-center gap-4 font-semibold">
@@ -310,7 +310,7 @@ export function SiteHeader() {
                   href="tel:+918016081188"
                   className="inline-flex items-center gap-2 text-sm font-bold text-primary"
                 >
-                  <Phone className="h-4 w-4" aria-hidden /> +91 80160 81188
+                  <Phone className="h-4 w-4" aria-hidden /> +91 80160 81188 (West Bengal)
                 </a>
               </div>
             </nav>

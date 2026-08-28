@@ -13,6 +13,9 @@ export function SiteFooter() {
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
             <Logo className="text-white" />
+            <p className="text-xs font-semibold text-primary">
+              A unit of SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED
+            </p>
             <p className="max-w-sm text-sm text-navy-foreground/70 leading-relaxed font-normal">
               Solvear is an all-in-one multi-channel WhatsApp marketing, chatbot automation and CPaaS platform. Built for businesses, eCommerce stores and white-label agencies.
             </p>
@@ -24,8 +27,12 @@ export function SiteFooter() {
               <p className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-primary" aria-hidden />
                 <a href="tel:+918016081188" className="hover:text-primary font-bold">
-                  +91 80160 81188
+                  +91 80160 81188 (West Bengal)
                 </a>
+              </p>
+              <p className="flex items-start gap-2">
+                <ShieldCheck className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                <span>Maynaguri, Jalpaiguri, West Bengal, 735302 - India</span>
               </p>
             </div>
           </div>
@@ -135,7 +142,7 @@ export function SiteFooter() {
 
         {/* Bottom Strip */}
         <div className="mt-14 border-t border-navy-soft pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-navy-foreground/60">
-          <p>© {new Date().getFullYear()} Solvear.in. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED. All rights reserved.</p>
           <div className="flex items-center space-x-4">
             <span className="flex items-center space-x-1.5 text-emerald-400 font-bold">
               <ShieldCheck className="w-4 h-4" />

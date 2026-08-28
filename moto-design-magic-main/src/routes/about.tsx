@@ -72,11 +72,7 @@ function About() {
               description="Solvear API offers bulk message broadcasting, abandoned cart recovery, COD verification, appointment scheduling, sequence messaging, user input flows and a drag-and-drop chatbot builder — across WhatsApp, Messenger, Instagram, Telegram and WebChat, all managed from a unified Shared Inbox."
             />
             <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-              Powered by OpenAI and Gemini with flexible AI Tokens, Solvear delivers human-like
-              conversations and intelligent automation at scale. And for agencies and
-              entrepreneurs, our white-label reseller solution lets you rebrand the entire
-              platform as your own — custom domains, flexible pricing controls, add-on selling
-              and a dedicated reseller dashboard to launch your own chatbot SaaS business.
+              Operated under <strong>SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED</strong> (Registered Office: Maynaguri, Jalpaiguri, West Bengal, 735302 - India), Solvear delivers human-like conversations and intelligent automation at scale. And for agencies and entrepreneurs, our white-label reseller solution lets you rebrand the entire platform as your own — custom domains, flexible pricing controls, add-on selling and a dedicated reseller dashboard.
             </p>
           </div>
         </div>

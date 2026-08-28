@@ -39,15 +39,18 @@ export function SiteFooter() {
           <span className="font-display text-2xl font-bold">
             Solvear<span className="text-primary">.</span>
           </span>
+          <p className="text-xs font-semibold text-primary mt-1">
+            A unit of SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED
+          </p>
           <p className="mt-4 max-w-sm text-sm text-navy-foreground/70">
-            Conversations that convert. Run WhatsApp, SMS, Instagram, Messenger, Telegram and
-            Webchat from a single automation platform built for growing businesses.
+            Conversations that convert. Run WhatsApp, SMS, RCS, Voice, IVR and
+            Social DMs from a single customer engagement platform built for growing businesses.
           </p>
           <ul className="mt-6 space-y-3 text-sm text-navy-foreground/80">
             <li className="flex items-center gap-3">
               <Phone className="h-4 w-4 text-primary" aria-hidden />
               <a href="tel:+918016081188" className="hover:text-primary font-bold">
-                +91 80160 81188
+                +91 80160 81188 (West Bengal)
               </a>
             </li>
             <li className="flex items-center gap-3">
@@ -57,8 +60,8 @@ export function SiteFooter() {
               </a>
             </li>
             <li className="flex items-start gap-3">
-              <MapPin className="mt-0.5 h-4 w-4 text-primary" aria-hidden />
-              <span>Level 7, Banani Trade Centre, Dhaka 1213</span>
+              <MapPin className="mt-0.5 h-4 w-4 text-primary shrink-0" aria-hidden />
+              <span>Maynaguri, Jalpaiguri, West Bengal, 735302 - India</span>
             </li>
           </ul>
         </div>
@@ -82,9 +85,9 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-navy-foreground/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-5 text-xs text-navy-foreground/60 sm:flex-row">
-          <p>© {new Date().getFullYear()} Solvear Technologies. All rights reserved.</p>
-          <p>ISO 27001 aligned · DLT & Meta Business compliant</p>
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 text-xs text-navy-foreground/60 sm:flex-row">
+          <p>© {new Date().getFullYear()} SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED. All rights reserved.</p>
+          <p>ISO 9001:2018 Certified · MSME Registered · TRAI DLT Compliant</p>
         </div>
       </div>
     </footer>

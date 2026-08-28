@@ -31,18 +31,18 @@ const CARDS = [
   {
     icon: Phone,
     title: "Talk to Sales",
-    lines: ["+91 80160 81188 (Direct / WhatsApp)", "Monday – Saturday: 9am – 8pm IST"],
+    lines: ["+91 80160 81188 (West Bengal)", "Monday – Saturday: 9am – 8pm IST"],
   },
   { icon: Mail, title: "Email Us", lines: ["hello@solvear.io", "support@solvear.io"] },
   {
     icon: MessageCircle,
     title: "WhatsApp",
-    lines: ["Chat with the platform itself", "Average reply under 3 minutes"],
+    lines: ["Chat with the platform itself (+91 80160 81188)", "Average reply under 3 minutes"],
   },
   {
     icon: MapPin,
-    title: "Head Office",
-    lines: ["Level 7, Banani Trade Centre", "Dhaka 1213, Bangladesh"],
+    title: "Registered Office",
+    lines: ["SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED", "Maynaguri, Jalpaiguri, West Bengal, 735302 - India"],
   },
 ];
 
