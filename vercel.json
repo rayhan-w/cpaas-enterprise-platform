@@ -1,15 +1,11 @@
 {
-  "version": 2,
-  "builds": [
+  "buildCommand": "cd moto-design-magic-main && npm install && npm run build",
+  "outputDirectory": "moto-design-magic-main/dist/client",
+  "framework": "vite",
+  "rewrites": [
     {
-      "src": "apps/chatbot/server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "apps/chatbot/server.js"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
