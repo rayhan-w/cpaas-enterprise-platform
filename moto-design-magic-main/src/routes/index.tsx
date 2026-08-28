@@ -7,6 +7,8 @@ import {
   Inbox,
   ListOrdered,
   MessageCircle,
+  Radio,
+  PhoneCall,
   Send,
   ShoppingCart,
   Sparkles,
@@ -16,6 +18,17 @@ import {
   ShieldCheck,
   Zap,
   Users,
+  Building2,
+  Headset,
+  CheckCircle2,
+  TrendingUp,
+  Award,
+  Phone,
+  Check,
+  Layers,
+  ChevronRight,
+  X,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/site/SectionHeading";
@@ -29,13 +42,13 @@ import platformImg from "@/assets/platform.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Solvear — Turn WhatsApp Into Your #1 Sales Channel" },
+      { title: "Solvear — CPaaS Platform in India for Customer Engagement" },
       {
         name: "description",
         content:
-          "Chat, sell and scale with AI across WhatsApp, Messenger, Instagram, Telegram and Webchat. Broadcasts, commerce, shared inbox and white-label reseller tools.",
+          "Run DLT-compliant Bulk SMS, WhatsApp Business API, RCS, Voice and IVR from one platform with automation, APIs, reporting and support built for growing businesses.",
       },
-      { property: "og:title", content: "Solvear — Turn WhatsApp Into Your #1 Sales Channel" },
+      { property: "og:title", content: "Solvear — CPaaS Platform in India for Customer Engagement" },
       {
         property: "og:description",
         content:
@@ -46,117 +59,383 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-
-
-
-const CAPABILITIES = [
-  { icon: Zap, title: "Broadcasting — 80%+ Open Rates", copy: "Personalized bulk broadcasts for offers, product updates, newsletters, event invites and alerts." },
-  { icon: Bot, title: "Drag & Drop Chatbot Builder", copy: "Build multi-step flows with conditions, inputs and HTTP API calls — no code required." },
-  { icon: Inbox, title: "Omni-Channel Shared Inbox", copy: "WhatsApp, Messenger, Instagram, Telegram and WebChat in one dashboard — plus Android, iOS and desktop apps." },
-  { icon: Sparkles, title: "AI Assistant (OpenAI & Gemini)", copy: "Train AI on your FAQs, documents and website for human-like, intent-aware replies." },
-  { icon: ListOrdered, title: "Sequence (Drip) Messaging", copy: "Time-based message sequences for onboarding, promotions, reminders and re-engagement." },
-  { icon: ShoppingCart, title: "Shopify & WooCommerce Automation", copy: "Order notifications, COD confirmation and abandoned cart recovery over WhatsApp." },
-];
-
-const STATS = [
-  { value: "310K+", label: "Users on the platform" },
-  { value: "80%+", label: "Broadcast open rates" },
-  { value: "5", label: "Channels in one inbox" },
-  { value: "50+", label: "Built-in integrations" },
-];
-
-const BADGES = ["OpenAI & Gemini Powered", "WhatsApp Business API", "White-Label Ready", "No-Code Builder", "310K+ Users"];
-
-const TESTIMONIALS = [
+const CHALLENGES = [
   {
-    quote:
-      "The Solvear API has completely transformed the way we handle complex problem-solving tasks. Integration was smooth, and the documentation made it super easy to get started. Our workflows are now faster and more accurate!",
-    name: "Verified Customer",
-    role: "Solvear API user",
+    id: "deliverability",
+    title: "Poor SMS Delivery and Visibility",
+    badge: "Deliverability",
+    desc: "Improve delivery with DLT-ready routing, approved templates, sender setup and real-time DLR reporting. Track message performance clearly for OTPs, alerts, reminders and promotional traffic.",
+    points: ["99.9% Delivery Guarantee", "Instant OTP Fallback Routing", "DLT & TRAI Compliant"],
   },
   {
-    quote:
-      "I love how scalable the Solvear API is. Whether handling small or large datasets, it performs flawlessly. The support team is also incredibly responsive whenever I have questions.",
-    name: "Verified Customer",
-    role: "Solvear API user",
+    id: "direct-reach",
+    title: "No Reliable Owned Channel for Customer Reach",
+    badge: "Direct Reach",
+    desc: "Use the WhatsApp Business API and RCS to reach customers on channels they already check daily. Automate follow-ups, support responses, and notifications without losing context.",
+    points: ["80%+ Open Rates", "Verified Green Tick Profile", "Interactive Catalogs & Flows"],
   },
   {
-    quote:
-      "Solvear API is a game-changer for developers. The powerful features and easy-to-use endpoints saved us weeks of development time. Highly recommend for anyone looking to enhance their applications.",
-    name: "Verified Customer",
-    role: "Solvear API user",
+    id: "integration-friction",
+    title: "Slow Onboarding and Integration Delays",
+    badge: "Integration Friction",
+    desc: "Launch faster with REST APIs, webhooks, and 50+ pre-built connectors for Shopify, WooCommerce, CRMs, and payment gateways. Reduce developer overhead to zero.",
+    points: ["Plug & Play Webhooks", "Swagger & Postman Ready", "Node, Python, PHP SDKs"],
+  },
+  {
+    id: "vendor-sprawl",
+    title: "Too Many Tools, Vendors and Dashboards",
+    badge: "Vendor Sprawl",
+    desc: "Manage WhatsApp, SMS, RCS, Voice, and Social DMs from one unified omnichannel dashboard. Reduce vendor sprawl, cut licensing fees, and hold one accountable team.",
+    points: ["1 Shared Unified Inbox", "Custom White-Label Branding", "Single Unified Billing"],
   },
 ];
+
+const CPaaS_SERVICES = [
+  {
+    icon: MessageSquare,
+    title: "DLT-Compliant Bulk SMS Platform",
+    subtitle: "Send OTPs, alerts, reminders and promotions with high delivery control",
+    desc: "Run high-throughput SMS campaigns with DLT-ready workflows, sender ID approvals, long Unicode messages and live DLR logs.",
+    link: "/products",
+  },
+  {
+    icon: MessageCircle,
+    title: "WhatsApp Business API Platform",
+    subtitle: "Automate customer conversations, notifications and lead follow-ups",
+    desc: "Broadcast templates, handle interactive chatbots, send order tracking updates, and manage live chats across your entire sales team.",
+    link: "/channels/whatsapp",
+  },
+  {
+    icon: PhoneCall,
+    title: "Voice, IVR and Contact Center Solutions",
+    subtitle: "Handle enquiries, support and notifications across voice channels",
+    desc: "Launch multi-level IVR menus, outbound voice broadcasts, number masking, and missed-call lead capture without adding headcount.",
+    link: "/products",
+  },
+  {
+    icon: Radio,
+    title: "RCS Business Messaging",
+    subtitle: "Next-gen rich media messaging beyond traditional SMS",
+    desc: "Deliver interactive carousels, action buttons, HD media cards, and verified sender branding directly inside the default Android SMS inbox.",
+    link: "/products",
+  },
+  {
+    icon: Building2,
+    title: "Cloud BPO & Contact Center",
+    subtitle: "Smart, flexible and cost-effective customer support infrastructure",
+    desc: "Equip support teams with omnichannel routing, real-time agent analytics, call recording, and SLA management.",
+    link: "/products",
+  },
+  {
+    icon: TrendingUp,
+    title: "Digital Marketing & Performance SaaS",
+    subtitle: "SEO, PPC, Social Media & Custom Web Development",
+    desc: "Scale your revenue pipeline with Google Ads, Meta Paid Search, SEO, and bespoke web and mobile applications.",
+    link: "/white-label",
+  },
+];
+
+const INDUSTRIES = [
+  { name: "Banking & FinTech", desc: "Secure 2FA OTPs, account balance alerts & loan updates" },
+  { name: "E-commerce & Retail", desc: "COD confirmation, abandoned cart recovery & dispatch alerts" },
+  { name: "Healthcare", desc: "Doctor appointments, diagnostic reports & prescription reminders" },
+  { name: "Education & EdTech", desc: "Admission announcements, fee notices & exam alerts" },
+  { name: "Logistics & Transport", desc: "Real-time shipment tracking, rider notifications & OTP delivery" },
+  { name: "Travel & Tourism", desc: "Booking confirmations, boarding passes & itinerary updates" },
+  { name: "Real Estate", desc: "Instant buyer lead qualification & scheduled site visits" },
+  { name: "Government & Public", desc: "Public announcements, citizen utility alerts & scheme updates" },
+];
+
+function MessageSquare(props: any) {
+  return <MessageCircle {...props} />;
+}
 
 function Home() {
+  const [activeChallenge, setActiveChallenge] = useState(CHALLENGES[0].id);
+  const [isConsultOpen, setIsConsultOpen] = useState(false);
+  const [consultSubmitted, setConsultSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [consultForm, setConsultForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    city: "",
+    company: "",
+    service: "Business WhatsApp API",
+  });
+
+  const handleConsultSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setConsultSubmitted(true);
+      setTimeout(() => {
+        setIsConsultOpen(false);
+        setConsultSubmitted(false);
+        setConsultForm({ name: "", email: "", phone: "", city: "", company: "", service: "Business WhatsApp API" });
+      }, 2000);
+    }, 800);
+  };
+
+  const selectedChallengeData = CHALLENGES.find((c) => c.id === activeChallenge) || CHALLENGES[0];
+
   return (
     <>
+      {/* 1. Top Limited-Time Promo Strip */}
+      <div className="bg-primary/95 text-white py-2 px-4 text-center text-xs font-bold tracking-wide flex items-center justify-center gap-2">
+        <Sparkles className="w-4 h-4 text-yellow-300" />
+        <span>Save <strong className="text-yellow-300 underline font-black">50% for 12 months</strong> — limited-time enterprise offer. Talk to sales today.</span>
+      </div>
+
+      {/* 2. Hero Section with Video/Image Banner */}
       <section className="relative isolate min-h-[620px] overflow-hidden bg-navy-deep text-navy-foreground">
         <img
           src={heroImg}
-          alt="Business professional messaging customers on a smartphone outside a modern office"
+          alt="CPaaS Platform in India for Customer Engagement"
           width={1920}
           height={1088}
-          className="absolute inset-0 -z-20 h-full w-full object-cover object-right"
+          className="absolute inset-0 -z-20 h-full w-full object-cover object-right opacity-40"
         />
         <div
           aria-hidden
-          className="absolute inset-0 -z-10 bg-gradient-to-r from-navy-deep via-navy-deep/85 to-navy-deep/20"
+          className="absolute inset-0 -z-10 bg-gradient-to-r from-navy-deep via-navy-deep/90 to-navy-deep/40"
         />
-        <div className="mx-auto flex max-w-7xl flex-col justify-center px-6 py-24 md:py-32">
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-primary">
-            Multi-channel CPaaS platform
-          </p>
-          <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-[1.1] md:text-6xl">
-            Turn WhatsApp Into Your #1 Sales Channel
-          </h1>
-          <p className="mt-6 max-w-2xl text-base text-navy-foreground/80 md:text-lg">
-            Chat, sell and scale with AI across WhatsApp, Messenger, Instagram, Telegram and
-            Webchat — broadcasts, commerce, shared inbox and AI tokens in one platform built for
-            businesses, agencies and resellers.
-          </p>
-          <div className="mt-9 flex flex-wrap items-center gap-4">
-            <Button asChild size="lg" className="shadow-pink">
-              <Link to="/contact">Request a Demo</Link>
-            </Button>
-            <Link
-              to="/products"
-              className="group inline-flex items-center gap-3 text-sm font-semibold text-navy-foreground"
-            >
-              Explore Products
-              <span className="grid h-9 w-9 place-items-center rounded-full bg-primary transition-transform group-hover:translate-x-1">
-                <ArrowRight className="h-4 w-4 text-primary-foreground" aria-hidden />
-              </span>
-            </Link>
+
+        <div className="mx-auto flex max-w-7xl flex-col justify-center px-6 py-20 md:py-28">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/20 border border-primary/30 text-primary text-xs font-extrabold uppercase tracking-widest w-fit mb-6">
+            <ShieldCheck className="w-4 h-4" />
+            <span>Official Meta Business Partner &amp; DLT Compliant</span>
           </div>
 
-          <ul className="mt-14 flex flex-wrap gap-x-8 gap-y-3 text-xs font-semibold uppercase tracking-[0.14em] text-navy-foreground/60">
-            {BADGES.map((b) => (
-              <li key={b}>{b}</li>
-            ))}
-          </ul>
+          <h1 className="max-w-3xl font-display text-4xl font-extrabold leading-[1.1] text-white md:text-6xl">
+            CPaaS Platform in India for Customer Engagement
+          </h1>
+
+          <p className="mt-6 max-w-2xl text-base text-navy-foreground/80 md:text-lg leading-relaxed">
+            Run DLT-compliant Bulk SMS, WhatsApp Business API, RCS, Voice and IVR from one platform with automation, APIs, reporting and support built for growing businesses.
+          </p>
+
+          <div className="mt-9 flex flex-wrap items-center gap-4">
+            <Button
+              size="lg"
+              onClick={() => setIsConsultOpen(true)}
+              className="shadow-pink text-sm font-bold px-8 py-6 rounded-xl"
+            >
+              Request a Demo
+            </Button>
+            <a
+              href="tel:+918016081188"
+              className="inline-flex items-center gap-3 px-6 py-3.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white font-bold text-sm transition"
+            >
+              <Phone className="w-4 h-4 text-primary" />
+              <span>Talk to Expert (+91 80160 81188)</span>
+              <ArrowRight className="w-4 h-4 text-primary" />
+            </a>
+          </div>
+
+          {/* Accreditations & Verified Badges */}
+          <div className="mt-14 pt-8 border-t border-white/10 flex flex-wrap items-center gap-6 sm:gap-10 text-xs font-semibold text-navy-foreground/75">
+            <div className="flex items-center gap-2">
+              <span className="text-yellow-400 font-extrabold text-sm">★★★★★</span>
+              <span><strong>4.8/5</strong> on Google Reviews</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <span>TRAI DLT Compliant</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Award className="w-4 h-4 text-primary" />
+              <span>ISO 9001:2018 Certified</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Building2 className="w-4 h-4 text-sky-400" />
+              <span>MSME Registered</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Zap className="w-4 h-4 text-yellow-400" />
+              <span>GeM Approved</span>
+            </div>
+          </div>
         </div>
       </section>
 
+      {/* 3. Live Stats & Platform Counter */}
       <section className="border-b border-border bg-surface">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 px-6 py-12 lg:grid-cols-4">
-          {STATS.map((s) => (
+          {[
+            { value: "3,769+", label: "Projects Completed" },
+            { value: "768+", label: "Worldwide Clients" },
+            { value: "80%+", label: "WhatsApp Open Rates" },
+            { value: "99.99%", label: "Platform Delivery Uptime" },
+          ].map((s) => (
             <div key={s.label}>
               <p className="font-display text-3xl font-bold text-foreground md:text-4xl">
                 {s.value}
               </p>
-              <p className="mt-1 text-sm text-muted-foreground">{s.label}</p>
+              <p className="mt-1 text-xs sm:text-sm font-medium text-muted-foreground">{s.label}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="section-y">
+      {/* 4. Common Challenges We Help Solve (Interactive Tabbed Section) */}
+      <section className="section-y bg-background">
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeading
-            eyebrow="Channels"
-            title="Every conversation channel, one platform"
-            description="Reach customers where they already are and manage all of it from a single dashboard."
+            eyebrow="Challenges Solved"
+            title="Common Customer Communication Challenges We Help Solve"
+            description="Whether it's poor SMS delivery, lack of direct engagement, or scattered tools — Solvear solves the bottlenecks."
+          />
+
+          <div className="mt-12 grid gap-8 lg:grid-cols-12 items-center">
+            {/* Left Tabs List */}
+            <div className="lg:col-span-5 space-y-3">
+              {CHALLENGES.map((c) => {
+                const isActive = activeChallenge === c.id;
+                return (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => setActiveChallenge(c.id)}
+                    className={`w-full text-left p-5 rounded-2xl border transition-all duration-200 flex items-center justify-between ${
+                      isActive
+                        ? "border-primary bg-primary/10 shadow-pink"
+                        : "border-border bg-card hover:border-primary/40 hover:bg-surface"
+                    }`}
+                  >
+                    <div>
+                      <span className={`text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
+                        isActive ? "bg-primary text-white" : "bg-surface text-muted-foreground"
+                      }`}>
+                        {c.badge}
+                      </span>
+                      <h4 className={`mt-2 font-display text-sm font-bold ${
+                        isActive ? "text-primary" : "text-foreground"
+                      }`}>
+                        {c.title}
+                      </h4>
+                    </div>
+                    <ChevronRight className={`w-5 h-5 shrink-0 transition-transform ${
+                      isActive ? "translate-x-1 text-primary" : "text-muted-foreground"
+                    }`} />
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Right Active Details Card */}
+            <div className="lg:col-span-7 p-8 sm:p-10 rounded-3xl border border-border bg-card shadow-elevated space-y-6">
+              <div className="flex items-center gap-3">
+                <span className="px-3 py-1 rounded-full bg-primary/15 text-primary text-xs font-extrabold uppercase tracking-wider">
+                  {selectedChallengeData.badge}
+                </span>
+                <span className="text-xs text-muted-foreground font-semibold">Verified Solution</span>
+              </div>
+
+              <h3 className="font-display text-2xl font-extrabold text-foreground">
+                {selectedChallengeData.title}
+              </h3>
+
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                {selectedChallengeData.desc}
+              </p>
+
+              <div className="pt-2 space-y-3">
+                {selectedChallengeData.points.map((pt) => (
+                  <div key={pt} className="flex items-center gap-3 text-sm font-semibold text-foreground/90">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
+                    <span>{pt}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-4 border-t border-border flex items-center gap-4">
+                <Button
+                  onClick={() => setIsConsultOpen(true)}
+                  className="shadow-pink text-xs font-bold px-6 py-3 rounded-xl"
+                >
+                  Solve This For Your Business
+                </Button>
+                <Link to="/products" className="text-xs font-bold text-primary hover:underline inline-flex items-center gap-1">
+                  <span>Explore Architecture</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Explore CPaaS Products & Messaging Solutions */}
+      <section className="section-y bg-surface">
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionHeading
+            eyebrow="Solutions & Services"
+            title="Explore Our CPaaS Platform, Messaging APIs & SaaS Solutions"
+            description="From high-speed DLT Bulk SMS to Meta WhatsApp API broadcasts and multi-channel bots — everything under one roof."
+          />
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {CPaaS_SERVICES.map((s) => (
+              <div
+                key={s.title}
+                className="group rounded-2xl border border-border bg-card p-8 transition-all duration-200 hover:-translate-y-1 hover:border-primary/40 hover:shadow-elevated flex flex-col justify-between"
+              >
+                <div>
+                  <span className="grid h-12 w-12 place-items-center rounded-xl bg-primary/15 text-primary border border-primary/20 group-hover:bg-primary group-hover:text-white transition-colors">
+                    <s.icon className="h-6 w-6" />
+                  </span>
+                  <h3 className="mt-5 font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                    {s.title}
+                  </h3>
+                  <p className="mt-1 text-xs font-semibold text-primary">{s.subtitle}</p>
+                  <p className="mt-3 text-xs text-muted-foreground leading-relaxed">{s.desc}</p>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-border">
+                  <Link
+                    to={s.link}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-primary group-hover:underline"
+                  >
+                    <span>Read More</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Industry Verticals */}
+      <section className="section-y bg-background">
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionHeading
+            eyebrow="Industries"
+            title="Engineered for Every High-Volume Industry"
+            description="Pre-configured conversation templates and delivery rules customized for your sector."
+          />
+
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {INDUSTRIES.map((ind) => (
+              <div key={ind.name} className="p-6 rounded-2xl border border-border bg-card hover:border-primary/40 transition">
+                <h4 className="font-display text-base font-bold text-foreground">{ind.name}</h4>
+                <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{ind.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Channels Grid */}
+      <section className="section-y bg-surface">
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionHeading
+            eyebrow="Omni-Channel"
+            title="Every Conversation Channel in One Shared Inbox"
+            description="Manage WhatsApp, Instagram DM, Facebook Messenger, Telegram and Webchat seamlessly."
           />
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {CHANNELS.map((c) => (
@@ -164,7 +443,7 @@ function Home() {
                 key={c.name}
                 to="/channels/$slug"
                 params={{ slug: c.slug }}
-                className="group rounded-xl border border-border bg-card p-7 transition-all hover:-translate-y-1 hover:shadow-elevated"
+                className="group rounded-2xl border border-border bg-card p-7 transition-all hover:-translate-y-1 hover:shadow-elevated"
               >
                 <ChannelLogo name={c.name} domain={c.domain} icon={c.icon} />
                 <h3 className="mt-5 font-display text-lg font-bold">{c.name}</h3>
@@ -174,71 +453,11 @@ function Home() {
                 </span>
               </Link>
             ))}
-
           </div>
         </div>
       </section>
 
-      <section className="bg-surface section-y">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2">
-          <div>
-            <SectionHeading
-              align="left"
-              eyebrow="About Solvear"
-              title="An all-in-one WhatsApp marketing & automation platform"
-              description="Solvear API helps businesses grow faster and smarter with bulk message broadcasting, abandoned cart recovery, COD verification, appointment scheduling, sequence messaging, user input flows and a drag-and-drop chatbot builder — all managed from a unified Shared Inbox."
-            />
-            <ul className="mt-7 space-y-4">
-              {[
-                "WhatsApp, Messenger, Instagram, Telegram and WebChat in one Shared Inbox",
-                "Powered by OpenAI and Gemini with flexible AI Tokens",
-                "White-label reseller solution with custom domains and pricing controls",
-              ].map((item) => (
-                <li key={item} className="flex gap-3 text-sm text-muted-foreground">
-                  <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-primary" aria-hidden />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <Button asChild variant="outline" className="mt-8">
-              <Link to="/about">Learn More</Link>
-            </Button>
-          </div>
-          <img
-            src={aboutImg}
-            alt="Solvear team collaborating around laptops in an office"
-            loading="lazy"
-            width={1200}
-            height={900}
-            className="rounded-2xl shadow-elevated"
-          />
-        </div>
-      </section>
-
-      <section className="section-y">
-        <div className="mx-auto max-w-7xl px-6">
-          <SectionHeading
-            eyebrow="Platform"
-            title="Automation that does the selling for you"
-            description="From the first message to repeat orders, Solvear automates the busywork and keeps humans in the loop where it matters."
-          />
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {CAPABILITIES.map((c) => (
-              <article key={c.title} className="rounded-xl border border-border bg-card p-7">
-                <c.icon className="h-7 w-7 text-primary" aria-hidden />
-                <h3 className="mt-5 font-display text-lg font-bold">{c.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{c.copy}</p>
-              </article>
-            ))}
-          </div>
-          <div className="mt-10 text-center">
-            <Button asChild variant="outline">
-              <Link to="/features">See all features</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
+      {/* 8. White-Label Agency Reseller Banner */}
       <section className="bg-navy text-navy-foreground section-y">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2">
           <img
@@ -254,53 +473,171 @@ function Home() {
               align="left"
               inverted
               eyebrow="White-label"
-              title="Build your own brand with Solvear's white-label solution"
-              description="Rebrand the entire platform as your own — custom domains, flexible pricing controls, add-on selling options and a dedicated reseller dashboard. Launch your own chatbot SaaS business without worrying about infrastructure or maintenance."
+              title="Build Your Own SaaS Brand with Solvear's Reseller Hub"
+              description="Rebrand the entire platform as your own — custom domains, flexible pricing controls, add-on selling options and a dedicated reseller dashboard. Launch your own CPaaS business without worrying about servers or telecom infrastructure."
             />
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {[
-                { icon: Users, label: "Dedicated reseller dashboard" },
-                { icon: ShieldCheck, label: "Custom domain & SSL" },
-                { icon: BarChart3, label: "Your pricing & margins" },
-                { icon: Zap, label: "Sell add-ons and AI tokens" },
+                { icon: Users, label: "Dedicated Reseller Dashboard" },
+                { icon: ShieldCheck, label: "Custom Domain & SSL" },
+                { icon: BarChart3, label: "Your Own Pricing & Margins" },
+                { icon: Zap, label: "Sell Add-ons & AI Tokens" },
               ].map((f) => (
                 <div
                   key={f.label}
-                  className="flex items-center gap-3 rounded-lg border border-navy-foreground/15 bg-navy-deep/40 p-4 text-sm"
+                  className="flex items-center gap-3 rounded-xl border border-navy-foreground/15 bg-navy-deep/40 p-4 text-sm"
                 >
                   <f.icon className="h-5 w-5 text-primary" aria-hidden />
-                  {f.label}
+                  <span className="font-semibold">{f.label}</span>
                 </div>
               ))}
             </div>
             <Button asChild className="mt-8 shadow-pink">
-              <Link to="/white-label">White-label Reseller</Link>
+              <Link to="/white-label">Explore White-label Reseller</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      <section className="section-y">
-        <div className="mx-auto max-w-7xl px-6">
-          <SectionHeading
-            eyebrow="Customers"
-            title="Teams that ship faster on Solvear"
-          />
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {TESTIMONIALS.map((t) => (
-              <figure key={t.name} className="rounded-xl border border-border bg-card p-7">
-                <blockquote className="text-sm leading-relaxed text-foreground/85">
-                  “{t.quote}”
-                </blockquote>
-                <figcaption className="mt-6 border-t border-border pt-4">
-                  <p className="font-display text-sm font-bold">{t.name}</p>
-                  <p className="text-xs text-muted-foreground">{t.role}</p>
-                </figcaption>
-              </figure>
-            ))}
+      {/* 9. Floating WhatsApp Quick-Chat Widget */}
+      <a
+        href="https://wa.me/918016081188?text=Hello%20Solvear%20Team%2C%20I%20am%20interested%20in%20your%20CPaaS%20platform"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Chat with Solvear on WhatsApp"
+        className="fixed bottom-6 right-6 z-50 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-2xl transition-transform hover:scale-110 hover:shadow-emerald-500/50"
+      >
+        <MessageCircle className="h-7 w-7 fill-white text-[#25D366]" />
+      </a>
+
+      {/* 10. Slide-Out "Schedule a Consultation" Modal */}
+      {isConsultOpen && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-card border border-border rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 sm:p-8 animate-in zoom-in-95 relative">
+            <button
+              type="button"
+              onClick={() => setIsConsultOpen(false)}
+              className="absolute top-6 right-6 text-muted-foreground hover:text-foreground"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="space-y-1">
+              <span className="text-xs font-extrabold uppercase tracking-widest text-primary">
+                Expert Consultation
+              </span>
+              <h3 className="font-display text-2xl font-bold text-foreground">
+                Schedule a Consultation
+              </h3>
+              <p className="text-xs text-muted-foreground">
+                Talk to our CPaaS solutions architect in India.
+              </p>
+            </div>
+
+            {consultSubmitted ? (
+              <div className="my-8 p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-center space-y-2">
+                <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto" />
+                <h4 className="font-bold text-base">Request Received!</h4>
+                <p className="text-xs">Our messaging specialist will call you on <strong>{consultForm.phone}</strong> shortly.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleConsultSubmit} className="mt-6 space-y-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold uppercase tracking-wider text-foreground/80">Full Name *</label>
+                  <input
+                    type="text"
+                    required
+                    value={consultForm.name}
+                    onChange={(e) => setConsultForm({ ...consultForm, name: e.target.value })}
+                    placeholder="Rayhan Haidar"
+                    className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold uppercase tracking-wider text-foreground/80">Business Email *</label>
+                    <input
+                      type="email"
+                      required
+                      value={consultForm.email}
+                      onChange={(e) => setConsultForm({ ...consultForm, email: e.target.value })}
+                      placeholder="you@company.com"
+                      className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold uppercase tracking-wider text-foreground/80">Phone / WhatsApp *</label>
+                    <input
+                      type="tel"
+                      required
+                      value={consultForm.phone}
+                      onChange={(e) => setConsultForm({ ...consultForm, phone: e.target.value })}
+                      placeholder="+91 80160 81188"
+                      className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold uppercase tracking-wider text-foreground/80">City *</label>
+                    <input
+                      type="text"
+                      required
+                      value={consultForm.city}
+                      onChange={(e) => setConsultForm({ ...consultForm, city: e.target.value })}
+                      placeholder="Kolkata / Dhaka"
+                      className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold uppercase tracking-wider text-foreground/80">Company Name *</label>
+                    <input
+                      type="text"
+                      required
+                      value={consultForm.company}
+                      onChange={(e) => setConsultForm({ ...consultForm, company: e.target.value })}
+                      placeholder="Solvear Technologies"
+                      className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-bold uppercase tracking-wider text-foreground/80">Primary Service Needed *</label>
+                  <select
+                    value={consultForm.service}
+                    onChange={(e) => setConsultForm({ ...consultForm, service: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs font-medium focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option>Business WhatsApp API</option>
+                    <option>DLT Bulk SMS (OTP &amp; Transactional)</option>
+                    <option>RCS Business Messaging</option>
+                    <option>Voice Call &amp; IVR System</option>
+                    <option>Cloud BPO &amp; Contact Center</option>
+                    <option>White-label Reseller Hub</option>
+                    <option>Digital Marketing &amp; SaaS</option>
+                  </select>
+                </div>
+
+                <div className="p-3 rounded-xl bg-surface border border-border text-[11px] text-muted-foreground flex items-start gap-2">
+                  <ShieldCheck className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                  <span>I authorize Solvear to send updates and verification via SMS, WhatsApp, and Voice.</span>
+                </div>
+
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full shadow-pink py-3 rounded-xl text-xs font-bold"
+                >
+                  {loading ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : "Submit Consultation Request"}
+                </Button>
+              </form>
+            )}
           </div>
         </div>
-      </section>
+      )}
 
       <CtaBand />
     </>
