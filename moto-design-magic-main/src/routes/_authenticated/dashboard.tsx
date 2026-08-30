@@ -94,10 +94,18 @@ function DashboardPage() {
   }
 
   async function signOut() {
-    await queryClient.cancelQueries();
-    queryClient.clear();
-    await supabase.auth.signOut();
-    navigate({ to: "/auth", replace: true });
+    try {
+      await supabase.auth.signOut();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      if (typeof window !== "undefined") {
+        window.localStorage.clear();
+        window.sessionStorage.clear();
+      }
+      toast.success("Signed out successfully");
+      window.location.href = "/auth";
+    }
   }
 
   return (

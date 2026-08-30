@@ -48,26 +48,32 @@ function AuthPage() {
   const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    // 1. Check existing session
+    let mounted = true;
+
+    // Check if user is already logged in
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) {
+      if (!mounted) return;
+      if (data?.session?.user) {
         navigate({ to: "/dashboard", replace: true });
       } else {
         setChecking(false);
       }
     });
 
-    // 2. Listen to auth state changes (handles Google OAuth redirect callbacks)
+    // Listen to SIGNED_IN event (for OAuth redirect)
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session && (event === "SIGNED_IN" || event === "USER_UPDATED")) {
-        toast.success("Authentication successful");
+      if (!mounted) return;
+      if (session?.user && event === "SIGNED_IN") {
         navigate({ to: "/dashboard", replace: true });
+      } else if (event === "SIGNED_OUT") {
+        setChecking(false);
       }
     });
 
     return () => {
+      mounted = false;
       subscription.unsubscribe();
     };
   }, [navigate]);
@@ -84,14 +90,16 @@ function AuthPage() {
       return;
     }
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword(parsed.data);
+    const { data, error } = await supabase.auth.signInWithPassword(parsed.data);
     setLoading(false);
     if (error) {
       toast.error(error.message);
       return;
     }
-    toast.success("Welcome back to Solvear");
-    navigate({ to: "/dashboard", replace: true });
+    if (data?.user) {
+      toast.success("Welcome back to Solvear");
+      window.location.href = "/dashboard";
+    }
   }
 
   async function handleSignUp(e: React.FormEvent<HTMLFormElement>) {
@@ -109,7 +117,7 @@ function AuthPage() {
       return;
     }
     setLoading(true);
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email: parsed.data.email,
       password: parsed.data.password,
       options: {
@@ -127,7 +135,9 @@ function AuthPage() {
       return;
     }
     toast.success("Account created — welcome to Solvear");
-    navigate({ to: "/dashboard", replace: true });
+    if (data?.session) {
+      window.location.href = "/dashboard";
+    }
   }
 
   async function handleGoogle() {
