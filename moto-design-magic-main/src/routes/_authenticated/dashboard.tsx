@@ -60,9 +60,9 @@ function DashboardPage() {
         .maybeSingle();
       if (!active) return;
       setProfile({
-        full_name: data?.full_name ?? "",
-        company: data?.company ?? "",
-        phone: data?.phone ?? "",
+        full_name: data?.full_name || (user.user_metadata?.full_name ?? user.user_metadata?.name ?? ""),
+        company: data?.company || (user.user_metadata?.company ?? ""),
+        phone: data?.phone || (user.user_metadata?.phone ?? ""),
       });
       setLoading(false);
     })();
