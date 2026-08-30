@@ -28,11 +28,11 @@ function createSupabaseClient() {
   const SUPABASE_URL =
     import.meta.env['VITE_SUPABASE_URL'] ||
     process.env['SUPABASE_URL'] ||
-    'https://yjfubtdecrqsocfavype.supabase.co';
+    'https://foehlehlhrqtisatidgw.supabase.co';
   const SUPABASE_PUBLISHABLE_KEY =
     import.meta.env['VITE_SUPABASE_PUBLISHABLE_KEY'] ||
     process.env['SUPABASE_PUBLISHABLE_KEY'] ||
-    'sb_publishable_jtYYS1oNsAI6yMwXeaeqbw_KjPLCElq';
+    'sb_publishable_BsuYg8cflk4E_O4tpf6oEg_FGg0_rrn';
 
   return createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
     global: {
