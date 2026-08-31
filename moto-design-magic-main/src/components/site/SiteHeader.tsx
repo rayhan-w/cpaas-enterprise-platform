@@ -1,17 +1,16 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import {
-  Headphones,
   Menu,
   X,
   Phone,
   LayoutDashboard,
-  LogOut,
+  Headphones,
   ChevronDown,
   MessageSquare,
-  MessageCircle,
   Radio,
+  MessageCircle,
   PhoneCall,
   Bot,
   Building2,
@@ -21,11 +20,14 @@ import {
   Palette,
   FileText,
   Sparkles,
+  LogOut,
+  User as UserIcon,
 } from "lucide-react";
-import { Logo } from "./Logo";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/integrations/supabase/client";
+import { Logo } from "@/components/site/Logo";
 import { useSupabaseUser } from "@/hooks/useSupabaseUser";
+import { supabase } from "@/integrations/supabase/client";
 
 type SubItem = {
   title: string;
@@ -95,8 +97,6 @@ export function SiteHeader() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<Record<string, boolean>>({});
   const { user } = useSupabaseUser();
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleMouseEnter = (label: string) => {
@@ -130,6 +130,8 @@ export function SiteHeader() {
     setMobileExpanded((prev) => ({ ...prev, [label]: !prev[label] }));
   };
 
+  const userDisplayName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "Account";
+
   return (
     <header className="sticky top-0 z-50 font-sans">
       {/* Top Bar */}
@@ -150,14 +152,20 @@ export function SiteHeader() {
               Developer
             </Link>
             {user ? (
-              <>
-                <Link to="/dashboard" className="hover:text-primary transition">
-                  Dashboard
+              <div className="flex items-center gap-3 pl-2 border-l border-navy-foreground/20">
+                <Link to="/dashboard" className="hover:text-primary text-primary font-bold transition flex items-center gap-1.5">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>{userDisplayName}</span>
                 </Link>
-                <button type="button" onClick={handleSignOut} className="hover:text-primary transition">
-                  Sign out
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="hover:text-destructive text-navy-foreground/75 transition flex items-center gap-1 text-[11px]"
+                >
+                  <LogOut className="h-3 w-3" />
+                  <span>Sign out</span>
                 </button>
-              </>
+              </div>
             ) : (
               <Link to="/auth" className="hover:text-primary transition">
                 Login
@@ -253,11 +261,22 @@ export function SiteHeader() {
           {/* Action Buttons */}
           <div className="flex items-center gap-2">
             {user ? (
-              <Button asChild variant="outline" className="hidden sm:inline-flex rounded-xl font-bold text-xs">
-                <Link to="/dashboard">
-                  <LayoutDashboard className="h-4 w-4 mr-1.5" aria-hidden /> Dashboard
-                </Link>
-              </Button>
+              <div className="hidden sm:flex items-center gap-2">
+                <Button asChild variant="outline" className="rounded-xl font-bold text-xs gap-1.5 border-primary/30 text-primary hover:bg-primary/10">
+                  <Link to="/dashboard">
+                    <LayoutDashboard className="h-4 w-4" aria-hidden /> Dashboard
+                  </Link>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleSignOut}
+                  className="rounded-xl text-xs font-bold text-destructive hover:bg-destructive/10 hover:text-destructive gap-1 p-2"
+                  title="Sign out of workspace"
+                >
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              </div>
             ) : (
               <Button asChild variant="outline" className="hidden sm:inline-flex rounded-xl font-bold text-xs">
                 <Link to="/auth">Login</Link>
@@ -291,8 +310,32 @@ export function SiteHeader() {
 
         {/* Mobile Navigation Drawer */}
         {mobileOpen && (
-          <div className="border-t border-border bg-background lg:hidden animate-in fade-in max-h-[80vh] overflow-y-auto shadow-2xl">
+          <div className="border-t border-border bg-background lg:hidden animate-in fade-in max-h-[85vh] overflow-y-auto shadow-2xl">
             <nav aria-label="Mobile" className="mx-auto flex max-w-7xl flex-col px-5 py-4 space-y-1">
+              {/* If Logged In, Show User Card in Drawer */}
+              {user && (
+                <div className="mb-3 p-3.5 rounded-2xl bg-surface border border-border flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-white font-bold text-xs">
+                      {userDisplayName.charAt(0).toUpperCase()}
+                    </span>
+                    <div>
+                      <p className="text-xs font-bold text-foreground truncate max-w-[150px]">{userDisplayName}</p>
+                      <p className="text-[10px] text-muted-foreground truncate max-w-[150px]">{user.email}</p>
+                    </div>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleSignOut}
+                    className="h-8 rounded-lg text-xs font-bold text-destructive border-destructive/30 hover:bg-destructive hover:text-white gap-1 px-2.5"
+                  >
+                    <LogOut className="h-3 w-3" />
+                    <span>Logout</span>
+                  </Button>
+                </div>
+              )}
+
               {NAV_GROUPS.map((group) => {
                 const hasDropdown = !!group.items && group.items.length > 0;
                 const isExpanded = !!mobileExpanded[group.label];
@@ -348,18 +391,28 @@ export function SiteHeader() {
                   </Link>
                 </Button>
                 <div className="grid grid-cols-2 gap-2 pt-1">
-                  <Link
-                    to="/auth"
-                    onClick={() => setMobileOpen(false)}
-                    className="flex items-center justify-center py-2.5 px-3 text-xs font-bold text-foreground bg-surface border border-border rounded-xl hover:bg-muted text-center"
-                  >
-                    Login / Register
-                  </Link>
+                  {user ? (
+                    <Link
+                      to="/dashboard"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-center gap-1.5 py-2.5 px-3 text-xs font-bold text-primary bg-primary/10 border border-primary/20 rounded-xl hover:bg-primary hover:text-white text-center"
+                    >
+                      <LayoutDashboard className="h-3.5 w-3.5" /> Dashboard
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/auth"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-center py-2.5 px-3 text-xs font-bold text-foreground bg-surface border border-border rounded-xl hover:bg-muted text-center"
+                    >
+                      Login / Register
+                    </Link>
+                  )}
                   <a
                     href="tel:+918016081188"
                     className="flex items-center justify-center gap-1.5 py-2.5 px-3 text-xs font-bold text-primary bg-primary/10 border border-primary/20 rounded-xl hover:bg-primary hover:text-white transition text-center"
                   >
-                    <Phone className="h-3.5 w-3.5" /> Call Sales (+91 80160 81188)
+                    <Phone className="h-3.5 w-3.5" /> Call Sales
                   </a>
                 </div>
               </div>
