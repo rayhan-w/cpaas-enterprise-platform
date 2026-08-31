@@ -2,22 +2,28 @@ import { Link } from "@tanstack/react-router";
 
 export function Logo({ inverted = false }: { inverted?: boolean }) {
   return (
-    <Link to="/" className="flex items-center gap-2.5" aria-label="Solvear home">
-      <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary font-display text-lg font-bold text-primary-foreground shadow-pink">
-        S
-      </span>
-      <span className="flex flex-col leading-none">
+    <Link to="/" className="flex items-center gap-2.5 group" aria-label="Solvear Home">
+      <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-border shadow-sm transition-transform duration-200 group-hover:scale-105">
+        <img
+          src="/logo.png"
+          alt="Solvear Logo"
+          width={40}
+          height={40}
+          className="h-full w-full object-cover"
+        />
+      </div>
+      <div className="flex flex-col leading-none">
         <span
-          className={`font-display text-lg font-bold tracking-tight ${
-            inverted ? "text-navy-foreground" : "text-foreground"
+          className={`font-display text-lg font-extrabold tracking-tight transition-colors ${
+            inverted ? "text-navy-foreground" : "text-foreground group-hover:text-primary"
           }`}
         >
           Solvear
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-primary">
+        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
           CPaaS
         </span>
-      </span>
+      </div>
     </Link>
   );
 }

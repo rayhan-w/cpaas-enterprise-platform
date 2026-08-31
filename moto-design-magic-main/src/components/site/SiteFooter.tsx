@@ -39,12 +39,23 @@ export function SiteFooter() {
     <footer className="bg-navy-deep text-navy-foreground">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 lg:grid-cols-5">
         <div className="lg:col-span-2">
-          <span className="font-display text-2xl font-bold">
-            Solvear<span className="text-primary">.</span>
-          </span>
-          <p className="text-xs font-semibold text-primary mt-1">
-            A unit of SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED
-          </p>
+          <div className="flex items-center gap-3">
+            <img
+              src="/logo.png"
+              alt="Solvear Logo"
+              width={44}
+              height={44}
+              className="h-11 w-11 rounded-full border border-white/20 shadow-md object-cover"
+            />
+            <div>
+              <span className="font-display text-2xl font-extrabold tracking-tight">
+                Solvear<span className="text-primary">.</span>
+              </span>
+              <p className="text-[11px] font-bold text-primary">
+                SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED
+              </p>
+            </div>
+          </div>
           <p className="mt-4 max-w-sm text-sm text-navy-foreground/70">
             Conversations that convert. Run WhatsApp, SMS, RCS, Voice, IVR and
             Social DMs from a single customer engagement platform built for growing businesses.
