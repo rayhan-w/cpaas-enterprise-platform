@@ -1,6 +1,5 @@
-import { useState, useRef } from "react";
-import { Link, useNavigate } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import {
   Menu,
   X,
@@ -21,7 +20,6 @@ import {
   FileText,
   Sparkles,
   LogOut,
-  User as UserIcon,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -94,21 +92,8 @@ const NAV_GROUPS: NavGroup[] = [
 
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<Record<string, boolean>>({});
   const { user } = useSupabaseUser();
-  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  const handleMouseEnter = (label: string) => {
-    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
-    setActiveDropdown(label);
-  };
-
-  const handleMouseLeave = () => {
-    dropdownTimeoutRef.current = setTimeout(() => {
-      setActiveDropdown(null);
-    }, 150);
-  };
 
   async function handleSignOut() {
     try {
@@ -160,7 +145,7 @@ export function SiteHeader() {
                 <button
                   type="button"
                   onClick={handleSignOut}
-                  className="hover:text-destructive text-navy-foreground/75 transition flex items-center gap-1 text-[11px]"
+                  className="hover:text-destructive text-navy-foreground/75 transition flex items-center gap-1 text-[11px] cursor-pointer"
                 >
                   <LogOut className="h-3 w-3" />
                   <span>Sign out</span>
@@ -175,16 +160,15 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Main Navbar */}
-      <div className="border-b border-border bg-background/98 backdrop-blur shadow-sm">
+      {/* Main Navbar with Pure CSS Dropdowns */}
+      <div className="border-b border-border bg-background shadow-xs">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3.5">
           <Logo />
 
-          {/* Desktop Navigation with Dropdowns */}
-          <nav aria-label="Main" className="hidden items-center gap-1.5 lg:flex">
+          {/* Desktop Navigation with Pure CSS Dropdowns */}
+          <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
             {NAV_GROUPS.map((group) => {
               const hasDropdown = !!group.items && group.items.length > 0;
-              const isOpen = activeDropdown === group.label;
 
               if (!hasDropdown) {
                 return (
@@ -200,59 +184,38 @@ export function SiteHeader() {
               }
 
               return (
-                <div
-                  key={group.label}
-                  className="relative"
-                  onMouseEnter={() => handleMouseEnter(group.label)}
-                  onMouseLeave={handleMouseLeave}
-                >
+                <div key={group.label} className="relative group py-2">
                   <button
                     type="button"
-                    onClick={() => setActiveDropdown(isOpen ? null : group.label)}
-                    aria-expanded={isOpen}
-                    className={`flex items-center gap-1.5 px-3.5 py-2 text-sm font-semibold transition-colors rounded-lg ${
-                      isOpen
-                        ? "text-primary bg-surface shadow-sm"
-                        : "text-foreground/80 hover:text-primary hover:bg-surface"
-                    }`}
+                    className="flex items-center gap-1.5 px-3.5 py-2 text-sm font-semibold text-foreground/80 transition-colors rounded-lg group-hover:text-primary group-hover:bg-surface cursor-pointer"
                   >
                     <span>{group.label}</span>
-                    <ChevronDown
-                      className={`h-3.5 w-3.5 transition-transform duration-200 ${
-                        isOpen ? "rotate-180 text-primary" : "text-muted-foreground"
-                      }`}
-                    />
+                    <ChevronDown className="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180 text-muted-foreground group-hover:text-primary" />
                   </button>
 
-                  {/* Dropdown Menu Box */}
-                  {isOpen && (
-                    <div className="absolute left-0 top-full pt-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                      <div className="w-72 sm:w-80 rounded-2xl border border-border bg-card/98 p-2.5 shadow-2xl backdrop-blur-md">
-                        <div className="space-y-1">
-                          {group.items!.map((item) => (
-                            <a
-                              key={item.title}
-                              href={item.to}
-                              onClick={() => {
-                                setActiveDropdown(null);
-                                setMobileOpen(false);
-                              }}
-                              className="group flex flex-col rounded-xl px-3.5 py-2.5 text-left transition-all hover:bg-surface cursor-pointer"
-                            >
-                              <span className="text-xs font-bold text-foreground group-hover:text-primary transition-colors">
-                                {item.title}
+                  {/* Pure CSS Dropdown Menu Box */}
+                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-150 absolute left-0 top-full pt-1 z-50 pointer-events-none group-hover:pointer-events-auto">
+                    <div className="w-72 sm:w-80 rounded-2xl border border-border bg-card p-2 shadow-xl">
+                      <div className="space-y-0.5">
+                        {group.items!.map((item) => (
+                          <a
+                            key={item.title}
+                            href={item.to}
+                            className="flex flex-col rounded-xl px-3.5 py-2.5 text-left transition-colors hover:bg-surface cursor-pointer group/item"
+                          >
+                            <span className="text-xs font-bold text-foreground group-hover/item:text-primary transition-colors">
+                              {item.title}
+                            </span>
+                            {item.desc && (
+                              <span className="text-[11px] text-muted-foreground font-normal mt-0.5">
+                                {item.desc}
                               </span>
-                              {item.desc && (
-                                <span className="text-[11px] text-muted-foreground group-hover:text-foreground/75 font-normal transition-colors mt-0.5">
-                                  {item.desc}
-                                </span>
-                              )}
-                            </a>
-                          ))}
-                        </div>
+                            )}
+                          </a>
+                        ))}
                       </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               );
             })}
@@ -271,7 +234,7 @@ export function SiteHeader() {
                   variant="ghost"
                   size="sm"
                   onClick={handleSignOut}
-                  className="rounded-xl text-xs font-bold text-destructive hover:bg-destructive/10 hover:text-destructive gap-1 p-2"
+                  className="rounded-xl text-xs font-bold text-destructive hover:bg-destructive/10 hover:text-destructive gap-1 p-2 cursor-pointer"
                   title="Sign out of workspace"
                 >
                   <LogOut className="h-4 w-4" />
@@ -301,7 +264,7 @@ export function SiteHeader() {
               onClick={() => setMobileOpen((v) => !v)}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
-              className="grid h-10 w-10 place-items-center rounded-xl border border-border lg:hidden bg-surface"
+              className="grid h-10 w-10 place-items-center rounded-xl border border-border lg:hidden bg-surface cursor-pointer"
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -310,7 +273,7 @@ export function SiteHeader() {
 
         {/* Mobile Navigation Drawer */}
         {mobileOpen && (
-          <div className="border-t border-border bg-background lg:hidden animate-in fade-in max-h-[85vh] overflow-y-auto shadow-2xl">
+          <div className="border-t border-border bg-background lg:hidden max-h-[85vh] overflow-y-auto shadow-xl">
             <nav aria-label="Mobile" className="mx-auto flex max-w-7xl flex-col px-5 py-4 space-y-1">
               {/* If Logged In, Show User Card in Drawer */}
               {user && (
