@@ -13,9 +13,12 @@ export function useSupabaseUser() {
       if (!active) return;
       setUser(data.session?.user ?? null);
       setLoading(false);
+    }).catch(() => {
+      if (active) setLoading(false);
     });
 
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!active) return;
       setUser(session?.user ?? null);
       setLoading(false);
     });

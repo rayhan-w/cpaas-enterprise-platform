@@ -70,7 +70,7 @@ const SOLUTIONS = [
   },
   {
     id: "transport",
-    icon: TransportIcon,
+    icon: Truck,
     name: "Transport and logistics",
     tagline: "Driver Dispatch & Real-Time Delivery Tracking",
     copy: "Keep riders, drivers, and consumers in continuous synchronization with automated SMS notifications, WhatsApp live location maps, and masked voice calls.",

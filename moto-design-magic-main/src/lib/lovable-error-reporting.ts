@@ -1,5 +1,5 @@
 export function reportLovableError(error: unknown, context: Record<string, unknown> = {}) {
-  if (process.env.NODE_ENV !== "production") {
+  if (typeof process !== "undefined" && process?.env?.NODE_ENV !== "production") {
     console.error("[Solvear Error]:", error, context);
   }
 }
