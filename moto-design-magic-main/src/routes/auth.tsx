@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 import { toast } from "sonner";
-import { Loader2, Lock, Mail, ShieldCheck, Zap } from "lucide-react";
+import { Loader2, Lock, Mail, ShieldCheck, Zap, AlertCircle } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -31,21 +31,37 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
 });
 
+// Standard strict schemas
 const signInSchema = z.object({
-  email: z.string().trim().email({ message: "Enter a valid email address" }).max(255),
-  password: z.string().min(6, { message: "Password must be at least 6 characters" }).max(72),
+  email: z.string().trim().email({ message: "Please enter a valid work email address" }).max(255),
+  password: z.string().min(8, { message: "Password must be at least 8 characters" }).max(72),
 });
 
-const signUpSchema = signInSchema.extend({
-  fullName: z.string().trim().min(2, { message: "Enter your full name" }).max(100),
+const signUpSchema = z.object({
+  fullName: z.string().trim().min(3, { message: "Full name must be at least 3 characters" }).max(100),
   company: z.string().trim().max(100).optional(),
-  phone: z.string().trim().max(30).optional(),
+  phone: z
+    .string()
+    .trim()
+    .min(10, { message: "Phone number must be at least 10 digits" })
+    .max(20, { message: "Phone number too long" })
+    .regex(/^[0-9+\s\-()]+$/, { message: "Please enter a valid phone number format" })
+    .optional()
+    .or(z.literal("")),
+  email: z.string().trim().email({ message: "Please enter a valid work email address" }).max(255),
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters long" })
+    .max(72)
+    .regex(/[A-Za-z]/, { message: "Password must contain at least one letter" })
+    .regex(/[0-9]/, { message: "Password must contain at least one number" }),
 });
 
 function AuthPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [checking, setChecking] = useState(true);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -80,19 +96,23 @@ function AuthPage() {
 
   async function handleSignIn(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setErrorMsg(null);
     const form = new FormData(e.currentTarget);
     const parsed = signInSchema.safeParse({
       email: form.get("email"),
       password: form.get("password"),
     });
     if (!parsed.success) {
-      toast.error(parsed.error.issues[0]?.message ?? "Invalid details");
+      const msg = parsed.error.issues[0]?.message ?? "Invalid credentials";
+      setErrorMsg(msg);
+      toast.error(msg);
       return;
     }
     setLoading(true);
     const { data, error } = await supabase.auth.signInWithPassword(parsed.data);
     setLoading(false);
     if (error) {
+      setErrorMsg(error.message);
       toast.error(error.message);
       return;
     }
@@ -104,6 +124,7 @@ function AuthPage() {
 
   async function handleSignUp(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setErrorMsg(null);
     const form = new FormData(e.currentTarget);
     const parsed = signUpSchema.safeParse({
       email: form.get("email"),
@@ -113,7 +134,9 @@ function AuthPage() {
       phone: form.get("phone") || undefined,
     });
     if (!parsed.success) {
-      toast.error(parsed.error.issues[0]?.message ?? "Invalid details");
+      const msg = parsed.error.issues[0]?.message ?? "Invalid details";
+      setErrorMsg(msg);
+      toast.error(msg);
       return;
     }
     setLoading(true);
@@ -131,6 +154,7 @@ function AuthPage() {
     });
     setLoading(false);
     if (error) {
+      setErrorMsg(error.message);
       toast.error(error.message);
       return;
     }
@@ -143,6 +167,7 @@ function AuthPage() {
   async function handleGoogle() {
     try {
       setLoading(true);
+      setErrorMsg(null);
       const redirectUrl = `${window.location.origin}/dashboard`;
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
@@ -152,10 +177,12 @@ function AuthPage() {
       });
       if (error) {
         setLoading(false);
+        setErrorMsg(error.message);
         toast.error(error.message || "Google sign-in failed. Please try again.");
       }
     } catch (err: any) {
       setLoading(false);
+      setErrorMsg(err?.message || "Google sign-in failed");
       toast.error(err?.message || "Google sign-in failed");
     }
   }
@@ -199,7 +226,14 @@ function AuthPage() {
         </div>
 
         <div className="rounded-3xl border border-border/20 bg-background p-6 text-foreground shadow-2xl sm:p-8">
-          <Tabs defaultValue="signin">
+          {errorMsg && (
+            <div className="mb-5 flex items-start gap-2.5 rounded-xl border border-destructive/30 bg-destructive/10 p-3.5 text-xs text-destructive font-medium animate-in fade-in duration-200">
+              <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+              <span>{errorMsg}</span>
+            </div>
+          )}
+
+          <Tabs defaultValue="signin" onValueChange={() => setErrorMsg(null)}>
             <TabsList className="grid w-full grid-cols-2 rounded-xl p-1 bg-surface">
               <TabsTrigger value="signin" className="rounded-lg font-bold text-xs">Login</TabsTrigger>
               <TabsTrigger value="signup" className="rounded-lg font-bold text-xs">Create account</TabsTrigger>
@@ -226,15 +260,19 @@ function AuthPage() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label htmlFor="signin-password" className="text-xs font-bold">Password *</Label>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="signin-password" className="text-xs font-bold">Password *</Label>
+                    <span className="text-[10px] text-muted-foreground">Min 8 characters</span>
+                  </div>
                   <Input
                     id="signin-password"
                     name="password"
                     type="password"
                     autoComplete="current-password"
                     required
+                    minLength={8}
                     maxLength={72}
-                    placeholder="Enter your password"
+                    placeholder="Enter your password (min 8 chars)"
                     className="rounded-xl border-border bg-surface text-xs py-2.5"
                   />
                 </div>
@@ -253,11 +291,12 @@ function AuthPage() {
               </p>
               <form onSubmit={handleSignUp} className="mt-6 space-y-4">
                 <div className="space-y-1.5">
-                  <Label htmlFor="signup-name" className="text-xs font-bold">Full Name *</Label>
+                  <Label htmlFor="signup-name" className="text-xs font-bold">Full Name (min 3 chars) *</Label>
                   <Input
                     id="signup-name"
                     name="fullName"
                     required
+                    minLength={3}
                     maxLength={100}
                     placeholder="Enter your full name"
                     className="rounded-xl border-border bg-surface text-xs py-2.5"
@@ -279,8 +318,8 @@ function AuthPage() {
                     <Input
                       id="signup-phone"
                       name="phone"
-                      maxLength={30}
-                      placeholder="Enter phone number"
+                      maxLength={20}
+                      placeholder="e.g. +91 80160 81188"
                       className="rounded-xl border-border bg-surface text-xs py-2.5"
                     />
                   </div>
@@ -299,16 +338,19 @@ function AuthPage() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label htmlFor="signup-password" className="text-xs font-bold">Password (min 6 characters) *</Label>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="signup-password" className="text-xs font-bold">Password *</Label>
+                    <span className="text-[10px] text-muted-foreground">Min 8 chars, letters & numbers</span>
+                  </div>
                   <Input
                     id="signup-password"
                     name="password"
                     type="password"
                     autoComplete="new-password"
                     required
-                    minLength={6}
+                    minLength={8}
                     maxLength={72}
-                    placeholder="Enter your password"
+                    placeholder="Create password (min 8 chars, 1 letter, 1 number)"
                     className="rounded-xl border-border bg-surface text-xs py-2.5"
                   />
                 </div>
@@ -355,10 +397,15 @@ function AuthPage() {
           </Button>
 
           <p className="mt-6 text-center text-xs text-muted-foreground">
-            By continuing you agree to Solvear's terms.{" "}
-            <Link to="/contact" className="font-semibold text-primary hover:underline">
-              Need help?
+            By continuing you agree to Solvear's{" "}
+            <Link to="/terms" className="font-semibold text-primary hover:underline">
+              Terms
+            </Link>{" "}
+            and{" "}
+            <Link to="/privacy" className="font-semibold text-primary hover:underline">
+              Privacy Policy
             </Link>
+            .
           </p>
         </div>
       </div>
