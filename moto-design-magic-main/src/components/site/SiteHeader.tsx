@@ -20,6 +20,24 @@ import {
   FileText,
   Sparkles,
   LogOut,
+  Send,
+  ShieldCheck,
+  Award,
+  Megaphone,
+  Building,
+  Truck,
+  HeartPulse,
+  GraduationCap,
+  Plane,
+  Home as HomeIcon,
+  Landmark,
+  Compass,
+  Users,
+  Newspaper,
+  Briefcase,
+  Search,
+  Instagram,
+  Globe,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -44,45 +62,56 @@ const NAV_GROUPS: NavGroup[] = [
   {
     label: "Products",
     items: [
-      { title: "Bulk SMS", desc: "Reach Thousands in Seconds", to: "/products#bulk-sms", icon: MessageSquare },
-      { title: "RCS", desc: "Next-Gen Messaging Beyond SMS", to: "/products#rcs", icon: Radio },
-      { title: "Business WhatsApp API", desc: "Official Meta Business Partner API", to: "/channels/whatsapp", icon: MessageCircle },
-      { title: "Voice Call", desc: "Connect Instantly with Just One Call", to: "/products#voice-call", icon: PhoneCall },
-      { title: "IVR", desc: "Smart Automation For Smarter Conversations", to: "/products#ivr", icon: Bot },
-      { title: "Cloud BPO Solutions", desc: "Smart, Flexible & Cost-Effective Cloud BPO", to: "/products#cloud-bpo", icon: Building2 },
-      { title: "Contact Center", desc: "Clear conversations. Faster resolutions.", to: "/products#contact-center", icon: Headset },
+      { title: "Bulk SMS", desc: "Reach Thousands in Seconds", to: "/products/bulk-sms", icon: MessageSquare },
+      { title: "Transactional SMS", desc: "Instant 24/7 DND Delivery", to: "/products/transactional-sms", icon: Send },
+      { title: "OTP SMS Service", desc: "Sub-2s Priority 2FA Verification", to: "/products/otp-sms", icon: ShieldCheck },
+      { title: "DLT Registration India", desc: "TRAI Approval & Entity IDs", to: "/products/dlt-registration", icon: Award },
+      { title: "RCS Business Messaging", desc: "Interactive Cards & Carousels", to: "/products/rcs", icon: Radio },
+      { title: "Business WhatsApp API", desc: "Official Meta Cloud Verified Partner", to: "/products/whatsapp-api", icon: MessageCircle },
+      { title: "WhatsApp Marketing", desc: "High-Converting Broadcasts", to: "/products/whatsapp-marketing", icon: Megaphone },
+      { title: "Voice Call Solutions", desc: "Outbound Broadcasts & Click-to-Call", to: "/products/voice-call", icon: PhoneCall },
+      { title: "IVR Systems", desc: "Smart Virtual Receptionist", to: "/products/ivr", icon: Bot },
+      { title: "Cloud BPO Solutions", desc: "Browser Softphones & Dialers", to: "/products/cloud-bpo", icon: Building2 },
+      { title: "Cloud Contact Center", desc: "Omnichannel Support Inbox", to: "/products/contact-center", icon: Headset },
     ],
   },
   {
     label: "Solutions",
     items: [
-      { title: "Bank and Financial Services", to: "/features#banking" },
-      { title: "E-commerce", to: "/features#ecommerce" },
-      { title: "Transport and logistics", to: "/features#transport" },
-      { title: "Healthcare", to: "/features#healthcare" },
-      { title: "Education", to: "/features#education" },
-      { title: "Travel and Tourism", to: "/features#travel" },
-      { title: "Real Estate", to: "/features#real-estate" },
-      { title: "Government", to: "/features#government" },
+      { title: "Bank and Financial Services", desc: "RBI & TRAI Compliant OTPs", to: "/solutions/banking", icon: Building },
+      { title: "E-commerce & Retail", desc: "COD Confirmation & Cart Recovery", to: "/solutions/ecommerce", icon: Globe },
+      { title: "Transport & Logistics", desc: "Fleet Sync & Number Masking", to: "/solutions/transport", icon: Truck },
+      { title: "Healthcare & Diagnostics", desc: "Doctor Appointments & PDF Reports", to: "/solutions/healthcare", icon: HeartPulse },
+      { title: "Education & EdTech", desc: "Admissions Bot & Fee Reminders", to: "/solutions/education", icon: GraduationCap },
+      { title: "Travel & Tourism", desc: "Vouchers, Passes & Concierge", to: "/solutions/travel", icon: Plane },
+      { title: "Real Estate & Developers", desc: "Floor Plans & Site Visit Reminders", to: "/solutions/real-estate", icon: HomeIcon },
+      { title: "Government & Citizen", desc: "Disaster Alerts & Public Grievances", to: "/solutions/government", icon: Landmark },
     ],
   },
   {
     label: "Company",
     items: [
-      { title: "About (With Our Journey)", to: "/about#journey" },
-      { title: "Leadership", to: "/about#leadership" },
-      { title: "Newsroom", to: "/about#newsroom" },
-      { title: "Careers", to: "/about#careers" },
+      { title: "About Us & Journey", desc: "Our Story, Values & National Network", to: "/company/about", icon: Compass },
+      { title: "Leadership Team", desc: "Executive Management & Architects", to: "/company/leadership", icon: Users },
+      { title: "Newsroom & Releases", desc: "Press Releases & Product Updates", to: "/company/newsroom", icon: Newspaper },
+      { title: "Careers & Openings", desc: "Join Our Telephony & Tech Squad", to: "/company/careers", icon: Briefcase },
     ],
   },
   {
     label: "Services",
     items: [
-      { title: "Digital Marketing", desc: "Grow Your Brand Online", to: "/white-label#digital-marketing", icon: TrendingUp },
-      { title: "SaaS", desc: "Software as a Service", to: "/white-label#saas", icon: Code },
-      { title: "UI/UX Design", to: "/white-label#ui-ux", icon: Palette },
-      { title: "Content Marketing", to: "/white-label#content-marketing", icon: FileText },
-      { title: "Graphics Design", to: "/white-label#graphics-design", icon: Sparkles },
+      { title: "Digital Marketing", desc: "Full-Funnel Online Growth", to: "/services/digital-marketing", icon: TrendingUp },
+      { title: "SEO Optimization", desc: "Google Page 1 Rankings", to: "/services/seo", icon: Search },
+      { title: "Social Media Marketing", desc: "Meta Ads & Viral Reels", to: "/services/smm", icon: Instagram },
+      { title: "Google Paid Search (PPC)", desc: "High-Intent Lead Acquisition", to: "/services/ppc", icon: Sparkles },
+      { title: "YouTube Video Promotion", desc: "Storytelling & Brand Films", to: "/services/video-marketing", icon: Sparkles },
+      { title: "SaaS Software Solutions", desc: "Custom Cloud Architecture", to: "/services/saas", icon: Code },
+      { title: "Web Development", desc: "Fast React & Next.js Websites", to: "/services/web-development", icon: Globe },
+      { title: "Mobile App Development", desc: "Native iOS & Android Apps", to: "/services/mobile-app", icon: Phone },
+      { title: "Custom Software", desc: "ERP, CRM & Operations Tools", to: "/services/software-development", icon: Code },
+      { title: "UI/UX Interface Design", desc: "Figma Design Systems", to: "/services/ui-ux", icon: Palette },
+      { title: "Content Marketing", desc: "SEO Articles & Ad Copywriting", to: "/services/content-marketing", icon: FileText },
+      { title: "Graphics Design", desc: "Logos & Corporate Brand Kits", to: "/services/graphics-design", icon: Sparkles },
     ],
   },
   { label: "Integrations", to: "/integrations" },
@@ -119,7 +148,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 font-sans">
-      {/* Top Bar */}
+      {/* Top Utility Bar */}
       <div className="hidden bg-navy-deep text-navy-foreground md:block border-b border-navy-soft">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 text-xs">
           <p className="flex items-center gap-2">
@@ -134,7 +163,7 @@ export function SiteHeader() {
               Help Desk
             </Link>
             <Link to="/integrations" className="hover:text-primary transition">
-              Developer
+              Developer &amp; APIs
             </Link>
             {user ? (
               <div className="flex items-center gap-3 pl-2 border-l border-navy-foreground/20">
@@ -195,24 +224,32 @@ export function SiteHeader() {
 
                   {/* Pure CSS Dropdown Menu Box */}
                   <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-150 absolute left-0 top-full pt-1 z-50 pointer-events-none group-hover:pointer-events-auto">
-                    <div className="w-72 sm:w-80 rounded-2xl border border-border bg-card p-2 shadow-xl">
-                      <div className="space-y-0.5">
-                        {group.items!.map((item) => (
-                          <a
-                            key={item.title}
-                            href={item.to}
-                            className="flex flex-col rounded-xl px-3.5 py-2.5 text-left transition-colors hover:bg-surface cursor-pointer group/item"
-                          >
-                            <span className="text-xs font-bold text-foreground group-hover/item:text-primary transition-colors">
-                              {item.title}
-                            </span>
-                            {item.desc && (
-                              <span className="text-[11px] text-muted-foreground font-normal mt-0.5">
-                                {item.desc}
+                    <div className="w-80 sm:w-96 rounded-2xl border border-border bg-card p-2.5 shadow-2xl max-h-[75vh] overflow-y-auto">
+                      <div className="space-y-1">
+                        {group.items!.map((item) => {
+                          const ItemIcon = item.icon || MessageSquare;
+                          return (
+                            <Link
+                              key={item.title}
+                              to={item.to}
+                              className="flex items-start gap-3 rounded-xl px-3 py-2.5 text-left transition-colors hover:bg-surface cursor-pointer group/item"
+                            >
+                              <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary/10 text-primary shrink-0 group-hover/item:bg-primary group-hover/item:text-white transition">
+                                <ItemIcon className="h-4 w-4" />
                               </span>
-                            )}
-                          </a>
-                        ))}
+                              <div className="flex-1 min-w-0">
+                                <span className="text-xs font-bold text-foreground group-hover/item:text-primary transition-colors block truncate">
+                                  {item.title}
+                                </span>
+                                {item.desc && (
+                                  <span className="text-[11px] text-muted-foreground font-normal block truncate mt-0.5">
+                                    {item.desc}
+                                  </span>
+                                )}
+                              </div>
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
@@ -321,7 +358,7 @@ export function SiteHeader() {
                     <button
                       type="button"
                       onClick={() => toggleMobileGroup(group.label)}
-                      className="flex w-full items-center justify-between py-2.5 px-3 text-sm font-bold text-foreground rounded-lg hover:bg-surface"
+                      className="flex w-full items-center justify-between py-2.5 px-3 text-sm font-bold text-foreground rounded-lg hover:bg-surface cursor-pointer"
                     >
                       <span>{group.label}</span>
                       <ChevronDown
@@ -329,17 +366,17 @@ export function SiteHeader() {
                       />
                     </button>
                     {isExpanded && (
-                      <div className="pl-4 pr-2 pb-2 space-y-1 border-l-2 border-primary/40 my-1 ml-3">
+                      <div className="pl-3 pr-1 pb-2 space-y-1 border-l-2 border-primary/40 my-1 ml-2">
                         {group.items!.map((item) => (
-                          <a
+                          <Link
                             key={item.title}
-                            href={item.to}
+                            to={item.to}
                             onClick={() => setMobileOpen(false)}
                             className="block py-2 px-2 text-xs text-muted-foreground hover:text-primary rounded-md hover:bg-surface transition cursor-pointer"
                           >
                             <span className="font-bold text-foreground block">{item.title}</span>
                             {item.desc && <span className="block text-[10px] text-muted-foreground mt-0.5">{item.desc}</span>}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     )}

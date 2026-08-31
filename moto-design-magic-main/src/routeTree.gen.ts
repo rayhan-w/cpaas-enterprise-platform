@@ -21,6 +21,10 @@ import { Route as ProductsRouteImport } from './routes/products'
 import { Route as WhiteLabelRouteImport } from './routes/white-label'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as ChannelsSlugRouteImport } from './routes/channels.$slug'
+import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
+import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
+import { Route as CompanySlugRouteImport } from './routes/company.$slug'
+import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -81,6 +85,26 @@ const ChannelsSlugRoute = ChannelsSlugRouteImport.update({
   path: '/channels/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductsSlugRoute = ProductsSlugRouteImport.update({
+  id: '/products/$slug',
+  path: '/products/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SolutionsSlugRoute = SolutionsSlugRouteImport.update({
+  id: '/solutions/$slug',
+  path: '/solutions/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompanySlugRoute = CompanySlugRouteImport.update({
+  id: '/company/$slug',
+  path: '/company/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesSlugRoute = ServicesSlugRouteImport.update({
+  id: '/services/$slug',
+  path: '/services/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -94,6 +118,10 @@ export interface FileRoutesByFullPath {
   '/white-label': typeof WhiteLabelRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/channels/$slug': typeof ChannelsSlugRoute
+  '/products/$slug': typeof ProductsSlugRoute
+  '/solutions/$slug': typeof SolutionsSlugRoute
+  '/company/$slug': typeof CompanySlugRoute
+  '/services/$slug': typeof ServicesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -107,6 +135,10 @@ export interface FileRoutesByTo {
   '/white-label': typeof WhiteLabelRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/channels/$slug': typeof ChannelsSlugRoute
+  '/products/$slug': typeof ProductsSlugRoute
+  '/solutions/$slug': typeof SolutionsSlugRoute
+  '/company/$slug': typeof CompanySlugRoute
+  '/services/$slug': typeof ServicesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -122,6 +154,10 @@ export interface FileRoutesById {
   '/white-label': typeof WhiteLabelRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/channels/$slug': typeof ChannelsSlugRoute
+  '/products/$slug': typeof ProductsSlugRoute
+  '/solutions/$slug': typeof SolutionsSlugRoute
+  '/company/$slug': typeof CompanySlugRoute
+  '/services/$slug': typeof ServicesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -137,6 +173,10 @@ export interface FileRouteTypes {
     | '/white-label'
     | '/dashboard'
     | '/channels/$slug'
+    | '/products/$slug'
+    | '/solutions/$slug'
+    | '/company/$slug'
+    | '/services/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -150,6 +190,10 @@ export interface FileRouteTypes {
     | '/white-label'
     | '/dashboard'
     | '/channels/$slug'
+    | '/products/$slug'
+    | '/solutions/$slug'
+    | '/company/$slug'
+    | '/services/$slug'
   id:
     | '__root__'
     | '/'
@@ -164,6 +208,10 @@ export interface FileRouteTypes {
     | '/white-label'
     | '/_authenticated/dashboard'
     | '/channels/$slug'
+    | '/products/$slug'
+    | '/solutions/$slug'
+    | '/company/$slug'
+    | '/services/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -178,6 +226,10 @@ export interface RootRouteChildren {
   ProductsRoute: typeof ProductsRoute
   WhiteLabelRoute: typeof WhiteLabelRoute
   ChannelsSlugRoute: typeof ChannelsSlugRoute
+  ProductsSlugRoute: typeof ProductsSlugRoute
+  SolutionsSlugRoute: typeof SolutionsSlugRoute
+  CompanySlugRoute: typeof CompanySlugRoute
+  ServicesSlugRoute: typeof ServicesSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -266,6 +318,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChannelsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/products/$slug': {
+      id: '/products/$slug'
+      path: '/products/$slug'
+      fullPath: '/products/$slug'
+      preLoaderRoute: typeof ProductsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/solutions/$slug': {
+      id: '/solutions/$slug'
+      path: '/solutions/$slug'
+      fullPath: '/solutions/$slug'
+      preLoaderRoute: typeof SolutionsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/company/$slug': {
+      id: '/company/$slug'
+      path: '/company/$slug'
+      fullPath: '/company/$slug'
+      preLoaderRoute: typeof CompanySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/$slug': {
+      id: '/services/$slug'
+      path: '/services/$slug'
+      fullPath: '/services/$slug'
+      preLoaderRoute: typeof ServicesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -292,6 +372,10 @@ const rootRouteChildren: RootRouteChildren = {
   ProductsRoute: ProductsRoute,
   WhiteLabelRoute: WhiteLabelRoute,
   ChannelsSlugRoute: ChannelsSlugRoute,
+  ProductsSlugRoute: ProductsSlugRoute,
+  SolutionsSlugRoute: SolutionsSlugRoute,
+  CompanySlugRoute: CompanySlugRoute,
+  ServicesSlugRoute: ServicesSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
