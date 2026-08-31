@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   Search,
@@ -22,7 +22,8 @@ import {
   Webhook,
   Mail,
   Send,
-  Radio,
+  X,
+  Layers,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
@@ -31,13 +32,6 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
 import { PageHero } from "@/components/site/PageHero";
 import { CtaBand } from "@/components/site/CtaBand";
 
@@ -310,15 +304,6 @@ const ITEMS: Item[] = [
 
 const CATEGORIES = ["All", "Payments", "Commerce", "Channels", "AI", "Gateways", "Email", "Productivity"];
 
-function BrandMark({ item }: { item: Item }) {
-  const Icon = item.icon;
-  return (
-    <span className={`grid h-11 w-11 place-items-center rounded-2xl border shadow-xs ${item.color}`}>
-      <Icon className="h-5 w-5" />
-    </span>
-  );
-}
-
 function Integrations() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
@@ -451,6 +436,7 @@ function Integrations() {
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filtered.map((item) => {
               const isConnected = !!connectedItems[item.id];
+              const Icon = item.icon;
               return (
                 <div
                   key={item.id}
@@ -459,7 +445,9 @@ function Integrations() {
                 >
                   <div>
                     <div className="flex items-start justify-between">
-                      <BrandMark item={item} />
+                      <span className={`grid h-11 w-11 place-items-center rounded-2xl border shadow-xs ${item.color}`}>
+                        <Icon className="h-5 w-5" />
+                      </span>
                       <Badge
                         variant={isConnected ? "default" : "outline"}
                         className={`text-[10px] font-extrabold uppercase tracking-wider rounded-lg ${
@@ -484,10 +472,17 @@ function Integrations() {
                   </div>
 
                   <div className="mt-5 pt-3.5 border-t border-border/70 flex items-center justify-between">
-                    <span className="text-xs font-bold text-primary group-hover:underline inline-flex items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openConnector(item);
+                      }}
+                      className="text-xs font-bold text-primary hover:underline inline-flex items-center gap-1 cursor-pointer"
+                    >
                       <span>Connect API</span>
                       <Zap className="w-3.5 h-3.5" />
-                    </span>
+                    </button>
                     <span className="text-[10px] text-muted-foreground font-semibold">
                       {item.events.length} Events
                     </span>
@@ -511,38 +506,39 @@ function Integrations() {
         </div>
       </section>
 
-      {/* Live Functional Integration Modal */}
-      <Dialog open={!!selectedItem} onOpenChange={(open) => !open && setSelectedItem(null)}>
-        {selectedItem && (
-          <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto p-0 rounded-3xl border-border bg-card shadow-2xl">
+      {/* 100% Reliable Custom Modal Overlay */}
+      {selectedItem && (
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-150">
+          <div className="bg-card border border-border rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-in zoom-in-95 relative">
             {/* Modal Header */}
-            <div className="p-6 bg-navy-deep text-white border-b border-navy-soft">
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex items-center gap-3.5">
-                  <BrandMark item={selectedItem} />
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <DialogTitle className="text-xl font-bold text-white font-display">
-                        {selectedItem.name}
-                      </DialogTitle>
-                      <Badge className="bg-primary text-white text-[10px] uppercase tracking-wider">
-                        {selectedItem.category}
-                      </Badge>
-                    </div>
-                    <DialogDescription className="text-xs text-navy-foreground/75 mt-0.5 max-w-md">
-                      {selectedItem.copy}
-                    </DialogDescription>
-                  </div>
-                </div>
+            <div className="p-6 bg-navy-deep text-white border-b border-navy-soft rounded-t-3xl relative">
+              <button
+                type="button"
+                onClick={() => setSelectedItem(null)}
+                className="absolute top-5 right-5 text-white/70 hover:text-white p-1 rounded-lg bg-white/10 hover:bg-white/20 transition cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
 
-                <div className="flex items-center gap-2">
-                  <Switch
-                    id="active-toggle"
-                    checked={!!connectedItems[selectedItem.id]}
-                    onCheckedChange={(checked) =>
-                      setConnectedItems((prev) => ({ ...prev, [selectedItem.id]: checked }))
-                    }
-                  />
+              <div className="flex items-center gap-3.5 pr-10">
+                <span className={`grid h-12 w-12 place-items-center rounded-2xl border shadow-xs ${selectedItem.color}`}>
+                  {(() => {
+                    const Icon = selectedItem.icon;
+                    return <Icon className="h-6 w-6" />;
+                  })()}
+                </span>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-xl font-bold text-white font-display">
+                      {selectedItem.name}
+                    </h3>
+                    <Badge className="bg-primary text-white text-[10px] uppercase tracking-wider">
+                      {selectedItem.category}
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-navy-foreground/75 mt-0.5 max-w-md">
+                    {selectedItem.copy}
+                  </p>
                 </div>
               </div>
             </div>
@@ -736,9 +732,9 @@ function Integrations() {
                 </TabsContent>
               </Tabs>
             </div>
-          </DialogContent>
-        )}
-      </Dialog>
+          </div>
+        </div>
+      )}
 
       <CtaBand
         title="Need a custom integration?"
