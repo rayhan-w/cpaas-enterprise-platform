@@ -13,8 +13,6 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { PageHero } from "@/components/site/PageHero";
 
 const PLANS_DATA: Record<string, {
@@ -97,13 +95,12 @@ function CheckoutPage() {
   const [isYearly, setIsYearly] = useState<boolean>(search.billing === "yearly");
   const [paymentMethod, setPaymentMethod] = useState<"upi" | "card" | "bank">("upi");
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    gstin: "",
-  });
+  // Individual states to ensure rock-solid mobile keyboard typing without state collision
+  const [fullName, setFullName] = useState("");
+  const [workEmail, setWorkEmail] = useState("");
+  const [phoneWhatsApp, setPhoneWhatsApp] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [taxGstin, setTaxGstin] = useState("");
 
   const [processing, setProcessing] = useState(false);
   const [completed, setCompleted] = useState(false);
@@ -117,15 +114,15 @@ function CheckoutPage() {
   function handleSubmitOrder(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (!formData.name.trim()) {
+    if (!fullName.trim()) {
       toast.error("Please enter your Full Name");
       return;
     }
-    if (!formData.email.trim()) {
+    if (!workEmail.trim()) {
       toast.error("Please enter your Work Email");
       return;
     }
-    if (!formData.phone.trim()) {
+    if (!phoneWhatsApp.trim()) {
       toast.error("Please enter your Phone or WhatsApp Number");
       return;
     }
@@ -138,11 +135,11 @@ function CheckoutPage() {
       setOrderId(generatedOrderId);
       setCompleted(true);
       toast.success("Order Placed Successfully! Account activation initiated.");
-    }, 800);
+    }, 600);
   }
 
   return (
-    <div className="font-sans bg-background min-h-screen">
+    <div className="font-sans bg-background min-h-screen text-foreground">
       <PageHero
         eyebrow="Secure Checkout"
         title="Activate Your Solvear Subscription"
@@ -163,10 +160,10 @@ function CheckoutPage() {
                   Order Confirmed • ID: #{orderId}
                 </span>
                 <h2 className="font-display text-2xl font-extrabold text-foreground">
-                  Thank You, {formData.name}!
+                  Thank You, {fullName}!
                 </h2>
                 <p className="mt-2 text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
-                  Your subscription to <strong>{currentPlan.name} ({isYearly ? "Annual" : "Monthly"})</strong> is registered. We have dispatched login credentials to <strong>{formData.email}</strong>.
+                  Your subscription to <strong>{currentPlan.name} ({isYearly ? "Annual" : "Monthly"})</strong> is registered. We have dispatched login credentials to <strong>{workEmail}</strong>.
                 </p>
               </div>
 
@@ -291,72 +288,89 @@ function CheckoutPage() {
                     </p>
                   </div>
 
-                  <div className="grid gap-3.5 sm:grid-cols-2">
-                    <div className="space-y-1">
-                      <label htmlFor="name" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-1.5">
+                      <label htmlFor="fullName" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
                         Full Name *
                       </label>
                       <input
-                        id="name"
+                        id="fullName"
+                        name="fullName"
                         type="text"
                         required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="h-11 w-full rounded-xl bg-surface border border-border px-3.5 text-base sm:text-xs text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                        autoComplete="name"
+                        autoCapitalize="words"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        placeholder="e.g. Rahul Sharma"
+                        className="h-12 w-full rounded-xl bg-surface border border-border px-4 text-base sm:text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
                       />
                     </div>
 
-                    <div className="space-y-1">
-                      <label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
+                    <div className="space-y-1.5">
+                      <label htmlFor="workEmail" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
                         Work Email *
                       </label>
                       <input
-                        id="email"
+                        id="workEmail"
+                        name="workEmail"
                         type="email"
                         required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="h-11 w-full rounded-xl bg-surface border border-border px-3.5 text-base sm:text-xs text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                        autoComplete="email"
+                        inputMode="email"
+                        value={workEmail}
+                        onChange={(e) => setWorkEmail(e.target.value)}
+                        placeholder="you@company.com"
+                        className="h-12 w-full rounded-xl bg-surface border border-border px-4 text-base sm:text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
                       />
                     </div>
 
-                    <div className="space-y-1">
-                      <label htmlFor="phone" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
+                    <div className="space-y-1.5">
+                      <label htmlFor="phoneWhatsApp" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
                         Phone / WhatsApp *
                       </label>
                       <input
-                        id="phone"
+                        id="phoneWhatsApp"
+                        name="phoneWhatsApp"
                         type="tel"
                         required
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="h-11 w-full rounded-xl bg-surface border border-border px-3.5 text-base sm:text-xs text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                        autoComplete="tel"
+                        inputMode="tel"
+                        value={phoneWhatsApp}
+                        onChange={(e) => setPhoneWhatsApp(e.target.value)}
+                        placeholder="+91 98765 43210"
+                        className="h-12 w-full rounded-xl bg-surface border border-border px-4 text-base sm:text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
                       />
                     </div>
 
-                    <div className="space-y-1">
-                      <label htmlFor="company" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
+                    <div className="space-y-1.5">
+                      <label htmlFor="companyName" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
                         Company Name
                       </label>
                       <input
-                        id="company"
+                        id="companyName"
+                        name="companyName"
                         type="text"
-                        value={formData.company}
-                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className="h-11 w-full rounded-xl bg-surface border border-border px-3.5 text-base sm:text-xs text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                        autoComplete="organization"
+                        value={companyName}
+                        onChange={(e) => setCompanyName(e.target.value)}
+                        placeholder="e.g. Acme Tech Pvt Ltd"
+                        className="h-12 w-full rounded-xl bg-surface border border-border px-4 text-base sm:text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
                       />
                     </div>
 
-                    <div className="space-y-1 sm:col-span-2">
-                      <label htmlFor="gstin" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
+                    <div className="space-y-1.5 sm:col-span-2">
+                      <label htmlFor="taxGstin" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
                         GSTIN / Tax ID (Optional for 18% ITC claim)
                       </label>
                       <input
-                        id="gstin"
+                        id="taxGstin"
+                        name="taxGstin"
                         type="text"
-                        value={formData.gstin}
-                        onChange={(e) => setFormData({ ...formData, gstin: e.target.value })}
-                        className="h-11 w-full rounded-xl bg-surface border border-border px-3.5 text-base sm:text-xs text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                        value={taxGstin}
+                        onChange={(e) => setTaxGstin(e.target.value)}
+                        placeholder="22AAAAA0000A1Z5"
+                        className="h-12 w-full rounded-xl bg-surface border border-border px-4 text-base sm:text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
                       />
                     </div>
                   </div>
@@ -370,7 +384,7 @@ function CheckoutPage() {
                     <div className="grid gap-2.5 sm:grid-cols-3">
                       <div
                         onClick={() => setPaymentMethod("upi")}
-                        className={`p-3 rounded-xl border flex flex-col gap-1.5 cursor-pointer transition ${
+                        className={`p-3.5 rounded-xl border flex flex-col gap-1.5 cursor-pointer transition ${
                           paymentMethod === "upi"
                             ? "border-primary bg-primary/5 ring-2 ring-primary/20"
                             : "border-border bg-surface hover:border-primary/40"
@@ -378,7 +392,7 @@ function CheckoutPage() {
                       >
                         <div className="flex items-center justify-between">
                           <QrCode className="w-4 h-4 text-primary" />
-                          <span className="h-2 w-2 rounded-full bg-primary" />
+                          <span className={`h-2.5 w-2.5 rounded-full ${paymentMethod === "upi" ? "bg-primary" : "border border-border"}`} />
                         </div>
                         <div>
                           <p className="font-bold text-xs text-foreground">UPI / Dynamic QR</p>
@@ -388,7 +402,7 @@ function CheckoutPage() {
 
                       <div
                         onClick={() => setPaymentMethod("card")}
-                        className={`p-3 rounded-xl border flex flex-col gap-1.5 cursor-pointer transition ${
+                        className={`p-3.5 rounded-xl border flex flex-col gap-1.5 cursor-pointer transition ${
                           paymentMethod === "card"
                             ? "border-primary bg-primary/5 ring-2 ring-primary/20"
                             : "border-border bg-surface hover:border-primary/40"
@@ -396,7 +410,7 @@ function CheckoutPage() {
                       >
                         <div className="flex items-center justify-between">
                           <CreditCard className="w-4 h-4 text-primary" />
-                          <span className="h-2 w-2 rounded-full bg-primary" />
+                          <span className={`h-2.5 w-2.5 rounded-full ${paymentMethod === "card" ? "bg-primary" : "border border-border"}`} />
                         </div>
                         <div>
                           <p className="font-bold text-xs text-foreground">Credit / Debit Cards</p>
@@ -406,7 +420,7 @@ function CheckoutPage() {
 
                       <div
                         onClick={() => setPaymentMethod("bank")}
-                        className={`p-3 rounded-xl border flex flex-col gap-1.5 cursor-pointer transition ${
+                        className={`p-3.5 rounded-xl border flex flex-col gap-1.5 cursor-pointer transition ${
                           paymentMethod === "bank"
                             ? "border-primary bg-primary/5 ring-2 ring-primary/20"
                             : "border-border bg-surface hover:border-primary/40"
@@ -414,7 +428,7 @@ function CheckoutPage() {
                       >
                         <div className="flex items-center justify-between">
                           <Building className="w-4 h-4 text-primary" />
-                          <span className="h-2 w-2 rounded-full bg-primary" />
+                          <span className={`h-2.5 w-2.5 rounded-full ${paymentMethod === "bank" ? "bg-primary" : "border border-border"}`} />
                         </div>
                         <div>
                           <p className="font-bold text-xs text-foreground">Corporate Transfer</p>
