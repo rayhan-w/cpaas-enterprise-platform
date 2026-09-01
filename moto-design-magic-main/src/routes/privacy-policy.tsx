@@ -1,16 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Route as PrivacyRoute } from "./privacy";
+import { PrivacyPage } from "./privacy";
 
 export const Route = createFileRoute("/privacy-policy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED" },
+      { title: "Privacy Policy | Solvear — Data Security & Protection" },
       {
         name: "description",
         content:
-          "Privacy Policy and Data Protection standards of SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED. Learn how we collect, protect, and process user data across our CPaaS platforms.",
+          "Privacy Policy of Solvear. Read how we protect personal information, secure data transmission, and handle electronic messaging communications.",
       },
+      { property: "og:title", content: "Privacy Policy — Solvear" },
     ],
   }),
-  component: PrivacyRoute.options.component,
+  component: PrivacyPage,
 });
