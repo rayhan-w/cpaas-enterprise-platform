@@ -144,14 +144,14 @@ function RootComponent() {
           rel="noopener noreferrer"
           title="Chat with Solvear on WhatsApp (+91 80160 81188)"
           aria-label="Chat with Solvear on WhatsApp"
-          className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl transition-all duration-300 hover:scale-110 hover:shadow-[0_8px_25px_rgba(37,211,102,0.6)]"
+          className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl transition-transform duration-200 hover:scale-110 gpu-accelerated cursor-pointer"
         >
           <img
             src="/whatsapp.svg"
             alt="Official WhatsApp"
             width={32}
             height={32}
-            className="h-8 w-8"
+            className="h-8 w-8 pointer-events-none"
           />
         </a>
       </div>

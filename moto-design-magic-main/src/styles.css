@@ -167,6 +167,12 @@
   * {
     border-color: var(--color-border);
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
   }
 
   html,
@@ -178,9 +184,23 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
     touch-action: manipulation;
+  }
+
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+
+  img,
+  iframe {
+    content-visibility: auto;
   }
 
   h1,
@@ -198,14 +218,20 @@
   padding-block: 4.5rem;
 }
 
+@utility gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
 @utility fade-up {
-  animation: fade-up-kf 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fade-up-kf 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes fade-up-kf {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
