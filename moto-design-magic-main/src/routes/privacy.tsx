@@ -38,10 +38,10 @@ function PrivacyPolicyPage() {
           </Button>
           <a
             href="tel:+918016081188"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-border bg-surface hover:bg-muted font-bold text-xs transition"
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-white/20 bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm transition backdrop-blur-xs"
           >
-            <Phone className="w-4 h-4 text-primary" />
-            <span>Call +91 80160 81188 (India)</span>
+            <Phone className="w-4 h-4 text-primary shrink-0" />
+            <span className="text-white">Call +91 80160 81188 (India)</span>
           </a>
         </div>
       </PageHero>
