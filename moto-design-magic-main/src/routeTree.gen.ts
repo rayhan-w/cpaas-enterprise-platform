@@ -18,14 +18,19 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as IntegrationsRouteImport } from './routes/integrations'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ProductsRouteImport } from './routes/products'
+import { Route as RefundRouteImport } from './routes/refund'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
 import { Route as WhiteLabelRouteImport } from './routes/white-label'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as ChannelsSlugRouteImport } from './routes/channels.$slug'
-import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
-import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
 import { Route as CompanySlugRouteImport } from './routes/company.$slug'
+import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
+import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -71,9 +76,34 @@ const PricingRoute = PricingRouteImport.update({
   path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefundRoute = RefundRouteImport.update({
+  id: '/refund',
+  path: '/refund',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
+  id: '/terms-and-conditions',
+  path: '/terms-and-conditions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WhiteLabelRoute = WhiteLabelRouteImport.update({
@@ -91,24 +121,24 @@ const ChannelsSlugRoute = ChannelsSlugRouteImport.update({
   path: '/channels/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProductsSlugRoute = ProductsSlugRouteImport.update({
-  id: '/products/$slug',
-  path: '/products/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SolutionsSlugRoute = SolutionsSlugRouteImport.update({
-  id: '/solutions/$slug',
-  path: '/solutions/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const CompanySlugRoute = CompanySlugRouteImport.update({
   id: '/company/$slug',
   path: '/company/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductsSlugRoute = ProductsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ProductsRoute,
+} as any)
 const ServicesSlugRoute = ServicesSlugRouteImport.update({
   id: '/services/$slug',
   path: '/services/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SolutionsSlugRoute = SolutionsSlugRouteImport.update({
+  id: '/solutions/$slug',
+  path: '/solutions/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -121,14 +151,19 @@ export interface FileRoutesByFullPath {
   '/features': typeof FeaturesRoute
   '/integrations': typeof IntegrationsRoute
   '/pricing': typeof PricingRoute
-  '/products': typeof ProductsRoute
+  '/privacy': typeof PrivacyRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/products': typeof ProductsRouteWithChildren
+  '/refund': typeof RefundRoute
+  '/terms': typeof TermsRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/white-label': typeof WhiteLabelRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/channels/$slug': typeof ChannelsSlugRoute
-  '/products/$slug': typeof ProductsSlugRoute
-  '/solutions/$slug': typeof SolutionsSlugRoute
   '/company/$slug': typeof CompanySlugRoute
+  '/products/$slug': typeof ProductsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/solutions/$slug': typeof SolutionsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -139,14 +174,19 @@ export interface FileRoutesByTo {
   '/features': typeof FeaturesRoute
   '/integrations': typeof IntegrationsRoute
   '/pricing': typeof PricingRoute
-  '/products': typeof ProductsRoute
+  '/privacy': typeof PrivacyRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/products': typeof ProductsRouteWithChildren
+  '/refund': typeof RefundRoute
+  '/terms': typeof TermsRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/white-label': typeof WhiteLabelRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/channels/$slug': typeof ChannelsSlugRoute
-  '/products/$slug': typeof ProductsSlugRoute
-  '/solutions/$slug': typeof SolutionsSlugRoute
   '/company/$slug': typeof CompanySlugRoute
+  '/products/$slug': typeof ProductsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/solutions/$slug': typeof SolutionsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -159,14 +199,19 @@ export interface FileRoutesById {
   '/features': typeof FeaturesRoute
   '/integrations': typeof IntegrationsRoute
   '/pricing': typeof PricingRoute
-  '/products': typeof ProductsRoute
+  '/privacy': typeof PrivacyRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/products': typeof ProductsRouteWithChildren
+  '/refund': typeof RefundRoute
+  '/terms': typeof TermsRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/white-label': typeof WhiteLabelRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/channels/$slug': typeof ChannelsSlugRoute
-  '/products/$slug': typeof ProductsSlugRoute
-  '/solutions/$slug': typeof SolutionsSlugRoute
   '/company/$slug': typeof CompanySlugRoute
+  '/products/$slug': typeof ProductsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/solutions/$slug': typeof SolutionsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -179,14 +224,19 @@ export interface FileRouteTypes {
     | '/features'
     | '/integrations'
     | '/pricing'
+    | '/privacy'
+    | '/privacy-policy'
     | '/products'
+    | '/refund'
+    | '/terms'
+    | '/terms-and-conditions'
     | '/white-label'
     | '/dashboard'
     | '/channels/$slug'
-    | '/products/$slug'
-    | '/solutions/$slug'
     | '/company/$slug'
+    | '/products/$slug'
     | '/services/$slug'
+    | '/solutions/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -197,14 +247,19 @@ export interface FileRouteTypes {
     | '/features'
     | '/integrations'
     | '/pricing'
+    | '/privacy'
+    | '/privacy-policy'
     | '/products'
+    | '/refund'
+    | '/terms'
+    | '/terms-and-conditions'
     | '/white-label'
     | '/dashboard'
     | '/channels/$slug'
-    | '/products/$slug'
-    | '/solutions/$slug'
     | '/company/$slug'
+    | '/products/$slug'
     | '/services/$slug'
+    | '/solutions/$slug'
   id:
     | '__root__'
     | '/'
@@ -216,14 +271,19 @@ export interface FileRouteTypes {
     | '/features'
     | '/integrations'
     | '/pricing'
+    | '/privacy'
+    | '/privacy-policy'
     | '/products'
+    | '/refund'
+    | '/terms'
+    | '/terms-and-conditions'
     | '/white-label'
     | '/_authenticated/dashboard'
     | '/channels/$slug'
-    | '/products/$slug'
-    | '/solutions/$slug'
     | '/company/$slug'
+    | '/products/$slug'
     | '/services/$slug'
+    | '/solutions/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -236,13 +296,17 @@ export interface RootRouteChildren {
   FeaturesRoute: typeof FeaturesRoute
   IntegrationsRoute: typeof IntegrationsRoute
   PricingRoute: typeof PricingRoute
-  ProductsRoute: typeof ProductsRoute
+  PrivacyRoute: typeof PrivacyRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  ProductsRoute: typeof ProductsRouteWithChildren
+  RefundRoute: typeof RefundRoute
+  TermsRoute: typeof TermsRoute
+  TermsAndConditionsRoute: typeof TermsAndConditionsRoute
   WhiteLabelRoute: typeof WhiteLabelRoute
   ChannelsSlugRoute: typeof ChannelsSlugRoute
-  ProductsSlugRoute: typeof ProductsSlugRoute
-  SolutionsSlugRoute: typeof SolutionsSlugRoute
   CompanySlugRoute: typeof CompanySlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
+  SolutionsSlugRoute: typeof SolutionsSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -310,11 +374,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products': {
       id: '/products'
       path: '/products'
       fullPath: '/products'
       preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/refund': {
+      id: '/refund'
+      path: '/refund'
+      fullPath: '/refund'
+      preLoaderRoute: typeof RefundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-and-conditions': {
+      id: '/terms-and-conditions'
+      path: '/terms-and-conditions'
+      fullPath: '/terms-and-conditions'
+      preLoaderRoute: typeof TermsAndConditionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/white-label': {
@@ -338,20 +437,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChannelsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/products/$slug': {
-      id: '/products/$slug'
-      path: '/products/$slug'
-      fullPath: '/products/$slug'
-      preLoaderRoute: typeof ProductsSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/solutions/$slug': {
-      id: '/solutions/$slug'
-      path: '/solutions/$slug'
-      fullPath: '/solutions/$slug'
-      preLoaderRoute: typeof SolutionsSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/company/$slug': {
       id: '/company/$slug'
       path: '/company/$slug'
@@ -359,11 +444,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompanySlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/products/$slug': {
+      id: '/products/$slug'
+      path: '/$slug'
+      fullPath: '/products/$slug'
+      preLoaderRoute: typeof ProductsSlugRouteImport
+      parentRoute: typeof ProductsRoute
+    }
     '/services/$slug': {
       id: '/services/$slug'
       path: '/services/$slug'
       fullPath: '/services/$slug'
       preLoaderRoute: typeof ServicesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/solutions/$slug': {
+      id: '/solutions/$slug'
+      path: '/solutions/$slug'
+      fullPath: '/solutions/$slug'
+      preLoaderRoute: typeof SolutionsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -380,6 +479,18 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface ProductsRouteChildren {
+  ProductsSlugRoute: typeof ProductsSlugRoute
+}
+
+const ProductsRouteChildren: ProductsRouteChildren = {
+  ProductsSlugRoute: ProductsSlugRoute,
+}
+
+const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
+  ProductsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
@@ -390,24 +501,18 @@ const rootRouteChildren: RootRouteChildren = {
   FeaturesRoute: FeaturesRoute,
   IntegrationsRoute: IntegrationsRoute,
   PricingRoute: PricingRoute,
-  ProductsRoute: ProductsRoute,
+  PrivacyRoute: PrivacyRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  ProductsRoute: ProductsRouteWithChildren,
+  RefundRoute: RefundRoute,
+  TermsRoute: TermsRoute,
+  TermsAndConditionsRoute: TermsAndConditionsRoute,
   WhiteLabelRoute: WhiteLabelRoute,
   ChannelsSlugRoute: ChannelsSlugRoute,
-  ProductsSlugRoute: ProductsSlugRoute,
-  SolutionsSlugRoute: SolutionsSlugRoute,
   CompanySlugRoute: CompanySlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,
+  SolutionsSlugRoute: SolutionsSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
