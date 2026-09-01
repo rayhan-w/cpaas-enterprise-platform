@@ -63,14 +63,32 @@ function AuthPage() {
   const [checking, setChecking] = useState(true);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
+  // Parse redirect target URL (e.g. /checkout?plan=growth&billing=monthly)
+  const getTargetUrl = () => {
+    if (typeof window === "undefined") return "/dashboard";
+    const params = new URLSearchParams(window.location.search);
+    const redirectParam = params.get("redirect") || "/dashboard";
+    const planParam = params.get("plan");
+    const billingParam = params.get("billing");
+    let target = redirectParam;
+    if (planParam && !target.includes("plan=")) {
+      target += (target.includes("?") ? "&" : "?") + `plan=${planParam}`;
+    }
+    if (billingParam && !target.includes("billing=")) {
+      target += `&billing=${billingParam}`;
+    }
+    return target;
+  };
+
   useEffect(() => {
     let mounted = true;
+    const target = getTargetUrl();
 
     // Check if user is already logged in
     supabase.auth.getSession().then(({ data }) => {
       if (!mounted) return;
       if (data?.session?.user) {
-        navigate({ to: "/dashboard", replace: true });
+        window.location.href = target;
       } else {
         setChecking(false);
       }
@@ -82,7 +100,7 @@ function AuthPage() {
     } = supabase.auth.onAuthStateChange((event, session) => {
       if (!mounted) return;
       if (session?.user && event === "SIGNED_IN") {
-        navigate({ to: "/dashboard", replace: true });
+        window.location.href = target;
       } else if (event === "SIGNED_OUT") {
         setChecking(false);
       }
@@ -92,7 +110,7 @@ function AuthPage() {
       mounted = false;
       subscription.unsubscribe();
     };
-  }, [navigate]);
+  }, []);
 
   async function handleSignIn(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -118,7 +136,7 @@ function AuthPage() {
     }
     if (data?.user) {
       toast.success("Welcome back to Solvear");
-      window.location.href = "/dashboard";
+      window.location.href = getTargetUrl();
     }
   }
 
@@ -160,7 +178,7 @@ function AuthPage() {
     }
     toast.success("Account created — welcome to Solvear");
     if (data?.session) {
-      window.location.href = "/dashboard";
+      window.location.href = getTargetUrl();
     }
   }
 

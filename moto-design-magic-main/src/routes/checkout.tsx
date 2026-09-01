@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ShieldCheck,
@@ -10,10 +10,15 @@ import {
   Loader2,
   Check,
   MessageCircle,
+  UserCheck,
+  LogIn,
+  UserPlus,
+  ArrowRight,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/site/PageHero";
+import { useSupabaseUser } from "@/hooks/useSupabaseUser";
 
 const PLANS_DATA: Record<string, {
   name: string;
@@ -84,6 +89,7 @@ export const Route = createFileRoute("/checkout")({
 });
 
 function CheckoutPage() {
+  const { user, loading: authLoading } = useSupabaseUser();
   const [selectedPlanKey, setSelectedPlanKey] = useState<string>("growth");
   const [isYearly, setIsYearly] = useState<boolean>(false);
   const [paymentMethod, setPaymentMethod] = useState<"upi" | "card" | "bank">("upi");
@@ -105,53 +111,32 @@ function CheckoutPage() {
   const [processing, setProcessing] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [orderId, setOrderId] = useState("");
-  const [customerSummary, setCustomerSummary] = useState({ name: "", email: "", phone: "" });
-
-  const formRef = useRef<HTMLFormElement>(null);
 
   const currentPlan = PLANS_DATA[selectedPlanKey] || PLANS_DATA.growth;
   const basePrice = isYearly ? currentPlan.yearly : currentPlan.monthly;
   const gstAmount = Math.round(basePrice * 0.18);
   const totalPrice = basePrice + gstAmount;
 
-  function handleSubmitOrder(e: FormEvent<HTMLFormElement>) {
+  const userDisplayName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "Verified Customer";
+  const userEmail = user?.email || "";
+
+  function handleCompletePayment(e: FormEvent) {
     e.preventDefault();
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const name = String(formData.get("fullName") || "").trim();
-    const email = String(formData.get("workEmail") || "").trim();
-    const phone = String(formData.get("phoneWhatsApp") || "").trim();
-
-    if (!name) {
-      toast.error("Please enter your Full Name");
-      const el = form.elements.namedItem("fullName") as HTMLInputElement | null;
-      el?.focus();
-      return;
-    }
-    if (!email) {
-      toast.error("Please enter your Work Email");
-      const el = form.elements.namedItem("workEmail") as HTMLInputElement | null;
-      el?.focus();
-      return;
-    }
-    if (!phone) {
-      toast.error("Please enter your Phone or WhatsApp Number");
-      const el = form.elements.namedItem("phoneWhatsApp") as HTMLInputElement | null;
-      el?.focus();
+    if (!user) {
+      toast.error("Please login first to activate subscription");
+      window.location.href = `/auth?redirect=/checkout&plan=${selectedPlanKey}&billing=${isYearly ? "yearly" : "monthly"}`;
       return;
     }
 
     setProcessing(true);
     const generatedOrderId = "SLV-" + Math.floor(100000 + Math.random() * 900000);
-    setCustomerSummary({ name, email, phone });
 
     setTimeout(() => {
       setProcessing(false);
       setOrderId(generatedOrderId);
       setCompleted(true);
-      toast.success("Order Placed Successfully! Account activation initiated.");
-    }, 500);
+      toast.success("Order Confirmed! Subscription activated successfully.");
+    }, 600);
   }
 
   return (
@@ -176,14 +161,18 @@ function CheckoutPage() {
                   Order Confirmed • ID: #{orderId}
                 </span>
                 <h2 className="font-display text-2xl font-extrabold text-foreground">
-                  Thank You, {customerSummary.name}!
+                  Thank You, {userDisplayName}!
                 </h2>
                 <p className="mt-2 text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
-                  Your subscription to <strong>{currentPlan.name} ({isYearly ? "Annual" : "Monthly"})</strong> is registered. We have dispatched login credentials to <strong>{customerSummary.email}</strong>.
+                  Your subscription to <strong>{currentPlan.name} ({isYearly ? "Annual" : "Monthly"})</strong> is activated. We have dispatched invoice and API credentials to <strong>{userEmail}</strong>.
                 </p>
               </div>
 
               <div className="p-5 rounded-2xl bg-surface border border-border text-left space-y-2.5 text-xs">
+                <div className="flex justify-between items-center py-1 border-b border-border/60">
+                  <span className="text-muted-foreground">Account User</span>
+                  <span className="font-bold text-foreground">{userEmail}</span>
+                </div>
                 <div className="flex justify-between items-center py-1 border-b border-border/60">
                   <span className="text-muted-foreground">Subscribed Plan</span>
                   <span className="font-bold text-foreground">{currentPlan.name}</span>
@@ -204,14 +193,14 @@ function CheckoutPage() {
 
               <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
                 <Button asChild size="lg" className="rounded-xl shadow-pink font-bold text-xs">
-                  <Link to="/auth">Go To Dashboard Login</Link>
+                  <Link to="/dashboard">Go To Dashboard Workspace</Link>
                 </Button>
                 <Button
                   asChild
                   className="rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs gap-1.5"
                 >
                   <a
-                    href={`https://wa.me/918016081188?text=Hello%20Solvear,%20I%20just%20completed%20checkout%20for%20order%20%23${orderId}%20(${currentPlan.name}).%20Please%20activate%20my%20API.`}
+                    href={`https://wa.me/918016081188?text=Hello%20Solvear,%20I%20just%20completed%20checkout%20for%20order%20%23${orderId}%20(${currentPlan.name})%20on%20account%20${userEmail}.%20Please%20activate%20my%20API.`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -221,11 +210,87 @@ function CheckoutPage() {
                 </Button>
               </div>
             </div>
+          ) : !authLoading && !user ? (
+            /* Auth Required Gate (When user is not logged in) */
+            <div className="mx-auto max-w-xl rounded-3xl border border-border bg-card p-8 sm:p-10 shadow-elevated text-center space-y-6">
+              <div className="grid h-16 w-16 place-items-center rounded-3xl bg-primary/10 text-primary mx-auto">
+                <LogIn className="h-8 w-8" />
+              </div>
+
+              <div>
+                <h2 className="font-display text-2xl font-extrabold text-foreground">
+                  Login Required for Checkout
+                </h2>
+                <p className="mt-2 text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
+                  Please log in or create a free Solvear account. Your API keys and subscription will be linked directly to your authenticated workspace.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-surface border border-border text-left space-y-2 text-xs">
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Selected Plan:</span>
+                  <span className="font-bold text-foreground">{currentPlan.name} (${basePrice}/{isYearly ? "yr" : "mo"})</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Billing Duration:</span>
+                  <span className="font-bold text-primary">{isYearly ? "Annual (2 Months Free)" : "Monthly"}</span>
+                </div>
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2 pt-2">
+                <Button
+                  asChild
+                  size="lg"
+                  className="rounded-xl shadow-pink font-bold text-xs py-5 gap-2"
+                >
+                  <a href={`/auth?redirect=/checkout&plan=${selectedPlanKey}&billing=${isYearly ? "yearly" : "monthly"}`}>
+                    <LogIn className="h-4 w-4" />
+                    <span>Log In to Account</span>
+                  </a>
+                </Button>
+
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="rounded-xl font-bold text-xs py-5 gap-2"
+                >
+                  <a href={`/auth?redirect=/checkout&plan=${selectedPlanKey}&billing=${isYearly ? "yearly" : "monthly"}`}>
+                    <UserPlus className="h-4 w-4" />
+                    <span>Create Free Account</span>
+                  </a>
+                </Button>
+              </div>
+            </div>
           ) : (
-            /* Checkout Form & Order Summary Grid */
+            /* Logged-In User Checkout Screen */
             <div className="grid gap-8 lg:grid-cols-12">
-              {/* Left Column: Plan & Form */}
+              {/* Left Column: Plan & Payment Method */}
               <div className="lg:col-span-7 space-y-6">
+                {/* Authenticated Account Profile Card */}
+                <div className="rounded-3xl border border-border bg-card p-5 sm:p-6 shadow-xs flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-white font-bold text-base">
+                      {userDisplayName.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h4 className="font-display text-sm font-bold text-foreground">{userDisplayName}</h4>
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 text-[10px] font-bold">
+                          <UserCheck className="h-3 w-3" /> Logged In
+                        </span>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-0.5">{userEmail}</p>
+                    </div>
+                  </div>
+                  <Link
+                    to="/auth"
+                    className="text-xs font-semibold text-primary hover:underline"
+                  >
+                    Switch Account
+                  </Link>
+                </div>
+
                 {/* 1. Plan Selector */}
                 <div className="rounded-3xl border border-border bg-card p-5 sm:p-6 shadow-xs space-y-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -293,100 +358,9 @@ function CheckoutPage() {
                   </div>
                 </div>
 
-                {/* 2. Billing Form with 100% Native Uncontrolled Inputs for Zero-Delay Typing and Full Autofill */}
-                <form
-                  ref={formRef}
-                  onSubmit={handleSubmitOrder}
-                  className="rounded-3xl border border-border bg-card p-5 sm:p-8 shadow-xs space-y-5"
-                >
-                  <div>
-                    <h3 className="font-display text-base font-bold text-foreground">
-                      Account &amp; Billing Details
-                    </h3>
-                    <p className="text-xs text-muted-foreground mt-0.5">
-                      Your platform access and GST invoice will be generated with these details.
-                    </p>
-                  </div>
-
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="space-y-1.5">
-                      <label htmlFor="fullName" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
-                        Full Name *
-                      </label>
-                      <input
-                        id="fullName"
-                        name="fullName"
-                        type="text"
-                        required
-                        autoComplete="name"
-                        autoCapitalize="words"
-                        defaultValue=""
-                        className="h-12 w-full rounded-xl bg-background border-2 border-border focus:border-primary px-4 text-base sm:text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition cursor-text"
-                      />
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label htmlFor="workEmail" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
-                        Work Email *
-                      </label>
-                      <input
-                        id="workEmail"
-                        name="workEmail"
-                        type="email"
-                        required
-                        autoComplete="email"
-                        inputMode="email"
-                        defaultValue=""
-                        className="h-12 w-full rounded-xl bg-background border-2 border-border focus:border-primary px-4 text-base sm:text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition cursor-text"
-                      />
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label htmlFor="phoneWhatsApp" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
-                        Phone / WhatsApp *
-                      </label>
-                      <input
-                        id="phoneWhatsApp"
-                        name="phoneWhatsApp"
-                        type="tel"
-                        required
-                        autoComplete="tel"
-                        inputMode="tel"
-                        defaultValue=""
-                        className="h-12 w-full rounded-xl bg-background border-2 border-border focus:border-primary px-4 text-base sm:text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition cursor-text"
-                      />
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label htmlFor="companyName" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
-                        Company Name
-                      </label>
-                      <input
-                        id="companyName"
-                        name="companyName"
-                        type="text"
-                        autoComplete="organization"
-                        defaultValue=""
-                        className="h-12 w-full rounded-xl bg-background border-2 border-border focus:border-primary px-4 text-base sm:text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition cursor-text"
-                      />
-                    </div>
-
-                    <div className="space-y-1.5 sm:col-span-2">
-                      <label htmlFor="taxGstin" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
-                        GSTIN / Tax ID (Optional for 18% ITC claim)
-                      </label>
-                      <input
-                        id="taxGstin"
-                        name="taxGstin"
-                        type="text"
-                        defaultValue=""
-                        className="h-12 w-full rounded-xl bg-background border-2 border-border focus:border-primary px-4 text-base sm:text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition cursor-text"
-                      />
-                    </div>
-                  </div>
-
-                  {/* 3. Payment Method Choice */}
-                  <div className="pt-3 border-t border-border space-y-3">
+                {/* 2. Payment Method Selector */}
+                <form onSubmit={handleCompletePayment} className="rounded-3xl border border-border bg-card p-5 sm:p-8 shadow-xs space-y-5">
+                  <div className="space-y-3">
                     <h4 className="font-display text-sm font-bold text-foreground">
                       Select Payment Method
                     </h4>
@@ -457,7 +431,7 @@ function CheckoutPage() {
                     {processing ? (
                       <span className="flex items-center gap-2">
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        <span>Activating Subscription...</span>
+                        <span>Activating Subscription for {userEmail}...</span>
                       </span>
                     ) : (
                       <span className="flex items-center gap-2">
