@@ -356,7 +356,6 @@ export function DedicatedPageTemplate({ page }: { page: PageDetail }) {
                     required
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    placeholder="Enter your name"
                     className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
@@ -369,7 +368,6 @@ export function DedicatedPageTemplate({ page }: { page: PageDetail }) {
                       required
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      placeholder="you@company.com"
                       className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
@@ -380,7 +378,6 @@ export function DedicatedPageTemplate({ page }: { page: PageDetail }) {
                       required
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      placeholder="+91 80160 81188"
                       className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
@@ -392,7 +389,6 @@ export function DedicatedPageTemplate({ page }: { page: PageDetail }) {
                     type="text"
                     value={form.company}
                     onChange={(e) => setForm({ ...form, company: e.target.value })}
-                    placeholder="e.g. Acme Corp"
                     className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
@@ -403,7 +399,6 @@ export function DedicatedPageTemplate({ page }: { page: PageDetail }) {
                     rows={3}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    placeholder={`Tell us about your ${page.name} requirements...`}
                     className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>

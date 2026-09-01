@@ -534,7 +534,6 @@ function Home() {
                     required
                     value={consultForm.name}
                     onChange={(e) => setConsultForm({ ...consultForm, name: e.target.value })}
-                    placeholder="Rayhan Haidar"
                     className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
@@ -547,7 +546,6 @@ function Home() {
                       required
                       value={consultForm.email}
                       onChange={(e) => setConsultForm({ ...consultForm, email: e.target.value })}
-                      placeholder="you@company.com"
                       className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
@@ -558,7 +556,6 @@ function Home() {
                       required
                       value={consultForm.phone}
                       onChange={(e) => setConsultForm({ ...consultForm, phone: e.target.value })}
-                      placeholder="+91 80160 81188"
                       className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
@@ -572,7 +569,6 @@ function Home() {
                       required
                       value={consultForm.city}
                       onChange={(e) => setConsultForm({ ...consultForm, city: e.target.value })}
-                      placeholder="Kolkata / Dhaka"
                       className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
@@ -583,7 +579,6 @@ function Home() {
                       required
                       value={consultForm.company}
                       onChange={(e) => setConsultForm({ ...consultForm, company: e.target.value })}
-                      placeholder="Solvear Technologies"
                       className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-xs focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
