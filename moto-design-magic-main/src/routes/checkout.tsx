@@ -1,4 +1,4 @@
-import { useState, useEffect, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import {
   ShieldCheck,
@@ -7,21 +7,14 @@ import {
   CreditCard,
   QrCode,
   Building,
-  Sparkles,
-  ArrowRight,
   Loader2,
   Check,
   MessageCircle,
-  HelpCircle,
-  Phone,
-  Zap,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Switch } from "@/components/ui/switch";
 import { PageHero } from "@/components/site/PageHero";
 
 const PLANS_DATA: Record<string, {
@@ -110,7 +103,6 @@ function CheckoutPage() {
     phone: "",
     company: "",
     gstin: "",
-    address: "",
   });
 
   const [processing, setProcessing] = useState(false);
@@ -134,7 +126,7 @@ function CheckoutPage() {
       return;
     }
     if (!formData.phone.trim()) {
-      toast.error("Please enter your Phone / WhatsApp Number");
+      toast.error("Please enter your Phone or WhatsApp Number");
       return;
     }
 
@@ -145,8 +137,8 @@ function CheckoutPage() {
       setProcessing(false);
       setOrderId(generatedOrderId);
       setCompleted(true);
-      toast.success("Order Placed Successfully! Your account is ready for activation.");
-    }, 1200);
+      toast.success("Order Placed Successfully! Account activation initiated.");
+    }, 800);
   }
 
   return (
@@ -161,24 +153,24 @@ function CheckoutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           {completed ? (
             /* Order Success State */
-            <div className="mx-auto max-w-2xl rounded-3xl border border-border bg-card p-8 sm:p-12 shadow-elevated text-center space-y-6 animate-in fade-in zoom-in-95">
-              <div className="grid h-20 w-20 place-items-center rounded-3xl bg-emerald-100 text-emerald-600 mx-auto shadow-inner">
-                <CheckCircle2 className="h-12 w-12" />
+            <div className="mx-auto max-w-2xl rounded-3xl border border-border bg-card p-6 sm:p-10 shadow-elevated text-center space-y-6 animate-in fade-in zoom-in-95">
+              <div className="grid h-16 w-16 place-items-center rounded-3xl bg-emerald-100 text-emerald-600 mx-auto shadow-inner">
+                <CheckCircle2 className="h-10 w-10" />
               </div>
 
               <div>
                 <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 text-xs font-bold uppercase tracking-wider mb-2">
                   Order Confirmed • ID: #{orderId}
                 </span>
-                <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-foreground">
+                <h2 className="font-display text-2xl font-extrabold text-foreground">
                   Thank You, {formData.name}!
                 </h2>
-                <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">
-                  Your subscription to <strong>{currentPlan.name} ({isYearly ? "Annual" : "Monthly"})</strong> is registered. We have sent the invoice and onboarding credentials to <strong>{formData.email}</strong>.
+                <p className="mt-2 text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
+                  Your subscription to <strong>{currentPlan.name} ({isYearly ? "Annual" : "Monthly"})</strong> is registered. We have dispatched login credentials to <strong>{formData.email}</strong>.
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl bg-surface border border-border text-left space-y-3 text-xs">
+              <div className="p-5 rounded-2xl bg-surface border border-border text-left space-y-2.5 text-xs">
                 <div className="flex justify-between items-center py-1 border-b border-border/60">
                   <span className="text-muted-foreground">Subscribed Plan</span>
                   <span className="font-bold text-foreground">{currentPlan.name}</span>
@@ -189,11 +181,11 @@ function CheckoutPage() {
                 </div>
                 <div className="flex justify-between items-center py-1 border-b border-border/60">
                   <span className="text-muted-foreground">Total Invoiced Amount</span>
-                  <span className="font-bold text-primary text-sm">${totalPrice} USD (incl. 18% GST)</span>
+                  <span className="font-bold text-primary">${totalPrice} USD (incl. 18% GST)</span>
                 </div>
                 <div className="flex justify-between items-center py-1">
-                  <span className="text-muted-foreground">Activation Specialist Call</span>
-                  <span className="font-bold text-emerald-600">Within 15 Minutes on {formData.phone}</span>
+                  <span className="text-muted-foreground">Activation Desk</span>
+                  <span className="font-bold text-emerald-600">Immediate WhatsApp Onboarding</span>
                 </div>
               </div>
 
@@ -218,46 +210,53 @@ function CheckoutPage() {
             </div>
           ) : (
             /* Checkout Form & Order Summary Grid */
-            <div className="grid gap-10 lg:grid-cols-12">
-              {/* Left Column (7 Cols): Customer Information & Payment Method */}
-              <div className="lg:col-span-7 space-y-8">
-                {/* 1. Plan Selector Bar */}
-                <div className="rounded-3xl border border-border bg-card p-6 shadow-xs space-y-4">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="grid gap-8 lg:grid-cols-12">
+              {/* Left Column: Plan & Form */}
+              <div className="lg:col-span-7 space-y-6">
+                {/* 1. Plan Selector */}
+                <div className="rounded-3xl border border-border bg-card p-5 sm:p-6 shadow-xs space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
                       <h3 className="font-display text-base font-bold text-foreground">
                         Select Subscription Plan
                       </h3>
                       <p className="text-xs text-muted-foreground">
-                        Change plan or billing cycle instantly.
+                        Choose your preferred tier and billing duration.
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-2.5 bg-surface px-3 py-1.5 rounded-xl border border-border">
-                      <Label htmlFor="checkout-billing" className="text-xs font-semibold cursor-pointer">
+                    <div className="flex items-center gap-2 bg-surface p-1.5 rounded-xl border border-border w-fit">
+                      <button
+                        type="button"
+                        onClick={() => setIsYearly(false)}
+                        className={`px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
+                          !isYearly ? "bg-card text-foreground shadow-xs" : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
                         Monthly
-                      </Label>
-                      <Switch
-                        id="checkout-billing"
-                        checked={isYearly}
-                        onCheckedChange={setIsYearly}
-                      />
-                      <Label htmlFor="checkout-billing" className="text-xs font-semibold text-primary cursor-pointer">
-                        Yearly <span className="text-[10px] font-bold text-emerald-600 bg-emerald-100 px-1.5 py-0.5 rounded-md ml-0.5">2 Mos Free</span>
-                      </Label>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setIsYearly(true)}
+                        className={`px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1 ${
+                          isYearly ? "bg-primary text-white shadow-xs" : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        <span>Yearly</span>
+                        <span className="text-[9px] bg-yellow-400 text-black px-1 py-0.2 rounded font-extrabold">2 Mos Free</span>
+                      </button>
                     </div>
                   </div>
 
-                  <div className="grid gap-3 sm:grid-cols-3 pt-2">
+                  <div className="grid gap-3 sm:grid-cols-3 pt-1">
                     {Object.entries(PLANS_DATA).map(([key, plan]) => {
                       const isSelected = selectedPlanKey === key;
                       const price = isYearly ? plan.yearly : plan.monthly;
                       return (
-                        <button
+                        <div
                           key={key}
-                          type="button"
                           onClick={() => setSelectedPlanKey(key)}
-                          className={`text-left p-4 rounded-2xl border transition-all cursor-pointer ${
+                          className={`p-3.5 rounded-2xl border transition cursor-pointer ${
                             isSelected
                               ? "border-primary bg-primary/5 ring-2 ring-primary/20 shadow-xs"
                               : "border-border bg-surface hover:border-primary/40"
@@ -269,31 +268,31 @@ function CheckoutPage() {
                             </span>
                             {isSelected && <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />}
                           </div>
-                          <p className="mt-2 font-display text-xl font-extrabold text-foreground">
+                          <p className="mt-2 font-display text-lg font-extrabold text-foreground">
                             ${price}
-                            <span className="text-[11px] font-normal text-muted-foreground">
+                            <span className="text-[10px] font-normal text-muted-foreground">
                               /{isYearly ? "yr" : "mo"}
                             </span>
                           </p>
-                        </button>
+                        </div>
                       );
                     })}
                   </div>
                 </div>
 
-                {/* 2. Billing & Organization Information Form */}
-                <form id="checkout-form" onSubmit={handleSubmitOrder} className="rounded-3xl border border-border bg-card p-6 sm:p-8 shadow-xs space-y-6">
+                {/* 2. Billing Form */}
+                <form onSubmit={handleSubmitOrder} className="rounded-3xl border border-border bg-card p-5 sm:p-8 shadow-xs space-y-5">
                   <div>
                     <h3 className="font-display text-base font-bold text-foreground">
                       Account &amp; Billing Details
                     </h3>
                     <p className="text-xs text-muted-foreground mt-0.5">
-                      Your platform login and official GST tax invoice will be sent here.
+                      Your platform access and GST invoice will be generated with these details.
                     </p>
                   </div>
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="space-y-1.5">
+                  <div className="grid gap-3.5 sm:grid-cols-2">
+                    <div className="space-y-1">
                       <Label htmlFor="name" className="text-xs font-bold uppercase tracking-wider text-foreground/80">
                         Full Name *
                       </Label>
@@ -302,11 +301,11 @@ function CheckoutPage() {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="h-11 rounded-xl bg-surface border-border text-xs focus:ring-primary"
+                        className="h-10 rounded-xl bg-surface border-border text-xs focus:ring-primary"
                       />
                     </div>
 
-                    <div className="space-y-1.5">
+                    <div className="space-y-1">
                       <Label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-foreground/80">
                         Work Email *
                       </Label>
@@ -316,11 +315,11 @@ function CheckoutPage() {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="h-11 rounded-xl bg-surface border-border text-xs focus:ring-primary"
+                        className="h-10 rounded-xl bg-surface border-border text-xs focus:ring-primary"
                       />
                     </div>
 
-                    <div className="space-y-1.5">
+                    <div className="space-y-1">
                       <Label htmlFor="phone" className="text-xs font-bold uppercase tracking-wider text-foreground/80">
                         Phone / WhatsApp *
                       </Label>
@@ -330,11 +329,11 @@ function CheckoutPage() {
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="h-11 rounded-xl bg-surface border-border text-xs focus:ring-primary"
+                        className="h-10 rounded-xl bg-surface border-border text-xs focus:ring-primary"
                       />
                     </div>
 
-                    <div className="space-y-1.5">
+                    <div className="space-y-1">
                       <Label htmlFor="company" className="text-xs font-bold uppercase tracking-wider text-foreground/80">
                         Company Name
                       </Label>
@@ -342,111 +341,83 @@ function CheckoutPage() {
                         id="company"
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className="h-11 rounded-xl bg-surface border-border text-xs focus:ring-primary"
+                        className="h-10 rounded-xl bg-surface border-border text-xs focus:ring-primary"
                       />
                     </div>
 
-                    <div className="space-y-1.5 sm:col-span-2">
+                    <div className="space-y-1 sm:col-span-2">
                       <Label htmlFor="gstin" className="text-xs font-bold uppercase tracking-wider text-foreground/80">
-                        GSTIN / Tax ID (Optional for 18% ITC input claim)
+                        GSTIN / Tax ID (Optional for 18% ITC claim)
                       </Label>
                       <Input
                         id="gstin"
                         value={formData.gstin}
                         onChange={(e) => setFormData({ ...formData, gstin: e.target.value })}
-                        className="h-11 rounded-xl bg-surface border-border text-xs focus:ring-primary"
+                        className="h-10 rounded-xl bg-surface border-border text-xs focus:ring-primary"
                       />
                     </div>
                   </div>
 
                   {/* 3. Payment Method Choice */}
-                  <div className="pt-4 border-t border-border space-y-4">
-                    <div>
-                      <h4 className="font-display text-sm font-bold text-foreground">
-                        Select Payment Method
-                      </h4>
-                      <p className="text-xs text-muted-foreground mt-0.5">
-                        Encrypted 256-bit secure gateway connection.
-                      </p>
-                    </div>
+                  <div className="pt-3 border-t border-border space-y-3">
+                    <h4 className="font-display text-sm font-bold text-foreground">
+                      Select Payment Method
+                    </h4>
 
-                    <div className="grid gap-3 sm:grid-cols-3">
+                    <div className="grid gap-2.5 sm:grid-cols-3">
                       <div
                         onClick={() => setPaymentMethod("upi")}
-                        className={`p-4 rounded-2xl border flex flex-col gap-2 cursor-pointer transition ${
+                        className={`p-3 rounded-xl border flex flex-col gap-1.5 cursor-pointer transition ${
                           paymentMethod === "upi"
                             ? "border-primary bg-primary/5 ring-2 ring-primary/20"
                             : "border-border bg-surface hover:border-primary/40"
                         }`}
                       >
                         <div className="flex items-center justify-between">
-                          <QrCode className="w-5 h-5 text-primary" />
-                          <input
-                            type="radio"
-                            name="payment"
-                            checked={paymentMethod === "upi"}
-                            onChange={() => setPaymentMethod("upi")}
-                            className="text-primary focus:ring-primary"
-                          />
+                          <QrCode className="w-4 h-4 text-primary" />
+                          <span className="h-2 w-2 rounded-full bg-primary" />
                         </div>
                         <div>
                           <p className="font-bold text-xs text-foreground">UPI / Dynamic QR</p>
-                          <p className="text-[11px] text-muted-foreground">GPay, PhonePe, Paytm</p>
+                          <p className="text-[10px] text-muted-foreground">Google Pay, PhonePe, Paytm</p>
                         </div>
                       </div>
 
                       <div
                         onClick={() => setPaymentMethod("card")}
-                        className={`p-4 rounded-2xl border flex flex-col gap-2 cursor-pointer transition ${
+                        className={`p-3 rounded-xl border flex flex-col gap-1.5 cursor-pointer transition ${
                           paymentMethod === "card"
                             ? "border-primary bg-primary/5 ring-2 ring-primary/20"
                             : "border-border bg-surface hover:border-primary/40"
                         }`}
                       >
                         <div className="flex items-center justify-between">
-                          <CreditCard className="w-5 h-5 text-primary" />
-                          <input
-                            type="radio"
-                            name="payment"
-                            checked={paymentMethod === "card"}
-                            onChange={() => setPaymentMethod("card")}
-                            className="text-primary focus:ring-primary"
-                          />
+                          <CreditCard className="w-4 h-4 text-primary" />
+                          <span className="h-2 w-2 rounded-full bg-primary" />
                         </div>
                         <div>
-                          <p className="font-bold text-xs text-foreground">Cards / NetBanking</p>
-                          <p className="text-[11px] text-muted-foreground">Visa, Master, RuPay</p>
+                          <p className="font-bold text-xs text-foreground">Credit / Debit Cards</p>
+                          <p className="text-[10px] text-muted-foreground">Visa, Master, RuPay</p>
                         </div>
                       </div>
 
                       <div
                         onClick={() => setPaymentMethod("bank")}
-                        className={`p-4 rounded-2xl border flex flex-col gap-2 cursor-pointer transition ${
+                        className={`p-3 rounded-xl border flex flex-col gap-1.5 cursor-pointer transition ${
                           paymentMethod === "bank"
                             ? "border-primary bg-primary/5 ring-2 ring-primary/20"
                             : "border-border bg-surface hover:border-primary/40"
                         }`}
                       >
                         <div className="flex items-center justify-between">
-                          <Building className="w-5 h-5 text-primary" />
-                          <input
-                            type="radio"
-                            name="payment"
-                            checked={paymentMethod === "bank"}
-                            onChange={() => setPaymentMethod("bank")}
-                            className="text-primary focus:ring-primary"
-                          />
+                          <Building className="w-4 h-4 text-primary" />
+                          <span className="h-2 w-2 rounded-full bg-primary" />
                         </div>
                         <div>
                           <p className="font-bold text-xs text-foreground">Corporate Transfer</p>
-                          <p className="text-[11px] text-muted-foreground">NEFT / RTGS / Wire</p>
+                          <p className="text-[10px] text-muted-foreground">NEFT / RTGS / Wire</p>
                         </div>
                       </div>
-                    </div>
-
-                    <div className="p-3.5 rounded-2xl bg-surface border border-border text-[11px] text-muted-foreground flex items-center gap-2">
-                      <Lock className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Zero processing fees. Instant activation on all verified payment methods.</span>
                     </div>
                   </div>
 
@@ -454,80 +425,76 @@ function CheckoutPage() {
                     type="submit"
                     size="lg"
                     disabled={processing}
-                    className="w-full shadow-pink rounded-xl font-bold text-xs py-6 cursor-pointer"
+                    className="w-full shadow-pink rounded-xl font-bold text-xs py-5 cursor-pointer"
                   >
                     {processing ? (
                       <span className="flex items-center gap-2">
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Processing Instant Activation...</span>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        <span>Activating Subscription...</span>
                       </span>
                     ) : (
                       <span className="flex items-center gap-2">
                         <Lock className="w-4 h-4" />
-                        <span>Pay ${totalPrice} &amp; Activate Account</span>
+                        <span>Pay ${totalPrice} &amp; Complete Checkout</span>
                       </span>
                     )}
                   </Button>
                 </form>
               </div>
 
-              {/* Right Column (5 Cols): Order Summary & Guarantee */}
-              <div className="lg:col-span-5 space-y-6">
-                <div className="rounded-3xl border border-border bg-card p-6 sm:p-7 shadow-xs space-y-6 lg:sticky lg:top-28">
-                  <div className="flex items-center justify-between border-b border-border pb-4">
+              {/* Right Column: Order Summary */}
+              <div className="lg:col-span-5 space-y-4">
+                <div className="rounded-3xl border border-border bg-card p-5 sm:p-6 shadow-xs space-y-5">
+                  <div className="flex items-center justify-between border-b border-border pb-3">
                     <h3 className="font-display text-base font-bold text-foreground">
                       Order Summary
                     </h3>
-                    <span className="text-xs font-bold text-primary bg-primary/10 px-2.5 py-1 rounded-full">
+                    <span className="text-xs font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded-full">
                       {isYearly ? "Annual Plan" : "Monthly Plan"}
                     </span>
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     <div className="flex items-start justify-between">
                       <div>
-                        <h4 className="font-display text-base font-bold text-foreground">
+                        <h4 className="font-display text-sm font-bold text-foreground">
                           {currentPlan.name}
                         </h4>
-                        <p className="text-xs text-muted-foreground mt-0.5">
+                        <p className="text-[11px] text-muted-foreground mt-0.5 max-w-[200px]">
                           {currentPlan.tagline}
                         </p>
                       </div>
-                      <span className="font-display text-lg font-extrabold text-foreground">
+                      <span className="font-display text-base font-extrabold text-foreground">
                         ${basePrice}
                       </span>
                     </div>
 
-                    <div className="pt-2 border-t border-border/60 space-y-2 text-xs">
+                    <div className="pt-2 border-t border-border/60 space-y-1.5 text-xs">
                       <div className="flex justify-between text-muted-foreground">
                         <span>Plan Subscription</span>
                         <span>${basePrice}.00</span>
                       </div>
                       <div className="flex justify-between text-muted-foreground">
-                        <span>GST / Govt Tax (18%)</span>
+                        <span>GST / Tax (18%)</span>
                         <span>${gstAmount}.00</span>
                       </div>
                       <div className="flex justify-between text-muted-foreground">
-                        <span>Platform Setup &amp; API Key</span>
+                        <span>API Provisioning</span>
                         <span className="text-emerald-600 font-semibold">FREE ($0)</span>
                       </div>
-                      <div className="flex justify-between text-muted-foreground">
-                        <span>Meta WhatsApp DLT Onboarding</span>
-                        <span className="text-emerald-600 font-semibold">FREE ($0)</span>
-                      </div>
-                      <div className="flex justify-between text-foreground font-extrabold text-sm pt-3 border-t border-border">
+                      <div className="flex justify-between text-foreground font-extrabold text-sm pt-2 border-t border-border">
                         <span>Total Due Today</span>
                         <span className="text-primary text-base">${totalPrice}.00 USD</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Included Plan Highlights */}
-                  <div className="pt-4 border-t border-border space-y-3">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-foreground/80">
-                      What is included:
+                  {/* Features List */}
+                  <div className="pt-3 border-t border-border space-y-2">
+                    <h4 className="text-[11px] font-bold uppercase tracking-wider text-foreground/80">
+                      Included with your plan:
                     </h4>
-                    <ul className="space-y-2 text-xs text-foreground/85">
+                    <ul className="space-y-1.5 text-xs text-foreground/85">
                       {currentPlan.features.map((feat) => (
                         <li key={feat} className="flex items-start gap-2">
                           <Check className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
@@ -537,15 +504,9 @@ function CheckoutPage() {
                     </ul>
                   </div>
 
-                  {/* Trust & Support Badges */}
-                  <div className="p-4 rounded-2xl bg-surface border border-border space-y-2 text-xs text-muted-foreground">
-                    <div className="flex items-center gap-2 font-bold text-foreground">
-                      <ShieldCheck className="w-4 h-4 text-primary" />
-                      <span>100% Risk-Free Guarantee</span>
-                    </div>
-                    <p className="text-[11px] leading-relaxed">
-                      All plans are backed by our 7-day refund guarantee and 99.99% enterprise gateway uptime SLA.
-                    </p>
+                  <div className="p-3 rounded-2xl bg-surface border border-border text-[11px] text-muted-foreground flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Backed by 99.99% enterprise uptime SLA and 7-day money back guarantee.</span>
                   </div>
                 </div>
               </div>
