@@ -161,7 +161,15 @@ function Pricing() {
                   className={`mt-8 w-full ${p.featured ? "shadow-pink" : ""}`}
                   variant={p.featured ? "default" : "outline"}
                 >
-                  <Link to="/contact">Get Started</Link>
+                  <Link
+                    to="/checkout"
+                    search={{
+                      plan: p.name.toLowerCase(),
+                      billing: yearly ? "yearly" : "monthly",
+                    }}
+                  >
+                    Proceed to Checkout
+                  </Link>
                 </Button>
               </article>
             ))}
