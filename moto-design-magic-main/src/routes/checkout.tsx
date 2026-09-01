@@ -473,7 +473,7 @@ function CheckoutPage() {
 
               {/* Right Column (5 Cols): Order Summary & Guarantee */}
               <div className="lg:col-span-5 space-y-6">
-                <div className="rounded-3xl border border-border bg-card p-6 sm:p-7 shadow-xs space-y-6 sticky top-28">
+                <div className="rounded-3xl border border-border bg-card p-6 sm:p-7 shadow-xs space-y-6 lg:sticky lg:top-28">
                   <div className="flex items-center justify-between border-b border-border pb-4">
                     <h3 className="font-display text-base font-bold text-foreground">
                       Order Summary

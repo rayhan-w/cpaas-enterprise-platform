@@ -17,6 +17,26 @@ export default defineConfig({
     outDir: "dist",
     emptyOutDir: true,
     cssCodeSplit: true,
-    chunkSizeWarningLimit: 1500,
+    rollupOptions: {
+      output: {
+        manualChunks(id: string) {
+          if (id.includes("node_modules")) {
+            if (id.includes("lucide-react")) {
+              return "icons";
+            }
+            if (id.includes("recharts") || id.includes("d3-")) {
+              return "charts";
+            }
+            if (id.includes("@supabase")) {
+              return "supabase";
+            }
+            if (id.includes("@tanstack")) {
+              return "tanstack";
+            }
+            return "vendor";
+          }
+        },
+      },
+    },
   },
 });
