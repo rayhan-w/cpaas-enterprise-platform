@@ -293,67 +293,70 @@ function CheckoutPage() {
 
                   <div className="grid gap-3.5 sm:grid-cols-2">
                     <div className="space-y-1">
-                      <Label htmlFor="name" className="text-xs font-bold uppercase tracking-wider text-foreground/80">
+                      <label htmlFor="name" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
                         Full Name *
-                      </Label>
-                      <Input
+                      </label>
+                      <input
                         id="name"
+                        type="text"
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="h-10 rounded-xl bg-surface border-border text-xs focus:ring-primary"
+                        className="h-11 w-full rounded-xl bg-surface border border-border px-3.5 text-base sm:text-xs text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <Label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-foreground/80">
+                      <label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
                         Work Email *
-                      </Label>
-                      <Input
+                      </label>
+                      <input
                         id="email"
                         type="email"
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="h-10 rounded-xl bg-surface border-border text-xs focus:ring-primary"
+                        className="h-11 w-full rounded-xl bg-surface border border-border px-3.5 text-base sm:text-xs text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <Label htmlFor="phone" className="text-xs font-bold uppercase tracking-wider text-foreground/80">
+                      <label htmlFor="phone" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
                         Phone / WhatsApp *
-                      </Label>
-                      <Input
+                      </label>
+                      <input
                         id="phone"
                         type="tel"
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="h-10 rounded-xl bg-surface border-border text-xs focus:ring-primary"
+                        className="h-11 w-full rounded-xl bg-surface border border-border px-3.5 text-base sm:text-xs text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <Label htmlFor="company" className="text-xs font-bold uppercase tracking-wider text-foreground/80">
+                      <label htmlFor="company" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
                         Company Name
-                      </Label>
-                      <Input
+                      </label>
+                      <input
                         id="company"
+                        type="text"
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className="h-10 rounded-xl bg-surface border-border text-xs focus:ring-primary"
+                        className="h-11 w-full rounded-xl bg-surface border border-border px-3.5 text-base sm:text-xs text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       />
                     </div>
 
                     <div className="space-y-1 sm:col-span-2">
-                      <Label htmlFor="gstin" className="text-xs font-bold uppercase tracking-wider text-foreground/80">
+                      <label htmlFor="gstin" className="text-xs font-bold uppercase tracking-wider text-foreground/80 block">
                         GSTIN / Tax ID (Optional for 18% ITC claim)
-                      </Label>
-                      <Input
+                      </label>
+                      <input
                         id="gstin"
+                        type="text"
                         value={formData.gstin}
                         onChange={(e) => setFormData({ ...formData, gstin: e.target.value })}
-                        className="h-10 rounded-xl bg-surface border-border text-xs focus:ring-primary"
+                        className="h-11 w-full rounded-xl bg-surface border border-border px-3.5 text-base sm:text-xs text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       />
                     </div>
                   </div>

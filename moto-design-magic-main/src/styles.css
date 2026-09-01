@@ -168,11 +168,6 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  html {
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-  }
-
   html,
   body {
     overflow-x: hidden;
@@ -185,15 +180,25 @@
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
-    touch-action: manipulation;
   }
 
   button,
-  a,
+  a {
+    touch-action: manipulation;
+  }
+
   input,
   select,
   textarea {
-    touch-action: manipulation;
+    font-size: 16px;
+  }
+
+  @media (min-width: 640px) {
+    input,
+    select,
+    textarea {
+      font-size: 14px;
+    }
   }
 
   img,
