@@ -1,5 +1,5 @@
-import { useState, type FormEvent } from "react";
-import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
+import { useState, useEffect, type FormEvent } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ShieldCheck,
   CheckCircle2,
@@ -80,22 +80,28 @@ export const Route = createFileRoute("/checkout")({
       { property: "og:title", content: "Checkout — Solvear Platform" },
     ],
   }),
-  validateSearch: (search: Record<string, unknown>) => {
-    const rawPlan = typeof search.plan === "string" ? search.plan.toLowerCase() : "growth";
-    const plan = PLANS_DATA[rawPlan] ? rawPlan : "growth";
-    const billing = search.billing === "yearly" ? "yearly" : "monthly";
-    return { plan, billing };
-  },
   component: CheckoutPage,
 });
 
 function CheckoutPage() {
-  const search = useSearch({ from: "/checkout" });
-  const [selectedPlanKey, setSelectedPlanKey] = useState<string>(search.plan || "growth");
-  const [isYearly, setIsYearly] = useState<boolean>(search.billing === "yearly");
+  const [selectedPlanKey, setSelectedPlanKey] = useState<string>("growth");
+  const [isYearly, setIsYearly] = useState<boolean>(false);
   const [paymentMethod, setPaymentMethod] = useState<"upi" | "card" | "bank">("upi");
 
-  // Individual states to ensure rock-solid mobile keyboard typing without state collision
+  // Read URL query parameters safely once on mount without router re-render loop
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const planParam = params.get("plan")?.toLowerCase();
+      if (planParam && PLANS_DATA[planParam]) {
+        setSelectedPlanKey(planParam);
+      }
+      if (params.get("billing") === "yearly") {
+        setIsYearly(true);
+      }
+    }
+  }, []);
+
   const [fullName, setFullName] = useState("");
   const [workEmail, setWorkEmail] = useState("");
   const [phoneWhatsApp, setPhoneWhatsApp] = useState("");
@@ -302,7 +308,6 @@ function CheckoutPage() {
                         autoCapitalize="words"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
-                        placeholder="e.g. Rahul Sharma"
                         className="h-12 w-full rounded-xl bg-surface border border-border px-4 text-base sm:text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
                       />
                     </div>
@@ -320,7 +325,6 @@ function CheckoutPage() {
                         inputMode="email"
                         value={workEmail}
                         onChange={(e) => setWorkEmail(e.target.value)}
-                        placeholder="you@company.com"
                         className="h-12 w-full rounded-xl bg-surface border border-border px-4 text-base sm:text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
                       />
                     </div>
@@ -338,7 +342,6 @@ function CheckoutPage() {
                         inputMode="tel"
                         value={phoneWhatsApp}
                         onChange={(e) => setPhoneWhatsApp(e.target.value)}
-                        placeholder="+91 98765 43210"
                         className="h-12 w-full rounded-xl bg-surface border border-border px-4 text-base sm:text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
                       />
                     </div>
@@ -354,7 +357,6 @@ function CheckoutPage() {
                         autoComplete="organization"
                         value={companyName}
                         onChange={(e) => setCompanyName(e.target.value)}
-                        placeholder="e.g. Acme Tech Pvt Ltd"
                         className="h-12 w-full rounded-xl bg-surface border border-border px-4 text-base sm:text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
                       />
                     </div>
@@ -369,7 +371,6 @@ function CheckoutPage() {
                         type="text"
                         value={taxGstin}
                         onChange={(e) => setTaxGstin(e.target.value)}
-                        placeholder="22AAAAA0000A1Z5"
                         className="h-12 w-full rounded-xl bg-surface border border-border px-4 text-base sm:text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
                       />
                     </div>
