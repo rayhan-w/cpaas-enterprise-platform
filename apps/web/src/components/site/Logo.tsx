@@ -2,9 +2,15 @@
 
 import Link from 'next/link';
 
-export function Logo({ inverted = false }: { inverted?: boolean }) {
+export function Logo({
+  inverted = false,
+  className = '',
+}: {
+  inverted?: boolean;
+  className?: string;
+}) {
   return (
-    <Link href="/" className="flex items-center gap-2.5" aria-label="Solvear home">
+    <Link href="/" className={`flex items-center gap-2.5 ${className}`} aria-label="Solvear home">
       <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary font-display text-lg font-bold text-primary-foreground shadow-pink">
         S
       </span>
