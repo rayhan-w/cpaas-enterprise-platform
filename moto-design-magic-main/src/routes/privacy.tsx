@@ -1,177 +1,219 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ShieldCheck, Lock, Eye, FileText, Phone, Mail, MapPin, CheckCircle2 } from "lucide-react";
+import {
+  ShieldCheck,
+  Lock,
+  Eye,
+  FileText,
+  Phone,
+  Mail,
+  MapPin,
+  CheckCircle2,
+  BellRing,
+  Copyright,
+  Radio,
+  MessageCircle,
+} from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
-import { SectionHeading } from "@/components/site/SectionHeading";
 import { CtaBand } from "@/components/site/CtaBand";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED" },
+      { title: "Privacy Policy | SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED" },
       {
         name: "description",
         content:
-          "Privacy Policy and Data Protection standards of SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED. Learn how we collect, protect, and process user data across our CPaaS platforms.",
+          "Privacy Policy of SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED. Learn how we collect, protect, and process user data across our CPaaS, SMS, WhatsApp, and RCS messaging platforms.",
       },
-      { property: "og:title", content: "Privacy Policy — Solvear CPaaS" },
+      { property: "og:title", content: "Privacy Policy — Solvear" },
       {
         property: "og:description",
-        content: "Transparent data protection and privacy policies for Solvear messaging services.",
+        content:
+          "Transparent data protection, copyright, and communication policies for Solvear messaging platforms.",
       },
     ],
   }),
   component: PrivacyPolicyPage,
 });
 
-function PrivacyPolicyPage() {
+export function PrivacyPolicyPage() {
   return (
-    <>
+    <div className="font-sans">
+      {/* 1. Top Page Hero */}
       <PageHero
-        eyebrow="Legal & Compliance"
+        eyebrow="Legal & Governance"
         title="Privacy Policy"
-        description="At SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED, we prioritize the confidentiality and protection of your personal and enterprise data."
+        description="SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED perceives the significance of ensuring privacy and safeguarding personal data across all communication channels."
       >
         <div className="flex flex-wrap items-center gap-3">
           <Button asChild size="lg" className="shadow-pink font-bold rounded-xl">
-            <Link to="/contact">Contact Privacy Officer</Link>
+            <Link to="/contact">Contact Compliance Desk</Link>
           </Button>
           <a
             href="tel:+918016081188"
             className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-white/20 bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm transition backdrop-blur-xs"
           >
             <Phone className="w-4 h-4 text-primary shrink-0" />
-            <span className="text-white">Call +91 80160 81188 (India)</span>
+            <span className="text-white">Call Sales: +91 80160 81188</span>
           </a>
         </div>
       </PageHero>
 
+      {/* 2. Main Privacy Policy Body (Exact Turain Structure & Clauses) */}
       <section className="section-y bg-background">
-        <div className="mx-auto max-w-4xl px-6 space-y-12 text-foreground/90">
-          {/* Introduction Card */}
-          <div className="rounded-3xl border border-border bg-card p-8 shadow-sm">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 space-y-10 text-foreground/90">
+          {/* Main Statement Box */}
+          <div className="rounded-3xl border border-border bg-card p-6 sm:p-10 shadow-xs space-y-5">
             <div className="flex items-center gap-3">
-              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/15 text-primary">
-                <ShieldCheck className="h-6 w-6" aria-hidden />
+              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/10 text-primary border border-primary/20 shrink-0">
+                <ShieldCheck className="h-6 w-6" />
               </span>
               <div>
                 <span className="text-[11px] font-extrabold uppercase tracking-wider text-primary">
-                  Last Updated: August 2026
+                  Official Policy Document
                 </span>
                 <h2 className="font-display text-2xl font-extrabold text-foreground">
-                  Our Commitment to Your Privacy
+                  Privacy Policy &amp; Data Security
                 </h2>
               </div>
             </div>
-            <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-              This Privacy Policy explains how <strong>SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED</strong> ("Solvear", "we", "us", or "our") collects, uses, processes, and safeguards the information obtained from users and enterprises using our Communication Platform as a Service (CPaaS), including Bulk SMS, WhatsApp Business API, RCS, Voice, IVR, and Digital Marketing solutions.
-            </p>
-          </div>
 
-          {/* Section 1: Information We Collect */}
-          <div className="space-y-4">
-            <h3 className="font-display text-xl font-bold text-foreground">1. Information We Collect</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              We collect information that you directly provide to us, as well as data automatically generated when you use our communication infrastructure:
-            </p>
-            <div className="grid gap-4 sm:grid-cols-2 pt-2">
-              <div className="p-5 rounded-2xl bg-surface border border-border">
-                <h4 className="font-display text-sm font-bold text-foreground flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary" /> Personal Information
-                </h4>
-                <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
-                  Name, business email address, phone number, company name, billing address, tax identification (GSTIN/PAN), and KYC documentation for telecom DLT registration.
-                </p>
-              </div>
-              <div className="p-5 rounded-2xl bg-surface border border-border">
-                <h4 className="font-display text-sm font-bold text-foreground flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary" /> Communication Data
-                </h4>
-                <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
-                  Message transmission logs, delivery receipts (DLR), sender IDs, timestamps, routing parameters, and API request metadata processed through our gateways.
-                </p>
-              </div>
+            <div className="space-y-4 text-xs sm:text-sm text-muted-foreground leading-relaxed pt-2">
+              <p>
+                <strong>SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED</strong> perceives the significance of ensuring privacy. Our security strategy portrays what individual data we might gather and how we might utilize and ensure any close to home data that is made accessible to us.
+              </p>
+              <p>
+                This site is owned by <strong>SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED</strong>. We are focused on keeping up with the classification, respectability and security of individual data and we will take all fitting specialized and authoritative safety efforts to guarantee that where any close to home data is given to us it will be ensured against loss, destruction and harm, and against unapproved or unintentional access, processing, deletion, move, use, alteration, revelation or other abuse.
+              </p>
             </div>
           </div>
 
-          {/* Section 2: How We Use Your Information */}
-          <div className="space-y-4">
-            <h3 className="font-display text-xl font-bold text-foreground">2. How We Use Your Information</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              We use the collected information for the following legitimate business purposes:
+          {/* Consent & Electronic Communications */}
+          <div className="rounded-3xl border border-border bg-card p-6 sm:p-8 shadow-xs space-y-4">
+            <div className="flex items-center gap-3">
+              <span className="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary shrink-0">
+                <Radio className="h-5 w-5" />
+              </span>
+              <h3 className="font-display text-lg font-bold text-foreground">
+                Express Consent &amp; Communication Channels
+              </h3>
+            </div>
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+              By providing your contact details, you expressly consent to receiving communications from us, including but not limited to transactional notifications, reminders, updates, promotional messages, and advertisements via RCS (Rich Communication Services), SMS, WhatsApp, Voice, and other electronic communication methods. These communications may be sent to the mobile number or email address you have provided.
             </p>
-            <ul className="space-y-2.5 text-xs text-foreground/80 font-medium">
-              <li className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span>To deliver high-throughput transactional and promotional messages across telecom networks.</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span>To verify identity, fulfill TRAI DLT compliance guidelines, and prevent fraudulent messaging.</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span>To provide 24/7 technical assistance, SLA monitoring, billing invoices, and account management.</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span>To continuously improve gateway latency, routing algorithms, and AI chatbot accuracy.</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Section 3: Data Security and Storage */}
-          <div className="space-y-4">
-            <h3 className="font-display text-xl font-bold text-foreground">3. Data Security & Storage</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              We employ enterprise-grade security controls including 256-bit AES encryption at rest, TLS 1.3 encryption in transit, strict role-based access control (RBAC), and automated DDoS mitigation. Communication data is housed in ISO 27001-certified Tier-III data centers in accordance with Indian regulatory laws.
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+              You can opt out of receiving promotional messages at any time by following the unsubscribe instructions provided in the communication or by contacting us directly. However, you may continue to receive transactional or service-related messages that are essential for providing our services.
             </p>
           </div>
 
-          {/* Section 4: Telecom & Meta API Compliance */}
-          <div className="space-y-4">
-            <h3 className="font-display text-xl font-bold text-foreground">4. Telecom DLT & Meta API Compliance</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Solvear strictly abides by Telecom Commercial Communications Customer Preference Regulations (TCCCPR) mandated by TRAI and official Meta WhatsApp Business API Policies. We do not sell, rent, or trade your contact lists or message content to any third-party marketing entities.
+          {/* Copyright Section (Exact Turain Clause) */}
+          <div className="rounded-3xl border border-border bg-card p-6 sm:p-8 shadow-xs space-y-4">
+            <div className="flex items-center gap-3">
+              <span className="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary shrink-0">
+                <Copyright className="h-5 w-5" />
+              </span>
+              <h3 className="font-display text-lg font-bold text-foreground">
+                Copyright &amp; Intellectual Property
+              </h3>
+            </div>
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+              All data showed and communicated on <strong>solvear.in</strong> (and solvear.io) is secured by copyright along with other licensed innovation laws. In any prospect you are not permitted to repost, rewrite or use the display of this website. If we come across any such misuse, we will take legal steps thereby.
             </p>
           </div>
 
-          {/* Section 5: Cookies and Tracking */}
-          <div className="space-y-4">
-            <h3 className="font-display text-xl font-bold text-foreground">5. Cookies & Analytics</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Our website uses essential session cookies to maintain secure authentication and analytical cookies to understand site performance and visitor interactions. You may adjust your browser cookie preferences at any time.
-            </p>
+          {/* Information We Collect & Usage */}
+          <div className="rounded-3xl border border-border bg-card p-6 sm:p-8 shadow-xs space-y-6">
+            <div className="flex items-center gap-3">
+              <span className="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary shrink-0">
+                <Lock className="h-5 w-5" />
+              </span>
+              <h3 className="font-display text-lg font-bold text-foreground">
+                Data Collection &amp; Purpose Specification
+              </h3>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="p-5 rounded-2xl bg-surface border border-border space-y-2">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-primary" />
+                  <span>Account &amp; KYC Information</span>
+                </h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Full name, corporate email address, contact numbers, organization credentials, GSTIN/PAN, and required documentation for TRAI DLT scrubbing and carrier white-listing.
+                </p>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-surface border border-border space-y-2">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-primary" />
+                  <span>Messaging &amp; Gateway Logs</span>
+                </h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Delivery status receipts (DLR), sender headers, timestamps, operator latency metrics, and API interaction data strictly used for quality optimization and billing transparency.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-2 space-y-2">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                How We Safeguard Your Information:
+              </h4>
+              <ul className="space-y-2 text-xs text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <span>256-bit SSL/TLS end-to-end encryption across all API endpoints and web consoles.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <span>Zero sale, rental, or unauthorized sharing of customer data or contact books with third parties.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <span>Automated audit logging and strict role-based access control (RBAC) across all servers.</span>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          {/* Section 6: Contact Details */}
-          <div className="rounded-3xl border border-border bg-surface p-8">
-            <h3 className="font-display text-lg font-bold text-foreground">Grievance & Contact Information</h3>
-            <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
-              For any questions regarding this Privacy Policy or to exercise your data rights, please contact our designated compliance officer:
+          {/* Grievance & Contact Information */}
+          <div className="rounded-3xl border border-primary/20 bg-primary/5 p-6 sm:p-8 space-y-5">
+            <h3 className="font-display text-lg font-bold text-foreground">
+              Grievance &amp; Compliance Officer
+            </h3>
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+              If you have any questions, concerns, or requests regarding this Privacy Policy or your personal information, please contact our compliance desk:
             </p>
-            <div className="mt-6 space-y-3 text-xs font-semibold">
-              <p className="flex items-center gap-2 text-foreground">
-                <MapPin className="w-4 h-4 text-primary" />
-                <span><strong>SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED</strong> — Maynaguri, Jalpaiguri, West Bengal, 735302 - India</span>
+
+            <div className="space-y-2.5 text-xs font-semibold text-foreground">
+              <p className="flex items-center gap-2">
+                <Building className="w-4 h-4 text-primary shrink-0" />
+                <span>SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED</span>
               </p>
-              <p className="flex items-center gap-2 text-foreground">
-                <Phone className="w-4 h-4 text-primary" />
-                <a href="tel:+918016081188" className="hover:text-primary transition">+91 80160 81188 (India)</a>
+              <p className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-primary shrink-0" />
+                <span>Maynaguri, Jalpaiguri, West Bengal, 735302 - India</span>
               </p>
-              <p className="flex items-center gap-2 text-foreground">
-                <Mail className="w-4 h-4 text-primary" />
+              <p className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-primary shrink-0" />
+                <a href="tel:+918016081188" className="hover:text-primary transition">+91 80160 81188</a>
+              </p>
+              <p className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-primary shrink-0" />
                 <a href="mailto:privacy@solvear.io" className="hover:text-primary transition">privacy@solvear.io</a>
+                <span>•</span>
+                <a href="mailto:hello@solvear.io" className="hover:text-primary transition">hello@solvear.io</a>
               </p>
             </div>
           </div>
         </div>
       </section>
 
+      {/* 3. Bottom CTA */}
       <CtaBand
         title="Have questions about our data security or compliance?"
         description="Our legal and technical team in India is ready to assist you with compliance documentation."
       />
-    </>
+    </div>
   );
 }
