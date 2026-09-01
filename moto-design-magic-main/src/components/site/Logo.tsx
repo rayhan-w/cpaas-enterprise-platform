@@ -12,16 +12,13 @@ export function Logo({ inverted = false }: { inverted?: boolean }) {
           className="h-full w-full object-cover"
         />
       </div>
-      <div className="flex flex-col leading-none">
+      <div className="flex items-center">
         <span
           className={`font-display text-lg font-extrabold tracking-tight transition-colors ${
             inverted ? "text-navy-foreground" : "text-foreground group-hover:text-primary"
           }`}
         >
           Solvear
-        </span>
-        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-          CPaaS
         </span>
       </div>
     </Link>

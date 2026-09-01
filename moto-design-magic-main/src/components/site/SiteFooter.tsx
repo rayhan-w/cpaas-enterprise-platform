@@ -99,9 +99,8 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-navy-foreground/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 text-xs text-navy-foreground/60 sm:flex-row">
+        <div className="mx-auto flex max-w-7xl items-center justify-center px-6 py-5 text-xs text-navy-foreground/60">
           <p>© {new Date().getFullYear()} SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED. All rights reserved.</p>
-          <p>ISO 9001:2018 Certified · MSME Registered · TRAI DLT Compliant</p>
         </div>
       </div>
     </footer>
