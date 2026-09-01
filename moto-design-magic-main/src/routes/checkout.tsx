@@ -1,4 +1,4 @@
-import { useState, useEffect, type FormEvent } from "react";
+import { useState, useEffect, useRef, type FormEvent } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ShieldCheck,
@@ -88,7 +88,7 @@ function CheckoutPage() {
   const [isYearly, setIsYearly] = useState<boolean>(false);
   const [paymentMethod, setPaymentMethod] = useState<"upi" | "card" | "bank">("upi");
 
-  // Read URL query parameters safely once on mount without router re-render loop
+  // Read URL query parameters safely once on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
@@ -102,15 +102,12 @@ function CheckoutPage() {
     }
   }, []);
 
-  const [fullName, setFullName] = useState("");
-  const [workEmail, setWorkEmail] = useState("");
-  const [phoneWhatsApp, setPhoneWhatsApp] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [taxGstin, setTaxGstin] = useState("");
-
   const [processing, setProcessing] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [orderId, setOrderId] = useState("");
+  const [customerSummary, setCustomerSummary] = useState({ name: "", email: "", phone: "" });
+
+  const formRef = useRef<HTMLFormElement>(null);
 
   const currentPlan = PLANS_DATA[selectedPlanKey] || PLANS_DATA.growth;
   const basePrice = isYearly ? currentPlan.yearly : currentPlan.monthly;
@@ -119,29 +116,42 @@ function CheckoutPage() {
 
   function handleSubmitOrder(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
 
-    if (!fullName.trim()) {
+    const name = String(formData.get("fullName") || "").trim();
+    const email = String(formData.get("workEmail") || "").trim();
+    const phone = String(formData.get("phoneWhatsApp") || "").trim();
+
+    if (!name) {
       toast.error("Please enter your Full Name");
+      const el = form.elements.namedItem("fullName") as HTMLInputElement | null;
+      el?.focus();
       return;
     }
-    if (!workEmail.trim()) {
+    if (!email) {
       toast.error("Please enter your Work Email");
+      const el = form.elements.namedItem("workEmail") as HTMLInputElement | null;
+      el?.focus();
       return;
     }
-    if (!phoneWhatsApp.trim()) {
+    if (!phone) {
       toast.error("Please enter your Phone or WhatsApp Number");
+      const el = form.elements.namedItem("phoneWhatsApp") as HTMLInputElement | null;
+      el?.focus();
       return;
     }
 
     setProcessing(true);
     const generatedOrderId = "SLV-" + Math.floor(100000 + Math.random() * 900000);
+    setCustomerSummary({ name, email, phone });
 
     setTimeout(() => {
       setProcessing(false);
       setOrderId(generatedOrderId);
       setCompleted(true);
       toast.success("Order Placed Successfully! Account activation initiated.");
-    }, 600);
+    }, 500);
   }
 
   return (
@@ -166,10 +176,10 @@ function CheckoutPage() {
                   Order Confirmed • ID: #{orderId}
                 </span>
                 <h2 className="font-display text-2xl font-extrabold text-foreground">
-                  Thank You, {fullName}!
+                  Thank You, {customerSummary.name}!
                 </h2>
                 <p className="mt-2 text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
-                  Your subscription to <strong>{currentPlan.name} ({isYearly ? "Annual" : "Monthly"})</strong> is registered. We have dispatched login credentials to <strong>{workEmail}</strong>.
+                  Your subscription to <strong>{currentPlan.name} ({isYearly ? "Annual" : "Monthly"})</strong> is registered. We have dispatched login credentials to <strong>{customerSummary.email}</strong>.
                 </p>
               </div>
 
@@ -283,8 +293,12 @@ function CheckoutPage() {
                   </div>
                 </div>
 
-                {/* 2. Billing Form */}
-                <form onSubmit={handleSubmitOrder} className="rounded-3xl border border-border bg-card p-5 sm:p-8 shadow-xs space-y-5">
+                {/* 2. Billing Form with 100% Native Uncontrolled Inputs for Zero-Delay Typing and Full Autofill */}
+                <form
+                  ref={formRef}
+                  onSubmit={handleSubmitOrder}
+                  className="rounded-3xl border border-border bg-card p-5 sm:p-8 shadow-xs space-y-5"
+                >
                   <div>
                     <h3 className="font-display text-base font-bold text-foreground">
                       Account &amp; Billing Details
@@ -306,9 +320,8 @@ function CheckoutPage() {
                         required
                         autoComplete="name"
                         autoCapitalize="words"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        className="h-12 w-full rounded-xl bg-surface border border-border px-4 text-base sm:text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                        defaultValue=""
+                        className="h-12 w-full rounded-xl bg-background border-2 border-border focus:border-primary px-4 text-base sm:text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition cursor-text"
                       />
                     </div>
 
@@ -323,9 +336,8 @@ function CheckoutPage() {
                         required
                         autoComplete="email"
                         inputMode="email"
-                        value={workEmail}
-                        onChange={(e) => setWorkEmail(e.target.value)}
-                        className="h-12 w-full rounded-xl bg-surface border border-border px-4 text-base sm:text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                        defaultValue=""
+                        className="h-12 w-full rounded-xl bg-background border-2 border-border focus:border-primary px-4 text-base sm:text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition cursor-text"
                       />
                     </div>
 
@@ -340,9 +352,8 @@ function CheckoutPage() {
                         required
                         autoComplete="tel"
                         inputMode="tel"
-                        value={phoneWhatsApp}
-                        onChange={(e) => setPhoneWhatsApp(e.target.value)}
-                        className="h-12 w-full rounded-xl bg-surface border border-border px-4 text-base sm:text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                        defaultValue=""
+                        className="h-12 w-full rounded-xl bg-background border-2 border-border focus:border-primary px-4 text-base sm:text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition cursor-text"
                       />
                     </div>
 
@@ -355,9 +366,8 @@ function CheckoutPage() {
                         name="companyName"
                         type="text"
                         autoComplete="organization"
-                        value={companyName}
-                        onChange={(e) => setCompanyName(e.target.value)}
-                        className="h-12 w-full rounded-xl bg-surface border border-border px-4 text-base sm:text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                        defaultValue=""
+                        className="h-12 w-full rounded-xl bg-background border-2 border-border focus:border-primary px-4 text-base sm:text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition cursor-text"
                       />
                     </div>
 
@@ -369,9 +379,8 @@ function CheckoutPage() {
                         id="taxGstin"
                         name="taxGstin"
                         type="text"
-                        value={taxGstin}
-                        onChange={(e) => setTaxGstin(e.target.value)}
-                        className="h-12 w-full rounded-xl bg-surface border border-border px-4 text-base sm:text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                        defaultValue=""
+                        className="h-12 w-full rounded-xl bg-background border-2 border-border focus:border-primary px-4 text-base sm:text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition cursor-text"
                       />
                     </div>
                   </div>
