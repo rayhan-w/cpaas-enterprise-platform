@@ -63,7 +63,8 @@ export default function ReportsPage() {
       if (endDate) params.append('endDate', endDate);
 
       const token = typeof window !== 'undefined' ? localStorage.getItem('cpaas_auth_token') : '';
-      const url = `http://localhost:4000/api/reports/export/csv?${params.toString()}`;
+      const apiBase = process.env.NEXT_PUBLIC_API_URL || '';
+      const url = `${apiBase}/api/reports/export/csv?${params.toString()}`;
 
       const res = await fetch(url, {
         headers: {

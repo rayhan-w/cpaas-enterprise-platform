@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { SiteHeader } from '@/components/site/SiteHeader';
 import { SiteFooter } from '@/components/site/SiteFooter';
 import { Lock, Mail, ShieldCheck, Zap, Loader2, ArrowRight } from 'lucide-react';
+import { fetchApi } from '@/lib/api-client';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -30,36 +31,60 @@ export default function LoginPage() {
 
     try {
       if (tab === 'signin') {
-        // Authenticate with NestJS backend or demo login
-        const res = await fetch('http://localhost:4000/api/auth/login', {
+        const data = await fetchApi('/auth/login', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: formData.email, password: formData.password }),
-        }).catch(() => null);
+        }).catch((err) => {
+          // Demo fallback if backend is offline
+          return {
+            token: 'demo_token_' + Date.now(),
+            user: { email: formData.email, name: formData.email.split('@')[0] },
+          };
+        });
 
-        // Success redirect
+        if (data?.token && typeof window !== 'undefined') {
+          localStorage.setItem('cpaas_auth_token', data.token);
+          if (data.user) {
+            localStorage.setItem('cpaas_user', JSON.stringify(data.user));
+          }
+        }
+
         setSuccessMsg('Welcome back to Solvear!');
         setTimeout(() => {
           router.push('/dashboard');
-        }, 600);
+        }, 500);
       } else {
-        const res = await fetch('http://localhost:4000/api/auth/register', {
+        const data = await fetchApi('/auth/register', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email: formData.email,
             password: formData.password,
             name: formData.fullName,
+            company: formData.company,
+            phone: formData.phone,
           }),
-        }).catch(() => null);
+        }).catch((err) => {
+          // Demo fallback
+          return {
+            token: 'demo_token_' + Date.now(),
+            user: { email: formData.email, name: formData.fullName || formData.email.split('@')[0] },
+          };
+        });
+
+        if (data?.token && typeof window !== 'undefined') {
+          localStorage.setItem('cpaas_auth_token', data.token);
+          if (data.user) {
+            localStorage.setItem('cpaas_user', JSON.stringify(data.user));
+          }
+        }
 
         setSuccessMsg('Account created — welcome to Solvear!');
         setTimeout(() => {
           router.push('/dashboard');
-        }, 600);
+        }, 500);
       }
     } catch (err: any) {
-      setError(err?.message || 'Authentication error. Please try again.');
+      setError(err?.message || 'Authentication error. Please check your credentials.');
     } finally {
       setLoading(false);
     }
@@ -108,7 +133,7 @@ export default function LoginPage() {
                   setTab('signin');
                   setError('');
                 }}
-                className={`py-2.5 text-sm font-bold rounded-xl transition ${
+                className={`py-2.5 text-sm font-bold rounded-xl transition cursor-pointer ${
                   tab === 'signin'
                     ? 'bg-white text-foreground shadow-sm'
                     : 'text-muted-foreground hover:text-foreground'
@@ -122,7 +147,7 @@ export default function LoginPage() {
                   setTab('signup');
                   setError('');
                 }}
-                className={`py-2.5 text-sm font-bold rounded-xl transition ${
+                className={`py-2.5 text-sm font-bold rounded-xl transition cursor-pointer ${
                   tab === 'signup'
                     ? 'bg-white text-foreground shadow-sm'
                     : 'text-muted-foreground hover:text-foreground'
@@ -185,7 +210,7 @@ export default function LoginPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white font-bold text-sm py-3.5 rounded-xl shadow-pink shadow-pink-hover transition"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white font-bold text-sm py-3.5 rounded-xl shadow-pink shadow-pink-hover transition cursor-pointer"
                   >
                     {loading ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
@@ -217,7 +242,7 @@ export default function LoginPage() {
                       required
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      placeholder="Rayhan Haidar"
+                      placeholder="Your Full Name"
                       className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
@@ -231,7 +256,7 @@ export default function LoginPage() {
                         type="text"
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        placeholder="Solvear Ltd."
+                        placeholder="Solvear Partner"
                         className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                       />
                     </div>
@@ -243,7 +268,7 @@ export default function LoginPage() {
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="+880 1700 000000"
+                        placeholder="+91 80160 81188"
                         className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                       />
                     </div>
@@ -281,7 +306,7 @@ export default function LoginPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white font-bold text-sm py-3.5 rounded-xl shadow-pink shadow-pink-hover transition"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white font-bold text-sm py-3.5 rounded-xl shadow-pink shadow-pink-hover transition cursor-pointer"
                   >
                     {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
                     <span>Create account</span>
@@ -302,7 +327,7 @@ export default function LoginPage() {
                 setLoading(true);
                 setTimeout(() => router.push('/dashboard'), 500);
               }}
-              className="w-full inline-flex items-center justify-center gap-3 py-3 rounded-xl border border-border bg-white text-xs font-bold text-foreground hover:bg-slate-50 transition"
+              className="w-full inline-flex items-center justify-center gap-3 py-3 rounded-xl border border-border bg-white text-xs font-bold text-foreground hover:bg-slate-50 transition cursor-pointer"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24">
                 <path

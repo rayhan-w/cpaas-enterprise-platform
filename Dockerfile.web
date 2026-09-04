@@ -20,6 +20,11 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
+
+# Bake NEXT_PUBLIC_API_URL into browser JS bundle at build time
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-https://solvear.in}
+
 RUN npm run build --prefix apps/web
 
 # 3. Production runner image
