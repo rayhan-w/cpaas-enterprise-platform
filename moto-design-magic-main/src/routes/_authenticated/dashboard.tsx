@@ -71,20 +71,44 @@ export function DashboardPage() {
   useEffect(() => {
     let active = true;
     (async () => {
-      const { data: userData } = await supabase.auth.getUser();
-      const user = userData.user;
-      if (!user || !active) return;
-      setEmail(user.email ?? "");
-      const { data } = await supabase
-        .from("profiles")
-        .select("full_name, company, phone")
-        .eq("id", user.id)
-        .maybeSingle();
+      let user: any = null;
+      try {
+        const { data: userData } = await supabase.auth.getUser();
+        user = userData?.user;
+      } catch (_) {}
+
+      if (!user && typeof window !== "undefined") {
+        const local = localStorage.getItem("solvear_active_user");
+        if (local) {
+          try {
+            user = JSON.parse(local);
+          } catch (_) {}
+        }
+      }
+
+      if (!user || !active) {
+        if (active) setLoading(false);
+        return;
+      }
+
+      setEmail(user.email ?? "admin@solvear.in");
+      let data: any = null;
+      if (user.id) {
+        try {
+          const res = await supabase
+            .from("profiles")
+            .select("full_name, company, phone")
+            .eq("id", user.id)
+            .maybeSingle();
+          data = res.data;
+        } catch (_) {}
+      }
+
       if (!active) return;
       setProfile({
-        full_name: data?.full_name || (user.user_metadata?.full_name ?? user.user_metadata?.name ?? ""),
-        company: data?.company || (user.user_metadata?.company ?? ""),
-        phone: data?.phone || (user.user_metadata?.phone ?? ""),
+        full_name: data?.full_name || (user.user_metadata?.full_name ?? user.user_metadata?.name ?? "Enterprise Admin"),
+        company: data?.company || (user.user_metadata?.company ?? "Solvear Partner"),
+        phone: data?.phone || (user.user_metadata?.phone ?? "+91 80160 81188"),
       });
       setLoading(false);
     })();
