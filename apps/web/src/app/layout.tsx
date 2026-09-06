@@ -1,17 +1,35 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import { CartProvider } from '@/context/cart-context';
+import { ToastProvider } from '@/context/toast-context';
+import AnnouncementBar from '@/components/layout/AnnouncementBar';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import MobileBottomBar from '@/components/layout/MobileBottomBar';
+import CartDrawer from '@/components/cart/CartDrawer';
 
 export const metadata: Metadata = {
-  title: 'Solvear.in - All-in-One WhatsApp Marketing, AI Chatbot & CPaaS Platform',
+  title: 'Nurtura Bangladesh | Premium Multi-Category Shopping Platform',
   description:
-    'Turn WhatsApp into your #1 Sales Channel. Chat, sell & scale with AI across WhatsApp, Instagram, Telegram, Facebook Messenger & Webchat. WooCommerce, Shopify, Catalogs, Form Flows, and White-Label Reseller solution.',
-  icons: {
-    icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon.ico', sizes: 'any' },
-    ],
-    shortcut: '/favicon.ico',
-    apple: '/favicon.svg',
+    'Discover 10,000+ authentic lifestyle products in Bangladesh: Baby & Mother Care, Men & Women Fashion, Electronics, Health & Beauty, Home Living & Groceries with fast nationwide delivery and Cash on Delivery.',
+  keywords: [
+    'Bangladesh online shopping',
+    'ecommerce bangladesh',
+    'baby care bd',
+    'mother maternity bd',
+    'mens fashion dhaka',
+    'womens fashion',
+    'electronics bangladesh',
+    'bKash payment ecommerce',
+    'nagad payment',
+    'cash on delivery dhaka',
+  ],
+  openGraph: {
+    title: 'Nurtura Bangladesh | Lifestyle & Family Shopping',
+    description: 'Fast nationwide delivery with bKash, Nagad, and Cash on Delivery.',
+    type: 'website',
+    locale: 'en_BD',
+    siteName: 'Nurtura Bangladesh',
   },
 };
 
@@ -23,35 +41,24 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="alternate icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="bg-background text-foreground min-h-screen font-sans antialiased selection:bg-primary selection:text-white">
-        {children}
-
-        {/* Real Official WhatsApp Floating Chat Widget */}
-        <a
-          href="https://wa.me/918016081188?text=Hello%20Solvear%20Team%2C%20I%20am%20interested%20in%20your%20CPaaS%20platform"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Chat with Solvear on WhatsApp (+91 80160 81188)"
-          aria-label="Chat with Solvear on WhatsApp"
-          className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl transition-all duration-300 hover:scale-110 hover:shadow-[0_8px_25px_rgba(37,211,102,0.6)]"
-        >
-          <img
-            src="/whatsapp.svg"
-            alt="Official WhatsApp"
-            width={32}
-            height={32}
-            className="h-8 w-8"
-          />
-        </a>
+      <body className="bg-[#F8F7F5] text-[#1A1512] min-h-screen font-sans antialiased flex flex-col justify-between">
+        <ToastProvider>
+          <CartProvider>
+            <AnnouncementBar />
+            <Header />
+            <main className="flex-1 pb-16 lg:pb-0">{children}</main>
+            <Footer />
+            <MobileBottomBar />
+            <CartDrawer />
+          </CartProvider>
+        </ToastProvider>
       </body>
     </html>
   );

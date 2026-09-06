@@ -1,0 +1,239 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Admin {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         String   @default("ADMIN")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("admins")
+}
+
+model Category {
+  id          String        @id @default(uuid())
+  name        String
+  slug        String        @unique
+  image       String?
+  description String?
+  icon        String?
+  isFeatured  Boolean       @default(false)
+  order       Int           @default(0)
+  isActive    Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  subCategories SubCategory[]
+  products      Product[]
+
+  @@map("categories")
+}
+
+model SubCategory {
+  id         String   @id @default(uuid())
+  categoryId String
+  name       String
+  slug       String   @unique
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  category   Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  products   Product[]
+
+  @@map("sub_categories")
+}
+
+model Product {
+  id             String           @id @default(uuid())
+  name           String
+  slug           String           @unique
+  categoryId     String
+  subCategoryId  String?
+  brand          String?
+  price          Float
+  originalPrice  Float?
+  discount       Int              @default(0)
+  stock          Int              @default(100)
+  sku            String?          @unique
+  image          String
+  images         String           // JSON stringified array of image URLs
+  description    String
+  specifications String?          // JSON stringified key-value pairs
+  badge          String?
+  isFeatured     Boolean          @default(false)
+  isBestSeller   Boolean          @default(false)
+  isNew          Boolean          @default(false)
+  isActive       Boolean          @default(true)
+  rating         Float            @default(5.0)
+  reviewCount    Int              @default(0)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  category       Category         @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  subCategory    SubCategory?     @relation(fields: [subCategoryId], references: [id], onDelete: SetNull)
+  variants       ProductVariant[]
+  reviews        Review[]
+  orderItems     OrderItem[]
+
+  @@index([categoryId])
+  @@index([isFeatured])
+  @@index([isBestSeller])
+  @@map("products")
+}
+
+model ProductVariant {
+  id        String   @id @default(uuid())
+  productId String
+  name      String
+  value     String
+  price     Float?
+  stock     Int      @default(50)
+  sku       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("product_variants")
+}
+
+model Order {
+  id             String      @id @default(uuid())
+  orderNumber    String      @unique
+  customerName   String
+  customerPhone  String
+  customerEmail  String?
+  division       String
+  district       String
+  area           String
+  address        String
+  deliveryNote   String?
+  deliveryZone   String      // INSIDE_DHAKA or OUTSIDE_DHAKA
+  deliveryCharge Float       @default(60.0)
+  subtotal       Float
+  discount       Float       @default(0.0)
+  couponCode     String?
+  total          Float
+  paymentMethod  String      // COD, BKASH, NAGAD, SSLCOMMERZ
+  paymentStatus  String      @default("PENDING_VERIFICATION") // PENDING_VERIFICATION, PAID, FAILED, REJECTED
+  orderStatus    String      @default("PENDING") // PENDING, CONFIRMED, PROCESSING, PACKED, SHIPPED, OUT_FOR_DELIVERY, DELIVERED, CANCELLED
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  items          OrderItem[]
+  payments       Payment[]
+
+  @@index([orderNumber])
+  @@index([customerPhone])
+  @@index([orderStatus])
+  @@index([paymentStatus])
+  @@map("orders")
+}
+
+model OrderItem {
+  id           String   @id @default(uuid())
+  orderId      String
+  productId    String?
+  productName  String
+  productImage String
+  price        Float
+  quantity     Int      @default(1)
+  variantName  String?
+  total        Float
+  createdAt    DateTime @default(now())
+
+  order        Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product      Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@map("order_items")
+}
+
+model Payment {
+  id               String    @id @default(uuid())
+  orderId          String
+  method           String    // BKASH, NAGAD, SSLCOMMERZ, COD
+  amount           Float
+  status           String    @default("PENDING_VERIFICATION") // PENDING_VERIFICATION, PAID, REJECTED, FAILED
+  transactionId    String?   // bKash/Nagad TrxID or SSLCommerz tran_id
+  senderNumber     String?   // Customer's bKash/Nagad phone number
+  gatewayResponse  String?   // JSON response from gateway
+  verificationNote String?   // Admin internal note
+  verifiedAt       DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  order            Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([transactionId])
+  @@map("payments")
+}
+
+model Coupon {
+  id          String    @id @default(uuid())
+  code        String    @unique
+  type        String    @default("PERCENTAGE") // PERCENTAGE or FIXED
+  value       Float
+  minOrder    Float     @default(500)
+  maxDiscount Float?
+  expiryDate  DateTime?
+  usageLimit  Int?      @default(100)
+  usedCount   Int       @default(0)
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("coupons")
+}
+
+model Banner {
+  id          String   @id @default(uuid())
+  title       String
+  subtitle    String?
+  badge       String?
+  ctaText     String   @default("Shop Now")
+  ctaLink     String   @default("/category/baby-kids")
+  image       String
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("banners")
+}
+
+model Review {
+  id           String   @id @default(uuid())
+  productId    String
+  customerName String
+  rating       Int      @default(5)
+  comment      String
+  date         String
+  verified     Boolean  @default(true)
+  avatar       String?
+  createdAt    DateTime @default(now())
+
+  product      Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("reviews")
+}
+
+model Setting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}

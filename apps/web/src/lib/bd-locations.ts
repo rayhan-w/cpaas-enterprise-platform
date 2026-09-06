@@ -1,0 +1,121 @@
+export interface BDDivision {
+  name: string;
+  districts: string[];
+}
+
+export const BD_DIVISIONS: BDDivision[] = [
+  {
+    name: 'Dhaka',
+    districts: [
+      'Dhaka',
+      'Gazipur',
+      'Narayanganj',
+      'Tangail',
+      'Narsingdi',
+      'Faridpur',
+      'Manikganj',
+      'Munshiganj',
+      'Gopalganj',
+      'Madaripur',
+      'Rajbari',
+      'Shariatpur',
+      'Kishoreganj',
+    ],
+  },
+  {
+    name: 'Chattogram',
+    districts: [
+      'Chattogram',
+      'Cox\'s Bazar',
+      'Cumilla',
+      'Feni',
+      'Brahmanbaria',
+      'Noakhali',
+      'Chandpur',
+      'Lakshmipur',
+      'Rangamati',
+      'Bandarban',
+      'Khagrachhari',
+    ],
+  },
+  {
+    name: 'Sylhet',
+    districts: ['Sylhet', 'Moulvibazar', 'Habiganj', 'Sunamganj'],
+  },
+  {
+    name: 'Rajshahi',
+    districts: [
+      'Rajshahi',
+      'Bogura',
+      'Pabna',
+      'Sirajganj',
+      'Naogaon',
+      'Natore',
+      'Chapai Nawabganj',
+      'Joypurhat',
+    ],
+  },
+  {
+    name: 'Khulna',
+    districts: [
+      'Khulna',
+      'Jashore',
+      'Kushtia',
+      'Satkhira',
+      'Bagerhat',
+      'Jhenaidah',
+      'Chuadanga',
+      'Meherpur',
+      'Magura',
+      'Narail',
+    ],
+  },
+  {
+    name: 'Barishal',
+    districts: ['Barishal', 'Patuakhali', 'Bhola', 'Pirojpur', 'Jhalokati', 'Barguna'],
+  },
+  {
+    name: 'Rangpur',
+    districts: [
+      'Rangpur',
+      'Dinajpur',
+      'Gaibandha',
+      'Kurigram',
+      'Lalmonirhat',
+      'Nilphamari',
+      'Panchagarh',
+      'Thakurgaon',
+    ],
+  },
+  {
+    name: 'Mymensingh',
+    districts: ['Mymensingh', 'Jamalpur', 'Netrokona', 'Sherpur'],
+  },
+];
+
+export const DHAKA_AREAS = [
+  'Dhanmondi',
+  'Gulshan 1',
+  'Gulshan 2',
+  'Banani',
+  'Uttara',
+  'Mirpur',
+  'Mohammadpur',
+  'Badda',
+  'Bashundhara R/A',
+  'Baridhara',
+  'Motijheel',
+  'Khilgaon',
+  'Malibagh',
+  'Shantinagar',
+  'Lalmatia',
+  'Tejgaon',
+  'Panthapath',
+  'Moghbazar',
+  'Old Dhaka',
+  'Jatrabari',
+  'Rampura',
+  'Nikunja',
+  'Cantonment',
+  'Khilkhet',
+];

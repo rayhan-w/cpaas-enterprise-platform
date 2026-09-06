@@ -1,0 +1,193 @@
+import React from 'react';
+import Link from 'next/link';
+import { Phone, Mail, MapPin, ShieldCheck, Truck, RefreshCw, Heart } from 'lucide-react';
+import { INITIAL_CATEGORIES } from '@/lib/sample-data';
+
+export default function Footer() {
+  return (
+    <footer className="bg-[#1A1512] text-white pt-16 pb-24 lg:pb-12 border-t border-white/10">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Top Trust Features Row */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pb-12 border-b border-white/10 text-left">
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 text-[#F0B840]">
+              <Truck className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-white">Fast Nationwide Delivery</h4>
+              <p className="text-xs text-white/60 mt-1 leading-relaxed">
+                Dhaka same-day & 1-3 days all 64 districts in Bangladesh.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 text-[#7A9C78]">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-white">100% Authentic Products</h4>
+              <p className="text-xs text-white/60 mt-1 leading-relaxed">
+                Directly sourced from verified manufacturers & authorized distributors.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 text-[#C4737E]">
+              <RefreshCw className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-white">Hassle-Free Returns</h4>
+              <p className="text-xs text-white/60 mt-1 leading-relaxed">
+                Easy 7-day return policy on eligible damaged or unsealed goods.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 text-[#F4821F]">
+              <Phone className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-white">Dedicated Support</h4>
+              <p className="text-xs text-white/60 mt-1 leading-relaxed">
+                Live customer support available daily from 9:00 AM to 11:00 PM.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Multi-column Navigation */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 py-12 border-b border-white/10">
+          {/* Brand Info */}
+          <div className="lg:col-span-2 space-y-4">
+            <div className="flex items-center gap-2">
+              <div className="w-9 h-9 rounded-xl bg-[#C4737E] flex items-center justify-center text-white font-serif font-bold text-xl shadow-md">
+                N
+              </div>
+              <span className="font-serif text-2xl font-bold tracking-tight text-white">
+                Nurtura
+              </span>
+            </div>
+            <p className="text-xs text-white/70 leading-relaxed max-w-sm">
+              Nurtura is a premier Bangladeshi multi-category lifestyle & family shopping platform.
+              From mother and baby care to men’s & women’s fashion, electronics, health & beauty, and
+              home living—delivered with trust right to your doorstep.
+            </p>
+            <div className="space-y-2 pt-2 text-xs text-white/80">
+              <p className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-[#C4737E] shrink-0" />
+                <span>Level 5, House 42, Road 11, Banani, Dhaka-1213</span>
+              </p>
+              <p className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-[#F0B840] shrink-0" />
+                <span>01700-000000 / 01800-000000</span>
+              </p>
+              <p className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-[#7A9C78] shrink-0" />
+                <span>support@nurtura.com.bd</span>
+              </p>
+            </div>
+          </div>
+
+          {/* Categories */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#C4737E] mb-4">
+              Top Categories
+            </h4>
+            <ul className="space-y-2.5 text-xs text-white/70">
+              {INITIAL_CATEGORIES.slice(0, 6).map((cat) => (
+                <li key={cat.id}>
+                  <Link
+                    href={`/category/${cat.slug}`}
+                    className="hover:text-white transition-colors"
+                  >
+                    {cat.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Customer Service */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#C4737E] mb-4">
+              Customer Care
+            </h4>
+            <ul className="space-y-2.5 text-xs text-white/70">
+              <li>
+                <Link href="/track-order" className="hover:text-white transition-colors">
+                  Track Your Order
+                </Link>
+              </li>
+              <li>
+                <Link href="/checkout" className="hover:text-white transition-colors">
+                  Guest Checkout
+                </Link>
+              </li>
+              <li>
+                <Link href="/cart" className="hover:text-white transition-colors">
+                  Shopping Cart
+                </Link>
+              </li>
+              <li>
+                <span className="text-white/40 cursor-not-allowed">Shipping & Delivery Rates</span>
+              </li>
+              <li>
+                <span className="text-white/40 cursor-not-allowed">Return & Refund Policy</span>
+              </li>
+              <li>
+                <span className="text-white/40 cursor-not-allowed">Terms of Service</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Payment & Security */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#C4737E] mb-4">
+              Payment Methods
+            </h4>
+            <p className="text-xs text-white/60 mb-3">
+              We accept safe and reliable local payments:
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2.5 py-1 rounded bg-[#E2136E] text-white text-[11px] font-bold">
+                bKash
+              </span>
+              <span className="px-2.5 py-1 rounded bg-[#F4821F] text-white text-[11px] font-bold">
+                Nagad
+              </span>
+              <span className="px-2.5 py-1 rounded bg-[#8B1874] text-white text-[11px] font-bold">
+                Rocket
+              </span>
+              <span className="px-2.5 py-1 rounded bg-[#1A73E8] text-white text-[11px] font-bold">
+                Cards
+              </span>
+              <span className="px-2.5 py-1 rounded bg-white/20 text-white text-[11px] font-bold">
+                COD
+              </span>
+            </div>
+            <div className="mt-4 pt-3 border-t border-white/10">
+              <Link
+                href="/admin/login"
+                className="text-[11px] text-white/40 hover:text-[#C4737E] transition-colors"
+              >
+                Staff Admin Portal →
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Copyright Bar */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50">
+          <p>© 2026 Nurtura Bangladesh. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <span>Trade License: TRAD/DNCC/092182/2025</span>
+            <span>TIN: 8192-3841-9210</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

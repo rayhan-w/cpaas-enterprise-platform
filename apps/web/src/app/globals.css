@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,121 +6,97 @@
 
 @layer base {
   :root {
-    --radius: 0.75rem;
-    --background: #ffffff;
-    --foreground: #101524;
-    --card: #ffffff;
-    --card-foreground: #101524;
-    --border: #e2e8f0;
-    --input: #f1f5f9;
-    --primary: #e11d48; /* Hot pink brand accent */
-    --primary-hover: #be123c;
-    --primary-foreground: #ffffff;
-    --secondary: #f8fafc;
-    --secondary-foreground: #1e293b;
-    --muted: #f1f5f9;
-    --muted-foreground: #64748b;
-    --accent: #fff1f2;
-    --accent-foreground: #9f1239;
-    --navy: #1a2238;
-    --navy-deep: #101524;
-    --navy-soft: #232d4b;
-    --navy-foreground: #f8fafc;
-    --surface: #f8fafc;
-  }
-
-  .dark {
-    --background: #101524;
-    --foreground: #f8fafc;
-    --card: #1a2238;
-    --card-foreground: #f8fafc;
-    --border: #232d4b;
-    --input: #232d4b;
-    --primary: #e11d48;
-    --primary-foreground: #ffffff;
-    --secondary: #1a2238;
-    --secondary-foreground: #f8fafc;
-    --muted: #1e293b;
-    --muted-foreground: #94a3b8;
-    --navy: #1a2238;
-    --navy-deep: #0b0f19;
-    --navy-soft: #232d4b;
-    --navy-foreground: #f8fafc;
-    --surface: #1a2238;
+    --background: #F8F7F5;
+    --foreground: #1A1512;
+    --card: #FFFFFF;
+    --card-foreground: #1A1512;
+    --border: #EDE5E1;
+    --primary: #C4737E;
+    --primary-hover: #A85862;
+    --primary-foreground: #FFFFFF;
   }
 }
 
-html {
-  font-size: 16px;
+html, body {
+  color: #1A1512;
+  background-color: #F8F7F5;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 
-body {
-  color: var(--foreground);
-  background-color: var(--background);
-  font-family: 'Manrope', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  letter-spacing: -0.015em;
-  font-size: 16px;
-  line-height: 1.65;
-  overflow-x: hidden;
-  width: 100%;
+/* Custom Typography */
+.section-title {
+  font-family: 'DM Serif Display', Georgia, serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Sora', 'Plus Jakarta Sans', sans-serif;
-  letter-spacing: -0.025em;
-  font-weight: 700;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #D8CCC8;
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C4737E;
 }
 
-.font-display {
-  font-family: 'Sora', sans-serif;
+/* Reference Card Interactions */
+.ag-card {
+  will-change: transform;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s;
+}
+.ag-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px rgba(26, 21, 18, 0.12), 0 4px 12px rgba(196, 115, 126, 0.10);
 }
 
-/* Custom Shadows */
-.shadow-elevated {
-  box-shadow: 0 18px 40px -18px rgba(16, 21, 36, 0.25);
+.ag-float {
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.22s;
+}
+.ag-float:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(26, 21, 18, 0.08);
 }
 
-.shadow-pink {
-  box-shadow: 0 14px 34px -14px rgba(225, 29, 72, 0.55);
+/* Custom Payment Gradients */
+.bkash-gradient {
+  background: linear-gradient(135deg, #E2136E 0%, #B50057 100%);
 }
 
-.shadow-pink-hover:hover {
-  box-shadow: 0 20px 40px -12px rgba(225, 29, 72, 0.65);
+.nagad-gradient {
+  background: linear-gradient(135deg, #F4821F 0%, #D06A10 100%);
 }
 
-/* Background Utility Classes */
-.bg-navy-deep {
-  background-color: #101524;
+/* Admin Sidebar Nav Items */
+.admin-nav-item {
+  border-left: 3px solid transparent;
+  transition: all 0.18s;
+}
+.admin-nav-item:hover {
+  color: #C4737E;
+  background: rgba(196, 115, 126, 0.08);
+  border-left-color: #C4737E;
+}
+.admin-nav-item.active {
+  color: #C4737E;
+  background: rgba(196, 115, 126, 0.12);
+  border-left-color: #C4737E;
+  font-weight: 600;
 }
 
-.bg-navy {
-  background-color: #1a2238;
+/* Animations */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
-.bg-navy-soft {
-  background-color: #232d4b;
-}
-
-.text-navy-foreground {
-  color: #f8fafc;
-}
-
-.bg-surface {
-  background-color: #f8fafc;
-}
-
-.section-y {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-}
-
-@media (min-width: 768px) {
-  .section-y {
-    padding-top: 6.5rem;
-    padding-bottom: 6.5rem;
-  }
+.shimmer {
+  background: linear-gradient(90deg, #F0EBE8 25%, #FFFAF9 50%, #F0EBE8 75%) 0 0/200% 100%;
+  animation: 1.5s infinite shimmer;
 }
