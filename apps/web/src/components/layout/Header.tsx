@@ -92,11 +92,11 @@ export default function Header() {
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2 shrink-0 group">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#C4737E] to-[#8B3D47] flex items-center justify-center text-white font-serif font-bold text-xl shadow-md group-hover:scale-105 transition-transform">
-            N
+            J
           </div>
           <div>
             <div className="font-serif text-2xl font-bold tracking-tight text-[#1A1512] flex items-center">
-              Nurtura
+              Jawata Mart
               <span className="w-2 h-2 rounded-full bg-[#C4737E] ml-0.5 inline-block"></span>
             </div>
             <span className="text-[10px] text-[#9B8A86] tracking-wider uppercase font-semibold block -mt-1">
@@ -256,9 +256,9 @@ export default function Header() {
             <div className="p-5 border-b border-[#EDE5E1] flex items-center justify-between bg-white">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-lg bg-[#C4737E] flex items-center justify-center text-white font-serif font-bold">
-                  N
+                  J
                 </div>
-                <span className="font-serif text-xl font-bold text-[#1A1512]">Nurtura</span>
+                <span className="font-serif text-xl font-bold text-[#1A1512]">Jawata Mart</span>
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}

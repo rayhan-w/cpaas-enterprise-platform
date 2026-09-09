@@ -10,7 +10,10 @@ export async function POST(request: Request) {
     }
 
     // Default master admin account check
-    const isMasterEmail = email.toLowerCase() === 'admin@nurtura.com.bd';
+    const isMasterEmail =
+      email.toLowerCase() === 'jawatamart@gmail.com' ||
+      email.toLowerCase() === 'admin@jawatamart.com' ||
+      email.toLowerCase() === 'admin@nurtura.com.bd';
     const isMasterPassword = password === 'admin123456';
 
     if (!isMasterEmail || !isMasterPassword) {
@@ -19,8 +22,8 @@ export async function POST(request: Request) {
 
     const adminUser = {
       id: 'admin_master_1',
-      email: 'admin@nurtura.com.bd',
-      name: 'Nurtura Super Admin',
+      email: email.toLowerCase(),
+      name: 'Md. Abdur Rahim (Jawata Mart)',
       role: 'SUPERADMIN',
     };
 

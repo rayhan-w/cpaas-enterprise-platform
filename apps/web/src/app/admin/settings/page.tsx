@@ -22,11 +22,11 @@ export default function AdminSettingsPage() {
   const [savedSuccess, setSavedSuccess] = useState(false);
 
   const [formData, setFormData] = useState({
-    storeName: 'Nurtura Bangladesh',
+    storeName: 'Jawata Mart',
     storeTagline: 'Your Trusted Online Shopping Destination in Bangladesh',
-    hotline: '+880 1700-000000',
-    supportEmail: 'support@nurtura.com.bd',
-    address: 'House #42, Road #11, Banani, Dhaka-1213, Bangladesh',
+    hotline: '+880 1915-210799',
+    supportEmail: 'jawatamart@gmail.com',
+    address: 'Uttara Sector-12, Dhaka, Bangladesh',
     
     // Delivery fees
     insideDhakaDeliveryFee: 60,
@@ -36,10 +36,10 @@ export default function AdminSettingsPage() {
     estimatedOutsideDeliveryDays: '3-5 Days',
     
     // Payment Settings
-    bkashMerchantNumber: '01700-000000',
-    bkashAccountType: 'Merchant',
-    nagadMerchantNumber: '01800-000000',
-    nagadAccountType: 'Merchant',
+    bkashMerchantNumber: '01915210799',
+    bkashAccountType: 'Personal',
+    nagadMerchantNumber: '01915210799',
+    nagadAccountType: 'Personal',
     
     // Feature Toggles
     enableCOD: true,

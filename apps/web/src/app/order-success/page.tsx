@@ -29,7 +29,7 @@ export default async function OrderSuccessPage({ searchParams }: OrderSuccessPro
             Order Confirmed
           </span>
           <h1 className="section-title text-3xl sm:text-4xl text-[#1A1512]">
-            Thank You for Shopping with Nurtura!
+            Thank You for Shopping with Jawata Mart!
           </h1>
           <p className="text-xs sm:text-sm text-[#6B5B58] mt-2 max-w-md mx-auto leading-relaxed">
             We have received your order. A delivery confirmation SMS and invoice details will be dispatched to your phone.

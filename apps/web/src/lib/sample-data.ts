@@ -1,13 +1,13 @@
 import { CategoryItem, ProductItem, BannerItem, CouponItem, StoreSettings } from './types';
 
 export const INITIAL_SETTINGS: StoreSettings = {
-  storeName: 'Nurtura Bangladesh',
-  tagline: 'Premier Multi-Category Lifestyle & Family Shopping',
-  phone: '01700-000000',
-  email: 'support@nurtura.com.bd',
-  address: 'Level 5, House 42, Road 11, Banani, Dhaka-1213, Bangladesh',
-  bkashMerchantNumber: '01711-987654',
-  nagadMerchantNumber: '01811-987654',
+  storeName: 'Jawata Mart',
+  tagline: 'Your Trusted Online Shopping Destination in Bangladesh',
+  phone: '01915210799',
+  email: 'jawatamart@gmail.com',
+  address: 'Uttara Sector-12, Dhaka, Bangladesh',
+  bkashMerchantNumber: '01915210799',
+  nagadMerchantNumber: '01915210799',
   insideDhakaFee: 60,
   outsideDhakaFee: 120,
   freeDeliveryThreshold: 2000,

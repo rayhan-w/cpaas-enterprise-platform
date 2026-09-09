@@ -55,8 +55,8 @@ export default function CheckoutForm() {
   const [copiedNagad, setCopiedNagad] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const bkashMerchantNumber = '01711-987654';
-  const nagadMerchantNumber = '01811-987654';
+  const bkashMerchantNumber = '01915210799';
+  const nagadMerchantNumber = '01915210799';
 
   const handleCopy = (text: string, type: 'bkash' | 'nagad') => {
     navigator.clipboard.writeText(text.replace(/[\s\-]/g, ''));

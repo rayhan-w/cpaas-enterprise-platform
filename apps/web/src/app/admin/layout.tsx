@@ -52,11 +52,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {/* Logo */}
           <div className="flex items-center gap-2.5 pb-4 border-b border-[#EDE5E1]">
             <div className="w-9 h-9 rounded-xl bg-[#C4737E] flex items-center justify-center text-white font-serif font-bold text-lg shadow-sm">
-              N
+              J
             </div>
             <div>
               <span className="font-serif text-lg font-bold text-[#1A1512] block leading-tight">
-                Nurtura Admin
+                Jawata Mart Admin
               </span>
               <span className="text-[10px] text-[#7A9C78] font-bold uppercase tracking-wider flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#7A9C78]"></span>

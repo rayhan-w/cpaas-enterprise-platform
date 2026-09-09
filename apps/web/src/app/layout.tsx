@@ -9,27 +9,25 @@ import MobileBottomBar from '@/components/layout/MobileBottomBar';
 import CartDrawer from '@/components/cart/CartDrawer';
 
 export const metadata: Metadata = {
-  title: 'Nurtura Bangladesh | Premium Multi-Category Shopping Platform',
+  title: 'Jawata Mart | Trusted Multi-Category Shopping Platform in Bangladesh',
   description:
-    'Discover 10,000+ authentic lifestyle products in Bangladesh: Baby & Mother Care, Men & Women Fashion, Electronics, Health & Beauty, Home Living & Groceries with fast nationwide delivery and Cash on Delivery.',
+    'Discover 10,000+ authentic lifestyle products at Jawata Mart: Baby & Mother Care, Men & Women Fashion, Electronics, Health & Beauty, Home Living & Groceries with fast nationwide delivery from Uttara Sector-12, Dhaka.',
   keywords: [
-    'Bangladesh online shopping',
+    'Jawata Mart',
+    'Jawata Mart Bangladesh',
+    'online shopping bangladesh',
     'ecommerce bangladesh',
-    'baby care bd',
-    'mother maternity bd',
-    'mens fashion dhaka',
-    'womens fashion',
-    'electronics bangladesh',
+    'uttara online shop',
     'bKash payment ecommerce',
     'nagad payment',
     'cash on delivery dhaka',
   ],
   openGraph: {
-    title: 'Nurtura Bangladesh | Lifestyle & Family Shopping',
+    title: 'Jawata Mart | Lifestyle & Family Shopping',
     description: 'Fast nationwide delivery with bKash, Nagad, and Cash on Delivery.',
     type: 'website',
     locale: 'en_BD',
-    siteName: 'Nurtura Bangladesh',
+    siteName: 'Jawata Mart',
   },
 };
 

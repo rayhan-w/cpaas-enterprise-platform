@@ -30,11 +30,11 @@ export default function AnnouncementBar() {
           </Link>
           <span className="text-white/30">|</span>
           <a
-            href="tel:01700000000"
+            href="tel:01915210799"
             className="hover:text-[#F0B840] transition-colors flex items-center gap-1"
           >
             <Phone className="w-3.5 h-3.5" />
-            <span>01700-000000</span>
+            <span>01915210799</span>
           </a>
           <span className="text-white/30">|</span>
           <span className="font-semibold text-white/90 bg-white/10 px-1.5 py-0.5 rounded text-[11px]">

@@ -64,29 +64,29 @@ export default function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-2">
               <div className="w-9 h-9 rounded-xl bg-[#C4737E] flex items-center justify-center text-white font-serif font-bold text-xl shadow-md">
-                N
+                J
               </div>
               <span className="font-serif text-2xl font-bold tracking-tight text-white">
-                Nurtura
+                Jawata Mart
               </span>
             </div>
             <p className="text-xs text-white/70 leading-relaxed max-w-sm">
-              Nurtura is a premier Bangladeshi multi-category lifestyle & family shopping platform.
+              Jawata Mart is your trusted Bangladeshi multi-category lifestyle & family shopping platform.
               From mother and baby care to men’s & women’s fashion, electronics, health & beauty, and
               home living—delivered with trust right to your doorstep.
             </p>
             <div className="space-y-2 pt-2 text-xs text-white/80">
               <p className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#C4737E] shrink-0" />
-                <span>Level 5, House 42, Road 11, Banani, Dhaka-1213</span>
+                <span>Uttara Sector-12, Dhaka, Bangladesh</span>
               </p>
               <p className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#F0B840] shrink-0" />
-                <span>01700-000000 / 01800-000000</span>
+                <a href="tel:01915210799" className="hover:text-white transition-colors">01915210799</a>
               </p>
               <p className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#7A9C78] shrink-0" />
-                <span>support@nurtura.com.bd</span>
+                <a href="mailto:jawatamart@gmail.com" className="hover:text-white transition-colors">jawatamart@gmail.com</a>
               </p>
             </div>
           </div>
@@ -181,10 +181,12 @@ export default function Footer() {
 
         {/* Bottom Copyright Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50">
-          <p>© 2026 Nurtura Bangladesh. All rights reserved.</p>
+          <p>© 2026 Jawata Mart (Proprietor: Md. Abdur Rahim). All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <span>Trade License: TRAD/DNCC/092182/2025</span>
-            <span>TIN: 8192-3841-9210</span>
+            <a href="https://www.jawatamart.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+              www.jawatamart.com
+            </a>
+            <span>Uttara Sector-12, Dhaka</span>
           </div>
         </div>
       </div>

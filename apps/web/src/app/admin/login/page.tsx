@@ -3,13 +3,15 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Lock, Mail, ShieldCheck, ArrowRight } from 'lucide-react';
+import { useToast } from '@/context/toast-context';
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('admin@nurtura.com.bd');
+  const [email, setEmail] = useState('jawatamart@gmail.com');
   const [password, setPassword] = useState('admin123456');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const { toast } = useToast();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,16 +28,20 @@ export default function AdminLoginPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || 'Invalid credentials');
+        setErrorMsg(data.error || 'Invalid credentials');
+        toast(data.error || 'Login failed', 'error');
+        return;
       }
 
       // Store in localStorage for client auth state
       localStorage.setItem('nurtura_admin_token', data.token);
       localStorage.setItem('nurtura_admin_user', JSON.stringify(data.admin));
 
+      toast('Welcome back, ' + (data.admin?.name || 'Admin') + '!', 'success');
       router.push('/admin');
     } catch (err: any) {
       setErrorMsg(err.message || 'Login failed');
+      toast('Network error during login', 'error');
     } finally {
       setLoading(false);
     }
@@ -47,9 +53,9 @@ export default function AdminLoginPage() {
         {/* Header */}
         <div className="text-center space-y-2">
           <div className="w-12 h-12 rounded-2xl bg-[#C4737E] text-white flex items-center justify-center font-serif text-2xl font-bold mx-auto shadow-md">
-            N
+            J
           </div>
-          <h1 className="section-title text-2xl text-[#1A1512]">Nurtura Staff Portal</h1>
+          <h1 className="section-title text-2xl text-[#1A1512]">Jawata Mart Staff Portal</h1>
           <p className="text-xs text-[#6B5B58]">
             Secure administrative access for orders, manual bKash/Nagad verification and inventory.
           </p>
@@ -57,9 +63,9 @@ export default function AdminLoginPage() {
 
         {/* Demo Credentials Alert */}
         <div className="p-3 bg-[#FCF5F6] border border-[#C4737E]/20 rounded-xl text-xs text-[#1A1512] space-y-1">
-          <p className="font-bold text-[#C4737E]">Pre-configured Admin Account:</p>
+          <p className="font-bold text-[#C4737E]">Admin Account (Proprietor: Md. Abdur Rahim):</p>
           <p className="text-[#6B5B58]">
-            Email: <code className="font-mono bg-white px-1.5 py-0.5 rounded border border-[#EDE5E1]">admin@nurtura.com.bd</code>
+            Email: <code className="font-mono bg-white px-1.5 py-0.5 rounded border border-[#EDE5E1]">jawatamart@gmail.com</code>
           </p>
           <p className="text-[#6B5B58]">
             Password: <code className="font-mono bg-white px-1.5 py-0.5 rounded border border-[#EDE5E1]">admin123456</code>
