@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "npm run dev --prefix moto-design-magic-main",
-    "build": "npm run build --prefix moto-design-magic-main",
-    "preview": "npm run preview --prefix moto-design-magic-main"
+    "dev": "npm run dev --prefix homeease-smart-service",
+    "build": "npm run build --prefix homeease-smart-service",
+    "start": "npm run start --prefix homeease-smart-service"
   },
   "workspaces": [
+    "homeease-smart-service",
     "apps/*",
     "moto-design-magic-main"
   ],

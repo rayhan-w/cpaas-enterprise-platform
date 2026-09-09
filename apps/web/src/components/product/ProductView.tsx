@@ -59,13 +59,13 @@ export default function ProductView({
     <div className="max-w-7xl mx-auto px-4 py-6 sm:py-10 space-y-12">
       {/* Breadcrumb Navigation */}
       <nav className="flex items-center gap-1.5 text-xs text-[#9B8A86] flex-wrap">
-        <Link href="/" className="hover:text-[#C4737E] transition-colors">
+        <Link href="/" className="hover:text-[#0D5435] transition-colors">
           Home
         </Link>
         <ChevronRight className="w-3 h-3" />
         <Link
           href={`/category/${product.categorySlug}`}
-          className="hover:text-[#C4737E] transition-colors"
+          className="hover:text-[#0D5435] transition-colors"
         >
           {product.categoryName || 'Category'}
         </Link>
@@ -84,18 +84,18 @@ export default function ProductView({
               className="w-full h-full object-cover"
             />
             {product.badge && (
-              <span className="absolute top-4 left-4 bg-[#C4737E] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+              <span className="absolute top-4 left-4 bg-[#0D5435] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
                 {product.badge}
               </span>
             )}
             <button
               onClick={() => setIsWishlisted(!isWishlisted)}
-              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-[#6B5B58] hover:text-[#C4737E] shadow-sm transition-transform active:scale-90"
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-[#6B5B58] hover:text-[#0D5435] shadow-sm transition-transform active:scale-90"
               aria-label="Wishlist"
             >
               <Heart
                 className={`w-5 h-5 ${
-                  isWishlisted ? 'fill-[#C4737E] text-[#C4737E]' : 'stroke-[1.75]'
+                  isWishlisted ? 'fill-[#0D5435] text-[#0D5435]' : 'stroke-[1.75]'
                 }`}
               />
             </button>
@@ -109,7 +109,7 @@ export default function ProductView({
                   key={i}
                   onClick={() => setActiveImage(img)}
                   className={`w-20 h-20 rounded-2xl overflow-hidden border-2 transition-all shrink-0 ${
-                    activeImage === img ? 'border-[#C4737E] shadow-sm' : 'border-[#EDE5E1] opacity-70 hover:opacity-100'
+                    activeImage === img ? 'border-[#0D5435] shadow-sm' : 'border-[#EDE5E1] opacity-70 hover:opacity-100'
                   }`}
                 >
                   <img src={img} alt="" className="w-full h-full object-cover" />
@@ -123,7 +123,7 @@ export default function ProductView({
         <div className="lg:col-span-6 space-y-6">
           <div>
             {product.brand && (
-              <span className="text-xs font-bold uppercase tracking-wider text-[#C4737E] block mb-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#0D5435] block mb-1">
                 {product.brand}
               </span>
             )}
@@ -161,7 +161,7 @@ export default function ProductView({
                 <span className="text-sm text-[#9B8A86] line-through">
                   {formatPrice(product.originalPrice)}
                 </span>
-                <span className="bg-[#C4737E]/15 text-[#C4737E] font-bold text-xs px-2 py-0.5 rounded-md">
+                <span className="bg-[#0D5435]/15 text-[#0D5435] font-bold text-xs px-2 py-0.5 rounded-md">
                   Save {formatPrice(product.originalPrice - currentPrice)} ({product.discount}%)
                 </span>
               </>
@@ -181,8 +181,8 @@ export default function ProductView({
                     onClick={() => setSelectedVariant(v)}
                     className={`px-3.5 py-2 rounded-xl text-xs font-semibold border transition-all ${
                       selectedVariant?.id === v.id
-                        ? 'border-[#C4737E] bg-[#FCF5F6] text-[#C4737E] shadow-xs'
-                        : 'border-[#EDE5E1] bg-white text-[#1A1512] hover:border-[#C4737E]/40'
+                        ? 'border-[#0D5435] bg-[#E7F2EC] text-[#0D5435] shadow-xs'
+                        : 'border-[#EDE5E1] bg-white text-[#1A1512] hover:border-[#0D5435]/40'
                     }`}
                   >
                     {v.name}: {v.value} {v.price ? `(${formatPrice(v.price)})` : ''}
@@ -218,43 +218,43 @@ export default function ProductView({
                 onClick={handleAddToCart}
                 className={`flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl text-xs font-bold border transition-all active:scale-95 shadow-sm ${
                   addedAnim
-                    ? 'bg-[#7A9C78] text-white border-[#7A9C78]'
-                    : 'bg-white hover:bg-[#FCF5F6] text-[#1A1512] border-[#EDE5E1] hover:border-[#C4737E]'
+                    ? 'bg-[#107C41] text-white border-[#107C41]'
+                    : 'bg-white hover:bg-[#E7F2EC] text-[#1B241B] border-[#E3EBE5] hover:border-[#0D5435]'
                 }`}
               >
                 {addedAnim ? (
                   <>
                     <Check className="w-4 h-4" />
-                    <span>Added to Bag!</span>
+                    <span>কার্ট-এ যোগ হয়েছে!</span>
                   </>
                 ) : (
                   <>
-                    <ShoppingBag className="w-4 h-4 text-[#C4737E]" />
-                    <span>Add to Bag</span>
+                    <ShoppingBag className="w-4 h-4 text-[#0D5435]" />
+                    <span>কার্ট-এ যোগ করুন</span>
                   </>
                 )}
               </button>
 
               <button
                 onClick={handleBuyNow}
-                className="flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl text-xs font-bold bg-[#C4737E] hover:bg-[#A85862] text-white transition-all shadow-md active:scale-95"
+                className="flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl text-xs font-bold bg-[#0D5435] hover:bg-[#093D26] text-white transition-all shadow-md active:scale-95"
               >
-                <Zap className="w-4 h-4 fill-current" />
-                <span>Buy Now (Instant Checkout)</span>
+                <Zap className="w-4 h-4 fill-current text-[#F59E0B]" />
+                <span>অর্ডার করুন (Order Now)</span>
               </button>
             </div>
           </div>
 
           {/* Delivery & Trust Highlights */}
-          <div className="bg-[#FCF5F6] rounded-2xl p-4 border border-[#C4737E]/20 space-y-2.5 text-xs text-[#1A1512]">
+          <div className="bg-[#E7F2EC] rounded-2xl p-4 border border-[#0D5435]/20 space-y-2.5 text-xs text-[#1A1512]">
             <div className="flex items-center gap-2.5">
-              <Truck className="w-4 h-4 text-[#C4737E] shrink-0" />
+              <Truck className="w-4 h-4 text-[#0D5435] shrink-0" />
               <span>
                 <strong>Inside Dhaka:</strong> ৳60 (Same/Next Day) • <strong>Outside Dhaka:</strong> ৳120
               </span>
             </div>
             <div className="flex items-center gap-2.5">
-              <ShieldCheck className="w-4 h-4 text-[#7A9C78] shrink-0" />
+              <ShieldCheck className="w-4 h-4 text-[#107C41] shrink-0" />
               <span>Pay with Cash on Delivery, bKash or Nagad Send Money</span>
             </div>
             <div className="flex items-center gap-2.5">
@@ -296,7 +296,7 @@ export default function ProductView({
       {relatedProducts.length > 0 && (
         <section className="space-y-6">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#C4737E]">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#0D5435]">
               You May Also Like
             </span>
             <h2 className="section-title text-2xl text-[#1A1512]">Related Products</h2>

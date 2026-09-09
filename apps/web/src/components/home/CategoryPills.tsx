@@ -8,7 +8,7 @@ export default function CategoryPills() {
     <section className="max-w-7xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#C4737E] block">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#0D5435] block">
             Explore Marketplace
           </span>
           <h2 className="section-title text-2xl sm:text-3xl text-[#1A1512]">
@@ -17,7 +17,7 @@ export default function CategoryPills() {
         </div>
         <Link
           href="/category/all"
-          className="text-xs font-semibold text-[#1A1512] hover:text-[#C4737E] flex items-center gap-1 transition-colors"
+          className="text-xs font-semibold text-[#1A1512] hover:text-[#0D5435] flex items-center gap-1 transition-colors"
         >
           <span>View All</span>
           <ArrowRight className="w-3.5 h-3.5" />
@@ -29,7 +29,7 @@ export default function CategoryPills() {
           <Link
             key={cat.id}
             href={`/category/${cat.slug}`}
-            className="ag-float group bg-white rounded-2xl p-3 border border-[#EDE5E1] text-center flex flex-col items-center justify-between hover:border-[#C4737E]/40 transition-all"
+            className="ag-float group bg-white rounded-2xl p-3 border border-[#EDE5E1] text-center flex flex-col items-center justify-between hover:border-[#0D5435]/40 transition-all"
           >
             <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden mb-2 bg-[#F8F7F5] border-2 border-white shadow-sm group-hover:scale-105 transition-transform">
               <img
@@ -39,7 +39,7 @@ export default function CategoryPills() {
                 loading="lazy"
               />
             </div>
-            <h3 className="text-xs font-semibold text-[#1A1512] group-hover:text-[#C4737E] transition-colors line-clamp-1">
+            <h3 className="text-xs font-semibold text-[#1A1512] group-hover:text-[#0D5435] transition-colors line-clamp-1">
               {cat.name}
             </h3>
             <span className="text-[10px] text-[#9B8A86] mt-0.5">

@@ -97,7 +97,7 @@ export default function AdminCustomersPage() {
               </thead>
               <tbody className="divide-y divide-[#F2EDEA]">
                 {customers.map((c, i) => (
-                  <tr key={i} className="hover:bg-[#FCF5F6]/40 transition-colors">
+                  <tr key={i} className="hover:bg-[#E7F2EC]/40 transition-colors">
                     <td className="p-3 font-bold text-[#1A1512]">{c.name}</td>
                     <td className="p-3 font-mono font-semibold text-[#1A1512]">{c.phone}</td>
                     <td className="p-3 text-[#6B5B58]">{c.email || 'N/A'}</td>
@@ -107,7 +107,7 @@ export default function AdminCustomersPage() {
                         {c.totalOrders} order(s)
                       </span>
                     </td>
-                    <td className="p-3 font-bold text-[#C4737E]">
+                    <td className="p-3 font-bold text-[#0D5435]">
                       {formatPrice(c.totalSpent)}
                     </td>
                     <td className="p-3 text-right text-[#6B5B58]">

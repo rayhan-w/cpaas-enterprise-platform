@@ -4,7 +4,7 @@ import { ChevronRight, ShieldCheck, Lock } from 'lucide-react';
 import CheckoutForm from '@/components/checkout/CheckoutForm';
 
 export const metadata = {
-  title: 'Guest Checkout | Nurtura Bangladesh',
+  title: 'Guest Checkout | Jawata Mart',
   description: 'Fast guest checkout with Cash on Delivery, bKash, and Nagad.',
 };
 
@@ -13,11 +13,11 @@ export default function CheckoutPage() {
     <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12 space-y-8">
       {/* Breadcrumb Navigation */}
       <nav className="flex items-center gap-1.5 text-xs text-[#9B8A86]">
-        <Link href="/" className="hover:text-[#C4737E] transition-colors">
+        <Link href="/" className="hover:text-[#0D5435] transition-colors">
           Home
         </Link>
         <ChevronRight className="w-3 h-3" />
-        <Link href="/cart" className="hover:text-[#C4737E] transition-colors">
+        <Link href="/cart" className="hover:text-[#0D5435] transition-colors">
           Cart
         </Link>
         <ChevronRight className="w-3 h-3" />

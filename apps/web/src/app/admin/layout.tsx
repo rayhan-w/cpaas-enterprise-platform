@@ -51,7 +51,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="space-y-6">
           {/* Logo */}
           <div className="flex items-center gap-2.5 pb-4 border-b border-[#EDE5E1]">
-            <div className="w-9 h-9 rounded-xl bg-[#C4737E] flex items-center justify-center text-white font-serif font-bold text-lg shadow-sm">
+            <div className="w-9 h-9 rounded-xl bg-[#0D5435] flex items-center justify-center text-white font-serif font-bold text-lg shadow-sm">
               J
             </div>
             <div>
@@ -78,11 +78,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   key={item.href}
                   href={item.href}
                   className={`admin-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold ${
-                    isActive ? 'active text-[#C4737E]' : 'text-[#6B5B58]'
+                    isActive ? 'active text-[#0D5435]' : 'text-[#6B5B58]'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <Icon className={`w-4 h-4 ${isActive ? 'text-[#C4737E]' : 'text-[#9B8A86]'}`} />
+                    <Icon className={`w-4 h-4 ${isActive ? 'text-[#0D5435]' : 'text-[#9B8A86]'}`} />
                     <span>{item.label}</span>
                   </div>
                   {item.href === '/admin/payments' && (
@@ -102,7 +102,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             className="flex items-center justify-between px-3 py-2 rounded-xl text-xs text-[#6B5B58] hover:text-[#1A1512] hover:bg-[#F8F7F5] transition-colors"
           >
             <span className="flex items-center gap-2">
-              <ExternalLink className="w-3.5 h-3.5 text-[#C4737E]" />
+              <ExternalLink className="w-3.5 h-3.5 text-[#0D5435]" />
               <span>View Storefront</span>
             </span>
             <span className="text-[10px] text-[#9B8A86]">Live</span>

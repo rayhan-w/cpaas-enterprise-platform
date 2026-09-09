@@ -6,7 +6,7 @@ export default function ReviewsSection() {
   return (
     <section className="max-w-7xl mx-auto px-4 py-12">
       <div className="text-center max-w-xl mx-auto mb-10">
-        <span className="text-xs font-bold uppercase tracking-wider text-[#C4737E] block mb-1">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#0D5435] block mb-1">
           Customer Satisfaction
         </span>
         <h2 className="section-title text-2xl sm:text-3xl text-[#1A1512]">
@@ -42,7 +42,7 @@ export default function ReviewsSection() {
 
             {/* Author */}
             <div className="flex items-center gap-3 pt-3 border-t border-[#F2EDEA]">
-              <div className="w-9 h-9 rounded-full bg-[#FCF5F6] text-[#C4737E] font-bold text-xs flex items-center justify-center border border-[#EDE5E1] shrink-0">
+              <div className="w-9 h-9 rounded-full bg-[#E7F2EC] text-[#0D5435] font-bold text-xs flex items-center justify-center border border-[#EDE5E1] shrink-0">
                 {review.avatar}
               </div>
               <div className="min-w-0">

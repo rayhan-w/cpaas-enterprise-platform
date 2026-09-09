@@ -10,28 +10,28 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: '#F8F7F5',
-        foreground: '#1A1512',
+        background: '#FAF8F5',
+        foreground: '#1B241B',
         card: {
           DEFAULT: '#FFFFFF',
-          foreground: '#1A1512',
+          foreground: '#1B241B',
         },
         brand: {
-          DEFAULT: '#C4737E',
-          hover: '#A85862',
-          light: '#FCE8EA',
-          tint: '#FCF5F6',
-          dark: '#8B3D47',
+          DEFAULT: '#0D5435', // Ghorer Bazar Signature Forest Green
+          hover: '#093D26',
+          light: '#E7F2EC',
+          tint: '#F0F7F3',
+          dark: '#062919',
         },
-        linen: '#F8F7F5',
+        linen: '#FAF8F5',
         charcoal: {
-          DEFAULT: '#1A1512',
-          light: '#2B2424',
-          muted: '#6B5B58',
-          subtle: '#9B8A86',
+          DEFAULT: '#1B241B',
+          light: '#2D382D',
+          muted: '#526052',
+          subtle: '#879787',
         },
-        border: '#EDE5E1',
-        subtle: '#EDE5E1',
+        border: '#E3EBE5',
+        subtle: '#E3EBE5',
         bkash: {
           DEFAULT: '#E2136E',
           dark: '#B50057',
@@ -41,12 +41,12 @@ const config: Config = {
           dark: '#D06A10',
         },
         sage: {
-          DEFAULT: '#7A9C78',
-          light: '#EAF3E9',
+          DEFAULT: '#107C41',
+          light: '#E6F4EA',
         },
         amber: {
-          DEFAULT: '#F0B840',
-          light: '#FEF3E2',
+          DEFAULT: '#F59E0B',
+          light: '#FEF3C7',
         },
       },
       fontFamily: {

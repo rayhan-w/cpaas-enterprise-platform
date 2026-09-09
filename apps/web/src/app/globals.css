@@ -6,20 +6,20 @@
 
 @layer base {
   :root {
-    --background: #F8F7F5;
-    --foreground: #1A1512;
+    --background: #FAF8F5;
+    --foreground: #1B241B;
     --card: #FFFFFF;
-    --card-foreground: #1A1512;
-    --border: #EDE5E1;
-    --primary: #C4737E;
-    --primary-hover: #A85862;
+    --card-foreground: #1B241B;
+    --border: #E3EBE5;
+    --primary: #0D5435;
+    --primary-hover: #093D26;
     --primary-foreground: #FFFFFF;
   }
 }
 
 html, body {
-  color: #1A1512;
-  background-color: #F8F7F5;
+  color: #1B241B;
+  background-color: #FAF8F5;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -39,11 +39,11 @@ html, body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D8CCC8;
+  background: #C2D6CA;
   border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C4737E;
+  background: #0D5435;
 }
 
 /* Reference Card Interactions */
@@ -53,7 +53,7 @@ html, body {
 }
 .ag-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 16px 36px rgba(26, 21, 18, 0.12), 0 4px 12px rgba(196, 115, 126, 0.10);
+  box-shadow: 0 16px 36px rgba(26, 21, 18, 0.12), 0 4px 12px rgba(13, 84, 53, 0.10);
 }
 
 .ag-float {
@@ -79,14 +79,14 @@ html, body {
   transition: all 0.18s;
 }
 .admin-nav-item:hover {
-  color: #C4737E;
-  background: rgba(196, 115, 126, 0.08);
-  border-left-color: #C4737E;
+  color: #0D5435;
+  background: rgba(13, 84, 53, 0.08);
+  border-left-color: #0D5435;
 }
 .admin-nav-item.active {
-  color: #C4737E;
-  background: rgba(196, 115, 126, 0.12);
-  border-left-color: #C4737E;
+  color: #0D5435;
+  background: rgba(13, 84, 53, 0.12);
+  border-left-color: #0D5435;
   font-weight: 600;
 }
 

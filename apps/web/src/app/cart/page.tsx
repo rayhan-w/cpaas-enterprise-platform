@@ -64,7 +64,7 @@ export default function CartPage() {
         </div>
         <Link
           href="/"
-          className="text-xs font-semibold text-[#1A1512] hover:text-[#C4737E] flex items-center gap-1.5 transition-colors"
+          className="text-xs font-semibold text-[#1A1512] hover:text-[#0D5435] flex items-center gap-1.5 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Continue Shopping</span>
@@ -73,7 +73,7 @@ export default function CartPage() {
 
       {items.length === 0 ? (
         <div className="bg-white rounded-3xl p-12 text-center max-w-md mx-auto border border-[#EDE5E1] shadow-elevation-1 space-y-4">
-          <div className="w-16 h-16 rounded-full bg-[#FCF5F6] flex items-center justify-center mx-auto text-[#C4737E]">
+          <div className="w-16 h-16 rounded-full bg-[#E7F2EC] flex items-center justify-center mx-auto text-[#0D5435]">
             <ShoppingBag className="w-8 h-8 stroke-[1.5]" />
           </div>
           <h2 className="section-title text-xl text-[#1A1512]">Your Bag is Currently Empty</h2>
@@ -82,7 +82,7 @@ export default function CartPage() {
           </p>
           <Link
             href="/"
-            className="inline-block bg-[#C4737E] hover:bg-[#A85862] text-white font-semibold text-xs px-6 py-3 rounded-full transition-colors"
+            className="inline-block bg-[#0D5435] hover:bg-[#093D26] text-white font-semibold text-xs px-6 py-3 rounded-full transition-colors"
           >
             Explore Marketplace
           </Link>
@@ -106,7 +106,7 @@ export default function CartPage() {
                     <div>
                       <Link
                         href={`/products/${item.product.slug}`}
-                        className="text-sm font-semibold text-[#1A1512] hover:text-[#C4737E] transition-colors line-clamp-1"
+                        className="text-sm font-semibold text-[#1A1512] hover:text-[#0D5435] transition-colors line-clamp-1"
                       >
                         {item.product.name}
                       </Link>
@@ -115,7 +115,7 @@ export default function CartPage() {
                           {item.selectedVariant.name}: {item.selectedVariant.value}
                         </p>
                       )}
-                      <p className="text-xs font-bold text-[#C4737E] mt-1 sm:hidden">
+                      <p className="text-xs font-bold text-[#0D5435] mt-1 sm:hidden">
                         {formatPrice(item.unitPrice)} each
                       </p>
                     </div>
@@ -163,7 +163,7 @@ export default function CartPage() {
             {/* Delivery Destination quick toggle */}
             <div className="bg-white rounded-2xl border border-[#EDE5E1] p-4 flex items-center justify-between text-xs">
               <div className="flex items-center gap-2 text-[#1A1512] font-semibold">
-                <Truck className="w-4 h-4 text-[#C4737E]" />
+                <Truck className="w-4 h-4 text-[#0D5435]" />
                 <span>Delivery Location:</span>
               </div>
               <div className="flex gap-2">
@@ -171,7 +171,7 @@ export default function CartPage() {
                   onClick={() => setDeliveryZone('INSIDE_DHAKA')}
                   className={`px-3 py-1.5 rounded-lg border font-semibold transition-all ${
                     deliveryZone === 'INSIDE_DHAKA'
-                      ? 'bg-[#FCF5F6] border-[#C4737E] text-[#C4737E]'
+                      ? 'bg-[#E7F2EC] border-[#0D5435] text-[#0D5435]'
                       : 'border-[#EDE5E1] text-[#6B5B58]'
                   }`}
                 >
@@ -181,7 +181,7 @@ export default function CartPage() {
                   onClick={() => setDeliveryZone('OUTSIDE_DHAKA')}
                   className={`px-3 py-1.5 rounded-lg border font-semibold transition-all ${
                     deliveryZone === 'OUTSIDE_DHAKA'
-                      ? 'bg-[#FCF5F6] border-[#C4737E] text-[#C4737E]'
+                      ? 'bg-[#E7F2EC] border-[#0D5435] text-[#0D5435]'
                       : 'border-[#EDE5E1] text-[#6B5B58]'
                   }`}
                 >
@@ -251,13 +251,13 @@ export default function CartPage() {
                 </div>
                 <div className="flex justify-between text-base font-bold text-[#1A1512] pt-3 border-t border-[#EDE5E1]">
                   <span>Total:</span>
-                  <span className="text-xl text-[#C4737E]">{formatPrice(total)}</span>
+                  <span className="text-xl text-[#0D5435]">{formatPrice(total)}</span>
                 </div>
               </div>
 
               <Link
                 href="/checkout"
-                className="w-full flex items-center justify-center gap-2 bg-[#C4737E] hover:bg-[#A85862] text-white font-bold text-xs py-3.5 px-4 rounded-xl transition-all shadow-md active:scale-95 text-center"
+                className="w-full flex items-center justify-center gap-2 bg-[#0D5435] hover:bg-[#093D26] text-white font-bold text-xs py-3.5 px-4 rounded-xl transition-all shadow-md active:scale-95 text-center"
               >
                 <span>Proceed to Guest Checkout</span>
                 <ArrowRight className="w-4 h-4" />

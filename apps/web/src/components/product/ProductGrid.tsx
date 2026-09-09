@@ -30,7 +30,7 @@ export default function ProductGrid({ products, loading }: ProductGridProps) {
   if (products.length === 0) {
     return (
       <div className="bg-white rounded-2xl border border-[#EDE5E1] p-12 text-center max-w-md mx-auto my-8">
-        <div className="w-16 h-16 rounded-full bg-[#FCF5F6] flex items-center justify-center mx-auto mb-4 text-[#C4737E]">
+        <div className="w-16 h-16 rounded-full bg-[#E7F2EC] flex items-center justify-center mx-auto mb-4 text-[#0D5435]">
           <PackageOpen className="w-8 h-8 stroke-[1.5]" />
         </div>
         <h3 className="section-title text-xl text-[#1A1512] mb-2">No Products Found</h3>

@@ -145,7 +145,7 @@ export default function AdminPaymentVerificationPage() {
                   const currentNote = notes[order.id] ?? payment?.verificationNote ?? '';
 
                   return (
-                    <tr key={order.id} className="hover:bg-[#FCF5F6]/40 transition-colors">
+                    <tr key={order.id} className="hover:bg-[#E7F2EC]/40 transition-colors">
                       {/* Order ID */}
                       <td className="p-3 font-mono font-bold text-[#1A1512]">
                         {order.orderNumber}
@@ -162,7 +162,7 @@ export default function AdminPaymentVerificationPage() {
                         <span
                           className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                             order.paymentMethod === 'BKASH'
-                              ? 'bg-[#FCF5F6] text-[#E2136E] border border-[#E2136E]/20'
+                              ? 'bg-[#E7F2EC] text-[#E2136E] border border-[#E2136E]/20'
                               : 'bg-[#FFF8F0] text-[#F4821F] border border-[#F4821F]/20'
                           }`}
                         >
@@ -181,7 +181,7 @@ export default function AdminPaymentVerificationPage() {
                       </td>
 
                       {/* Transaction ID */}
-                      <td className="p-3 font-mono font-bold text-[#C4737E]">
+                      <td className="p-3 font-mono font-bold text-[#0D5435]">
                         {payment?.transactionId || 'N/A'}
                       </td>
 
@@ -216,7 +216,7 @@ export default function AdminPaymentVerificationPage() {
                             setNotes({ ...notes, [order.id]: e.target.value })
                           }
                           placeholder="e.g. Verified in bKash app"
-                          className="bg-[#F8F7F5] border border-[#EDE5E1] rounded-lg px-2 py-1 text-[11px] text-[#1A1512] focus:outline-none focus:border-[#C4737E] w-36"
+                          className="bg-[#F8F7F5] border border-[#EDE5E1] rounded-lg px-2 py-1 text-[11px] text-[#1A1512] focus:outline-none focus:border-[#0D5435] w-36"
                         />
                       </td>
 

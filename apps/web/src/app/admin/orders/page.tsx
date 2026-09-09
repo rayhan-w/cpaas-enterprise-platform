@@ -100,7 +100,7 @@ export default function AdminOrdersPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by ID, name or phone..."
-            className="bg-white border border-[#EDE5E1] rounded-xl px-3 py-2 text-xs text-[#1A1512] focus:outline-none focus:border-[#C4737E] w-52"
+            className="bg-white border border-[#EDE5E1] rounded-xl px-3 py-2 text-xs text-[#1A1512] focus:outline-none focus:border-[#0D5435] w-52"
           />
 
           <select
@@ -141,7 +141,7 @@ export default function AdminOrdersPage() {
               </thead>
               <tbody className="divide-y divide-[#F2EDEA]">
                 {filteredOrders.map((order) => (
-                  <tr key={order.id} className="hover:bg-[#FCF5F6]/40 transition-colors">
+                  <tr key={order.id} className="hover:bg-[#E7F2EC]/40 transition-colors">
                     {/* Order ID */}
                     <td className="p-3 font-mono font-bold text-[#1A1512]">
                       {order.orderNumber}
@@ -185,7 +185,7 @@ export default function AdminOrdersPage() {
                       <select
                         value={order.orderStatus}
                         onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                        className="bg-[#F8F7F5] border border-[#EDE5E1] rounded-lg px-2.5 py-1 text-xs font-semibold text-[#1A1512] focus:outline-none focus:border-[#C4737E]"
+                        className="bg-[#F8F7F5] border border-[#EDE5E1] rounded-lg px-2.5 py-1 text-xs font-semibold text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
                       >
                         {orderStatuses.map((st) => (
                           <option key={st} value={st}>
@@ -203,7 +203,7 @@ export default function AdminOrdersPage() {
                       <Link
                         href={`/track-order?orderId=${order.orderNumber}&phone=${order.customerPhone}`}
                         target="_blank"
-                        className="text-[#C4737E] hover:underline font-semibold text-[11px]"
+                        className="text-[#0D5435] hover:underline font-semibold text-[11px]"
                       >
                         Track View →
                       </Link>

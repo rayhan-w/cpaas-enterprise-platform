@@ -61,7 +61,7 @@ export default function AdminCouponsPage() {
 
         <button
           onClick={() => setShowAddModal(true)}
-          className="bg-[#C4737E] hover:bg-[#A85862] text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5 active:scale-95"
+          className="bg-[#0D5435] hover:bg-[#093D26] text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5 active:scale-95"
         >
           <Plus className="w-4 h-4" />
           <span>Create New Coupon</span>
@@ -86,9 +86,9 @@ export default function AdminCouponsPage() {
             </thead>
             <tbody className="divide-y divide-[#F2EDEA]">
               {coupons.map((c) => (
-                <tr key={c.id} className="hover:bg-[#FCF5F6]/40 transition-colors">
+                <tr key={c.id} className="hover:bg-[#E7F2EC]/40 transition-colors">
                   <td className="p-3 font-mono font-bold text-[#1A1512] text-sm">
-                    <span className="bg-[#FCF5F6] text-[#C4737E] px-2 py-1 rounded-md border border-[#C4737E]/20">
+                    <span className="bg-[#E7F2EC] text-[#0D5435] px-2 py-1 rounded-md border border-[#0D5435]/20">
                       {c.code}
                     </span>
                   </td>
@@ -210,7 +210,7 @@ export default function AdminCouponsPage() {
                 </button>
                 <button
                   type="submit"
-                  className="bg-[#C4737E] hover:bg-[#A85862] text-white font-bold text-xs px-5 py-2 rounded-xl transition-all"
+                  className="bg-[#0D5435] hover:bg-[#093D26] text-white font-bold text-xs px-5 py-2 rounded-xl transition-all"
                 >
                   Save Coupon
                 </button>

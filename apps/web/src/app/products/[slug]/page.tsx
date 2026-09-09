@@ -13,11 +13,11 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const product = await dbService.getProductBySlug(slug);
 
   if (!product) {
-    return { title: 'Product Not Found | Nurtura Bangladesh' };
+    return { title: 'Product Not Found | Jawata Mart' };
   }
 
   return {
-    title: `${product.name} | Nurtura Bangladesh`,
+    title: `${product.name} | Jawata Mart`,
     description: product.description.slice(0, 160),
     openGraph: {
       title: product.name,

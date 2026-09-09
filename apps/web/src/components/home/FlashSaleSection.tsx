@@ -27,35 +27,35 @@ export default function FlashSaleSection({ products }: { products: ProductItem[]
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-8">
-      <div className="bg-gradient-to-br from-[#FCF5F6] via-white to-[#F8F7F5] rounded-3xl p-6 sm:p-8 border border-[#C4737E]/20 shadow-elevation-2">
+      <div className="bg-gradient-to-br from-[#E7F2EC]/60 via-white to-[#FAF8F5] rounded-3xl p-6 sm:p-8 border border-[#0D5435]/20 shadow-elevation-2">
         {/* Header with Countdown */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#EDE5E1] mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E3EBE5] mb-6">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#C4737E] mb-1">
-              <Zap className="w-4 h-4 fill-current text-[#C4737E]" />
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0D5435] mb-1">
+              <Zap className="w-4 h-4 fill-current text-[#F59E0B]" />
               <span>Limited Time Deal</span>
             </div>
-            <h2 className="section-title text-2xl sm:text-3xl text-[#1A1512]">
+            <h2 className="section-title text-2xl sm:text-3xl text-[#1B241B]">
               Flash Deals of the Day
             </h2>
           </div>
 
           {/* Countdown Clock */}
           <div className="flex items-center gap-3">
-            <span className="text-xs text-[#6B5B58] font-medium hidden md:inline flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5 text-[#C4737E]" />
+            <span className="text-xs text-[#526052] font-medium hidden md:inline flex items-center gap-1">
+              <Clock className="w-3.5 h-3.5 text-[#0D5435]" />
               Ends in:
             </span>
             <div className="flex items-center gap-1.5 text-xs font-mono font-bold">
-              <div className="bg-[#1A1512] text-white px-2.5 py-1.5 rounded-lg shadow-sm">
+              <div className="bg-[#1B241B] text-white px-2.5 py-1.5 rounded-lg shadow-sm">
                 {String(timeLeft.hours).padStart(2, '0')}h
               </div>
-              <span className="text-[#1A1512] font-bold">:</span>
-              <div className="bg-[#1A1512] text-white px-2.5 py-1.5 rounded-lg shadow-sm">
+              <span className="text-[#1B241B] font-bold">:</span>
+              <div className="bg-[#1B241B] text-white px-2.5 py-1.5 rounded-lg shadow-sm">
                 {String(timeLeft.minutes).padStart(2, '0')}m
               </div>
-              <span className="text-[#1A1512] font-bold">:</span>
-              <div className="bg-[#C4737E] text-white px-2.5 py-1.5 rounded-lg shadow-sm">
+              <span className="text-[#1B241B] font-bold">:</span>
+              <div className="bg-[#0D5435] text-white px-2.5 py-1.5 rounded-lg shadow-sm">
                 {String(timeLeft.seconds).padStart(2, '0')}s
               </div>
             </div>

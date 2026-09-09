@@ -34,7 +34,7 @@ export default function Footer() {
           </div>
 
           <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 text-[#C4737E]">
+            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 text-[#0D5435]">
               <RefreshCw className="w-5 h-5" />
             </div>
             <div>
@@ -63,7 +63,7 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-[#C4737E] flex items-center justify-center text-white font-serif font-bold text-xl shadow-md">
+              <div className="w-9 h-9 rounded-xl bg-[#0D5435] flex items-center justify-center text-white font-serif font-bold text-xl shadow-md">
                 J
               </div>
               <span className="font-serif text-2xl font-bold tracking-tight text-white">
@@ -77,7 +77,7 @@ export default function Footer() {
             </p>
             <div className="space-y-2 pt-2 text-xs text-white/80">
               <p className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#C4737E] shrink-0" />
+                <MapPin className="w-4 h-4 text-[#0D5435] shrink-0" />
                 <span>Uttara Sector-12, Dhaka, Bangladesh</span>
               </p>
               <p className="flex items-center gap-2">
@@ -93,7 +93,7 @@ export default function Footer() {
 
           {/* Categories */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#C4737E] mb-4">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0D5435] mb-4">
               Top Categories
             </h4>
             <ul className="space-y-2.5 text-xs text-white/70">
@@ -112,7 +112,7 @@ export default function Footer() {
 
           {/* Customer Service */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#C4737E] mb-4">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0D5435] mb-4">
               Customer Care
             </h4>
             <ul className="space-y-2.5 text-xs text-white/70">
@@ -145,7 +145,7 @@ export default function Footer() {
 
           {/* Payment & Security */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#C4737E] mb-4">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0D5435] mb-4">
               Payment Methods
             </h4>
             <p className="text-xs text-white/60 mb-3">
@@ -171,7 +171,7 @@ export default function Footer() {
             <div className="mt-4 pt-3 border-t border-white/10">
               <Link
                 href="/admin/login"
-                className="text-[11px] text-white/40 hover:text-[#C4737E] transition-colors"
+                className="text-[11px] text-white/40 hover:text-[#0D5435] transition-colors"
               >
                 Staff Admin Portal →
               </Link>

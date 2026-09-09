@@ -59,9 +59,9 @@ export default function CartDrawer() {
         {/* Drawer Header */}
         <div className="p-4 sm:p-5 bg-white border-b border-[#EDE5E1] flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <ShoppingBag className="w-5 h-5 text-[#C4737E]" />
+            <ShoppingBag className="w-5 h-5 text-[#0D5435]" />
             <h2 className="section-title text-xl text-[#1A1512]">Your Shopping Bag</h2>
-            <span className="bg-[#FCF5F6] text-[#C4737E] font-bold text-xs px-2 py-0.5 rounded-full">
+            <span className="bg-[#E7F2EC] text-[#0D5435] font-bold text-xs px-2 py-0.5 rounded-full">
               {items.reduce((s, i) => s + i.quantity, 0)}
             </span>
           </div>
@@ -74,23 +74,23 @@ export default function CartDrawer() {
         </div>
 
         {/* Free Shipping Meter */}
-        <div className="bg-[#FCF5F6] border-b border-[#EDE5E1] p-3 text-xs">
+        <div className="bg-[#E7F2EC] border-b border-[#EDE5E1] p-3 text-xs">
           <div className="flex items-center justify-between mb-1.5 font-medium text-[#1A1512]">
             <span className="flex items-center gap-1 text-[11px]">
-              <Truck className="w-3.5 h-3.5 text-[#C4737E]" />
+              <Truck className="w-3.5 h-3.5 text-[#0D5435]" />
               {remainingForFree === 0 ? (
                 <span className="text-[#7A9C78] font-bold">You qualify for FREE Delivery! 🎉</span>
               ) : (
                 <span>
-                  Add <strong className="text-[#C4737E]">{formatPrice(remainingForFree)}</strong> more for FREE delivery
+                  Add <strong className="text-[#0D5435]">{formatPrice(remainingForFree)}</strong> more for FREE delivery
                 </span>
               )}
             </span>
-            <span className="font-bold text-[10px] text-[#C4737E]">{progressPercent}%</span>
+            <span className="font-bold text-[10px] text-[#0D5435]">{progressPercent}%</span>
           </div>
           <div className="w-full h-1.5 bg-[#EDE5E1] rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-[#C4737E] to-[#7A9C78] transition-all duration-300"
+              className="h-full bg-gradient-to-r from-[#0D5435] to-[#7A9C78] transition-all duration-300"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
@@ -109,7 +109,7 @@ export default function CartDrawer() {
               </p>
               <button
                 onClick={closeCart}
-                className="mt-4 bg-[#C4737E] hover:bg-[#A85862] text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-colors"
+                className="mt-4 bg-[#0D5435] hover:bg-[#093D26] text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-colors"
               >
                 Start Shopping
               </button>
@@ -136,7 +136,7 @@ export default function CartDrawer() {
                       <Link
                         href={`/products/${item.product.slug}`}
                         onClick={closeCart}
-                        className="text-xs font-semibold text-[#1A1512] hover:text-[#C4737E] transition-colors line-clamp-1"
+                        className="text-xs font-semibold text-[#1A1512] hover:text-[#0D5435] transition-colors line-clamp-1"
                       >
                         {item.product.name}
                       </Link>
@@ -215,7 +215,7 @@ export default function CartDrawer() {
                   value={couponInput}
                   onChange={(e) => setCouponInput(e.target.value)}
                   placeholder="Coupon code (e.g. WELCOME10)"
-                  className="flex-1 bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-xs text-[#1A1512] uppercase placeholder-[#9B8A86] focus:outline-none focus:border-[#C4737E]"
+                  className="flex-1 bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-xs text-[#1A1512] uppercase placeholder-[#9B8A86] focus:outline-none focus:border-[#0D5435]"
                 />
                 <button
                   type="submit"
@@ -251,7 +251,7 @@ export default function CartDrawer() {
               </div>
               <div className="flex justify-between text-sm font-bold text-[#1A1512] pt-2 border-t border-[#F2EDEA]">
                 <span>Total Amount:</span>
-                <span className="text-base text-[#C4737E]">{formatPrice(total)}</span>
+                <span className="text-base text-[#0D5435]">{formatPrice(total)}</span>
               </div>
             </div>
 
@@ -260,7 +260,7 @@ export default function CartDrawer() {
               <Link
                 href="/checkout"
                 onClick={closeCart}
-                className="w-full flex items-center justify-center gap-2 bg-[#C4737E] hover:bg-[#A85862] text-white py-3 px-4 rounded-xl text-xs font-bold transition-all shadow-md active:scale-95 text-center"
+                className="w-full flex items-center justify-center gap-2 bg-[#0D5435] hover:bg-[#093D26] text-white py-3 px-4 rounded-xl text-xs font-bold transition-all shadow-md active:scale-95 text-center"
               >
                 <span>Proceed to Guest Checkout</span>
                 <ArrowRight className="w-4 h-4" />

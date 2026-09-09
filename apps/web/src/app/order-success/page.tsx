@@ -54,7 +54,7 @@ export default async function OrderSuccessPage({ searchParams }: OrderSuccessPro
             <>
               <div className="flex justify-between items-center text-xs">
                 <span className="text-[#9B8A86]">Total Amount:</span>
-                <span className="font-bold text-[#C4737E]">{formatPrice(order.total)}</span>
+                <span className="font-bold text-[#0D5435]">{formatPrice(order.total)}</span>
               </div>
               <div className="flex justify-between items-center text-xs">
                 <span className="text-[#9B8A86]">Payment Method:</span>
@@ -91,7 +91,7 @@ export default async function OrderSuccessPage({ searchParams }: OrderSuccessPro
               href={`/track-order?orderId=${orderNumber}&phone=${phone}`}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#1A1512] hover:bg-[#2B2424] text-white font-bold text-xs py-3.5 px-6 rounded-full transition-all shadow-md active:scale-95"
             >
-              <Truck className="w-4 h-4 text-[#C4737E]" />
+              <Truck className="w-4 h-4 text-[#0D5435]" />
               <span>Track Live Delivery Status</span>
             </Link>
           ) : (
@@ -99,16 +99,16 @@ export default async function OrderSuccessPage({ searchParams }: OrderSuccessPro
               href="/track-order"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#1A1512] hover:bg-[#2B2424] text-white font-bold text-xs py-3.5 px-6 rounded-full transition-all shadow-md active:scale-95"
             >
-              <Truck className="w-4 h-4 text-[#C4737E]" />
+              <Truck className="w-4 h-4 text-[#0D5435]" />
               <span>Go to Order Tracker</span>
             </Link>
           )}
 
           <Link
             href="/"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-[#FCF5F6] text-[#1A1512] border border-[#EDE5E1] hover:border-[#C4737E] font-semibold text-xs py-3.5 px-6 rounded-full transition-all active:scale-95"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-[#E7F2EC] text-[#1A1512] border border-[#EDE5E1] hover:border-[#0D5435] font-semibold text-xs py-3.5 px-6 rounded-full transition-all active:scale-95"
           >
-            <ShoppingBag className="w-4 h-4 text-[#C4737E]" />
+            <ShoppingBag className="w-4 h-4 text-[#0D5435]" />
             <span>Continue Shopping</span>
           </Link>
         </div>
@@ -116,7 +116,7 @@ export default async function OrderSuccessPage({ searchParams }: OrderSuccessPro
         {/* Hotline Support Footer */}
         <p className="text-xs text-[#9B8A86] pt-4">
           Need immediate assistance with your order? Call our hotline:{' '}
-          <a href="tel:01700000000" className="text-[#C4737E] font-semibold hover:underline">
+          <a href="tel:01700000000" className="text-[#0D5435] font-semibold hover:underline">
             01700-000000
           </a>
         </p>

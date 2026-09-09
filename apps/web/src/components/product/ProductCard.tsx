@@ -44,7 +44,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
       <div className="absolute top-2.5 left-2.5 right-2.5 z-10 flex items-center justify-between pointer-events-none">
         <div className="flex flex-col gap-1 items-start">
           {product.badge && (
-            <span className="bg-[#C4737E] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm pointer-events-auto">
+            <span className="bg-[#0D5435] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm pointer-events-auto">
               {product.badge}
             </span>
           )}
@@ -57,12 +57,12 @@ export default function ProductCard({ product }: { product: ProductItem }) {
 
         <button
           onClick={toggleWishlist}
-          className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-[#6B5B58] hover:text-[#C4737E] shadow-sm pointer-events-auto transition-transform active:scale-90"
+          className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-[#6B5B58] hover:text-[#0D5435] shadow-sm pointer-events-auto transition-transform active:scale-90"
           aria-label="Wishlist"
         >
           <Heart
             className={`w-4 h-4 ${
-              isWishlisted ? 'fill-[#C4737E] text-[#C4737E]' : 'stroke-[1.75]'
+              isWishlisted ? 'fill-[#0D5435] text-[#0D5435]' : 'stroke-[1.75]'
             }`}
           />
         </button>
@@ -92,7 +92,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
           {/* Category & Rating */}
           <div className="flex items-center justify-between gap-2 text-xs mb-1.5">
             <span className="text-[#9B8A86] text-[11px] font-medium truncate uppercase tracking-wider">
-              {product.brand || product.categoryName || 'Nurtura'}
+              {product.brand || product.categoryName || 'Jawata Mart'}
             </span>
             <div className="flex items-center gap-1 text-[#F0B840] font-semibold text-[11px]">
               <Star className="w-3 h-3 fill-current" />
@@ -103,7 +103,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
 
           {/* Title */}
           <Link href={`/products/${product.slug}`}>
-            <h3 className="text-sm font-semibold text-[#1A1512] group-hover:text-[#C4737E] transition-colors line-clamp-2 leading-snug">
+            <h3 className="text-sm font-semibold text-[#1B241B] group-hover:text-[#0D5435] transition-colors line-clamp-2 leading-snug">
               {product.name}
             </h3>
           </Link>
@@ -122,14 +122,14 @@ export default function ProductCard({ product }: { product: ProductItem }) {
             )}
           </div>
 
-          {/* Actions: Add to Bag & Buy Now */}
+          {/* Actions: Add to Bag & Buy Now (Ghorer Bazar Style) */}
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={handleAddToCart}
               className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-semibold border transition-all active:scale-95 ${
                 addedAnim
-                  ? 'bg-[#7A9C78] text-white border-[#7A9C78]'
-                  : 'bg-white hover:bg-[#FCF5F6] text-[#1A1512] border-[#EDE5E1] hover:border-[#C4737E]'
+                  ? 'bg-[#107C41] text-white border-[#107C41]'
+                  : 'bg-white hover:bg-[#E7F2EC] text-[#1B241B] border-[#E3EBE5] hover:border-[#0D5435]'
               }`}
             >
               {addedAnim ? (
@@ -139,18 +139,18 @@ export default function ProductCard({ product }: { product: ProductItem }) {
                 </>
               ) : (
                 <>
-                  <ShoppingBag className="w-3.5 h-3.5 text-[#C4737E]" />
-                  <span>Add</span>
+                  <ShoppingBag className="w-3.5 h-3.5 text-[#0D5435]" />
+                  <span>কার্ট</span>
                 </>
               )}
             </button>
 
             <button
               onClick={handleBuyNow}
-              className="flex items-center justify-center gap-1 py-2 px-2 rounded-xl text-xs font-semibold bg-[#C4737E] hover:bg-[#A85862] text-white transition-all shadow-sm active:scale-95"
+              className="flex items-center justify-center gap-1 py-2 px-2 rounded-xl text-xs font-bold bg-[#0D5435] hover:bg-[#093D26] text-white transition-all shadow-sm active:scale-95"
             >
-              <Zap className="w-3.5 h-3.5 fill-current" />
-              <span>Buy Now</span>
+              <Zap className="w-3.5 h-3.5 fill-current text-[#F59E0B]" />
+              <span>অর্ডার করুন</span>
             </button>
           </div>
         </div>
