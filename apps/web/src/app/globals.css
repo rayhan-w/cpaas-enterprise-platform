@@ -6,20 +6,21 @@
 
 @layer base {
   :root {
-    --background: #FAF8F5;
-    --foreground: #1B241B;
+    --background: #FAFCF7;
+    --foreground: #0E140E;
     --card: #FFFFFF;
-    --card-foreground: #1B241B;
-    --border: #E3EBE5;
-    --primary: #0D5435;
-    --primary-hover: #093D26;
+    --card-foreground: #0E140E;
+    --border: #DFECCE;
+    --primary: #6CAE14;
+    --primary-hover: #5B960E;
+    --primary-accent: #9ED114;
     --primary-foreground: #FFFFFF;
   }
 }
 
 html, body {
-  color: #1B241B;
-  background-color: #FAF8F5;
+  color: #0E140E;
+  background-color: #FAFCF7;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -39,11 +40,11 @@ html, body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #C2D6CA;
+  background: #DFECCE;
   border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0D5435;
+  background: #6CAE14;
 }
 
 /* Reference Card Interactions */
@@ -53,7 +54,7 @@ html, body {
 }
 .ag-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 16px 36px rgba(26, 21, 18, 0.12), 0 4px 12px rgba(13, 84, 53, 0.10);
+  box-shadow: 0 16px 36px rgba(14, 20, 14, 0.10), 0 4px 12px rgba(108, 174, 20, 0.15);
 }
 
 .ag-float {
@@ -61,7 +62,7 @@ html, body {
 }
 .ag-float:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(26, 21, 18, 0.08);
+  box-shadow: 0 8px 20px rgba(14, 20, 14, 0.08);
 }
 
 /* Custom Payment Gradients */
@@ -79,14 +80,14 @@ html, body {
   transition: all 0.18s;
 }
 .admin-nav-item:hover {
-  color: #0D5435;
-  background: rgba(13, 84, 53, 0.08);
-  border-left-color: #0D5435;
+  color: #6CAE14;
+  background: rgba(108, 174, 20, 0.08);
+  border-left-color: #6CAE14;
 }
 .admin-nav-item.active {
-  color: #0D5435;
-  background: rgba(13, 84, 53, 0.12);
-  border-left-color: #0D5435;
+  color: #6CAE14;
+  background: rgba(108, 174, 20, 0.12);
+  border-left-color: #6CAE14;
   font-weight: 600;
 }
 

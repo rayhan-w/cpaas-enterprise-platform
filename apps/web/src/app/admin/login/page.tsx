@@ -52,8 +52,8 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md bg-white rounded-3xl p-8 sm:p-10 border border-[#EDE5E1] shadow-elevation-2 space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-[#0D5435] text-white flex items-center justify-center font-serif text-2xl font-bold mx-auto shadow-md">
-            J
+          <div className="w-16 h-16 rounded-full overflow-hidden bg-black ring-2 ring-[#9ED114]/80 shadow-md mx-auto flex items-center justify-center shrink-0">
+            <img src="/jawata-mart-logo.jpg" alt="Jawata Mart" className="w-full h-full object-cover" />
           </div>
           <h1 className="section-title text-2xl text-[#1A1512]">Jawata Mart Staff Portal</h1>
           <p className="text-xs text-[#6B5B58]">
@@ -62,8 +62,8 @@ export default function AdminLoginPage() {
         </div>
 
         {/* Demo Credentials Alert */}
-        <div className="p-3 bg-[#E7F2EC] border border-[#0D5435]/20 rounded-xl text-xs text-[#1A1512] space-y-1">
-          <p className="font-bold text-[#0D5435]">Admin Account (Proprietor: Md. Abdur Rahim):</p>
+        <div className="p-3 bg-[#F1F8E8] border border-[#6CAE14]/20 rounded-xl text-xs text-[#1A1512] space-y-1">
+          <p className="font-bold text-[#6CAE14]">Admin Account (Proprietor: Md. Abdur Rahim):</p>
           <p className="text-[#6B5B58]">
             Email: <code className="font-mono bg-white px-1.5 py-0.5 rounded border border-[#EDE5E1]">jawatamart@gmail.com</code>
           </p>
@@ -84,7 +84,7 @@ export default function AdminLoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl py-2.5 pl-10 pr-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl py-2.5 pl-10 pr-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
               />
               <Mail className="w-4 h-4 text-[#9B8A86] absolute left-3.5 top-1/2 -translate-y-1/2" />
             </div>
@@ -100,7 +100,7 @@ export default function AdminLoginPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl py-2.5 pl-10 pr-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl py-2.5 pl-10 pr-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
               />
               <Lock className="w-4 h-4 text-[#9B8A86] absolute left-3.5 top-1/2 -translate-y-1/2" />
             </div>
@@ -115,7 +115,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#0D5435] hover:bg-[#093D26] disabled:opacity-50 text-white font-bold text-xs py-3.5 px-4 rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
+            className="w-full bg-[#6CAE14] hover:bg-[#5B960E] disabled:opacity-50 text-white font-bold text-xs py-3.5 px-4 rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
           >
             {loading ? (
               <span>Authenticating...</span>

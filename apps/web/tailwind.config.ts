@@ -10,28 +10,29 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: '#FAF8F5',
-        foreground: '#1B241B',
+        background: '#FAFCF7',
+        foreground: '#0E140E',
         card: {
           DEFAULT: '#FFFFFF',
-          foreground: '#1B241B',
+          foreground: '#0E140E',
         },
         brand: {
-          DEFAULT: '#0D5435', // Ghorer Bazar Signature Forest Green
-          hover: '#093D26',
-          light: '#E7F2EC',
-          tint: '#F0F7F3',
-          dark: '#062919',
+          DEFAULT: '#6CAE14', // Leaf Green from Jawata Mart Logo
+          hover: '#5B960E',
+          accent: '#9ED114', // Exact Logo Lime Leaf
+          light: '#F1F8E8',
+          tint: '#E8F5D3',
+          dark: '#0B0F0B',   // Logo Black
         },
-        linen: '#FAF8F5',
+        linen: '#FAFCF7',
         charcoal: {
-          DEFAULT: '#1B241B',
-          light: '#2D382D',
+          DEFAULT: '#0E140E',
+          light: '#1B241B',
           muted: '#526052',
           subtle: '#879787',
         },
-        border: '#E3EBE5',
-        subtle: '#E3EBE5',
+        border: '#DFECCE',
+        subtle: '#DFECCE',
         bkash: {
           DEFAULT: '#E2136E',
           dark: '#B50057',
@@ -41,8 +42,8 @@ const config: Config = {
           dark: '#D06A10',
         },
         sage: {
-          DEFAULT: '#107C41',
-          light: '#E6F4EA',
+          DEFAULT: '#78B81B',
+          light: '#F1F8E8',
         },
         amber: {
           DEFAULT: '#F59E0B',

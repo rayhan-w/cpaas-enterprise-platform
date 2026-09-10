@@ -83,23 +83,27 @@ export default function Header() {
         {/* Mobile menu button */}
         <button
           onClick={() => setMobileMenuOpen(true)}
-          className="lg:hidden p-2 text-[#1A1512] hover:text-[#0D5435] transition-colors"
+          className="lg:hidden p-2 text-[#1A1512] hover:text-[#6CAE14] transition-colors"
           aria-label="Open mobile menu"
         >
           <Menu className="w-6 h-6" />
         </button>
 
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0 group">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#0D5435] to-[#062919] flex items-center justify-center text-white font-serif font-bold text-xl shadow-md group-hover:scale-105 transition-transform">
-            J
+        <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
+          <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden bg-black ring-2 ring-[#9ED114]/80 shadow-md group-hover:scale-105 transition-transform flex items-center justify-center shrink-0">
+            <img
+              src="/jawata-mart-logo.jpg"
+              alt="Jawata Mart Logo"
+              className="w-full h-full object-cover"
+            />
           </div>
           <div>
-            <div className="font-serif text-2xl font-bold tracking-tight text-[#1B241B] flex items-center">
+            <div className="font-serif text-2xl font-bold tracking-tight text-[#0E140E] flex items-center">
               Jawata Mart
-              <span className="w-2 h-2 rounded-full bg-[#107C41] ml-0.5 inline-block"></span>
+              <span className="w-2 h-2 rounded-full bg-[#9ED114] ml-1 inline-block"></span>
             </div>
-            <span className="text-[10px] text-[#526052] tracking-wider uppercase font-semibold block -mt-1">
+            <span className="text-[10px] text-[#6CAE14] tracking-wider uppercase font-semibold block -mt-1">
               Pure & Natural
             </span>
           </div>
@@ -114,12 +118,12 @@ export default function Header() {
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => searchQuery.trim() && setShowSearchDropdown(true)}
               placeholder="Search across 10,000+ products, brands, baby care, fashion, electronics..."
-              className="w-full bg-white border border-[#EDE5E1] rounded-full py-2.5 pl-11 pr-24 text-sm text-[#1A1512] placeholder-[#9B8A86] focus:outline-none focus:border-[#0D5435] focus:ring-2 focus:ring-[#0D5435]/10 transition-all shadow-sm"
+              className="w-full bg-white border border-[#EDE5E1] rounded-full py-2.5 pl-11 pr-24 text-sm text-[#1A1512] placeholder-[#9B8A86] focus:outline-none focus:border-[#6CAE14] focus:ring-2 focus:ring-[#6CAE14]/10 transition-all shadow-sm"
             />
             <Search className="w-4 h-4 text-[#9B8A86] absolute left-4 top-1/2 -translate-y-1/2" />
             <button
               type="submit"
-              className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-[#0D5435] hover:bg-[#093D26] text-white text-xs font-semibold px-4 py-1.5 rounded-full transition-colors"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-[#6CAE14] hover:bg-[#5B960E] text-white text-xs font-semibold px-4 py-1.5 rounded-full transition-colors"
             >
               Search
             </button>
@@ -142,7 +146,7 @@ export default function Header() {
                       key={prod.id}
                       href={`/products/${prod.slug}`}
                       onClick={() => setShowSearchDropdown(false)}
-                      className="flex items-center gap-3 p-3 hover:bg-[#E7F2EC] transition-colors"
+                      className="flex items-center gap-3 p-3 hover:bg-[#F1F8E8] transition-colors"
                     >
                       <div className="w-12 h-12 rounded-lg bg-[#F8F7F5] overflow-hidden shrink-0 border border-[#EDE5E1]">
                         <img
@@ -158,7 +162,7 @@ export default function Header() {
                         <p className="text-xs text-[#9B8A86]">{prod.categoryName || 'General'}</p>
                       </div>
                       <div className="text-right shrink-0">
-                        <span className="text-sm font-bold text-[#0D5435]">
+                        <span className="text-sm font-bold text-[#6CAE14]">
                           {formatPrice(prod.price)}
                         </span>
                         {prod.originalPrice && (
@@ -172,7 +176,7 @@ export default function Header() {
                   <Link
                     href={`/category/all?search=${encodeURIComponent(searchQuery)}`}
                     onClick={() => setShowSearchDropdown(false)}
-                    className="block p-3 text-center text-xs font-semibold text-[#0D5435] hover:bg-[#E7F2EC] transition-colors"
+                    className="block p-3 text-center text-xs font-semibold text-[#6CAE14] hover:bg-[#F1F8E8] transition-colors"
                   >
                     View all results for &ldquo;{searchQuery}&rdquo; →
                   </Link>
@@ -190,9 +194,9 @@ export default function Header() {
         <div className="flex items-center gap-2 sm:gap-4">
           <Link
             href="/track-order"
-            className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium text-[#1A1512] hover:bg-white hover:text-[#0D5435] transition-all border border-transparent hover:border-[#EDE5E1]"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium text-[#1A1512] hover:bg-white hover:text-[#6CAE14] transition-all border border-transparent hover:border-[#EDE5E1]"
           >
-            <Truck className="w-4 h-4 text-[#0D5435]" />
+            <Truck className="w-4 h-4 text-[#6CAE14]" />
             <span>Track Order</span>
           </Link>
 
@@ -202,9 +206,9 @@ export default function Header() {
             className="relative flex items-center gap-2 bg-[#1A1512] hover:bg-[#2B2424] text-white px-4 py-2.5 rounded-full text-xs font-semibold transition-all shadow-md group active:scale-95"
             aria-label="Shopping Cart"
           >
-            <ShoppingBag className="w-4 h-4 text-[#0D5435] group-hover:scale-110 transition-transform" />
+            <ShoppingBag className="w-4 h-4 text-[#6CAE14] group-hover:scale-110 transition-transform" />
             <span className="hidden sm:inline">Bag</span>
-            <span className="bg-[#0D5435] text-white text-[11px] font-bold px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
+            <span className="bg-[#6CAE14] text-white text-[11px] font-bold px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
               {totalItems}
             </span>
           </button>
@@ -217,7 +221,7 @@ export default function Header() {
           <div className="flex items-center gap-6 overflow-x-auto py-2.5 scrollbar-hide">
             <Link
               href="/category/all"
-              className="font-bold text-[#0D5435] flex items-center gap-1 hover:text-[#093D26] shrink-0"
+              className="font-bold text-[#6CAE14] flex items-center gap-1 hover:text-[#5B960E] shrink-0"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>All Products</span>
@@ -227,7 +231,7 @@ export default function Header() {
               <Link
                 key={cat.id}
                 href={`/category/${cat.slug}`}
-                className="text-[#6B5B58] hover:text-[#0D5435] transition-colors shrink-0 py-1"
+                className="text-[#6B5B58] hover:text-[#6CAE14] transition-colors shrink-0 py-1"
               >
                 {cat.name}
               </Link>
@@ -254,11 +258,15 @@ export default function Header() {
           <div className="relative w-4/5 max-w-sm bg-[#F8F7F5] h-full shadow-2xl flex flex-col z-10 overflow-y-auto animate-slide-in-right">
             {/* Drawer Header */}
             <div className="p-5 border-b border-[#EDE5E1] flex items-center justify-between bg-white">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-[#0D5435] flex items-center justify-center text-white font-serif font-bold">
-                  J
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-full overflow-hidden bg-black ring-2 ring-[#9ED114]/80 flex items-center justify-center shrink-0">
+                  <img
+                    src="/jawata-mart-logo.jpg"
+                    alt="Jawata Mart Logo"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <span className="font-serif text-xl font-bold text-[#1A1512]">Jawata Mart</span>
+                <span className="font-serif text-xl font-bold text-[#0E140E]">Jawata Mart</span>
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
@@ -276,7 +284,7 @@ export default function Header() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search products..."
-                  className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-full py-2 pl-9 pr-4 text-xs text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                  className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-full py-2 pl-9 pr-4 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
                 />
                 <Search className="w-4 h-4 text-[#9B8A86] absolute left-3 top-1/2 -translate-y-1/2" />
               </form>
@@ -290,7 +298,7 @@ export default function Header() {
               <Link
                 href="/category/all"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-[#0D5435] bg-[#E7F2EC]"
+                className="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-[#6CAE14] bg-[#F1F8E8]"
               >
                 <span className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4" />
@@ -302,7 +310,7 @@ export default function Header() {
                   key={cat.id}
                   href={`/category/${cat.slug}`}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm text-[#1A1512] hover:bg-white hover:text-[#0D5435] transition-colors"
+                  className="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm text-[#1A1512] hover:bg-white hover:text-[#6CAE14] transition-colors"
                 >
                   <span>{cat.name}</span>
                   <span className="text-xs text-[#9B8A86]">→</span>
@@ -317,7 +325,7 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-center gap-2 w-full py-2.5 border border-[#EDE5E1] rounded-xl text-xs font-semibold text-[#1A1512] hover:bg-[#F8F7F5]"
               >
-                <Truck className="w-4 h-4 text-[#0D5435]" />
+                <Truck className="w-4 h-4 text-[#6CAE14]" />
                 <span>Track My Order</span>
               </Link>
               <a

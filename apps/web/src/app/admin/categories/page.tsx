@@ -67,7 +67,7 @@ export default function AdminCategoriesPage() {
               <Link
                 href={`/category/${cat.slug}`}
                 target="_blank"
-                className="text-[#0D5435] hover:underline font-semibold flex items-center gap-1 text-[11px]"
+                className="text-[#6CAE14] hover:underline font-semibold flex items-center gap-1 text-[11px]"
               >
                 <span>View Storefront</span>
                 <ExternalLink className="w-3 h-3" />

@@ -32,7 +32,7 @@ export default async function HomePage() {
       <section className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#0D5435] flex items-center gap-1">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#6CAE14] flex items-center gap-1">
               <Flame className="w-3.5 h-3.5 fill-current" />
               Customer Favorites
             </span>
@@ -42,7 +42,7 @@ export default async function HomePage() {
           </div>
           <Link
             href="/category/all"
-            className="text-xs font-semibold text-[#1A1512] hover:text-[#0D5435] flex items-center gap-1 transition-colors"
+            className="text-xs font-semibold text-[#1A1512] hover:text-[#6CAE14] flex items-center gap-1 transition-colors"
           >
             <span>View All ({products.length})</span>
             <ArrowRight className="w-3.5 h-3.5" />

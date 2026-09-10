@@ -44,7 +44,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
       <div className="absolute top-2.5 left-2.5 right-2.5 z-10 flex items-center justify-between pointer-events-none">
         <div className="flex flex-col gap-1 items-start">
           {product.badge && (
-            <span className="bg-[#0D5435] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm pointer-events-auto">
+            <span className="bg-[#6CAE14] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm pointer-events-auto">
               {product.badge}
             </span>
           )}
@@ -57,12 +57,12 @@ export default function ProductCard({ product }: { product: ProductItem }) {
 
         <button
           onClick={toggleWishlist}
-          className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-[#6B5B58] hover:text-[#0D5435] shadow-sm pointer-events-auto transition-transform active:scale-90"
+          className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-[#6B5B58] hover:text-[#6CAE14] shadow-sm pointer-events-auto transition-transform active:scale-90"
           aria-label="Wishlist"
         >
           <Heart
             className={`w-4 h-4 ${
-              isWishlisted ? 'fill-[#0D5435] text-[#0D5435]' : 'stroke-[1.75]'
+              isWishlisted ? 'fill-[#6CAE14] text-[#6CAE14]' : 'stroke-[1.75]'
             }`}
           />
         </button>
@@ -103,7 +103,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
 
           {/* Title */}
           <Link href={`/products/${product.slug}`}>
-            <h3 className="text-sm font-semibold text-[#1B241B] group-hover:text-[#0D5435] transition-colors line-clamp-2 leading-snug">
+            <h3 className="text-sm font-semibold text-[#0E140E] group-hover:text-[#6CAE14] transition-colors line-clamp-2 leading-snug">
               {product.name}
             </h3>
           </Link>
@@ -128,8 +128,8 @@ export default function ProductCard({ product }: { product: ProductItem }) {
               onClick={handleAddToCart}
               className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-semibold border transition-all active:scale-95 ${
                 addedAnim
-                  ? 'bg-[#107C41] text-white border-[#107C41]'
-                  : 'bg-white hover:bg-[#E7F2EC] text-[#1B241B] border-[#E3EBE5] hover:border-[#0D5435]'
+                  ? 'bg-[#78B81B] text-white border-[#78B81B]'
+                  : 'bg-white hover:bg-[#F1F8E8] text-[#0E140E] border-[#DFECCE] hover:border-[#6CAE14]'
               }`}
             >
               {addedAnim ? (
@@ -139,7 +139,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
                 </>
               ) : (
                 <>
-                  <ShoppingBag className="w-3.5 h-3.5 text-[#0D5435]" />
+                  <ShoppingBag className="w-3.5 h-3.5 text-[#6CAE14]" />
                   <span>কার্ট</span>
                 </>
               )}
@@ -147,7 +147,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
 
             <button
               onClick={handleBuyNow}
-              className="flex items-center justify-center gap-1 py-2 px-2 rounded-xl text-xs font-bold bg-[#0D5435] hover:bg-[#093D26] text-white transition-all shadow-sm active:scale-95"
+              className="flex items-center justify-center gap-1 py-2 px-2 rounded-xl text-xs font-bold bg-[#6CAE14] hover:bg-[#5B960E] text-white transition-all shadow-sm active:scale-95"
             >
               <Zap className="w-3.5 h-3.5 fill-current text-[#F59E0B]" />
               <span>অর্ডার করুন</span>

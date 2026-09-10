@@ -4,7 +4,7 @@ import { Phone, Truck, ShieldCheck, MapPin } from 'lucide-react';
 
 export default function AnnouncementBar() {
   return (
-    <div className="bg-[#062919] text-white/90 text-xs py-2 px-4 border-b border-white/10">
+    <div className="bg-[#0B0F0B] text-white/90 text-xs py-2 px-4 border-b border-white/10">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
         {/* Left: Highlight message */}
         <div className="flex items-center gap-4 flex-wrap justify-center sm:justify-start">
@@ -23,9 +23,9 @@ export default function AnnouncementBar() {
         <div className="flex items-center gap-4 text-white/75">
           <Link
             href="/track-order"
-            className="hover:text-[#0D5435] transition-colors flex items-center gap-1"
+            className="hover:text-[#6CAE14] transition-colors flex items-center gap-1"
           >
-            <MapPin className="w-3.5 h-3.5 text-[#0D5435]" />
+            <MapPin className="w-3.5 h-3.5 text-[#6CAE14]" />
             <span>Track Order</span>
           </Link>
           <span className="text-white/30">|</span>

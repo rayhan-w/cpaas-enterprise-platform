@@ -46,7 +46,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#FAF8F5] text-[#1B241B] min-h-screen font-sans antialiased flex flex-col justify-between">
+      <body className="bg-[#FAFCF7] text-[#0E140E] min-h-screen font-sans antialiased flex flex-col justify-between">
         <ToastProvider>
           <CartProvider>
             <AnnouncementBar />

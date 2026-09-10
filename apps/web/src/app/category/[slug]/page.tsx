@@ -48,7 +48,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
     <div className="max-w-7xl mx-auto px-4 py-6 sm:py-10 space-y-8">
       {/* Breadcrumbs */}
       <nav className="flex items-center gap-1.5 text-xs text-[#9B8A86]">
-        <Link href="/" className="hover:text-[#0D5435] transition-colors">
+        <Link href="/" className="hover:text-[#6CAE14] transition-colors">
           Home
         </Link>
         <ChevronRight className="w-3 h-3" />
@@ -58,7 +58,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
         {search && (
           <>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#0D5435] font-medium">Search: &ldquo;{search}&rdquo;</span>
+            <span className="text-[#6CAE14] font-medium">Search: &ldquo;{search}&rdquo;</span>
           </>
         )}
       </nav>
@@ -66,7 +66,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
       {/* Category Header Banner */}
       <div className="bg-white rounded-3xl p-6 sm:p-10 border border-[#EDE5E1] shadow-elevation-1 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="max-w-xl">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#0D5435] block mb-1">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#6CAE14] block mb-1">
             Department Store
           </span>
           <h1 className="section-title text-3xl sm:text-4xl text-[#1A1512]">
@@ -79,7 +79,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-bold bg-[#E7F2EC] text-[#0D5435] px-4 py-2 rounded-2xl border border-[#0D5435]/20 shrink-0">
+        <div className="flex items-center gap-2 text-xs font-bold bg-[#F1F8E8] text-[#6CAE14] px-4 py-2 rounded-2xl border border-[#6CAE14]/20 shrink-0">
           <Sparkles className="w-4 h-4" />
           <span>{sortedProducts.length} Items Found</span>
         </div>
@@ -92,7 +92,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
           {category.subCategories.map((sub) => (
             <span
               key={sub.id}
-              className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-white border border-[#EDE5E1] text-[#1A1512] shrink-0 hover:border-[#0D5435] cursor-pointer transition-colors"
+              className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-white border border-[#EDE5E1] text-[#1A1512] shrink-0 hover:border-[#6CAE14] cursor-pointer transition-colors"
             >
               {sub.name}
             </span>

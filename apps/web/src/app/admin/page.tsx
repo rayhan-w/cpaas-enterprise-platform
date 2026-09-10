@@ -87,7 +87,7 @@ export default function AdminDashboardPage() {
         <div className="bg-white rounded-3xl p-6 border border-[#EDE5E1] shadow-elevation-1 space-y-2">
           <div className="flex items-center justify-between text-[#9B8A86]">
             <span className="text-xs font-semibold uppercase tracking-wider">Total Orders</span>
-            <div className="w-8 h-8 rounded-xl bg-[#E7F2EC] text-[#0D5435] flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-[#F1F8E8] text-[#6CAE14] flex items-center justify-center">
               <ShoppingBag className="w-4 h-4" />
             </div>
           </div>
@@ -132,7 +132,7 @@ export default function AdminDashboardPage() {
           <h2 className="section-title text-xl text-[#1A1512]">Recent Orders</h2>
           <Link
             href="/admin/orders"
-            className="text-xs font-semibold text-[#0D5435] hover:underline flex items-center gap-1"
+            className="text-xs font-semibold text-[#6CAE14] hover:underline flex items-center gap-1"
           >
             <span>View All Orders</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -154,7 +154,7 @@ export default function AdminDashboardPage() {
             </thead>
             <tbody className="divide-y divide-[#F2EDEA]">
               {recentOrders.map((order) => (
-                <tr key={order.id} className="hover:bg-[#E7F2EC]/50 transition-colors">
+                <tr key={order.id} className="hover:bg-[#F1F8E8]/50 transition-colors">
                   <td className="p-3 font-mono font-bold text-[#1A1512]">{order.orderNumber}</td>
                   <td className="p-3">
                     <p className="font-semibold text-[#1A1512]">{order.customerName}</p>
@@ -184,7 +184,7 @@ export default function AdminDashboardPage() {
                     <Link
                       href={`/track-order?orderId=${order.orderNumber}&phone=${order.customerPhone}`}
                       target="_blank"
-                      className="text-[#0D5435] hover:underline font-semibold text-[11px]"
+                      className="text-[#6CAE14] hover:underline font-semibold text-[11px]"
                     >
                       Details →
                     </Link>

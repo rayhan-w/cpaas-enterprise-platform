@@ -190,8 +190,8 @@ export default function CheckoutForm() {
       {/* Left Column: Customer & Delivery Details */}
       <div className="lg:col-span-7 space-y-6">
         {/* Guest Customer Notice */}
-        <div className="p-4 bg-[#E7F2EC] border border-[#0D5435]/20 rounded-2xl flex items-center gap-3 text-xs text-[#1A1512]">
-          <div className="w-8 h-8 rounded-full bg-[#0D5435]/15 text-[#0D5435] flex items-center justify-center shrink-0">
+        <div className="p-4 bg-[#F1F8E8] border border-[#6CAE14]/20 rounded-2xl flex items-center gap-3 text-xs text-[#1A1512]">
+          <div className="w-8 h-8 rounded-full bg-[#6CAE14]/15 text-[#6CAE14] flex items-center justify-center shrink-0">
             <ShieldCheck className="w-4 h-4" />
           </div>
           <div>
@@ -217,7 +217,7 @@ export default function CheckoutForm() {
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
                 placeholder="e.g. Tanvir Ahmed"
-                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
               />
             </div>
 
@@ -231,7 +231,7 @@ export default function CheckoutForm() {
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
                 placeholder="017XXXXXXXX"
-                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
               />
             </div>
           </div>
@@ -245,7 +245,7 @@ export default function CheckoutForm() {
               value={customerEmail}
               onChange={(e) => setCustomerEmail(e.target.value)}
               placeholder="e.g. tanvir@example.com"
-              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
             />
           </div>
 
@@ -256,7 +256,7 @@ export default function CheckoutForm() {
               <select
                 value={division}
                 onChange={(e) => handleDivisionChange(e.target.value)}
-                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
               >
                 {BD_DIVISIONS.map((d) => (
                   <option key={d.name} value={d.name}>
@@ -271,7 +271,7 @@ export default function CheckoutForm() {
               <select
                 value={district}
                 onChange={(e) => setDistrict(e.target.value)}
-                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
               >
                 {selectedDiv.districts.map((dst) => (
                   <option key={dst} value={dst}>
@@ -287,7 +287,7 @@ export default function CheckoutForm() {
                 <select
                   value={area}
                   onChange={(e) => setArea(e.target.value)}
-                  className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                  className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
                 >
                   {DHAKA_AREAS.map((a) => (
                     <option key={a} value={a}>
@@ -301,7 +301,7 @@ export default function CheckoutForm() {
                   value={area}
                   onChange={(e) => setArea(e.target.value)}
                   placeholder="e.g. Kotwali / Sadar"
-                  className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                  className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
                 />
               )}
             </div>
@@ -317,7 +317,7 @@ export default function CheckoutForm() {
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               placeholder="House number, road number, apartment floor, landmark..."
-              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl p-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#0D5435] resize-none"
+              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl p-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14] resize-none"
             />
           </div>
 
@@ -330,7 +330,7 @@ export default function CheckoutForm() {
               value={deliveryNote}
               onChange={(e) => setDeliveryNote(e.target.value)}
               placeholder="Special instructions e.g. 'Leave with security', 'Call before arriving'"
-              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
             />
           </div>
 
@@ -342,7 +342,7 @@ export default function CheckoutForm() {
                 onClick={() => setDeliveryZone('INSIDE_DHAKA')}
                 className={`cursor-pointer border rounded-2xl p-3.5 flex items-center justify-between transition-all ${
                   deliveryZone === 'INSIDE_DHAKA'
-                    ? 'border-[#0D5435] bg-[#E7F2EC]'
+                    ? 'border-[#6CAE14] bg-[#F1F8E8]'
                     : 'border-[#EDE5E1] bg-[#F8F7F5]'
                 }`}
               >
@@ -352,21 +352,21 @@ export default function CheckoutForm() {
                     name="deliveryZone"
                     checked={deliveryZone === 'INSIDE_DHAKA'}
                     onChange={() => setDeliveryZone('INSIDE_DHAKA')}
-                    className="accent-[#0D5435]"
+                    className="accent-[#6CAE14]"
                   />
                   <div>
                     <p className="text-xs font-bold text-[#1A1512]">Inside Dhaka</p>
                     <p className="text-[10px] text-[#6B5B58]">Same-day / Next-day</p>
                   </div>
                 </div>
-                <span className="text-xs font-bold text-[#0D5435]">৳60</span>
+                <span className="text-xs font-bold text-[#6CAE14]">৳60</span>
               </label>
 
               <label
                 onClick={() => setDeliveryZone('OUTSIDE_DHAKA')}
                 className={`cursor-pointer border rounded-2xl p-3.5 flex items-center justify-between transition-all ${
                   deliveryZone === 'OUTSIDE_DHAKA'
-                    ? 'border-[#0D5435] bg-[#E7F2EC]'
+                    ? 'border-[#6CAE14] bg-[#F1F8E8]'
                     : 'border-[#EDE5E1] bg-[#F8F7F5]'
                 }`}
               >
@@ -376,14 +376,14 @@ export default function CheckoutForm() {
                     name="deliveryZone"
                     checked={deliveryZone === 'OUTSIDE_DHAKA'}
                     onChange={() => setDeliveryZone('OUTSIDE_DHAKA')}
-                    className="accent-[#0D5435]"
+                    className="accent-[#6CAE14]"
                   />
                   <div>
                     <p className="text-xs font-bold text-[#1A1512]">Outside Dhaka</p>
                     <p className="text-[10px] text-[#6B5B58]">1-3 business days</p>
                   </div>
                 </div>
-                <span className="text-xs font-bold text-[#0D5435]">৳120</span>
+                <span className="text-xs font-bold text-[#6CAE14]">৳120</span>
               </label>
             </div>
           </div>
@@ -415,7 +415,7 @@ export default function CheckoutForm() {
               onClick={() => setPaymentMethod('BKASH')}
               className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all ${
                 paymentMethod === 'BKASH'
-                  ? 'border-[#E2136E] bg-[#E7F2EC] text-[#1A1512] font-bold shadow-xs'
+                  ? 'border-[#E2136E] bg-[#F1F8E8] text-[#1A1512] font-bold shadow-xs'
                   : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#E2136E]/40'
               }`}
             >
@@ -469,7 +469,7 @@ export default function CheckoutForm() {
 
           {/* bKash Manual Send Money Flow */}
           {paymentMethod === 'BKASH' && (
-            <div className="p-5 bg-gradient-to-br from-[#E7F2EC] to-white rounded-2xl border-2 border-[#E2136E]/30 space-y-4 shadow-sm animate-fade-in">
+            <div className="p-5 bg-gradient-to-br from-[#F1F8E8] to-white rounded-2xl border-2 border-[#E2136E]/30 space-y-4 shadow-sm animate-fade-in">
               <div className="flex items-center justify-between border-b border-[#E2136E]/20 pb-3">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-lg bg-[#E2136E] text-white font-bold flex items-center justify-center text-sm shadow-xs">
@@ -487,7 +487,7 @@ export default function CheckoutForm() {
 
               {/* Step instructions */}
               <div className="space-y-2 text-xs text-[#1A1512] bg-white p-3.5 rounded-xl border border-[#EDE5E1]">
-                <div className="flex items-center justify-between bg-[#E7F2EC] p-2.5 rounded-lg border border-[#E2136E]/20">
+                <div className="flex items-center justify-between bg-[#F1F8E8] p-2.5 rounded-lg border border-[#E2136E]/20">
                   <div>
                     <p className="text-[10px] uppercase font-bold text-[#9B8A86]">Send Money To:</p>
                     <p className="text-sm font-mono font-bold text-[#1A1512] tracking-wider">
@@ -727,7 +727,7 @@ export default function CheckoutForm() {
 
             <div className="flex justify-between text-base font-bold text-[#1A1512] pt-3 border-t border-[#EDE5E1]">
               <span>Payable Total:</span>
-              <span className="text-xl text-[#0D5435]">{formatPrice(total)}</span>
+              <span className="text-xl text-[#6CAE14]">{formatPrice(total)}</span>
             </div>
           </div>
 
@@ -735,7 +735,7 @@ export default function CheckoutForm() {
           <button
             type="submit"
             disabled={isSubmitting || items.length === 0}
-            className="w-full bg-[#0D5435] hover:bg-[#093D26] disabled:opacity-50 text-white font-bold text-sm py-4 px-6 rounded-2xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2"
+            className="w-full bg-[#6CAE14] hover:bg-[#5B960E] disabled:opacity-50 text-white font-bold text-sm py-4 px-6 rounded-2xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2"
           >
             {isSubmitting ? (
               <span>Placing Your Order...</span>

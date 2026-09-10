@@ -126,12 +126,12 @@ export default function AdminProductsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search products..."
-            className="bg-white border border-[#EDE5E1] rounded-xl px-3 py-2 text-xs text-[#1A1512] focus:outline-none focus:border-[#0D5435] w-52"
+            className="bg-white border border-[#EDE5E1] rounded-xl px-3 py-2 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14] w-52"
           />
 
           <button
             onClick={() => setShowAddModal(true)}
-            className="bg-[#0D5435] hover:bg-[#093D26] text-white font-bold text-xs px-4 py-2 rounded-xl transition-all shadow-sm flex items-center gap-1.5 active:scale-95"
+            className="bg-[#6CAE14] hover:bg-[#5B960E] text-white font-bold text-xs px-4 py-2 rounded-xl transition-all shadow-sm flex items-center gap-1.5 active:scale-95"
           >
             <Plus className="w-4 h-4" />
             <span>Add Product</span>
@@ -161,7 +161,7 @@ export default function AdminProductsPage() {
               </thead>
               <tbody className="divide-y divide-[#F2EDEA]">
                 {filteredProducts.map((prod) => (
-                  <tr key={prod.id} className="hover:bg-[#E7F2EC]/40 transition-colors">
+                  <tr key={prod.id} className="hover:bg-[#F1F8E8]/40 transition-colors">
                     <td className="p-3">
                       <div className="flex items-center gap-3">
                         <img
@@ -202,7 +202,7 @@ export default function AdminProductsPage() {
                     </td>
                     <td className="p-3">
                       {prod.badge ? (
-                        <span className="bg-[#E7F2EC] text-[#0D5435] font-bold text-[10px] px-2 py-0.5 rounded-full border border-[#0D5435]/20">
+                        <span className="bg-[#F1F8E8] text-[#6CAE14] font-bold text-[10px] px-2 py-0.5 rounded-full border border-[#6CAE14]/20">
                           {prod.badge}
                         </span>
                       ) : (
@@ -243,7 +243,7 @@ export default function AdminProductsPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Pampers Premium Diaper Pants L"
-                  className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                  className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
                 />
               </div>
 
@@ -253,7 +253,7 @@ export default function AdminProductsPage() {
                   <select
                     value={categoryId}
                     onChange={(e) => setCategoryId(e.target.value)}
-                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
                   >
                     {INITIAL_CATEGORIES.map((c) => (
                       <option key={c.id} value={c.id}>
@@ -270,7 +270,7 @@ export default function AdminProductsPage() {
                     value={sku}
                     onChange={(e) => setSku(e.target.value)}
                     placeholder="e.g. PAM-L-54"
-                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
                   />
                 </div>
               </div>
@@ -284,7 +284,7 @@ export default function AdminProductsPage() {
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                     placeholder="1850"
-                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
                   />
                 </div>
 
@@ -295,7 +295,7 @@ export default function AdminProductsPage() {
                     value={originalPrice}
                     onChange={(e) => setOriginalPrice(e.target.value)}
                     placeholder="2200"
-                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
                   />
                 </div>
 
@@ -305,7 +305,7 @@ export default function AdminProductsPage() {
                     type="number"
                     value={stock}
                     onChange={(e) => setStock(e.target.value)}
-                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
                   />
                 </div>
               </div>
@@ -317,7 +317,7 @@ export default function AdminProductsPage() {
                     type="url"
                     value={image}
                     onChange={(e) => setImage(e.target.value)}
-                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
                   />
                 </div>
 
@@ -328,7 +328,7 @@ export default function AdminProductsPage() {
                     value={badge}
                     onChange={(e) => setBadge(e.target.value)}
                     placeholder="e.g. Bestseller, Eid Special"
-                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
                   />
                 </div>
               </div>
@@ -340,7 +340,7 @@ export default function AdminProductsPage() {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Detailed product specifications, origins, and instructions..."
-                  className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl p-3 text-[#1A1512] focus:outline-none focus:border-[#0D5435] resize-none"
+                  className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl p-3 text-[#1A1512] focus:outline-none focus:border-[#6CAE14] resize-none"
                 />
               </div>
 
@@ -355,7 +355,7 @@ export default function AdminProductsPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-[#0D5435] hover:bg-[#093D26] text-white font-bold text-xs px-5 py-2 rounded-xl transition-all shadow-sm"
+                  className="bg-[#6CAE14] hover:bg-[#5B960E] text-white font-bold text-xs px-5 py-2 rounded-xl transition-all shadow-sm"
                 >
                   {isSubmitting ? 'Saving...' : 'Add to Catalog'}
                 </button>

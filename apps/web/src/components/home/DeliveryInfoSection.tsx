@@ -54,7 +54,7 @@ export default function DeliveryInfoSection() {
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#EDE5E1] shadow-elevation-1 flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-[#E7F2EC] text-[#0D5435] flex items-center justify-center">
+              <div className="w-9 h-9 rounded-xl bg-[#F1F8E8] text-[#6CAE14] flex items-center justify-center">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>

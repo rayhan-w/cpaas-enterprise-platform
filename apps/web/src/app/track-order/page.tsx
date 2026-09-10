@@ -83,7 +83,7 @@ function TrackOrderContent() {
     <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12 space-y-8">
       {/* Header */}
       <div className="text-center max-w-xl mx-auto">
-        <span className="text-xs font-bold uppercase tracking-wider text-[#0D5435] block mb-1">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#6CAE14] block mb-1">
           Live Status
         </span>
         <h1 className="section-title text-3xl sm:text-4xl text-[#1A1512]">
@@ -105,7 +105,7 @@ function TrackOrderContent() {
               value={orderIdInput}
               onChange={(e) => setOrderIdInput(e.target.value.toUpperCase())}
               placeholder="e.g. NUR-1001"
-              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs font-mono font-bold text-[#1A1512] uppercase focus:outline-none focus:border-[#0D5435]"
+              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs font-mono font-bold text-[#1A1512] uppercase focus:outline-none focus:border-[#6CAE14]"
             />
           </div>
 
@@ -117,7 +117,7 @@ function TrackOrderContent() {
               value={phoneInput}
               onChange={(e) => setPhoneInput(e.target.value)}
               placeholder="017XXXXXXXX"
-              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#0D5435]"
+              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
             />
           </div>
 
@@ -125,7 +125,7 @@ function TrackOrderContent() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#0D5435] hover:bg-[#093D26] disabled:opacity-50 text-white font-bold text-xs py-3 px-4 rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5"
+              className="w-full bg-[#6CAE14] hover:bg-[#5B960E] disabled:opacity-50 text-white font-bold text-xs py-3 px-4 rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5"
             >
               {loading ? (
                 <span>...</span>
@@ -163,7 +163,7 @@ function TrackOrderContent() {
                       ? 'bg-[#EAF3E9] text-[#7A9C78]'
                       : order.orderStatus === 'CANCELLED'
                       ? 'bg-[#FBDADA] text-[#D94040]'
-                      : 'bg-[#E7F2EC] text-[#0D5435]'
+                      : 'bg-[#F1F8E8] text-[#6CAE14]'
                   }`}
                 >
                   {order.orderStatus}
@@ -206,7 +206,7 @@ function TrackOrderContent() {
                     key={step.key}
                     className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-between transition-all ${
                       isCurrent
-                        ? 'border-[#0D5435] bg-[#E7F2EC] shadow-xs'
+                        ? 'border-[#6CAE14] bg-[#F1F8E8] shadow-xs'
                         : isCompleted
                         ? 'border-[#7A9C78]/40 bg-[#EAF3E9]/50'
                         : 'border-[#EDE5E1] bg-[#F8F7F5] opacity-50'
@@ -236,7 +236,7 @@ function TrackOrderContent() {
             {/* Left: Destination */}
             <div className="space-y-3 bg-[#F8F7F5] p-5 rounded-2xl border border-[#EDE5E1]">
               <h4 className="font-bold text-[#1A1512] flex items-center gap-1.5">
-                <MapPin className="w-4 h-4 text-[#0D5435]" />
+                <MapPin className="w-4 h-4 text-[#6CAE14]" />
                 <span>Delivery Address</span>
               </h4>
               <p className="text-[#1A1512] font-semibold">{order.customerName}</p>
@@ -245,7 +245,7 @@ function TrackOrderContent() {
               </p>
               <p className="text-[#9B8A86]">Contact: {order.customerPhone}</p>
               {order.deliveryNote && (
-                <p className="text-[11px] italic text-[#0D5435]">
+                <p className="text-[11px] italic text-[#6CAE14]">
                   Note: &ldquo;{order.deliveryNote}&rdquo;
                 </p>
               )}
@@ -270,7 +270,7 @@ function TrackOrderContent() {
                 ))}
               </div>
 
-              <div className="pt-2 border-t border-[#EDE5E1] flex justify-between font-bold text-sm text-[#0D5435]">
+              <div className="pt-2 border-t border-[#EDE5E1] flex justify-between font-bold text-sm text-[#6CAE14]">
                 <span>Total Amount:</span>
                 <span>{formatPrice(order.total)}</span>
               </div>

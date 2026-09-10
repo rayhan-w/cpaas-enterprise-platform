@@ -43,7 +43,7 @@ export default function HeroBanner() {
         {/* Banner Content */}
         <div className="relative z-10 h-full flex flex-col justify-center max-w-xl p-6 sm:p-12 text-white">
           {current.badge && (
-            <div className="inline-flex items-center gap-1.5 bg-[#F59E0B] text-[#062919] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 w-fit shadow-sm">
+            <div className="inline-flex items-center gap-1.5 bg-[#F59E0B] text-[#0B0F0B] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 w-fit shadow-sm">
               <Sparkles className="w-3.5 h-3.5" />
               <span>{current.badge}</span>
             </div>
@@ -62,7 +62,7 @@ export default function HeroBanner() {
           <div className="flex items-center gap-4 flex-wrap">
             <Link
               href={current.ctaLink}
-              className="inline-flex items-center gap-2 bg-[#0D5435] hover:bg-[#093D26] text-white font-bold text-sm px-6 py-3 rounded-full transition-all shadow-lg group active:scale-95 border border-[#107C41]"
+              className="inline-flex items-center gap-2 bg-[#6CAE14] hover:bg-[#5B960E] text-white font-bold text-sm px-6 py-3 rounded-full transition-all shadow-lg group active:scale-95 border border-[#78B81B]"
             >
               <span>{current.ctaText}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#F59E0B]" />
@@ -99,7 +99,7 @@ export default function HeroBanner() {
               key={i}
               onClick={() => setCurrentIdx(i)}
               className={`h-2 rounded-full transition-all ${
-                i === currentIdx ? 'w-8 bg-[#0D5435]' : 'w-2 bg-white/40 hover:bg-white/70'
+                i === currentIdx ? 'w-8 bg-[#9ED114]' : 'w-2 bg-white/40 hover:bg-white/70'
               }`}
               aria-label={`Go to slide ${i + 1}`}
             />
