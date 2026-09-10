@@ -13,7 +13,7 @@ import ProductGrid from '@/components/product/ProductGrid';
 export const revalidate = 60; // ISR revalidation
 
 export default async function HomePage() {
-  const products = await dbService.getProducts({ limit: 40 });
+  const products = await dbService.getProducts({ limit: 150 });
   const bestSellers = products.filter((p) => p.isBestSeller).slice(0, 8);
   const newArrivals = products.filter((p) => p.isNew).slice(0, 4);
 
@@ -113,6 +113,22 @@ export default async function HomePage() {
         title="Health, Cosmetics & Skin Care"
         subtitle="Aveeno tear-free baby wash, organic Vitamin C serums & daily wellness"
         categorySlug="health-skin-care"
+        products={products}
+      />
+
+      {/* 13. Winter Items Showcase */}
+      <CuratedCategoryShowcase
+        title="Winter Items & Warm Earmuffs"
+        subtitle="Moving rabbit ear warmers, faux fur fluffy earmuffs, and soft winter accessories"
+        categorySlug="winter-items"
+        products={products}
+      />
+
+      {/* 14. Gift Items & Umbrellas Showcase */}
+      <CuratedCategoryShowcase
+        title="Gift Items, Umbrellas & Rainwear"
+        subtitle="Sakura transparent clear umbrellas, mini capsule pocket umbrellas, and kids raincoats"
+        categorySlug="gift-item"
         products={products}
       />
 
