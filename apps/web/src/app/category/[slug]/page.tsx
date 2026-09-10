@@ -7,7 +7,7 @@ import { Sparkles, ChevronRight, SlidersHorizontal } from 'lucide-react';
 
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ search?: string; sort?: string }>;
+  searchParams: Promise<{ search?: string; sort?: string; sub?: string; offer?: string }>;
 }
 
 export async function generateMetadata({ params }: CategoryPageProps) {
@@ -24,15 +24,22 @@ export async function generateMetadata({ params }: CategoryPageProps) {
 
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
   const { slug } = await params;
-  const { search, sort } = await searchParams;
+  const { search, sort, sub, offer } = await searchParams;
 
   const isAll = slug === 'all';
+  const isOffer = offer === '1' || offer === 'true';
   const category = INITIAL_CATEGORIES.find((c) => c.slug === slug);
+  const activeSub = category?.subCategories?.find((s) => s.slug === sub || s.id === sub);
 
-  const products = await dbService.getProducts({
+  let products = await dbService.getProducts({
     categorySlug: isAll ? undefined : slug,
+    subCategorySlug: sub || undefined,
     search: search || undefined,
   });
+
+  if (isOffer) {
+    products = products.filter((p) => p.discount > 0 || p.badge?.toLowerCase().includes('offer') || p.badge?.toLowerCase().includes('deal'));
+  }
 
   // Simple sorting
   let sortedProducts = [...products];
@@ -47,14 +54,31 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 sm:py-10 space-y-8">
       {/* Breadcrumbs */}
-      <nav className="flex items-center gap-1.5 text-xs text-[#9B8A86]">
+      <nav className="flex items-center gap-1.5 text-xs text-[#9B8A86] flex-wrap">
         <Link href="/" className="hover:text-[#6CAE14] transition-colors">
           Home
         </Link>
         <ChevronRight className="w-3 h-3" />
-        <span className="text-[#1A1512] font-semibold">
-          {isAll ? 'All Products' : category?.name || slug}
-        </span>
+        {isAll ? (
+          <span className="text-[#0E140E] font-semibold">
+            {isOffer ? 'Special Offer Zone' : 'All Products'}
+          </span>
+        ) : (
+          <>
+            <Link
+              href={`/category/${category?.slug || slug}`}
+              className={`hover:text-[#6CAE14] transition-colors ${activeSub ? '' : 'text-[#0E140E] font-semibold'}`}
+            >
+              {category?.name || slug}
+            </Link>
+            {activeSub && (
+              <>
+                <ChevronRight className="w-3 h-3" />
+                <span className="text-[#6CAE14] font-semibold">{activeSub.name}</span>
+              </>
+            )}
+          </>
+        )}
         {search && (
           <>
             <ChevronRight className="w-3 h-3" />
@@ -67,14 +91,24 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
       <div className="bg-white rounded-3xl p-6 sm:p-10 border border-[#EDE5E1] shadow-elevation-1 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="max-w-xl">
           <span className="text-xs font-bold uppercase tracking-wider text-[#6CAE14] block mb-1">
-            Department Store
+            {isOffer ? 'Exclusive Deals' : 'Department Store'}
           </span>
-          <h1 className="section-title text-3xl sm:text-4xl text-[#1A1512]">
-            {isAll ? 'All Catalog Products' : category?.name}
+          <h1 className="section-title text-3xl sm:text-4xl text-[#0E140E]">
+            {isOffer
+              ? 'Offer Zone - Special Discounted Items'
+              : activeSub
+              ? activeSub.name
+              : isAll
+              ? 'All Catalog Products'
+              : category?.name}
           </h1>
           <p className="text-xs sm:text-sm text-[#6B5B58] mt-2 leading-relaxed">
-            {isAll
-              ? 'Browse across 10+ multi-category lifestyle departments with authentic warranty & nationwide fast delivery.'
+            {isOffer
+              ? 'Discover limited time flash discounts and exclusive bundle offers with fast nationwide delivery.'
+              : activeSub
+              ? `Browse authentic ${activeSub.name} products with guaranteed quality from Jawata Mart.`
+              : isAll
+              ? 'Browse across all 13 multi-category departments with authentic warranty & fast nationwide delivery.'
               : category?.description}
           </p>
         </div>
@@ -88,15 +122,32 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
       {/* Subcategory Pills (if available) */}
       {category && category.subCategories && category.subCategories.length > 0 && (
         <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
-          <span className="text-xs font-bold text-[#1A1512] shrink-0 mr-1">Subcategories:</span>
-          {category.subCategories.map((sub) => (
-            <span
-              key={sub.id}
-              className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-white border border-[#EDE5E1] text-[#1A1512] shrink-0 hover:border-[#6CAE14] cursor-pointer transition-colors"
-            >
-              {sub.name}
-            </span>
-          ))}
+          <Link
+            href={`/category/${category.slug}`}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold shrink-0 transition-all border ${
+              !sub
+                ? 'bg-[#6CAE14] text-white border-[#6CAE14] shadow-xs'
+                : 'bg-white border-[#EDE5E1] text-[#0E140E] hover:border-[#6CAE14]'
+            }`}
+          >
+            All {category.name}
+          </Link>
+          {category.subCategories.map((s) => {
+            const isSelected = sub === s.slug;
+            return (
+              <Link
+                key={s.id}
+                href={`/category/${category.slug}?sub=${s.slug}`}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-medium shrink-0 transition-all border ${
+                  isSelected
+                    ? 'bg-[#6CAE14] text-white border-[#6CAE14] shadow-xs'
+                    : 'bg-white border-[#EDE5E1] text-[#0E140E] hover:border-[#6CAE14]'
+                }`}
+              >
+                {s.name}
+              </Link>
+            );
+          })}
         </div>
       )}
 

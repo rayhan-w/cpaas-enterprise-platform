@@ -28,6 +28,7 @@ export interface ProductItem {
   categorySlug?: string;
   subCategoryId?: string | null;
   subCategoryName?: string | null;
+  subCategorySlug?: string | null;
   brand?: string | null;
   price: number;
   originalPrice?: number | null;

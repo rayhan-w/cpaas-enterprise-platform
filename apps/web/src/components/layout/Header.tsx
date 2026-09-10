@@ -15,11 +15,13 @@ import {
   Truck,
   Heart,
   ExternalLink,
+  Flame,
 } from 'lucide-react';
 import { useCart } from '@/context/cart-context';
 import { formatPrice } from '@/lib/formatters';
 import { ProductItem } from '@/lib/types';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
+import CategoryNavbar from './CategoryNavbar';
 
 export default function Header() {
   const router = useRouter();
@@ -30,6 +32,7 @@ export default function Header() {
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
+  const [expandedMobileCat, setExpandedMobileCat] = useState<string | null>(null);
   const searchRef = useRef<HTMLDivElement>(null);
 
   // Debounced search
@@ -215,35 +218,8 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Categories Sub-Navbar (Desktop) */}
-      <div className="hidden lg:block border-t border-[#EDE5E1]/60 bg-white/70">
-        <div className="max-w-7xl mx-auto px-4 flex items-center justify-between text-xs font-medium text-[#1A1512]">
-          <div className="flex items-center gap-6 overflow-x-auto py-2.5 scrollbar-hide">
-            <Link
-              href="/category/all"
-              className="font-bold text-[#6CAE14] flex items-center gap-1 hover:text-[#5B960E] shrink-0"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>All Products</span>
-            </Link>
-
-            {INITIAL_CATEGORIES.slice(0, 8).map((cat) => (
-              <Link
-                key={cat.id}
-                href={`/category/${cat.slug}`}
-                className="text-[#6B5B58] hover:text-[#6CAE14] transition-colors shrink-0 py-1"
-              >
-                {cat.name}
-              </Link>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-3 shrink-0 pl-4 text-xs font-semibold text-[#7A9C78]">
-            <span className="w-2 h-2 rounded-full bg-[#7A9C78] animate-pulse"></span>
-            <span>Same-Day Dhaka Delivery</span>
-          </div>
-        </div>
-      </div>
+      {/* Category Navbar with Dropdown Subcategories (Consistent on All Pages) */}
+      <CategoryNavbar />
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
@@ -291,10 +267,26 @@ export default function Header() {
             </div>
 
             {/* Category Links */}
-            <div className="p-4 space-y-1 flex-1">
+            <div className="p-4 space-y-1.5 flex-1">
               <p className="text-[11px] font-bold uppercase text-[#9B8A86] tracking-wider mb-2 px-2">
                 Shop By Category
               </p>
+
+              {/* Offer Zone */}
+              <Link
+                href="/category/all?offer=1"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-[#F59E0B] bg-[#F59E0B]/10 border border-[#F59E0B]/20"
+              >
+                <span className="flex items-center gap-2">
+                  <Flame className="w-4 h-4 fill-current text-[#F59E0B]" />
+                  Offer Zone
+                </span>
+                <span className="text-[10px] bg-[#F59E0B] text-black font-extrabold px-2 py-0.5 rounded-full">
+                  HOT DEALS
+                </span>
+              </Link>
+
               <Link
                 href="/category/all"
                 onClick={() => setMobileMenuOpen(false)}
@@ -305,17 +297,55 @@ export default function Header() {
                   All Products
                 </span>
               </Link>
-              {INITIAL_CATEGORIES.map((cat) => (
-                <Link
-                  key={cat.id}
-                  href={`/category/${cat.slug}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm text-[#1A1512] hover:bg-white hover:text-[#6CAE14] transition-colors"
-                >
-                  <span>{cat.name}</span>
-                  <span className="text-xs text-[#9B8A86]">→</span>
-                </Link>
-              ))}
+
+              {INITIAL_CATEGORIES.map((cat) => {
+                const hasSub = cat.subCategories && cat.subCategories.length > 0;
+                const isExpanded = expandedMobileCat === cat.id;
+
+                return (
+                  <div key={cat.id} className="rounded-xl overflow-hidden bg-white/40 border border-[#EDE5E1]/60">
+                    <div className="flex items-center justify-between px-3 py-2 text-sm text-[#0E140E]">
+                      <Link
+                        href={`/category/${cat.slug}`}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex-1 font-semibold hover:text-[#6CAE14] transition-colors py-1"
+                      >
+                        {cat.name}
+                      </Link>
+                      {hasSub && (
+                        <button
+                          type="button"
+                          onClick={() => setExpandedMobileCat(isExpanded ? null : cat.id)}
+                          className="p-1.5 text-[#9B8A86] hover:text-[#6CAE14] transition-colors"
+                          aria-label="Toggle subcategories"
+                        >
+                          <ChevronDown
+                            className={`w-4 h-4 transition-transform duration-200 ${
+                              isExpanded ? 'rotate-180 text-[#6CAE14]' : ''
+                            }`}
+                          />
+                        </button>
+                      )}
+                    </div>
+
+                    {hasSub && isExpanded && (
+                      <div className="pl-4 pr-2 pb-2 space-y-1 bg-white/70 border-t border-[#EDE5E1]/40 pt-1.5">
+                        {cat.subCategories!.map((sub) => (
+                          <Link
+                            key={sub.id}
+                            href={`/category/${cat.slug}?sub=${sub.slug}`}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="flex items-center justify-between py-1.5 px-2 text-xs text-[#526052] hover:text-[#6CAE14] hover:bg-white rounded-lg transition-colors"
+                          >
+                            <span>• {sub.name}</span>
+                            <span className="text-[10px] text-[#9B8A86]">→</span>
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
             {/* Drawer Footer */}
@@ -329,11 +359,11 @@ export default function Header() {
                 <span>Track My Order</span>
               </Link>
               <a
-                href="tel:01700000000"
-                className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#1A1512] text-white rounded-xl text-xs font-semibold"
+                href="tel:01915210799"
+                className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#0E140E] text-white rounded-xl text-xs font-semibold"
               >
-                <Phone className="w-4 h-4 text-[#F0B840]" />
-                <span>Call Hotline (01700-000000)</span>
+                <Phone className="w-4 h-4 text-[#F59E0B]" />
+                <span>Call Hotline (01915210799)</span>
               </a>
             </div>
           </div>

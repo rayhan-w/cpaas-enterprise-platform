@@ -116,6 +116,7 @@ export const dbService = {
   // PRODUCTS
   async getProducts(params?: {
     categorySlug?: string;
+    subCategorySlug?: string;
     search?: string;
     isFeatured?: boolean;
     isBestSeller?: boolean;
@@ -130,6 +131,9 @@ export const dbService = {
         if (params?.isNew !== undefined) where.isNew = params.isNew;
         if (params?.categorySlug) {
           where.category = { slug: params.categorySlug };
+        }
+        if (params?.subCategorySlug) {
+          where.subCategory = { slug: params.subCategorySlug };
         }
         if (params?.search) {
           where.OR = [
@@ -165,6 +169,15 @@ export const dbService = {
     let list = memoryProducts.filter((p) => p.isActive);
     if (params?.categorySlug) {
       list = list.filter((p) => p.categorySlug === params.categorySlug);
+    }
+    if (params?.subCategorySlug) {
+      const targetSub = params.subCategorySlug.toLowerCase();
+      list = list.filter(
+        (p) =>
+          p.subCategorySlug?.toLowerCase() === targetSub ||
+          p.subCategoryId?.toLowerCase() === targetSub ||
+          (p.subCategoryName && p.subCategoryName.toLowerCase().replace(/[^a-z0-9]/g, '-').includes(targetSub))
+      );
     }
     if (params?.isFeatured !== undefined) {
       list = list.filter((p) => p.isFeatured === params.isFeatured);
