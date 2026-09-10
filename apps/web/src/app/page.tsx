@@ -52,43 +52,67 @@ export default async function HomePage() {
         <ProductGrid products={bestSellers} />
       </section>
 
-      {/* 5. Baby & Mother Care Showcase (1 of many categories) */}
+      {/* 5. Bag Department Showcase */}
       <CuratedCategoryShowcase
-        title="Baby & Mother Care"
-        subtitle="Trusted pediatric skincare, organic diapers, maternity essentials & feeding bottles"
-        categorySlug="baby-kids"
+        title="Bags & Backpacks Collection"
+        subtitle="Ergonomic school bags, plush kids bags, ladies handbags & travel duffels"
+        categorySlug="bag"
         products={products}
       />
 
-      {/* 6. Fashion Showcase (Men & Women) */}
+      {/* 6. Kids Toys Showcase */}
       <CuratedCategoryShowcase
-        title="Lifestyle & Festive Fashion"
-        subtitle="Fine combed cotton Panjabis, designer Jamdani sarees, and stretch denim"
-        categorySlug="mens-fashion"
+        title="Kids Toys & Learning Games"
+        subtitle="Montessori educational puzzles, high-speed stunt RC cars & creative outdoor toys"
+        categorySlug="kids-toys"
         products={products}
       />
 
-      {/* 7. Electronics & Gadgets */}
+      {/* 7. Baby Dress Showcase */}
       <CuratedCategoryShowcase
-        title="Smart Electronics & Audio"
-        subtitle="True wireless earbuds, fast charging power banks, and everyday tech accessories"
-        categorySlug="electronics-gadgets"
+        title="Baby Dress & Newborn Sets"
+        subtitle="100% pure organic cotton rompers, hospital newborn gift sets & party wear"
+        categorySlug="baby-dress"
         products={products}
       />
 
-      {/* 8. Health, Beauty & Skincare */}
+      {/* 8. Baby Shoes Showcase */}
       <CuratedCategoryShowcase
-        title="Health & Personal Care"
-        subtitle="100% authentic dermatologically-tested serums, moisturisers, and grooming"
-        categorySlug="health-beauty"
+        title="Baby Shoes & Footwear"
+        subtitle="Anti-slip soft sole booties, pre-walkers, sneakers & cute sandals"
+        categorySlug="baby-shoes"
         products={products}
       />
 
-      {/* 9. Home, Kitchen & Groceries */}
+      {/* 9. Bed Sheet & Home Tex Showcase */}
       <CuratedCategoryShowcase
-        title="Home, Kitchen & Pure Foods"
-        subtitle="Digital induction cooktops, aged Himalayan basmati, and raw Sundarban wild honey"
-        categorySlug="food-grocery"
+        title="Bed Sheet & Home Tex"
+        subtitle="100% pure cotton king size bedsheets, blackout eyelet curtains & luxury linens"
+        categorySlug="bed-sheet"
+        products={products}
+      />
+
+      {/* 10. Islamic Items Showcase */}
+      <CuratedCategoryShowcase
+        title="Islamic Lifestyle & Prayer Essentials"
+        subtitle="Turkish memory foam Janamaz, velvet Quran gift boxes, Attar & prayer mats"
+        categorySlug="islamic-items"
+        products={products}
+      />
+
+      {/* 11. Kitchen Items Showcase */}
+      <CuratedCategoryShowcase
+        title="Kitchen & Cookware Essentials"
+        subtitle="Die-cast non-stick granite cookware, dining sets, and premium organizers"
+        categorySlug="kitchen-items"
+        products={products}
+      />
+
+      {/* 12. Health & Skin Care Showcase */}
+      <CuratedCategoryShowcase
+        title="Health, Cosmetics & Skin Care"
+        subtitle="Aveeno tear-free baby wash, organic Vitamin C serums & daily wellness"
+        categorySlug="health-skin-care"
         products={products}
       />
 
