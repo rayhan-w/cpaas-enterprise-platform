@@ -39,11 +39,15 @@ export default function AdminProductsPage() {
   const [editImage, setEditImage] = useState('');
   const [editDescription, setEditDescription] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isCustomSubEdit, setIsCustomSubEdit] = useState(false);
+  const [customSubNameEdit, setCustomSubNameEdit] = useState('');
 
   // Add Product Form State
   const [name, setName] = useState('');
   const [categoryId, setCategoryId] = useState(INITIAL_CATEGORIES[0]?.id || '');
   const [subCategoryId, setSubCategoryId] = useState('');
+  const [isCustomSubAdd, setIsCustomSubAdd] = useState(false);
+  const [customSubNameAdd, setCustomSubNameAdd] = useState('');
   const [price, setPrice] = useState('');
   const [originalPrice, setOriginalPrice] = useState('');
   const [stock, setStock] = useState('50');
@@ -89,6 +93,8 @@ export default function AdminProductsPage() {
     setEditName(prod.name);
     setEditCategoryId(prod.categoryId || (categories[0]?.id || ''));
     setEditSubCategoryId(prod.subCategoryId || '');
+    setIsCustomSubEdit(false);
+    setCustomSubNameEdit('');
     setEditPrice(String(prod.price));
     setEditOriginalPrice(prod.originalPrice ? String(prod.originalPrice) : '');
     setEditStock(String(prod.stock));
@@ -109,7 +115,33 @@ export default function AdminProductsPage() {
     setIsUpdating(true);
     try {
       const selectedCat = categories.find((c) => c.id === editCategoryId);
-      const selectedSub = selectedCat?.subCategories?.find((s) => s.id === editSubCategoryId);
+      let targetSubId = editSubCategoryId || undefined;
+      let targetSubName = selectedCat?.subCategories?.find((s) => s.id === editSubCategoryId)?.name;
+      let targetSubSlug = selectedCat?.subCategories?.find((s) => s.id === editSubCategoryId)?.slug;
+
+      // If user typed a new custom subcategory, create it in category
+      if (isCustomSubEdit && customSubNameEdit.trim() && editCategoryId) {
+        try {
+          const subRes = await fetch('/api/categories', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              type: 'subcategory',
+              categoryId: editCategoryId,
+              name: customSubNameEdit.trim(),
+            }),
+          });
+          const subData = await subRes.json();
+          if (subData.subCategory) {
+            targetSubId = subData.subCategory.id;
+            targetSubName = subData.subCategory.name;
+            targetSubSlug = subData.subCategory.slug;
+            fetchCategories();
+          }
+        } catch {
+          targetSubName = customSubNameEdit.trim();
+        }
+      }
 
       const res = await fetch('/api/products', {
         method: 'PUT',
@@ -120,9 +152,9 @@ export default function AdminProductsPage() {
           categoryId: editCategoryId,
           categoryName: selectedCat?.name,
           categorySlug: selectedCat?.slug,
-          subCategoryId: editSubCategoryId || undefined,
-          subCategoryName: selectedSub?.name,
-          subCategorySlug: selectedSub?.slug,
+          subCategoryId: targetSubId,
+          subCategoryName: targetSubName,
+          subCategorySlug: targetSubSlug,
           price: Number(editPrice) || 0,
           originalPrice: editOriginalPrice ? Number(editOriginalPrice) : undefined,
           stock: Number(editStock) || 0,
@@ -175,7 +207,33 @@ export default function AdminProductsPage() {
     setIsSubmitting(true);
     try {
       const cat = categories.find((c) => c.id === categoryId);
-      const sub = cat?.subCategories?.find((s) => s.id === subCategoryId);
+      let targetSubId = subCategoryId || undefined;
+      let targetSubName = cat?.subCategories?.find((s) => s.id === subCategoryId)?.name;
+      let targetSubSlug = cat?.subCategories?.find((s) => s.id === subCategoryId)?.slug;
+
+      // If user typed a new custom subcategory, create it in category
+      if (isCustomSubAdd && customSubNameAdd.trim() && categoryId) {
+        try {
+          const subRes = await fetch('/api/categories', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              type: 'subcategory',
+              categoryId,
+              name: customSubNameAdd.trim(),
+            }),
+          });
+          const subData = await subRes.json();
+          if (subData.subCategory) {
+            targetSubId = subData.subCategory.id;
+            targetSubName = subData.subCategory.name;
+            targetSubSlug = subData.subCategory.slug;
+            fetchCategories();
+          }
+        } catch {
+          targetSubName = customSubNameAdd.trim();
+        }
+      }
 
       const res = await fetch('/api/products', {
         method: 'POST',
@@ -185,9 +243,9 @@ export default function AdminProductsPage() {
           categoryId,
           categoryName: cat?.name,
           categorySlug: cat?.slug,
-          subCategoryId: subCategoryId || undefined,
-          subCategoryName: sub?.name,
-          subCategorySlug: sub?.slug,
+          subCategoryId: targetSubId,
+          subCategoryName: targetSubName,
+          subCategorySlug: targetSubSlug,
           price: Number(price),
           originalPrice: originalPrice ? Number(originalPrice) : undefined,
           stock: Number(stock) || 50,
@@ -432,19 +490,41 @@ export default function AdminProductsPage() {
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-[#1A1512] mb-1">Subcategory</label>
-                  <select
-                    value={editSubCategoryId}
-                    onChange={(e) => setEditSubCategoryId(e.target.value)}
-                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
-                  >
-                    <option value="">-- None / General --</option>
-                    {activeCategoryForEdit?.subCategories?.map((sub) => (
-                      <option key={sub.id} value={sub.id}>
-                        {sub.name}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block font-semibold text-[#1A1512]">Subcategory</label>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsCustomSubEdit(!isCustomSubEdit);
+                        if (!isCustomSubEdit) setCustomSubNameEdit('');
+                      }}
+                      className="text-[10px] text-[#6CAE14] hover:text-[#5B960E] hover:underline font-bold cursor-pointer"
+                    >
+                      {isCustomSubEdit ? '← Choose list' : '+ Type new'}
+                    </button>
+                  </div>
+                  {isCustomSubEdit ? (
+                    <input
+                      type="text"
+                      value={customSubNameEdit}
+                      onChange={(e) => setCustomSubNameEdit(e.target.value)}
+                      placeholder="Type new subcategory..."
+                      className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] placeholder-[#9B8A86] focus:outline-none focus:border-[#6CAE14]"
+                    />
+                  ) : (
+                    <select
+                      value={editSubCategoryId}
+                      onChange={(e) => setEditSubCategoryId(e.target.value)}
+                      className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
+                    >
+                      <option value="">-- None / General --</option>
+                      {activeCategoryForEdit?.subCategories?.map((sub) => (
+                        <option key={sub.id} value={sub.id}>
+                          {sub.name}
+                        </option>
+                      ))}
+                    </select>
+                  )}
                 </div>
               </div>
 
@@ -612,19 +692,41 @@ export default function AdminProductsPage() {
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-[#1A1512] mb-1">Subcategory</label>
-                  <select
-                    value={subCategoryId}
-                    onChange={(e) => setSubCategoryId(e.target.value)}
-                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
-                  >
-                    <option value="">-- None / General --</option>
-                    {activeCategoryForAdd?.subCategories?.map((sub) => (
-                      <option key={sub.id} value={sub.id}>
-                        {sub.name}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block font-semibold text-[#1A1512]">Subcategory</label>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsCustomSubAdd(!isCustomSubAdd);
+                        if (!isCustomSubAdd) setCustomSubNameAdd('');
+                      }}
+                      className="text-[10px] text-[#6CAE14] hover:text-[#5B960E] hover:underline font-bold cursor-pointer"
+                    >
+                      {isCustomSubAdd ? '← Choose list' : '+ Type new'}
+                    </button>
+                  </div>
+                  {isCustomSubAdd ? (
+                    <input
+                      type="text"
+                      value={customSubNameAdd}
+                      onChange={(e) => setCustomSubNameAdd(e.target.value)}
+                      placeholder="Type new subcategory..."
+                      className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] placeholder-[#9B8A86] focus:outline-none focus:border-[#6CAE14]"
+                    />
+                  ) : (
+                    <select
+                      value={subCategoryId}
+                      onChange={(e) => setSubCategoryId(e.target.value)}
+                      className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
+                    >
+                      <option value="">-- None / General --</option>
+                      {activeCategoryForAdd?.subCategories?.map((sub) => (
+                        <option key={sub.id} value={sub.id}>
+                          {sub.name}
+                        </option>
+                      ))}
+                    </select>
+                  )}
                 </div>
               </div>
 
