@@ -8,6 +8,7 @@ import FlashSaleSection from '@/components/home/FlashSaleSection';
 import CuratedCategoryShowcase from '@/components/home/CuratedCategoryShowcase';
 import DeliveryInfoSection from '@/components/home/DeliveryInfoSection';
 import ReviewsSection from '@/components/home/ReviewsSection';
+import WeatherSection from '@/components/home/WeatherSection';
 import ProductGrid from '@/components/product/ProductGrid';
 
 export const revalidate = 60; // ISR revalidation
@@ -52,7 +53,10 @@ export default async function HomePage() {
         <ProductGrid products={bestSellers} />
       </section>
 
-      {/* 5. Bag Department Showcase */}
+      {/* 5. Weather & Umbrella Department Showcase */}
+      <WeatherSection products={products} />
+
+      {/* 6. Bag Department Showcase */}
       <CuratedCategoryShowcase
         title="Bags & Backpacks Collection"
         subtitle="Ergonomic school bags, plush kids bags, ladies handbags & travel duffels"
