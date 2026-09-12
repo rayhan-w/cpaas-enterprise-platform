@@ -225,12 +225,12 @@ export default function ProductView({
                 {addedAnim ? (
                   <>
                     <Check className="w-4 h-4" />
-                    <span>কার্ট-এ যোগ হয়েছে!</span>
+                    <span>Added to Bag!</span>
                   </>
                 ) : (
                   <>
                     <ShoppingBag className="w-4 h-4 text-[#6CAE14]" />
-                    <span>কার্ট-এ যোগ করুন</span>
+                    <span>Add to Bag</span>
                   </>
                 )}
               </button>
@@ -240,7 +240,7 @@ export default function ProductView({
                 className="flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl text-xs font-bold bg-[#6CAE14] hover:bg-[#5B960E] text-white transition-all shadow-md active:scale-95"
               >
                 <Zap className="w-4 h-4 fill-current text-[#F59E0B]" />
-                <span>অর্ডার করুন (Order Now)</span>
+                <span>Order Now</span>
               </button>
             </div>
           </div>

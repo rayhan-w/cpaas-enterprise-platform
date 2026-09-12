@@ -75,7 +75,7 @@ export default function WeatherSection({ products }: WeatherSectionProps) {
             </h2>
 
             <p className="text-xs sm:text-sm text-white/80 leading-relaxed">
-              বৃষ্টি কিংবা চড়া রোদ — জাওয়াতা মার্ট-এর প্রিমিয়াম উইন্ডপ্রুফ ছাতা, পকেট ক্যাপসুল আমব্রেলা এবং বাচ্চাদের ওয়াটারপ্রুফ রেইনকোট দিয়ে যেকোনো মৌসুমে থাকুন সম্পূর্ণ সুরক্ষিত।
+              Be prepared for heavy monsoon rains or bright summer heat with Jawata Mart&apos;s windproof umbrellas, compact pocket capsule umbrellas, and durable rainwear.
             </p>
           </div>
 

@@ -435,7 +435,7 @@ export default function CheckoutForm() {
               }`}
             >
               <span className="w-5 h-5 rounded-full bg-[#F4821F] text-white flex items-center justify-center font-bold text-[10px]">
-                ন
+                N
               </span>
               <span className="text-xs">Nagad (Send Money)</span>
             </button>
@@ -565,7 +565,7 @@ export default function CheckoutForm() {
               <div className="flex items-center justify-between border-b border-[#F4821F]/20 pb-3">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-lg bg-[#F4821F] text-white font-bold flex items-center justify-center text-sm shadow-xs">
-                    ন
+                    N
                   </div>
                   <div>
                     <h4 className="font-bold text-sm text-[#1A1512]">Nagad Send Money Payment</h4>

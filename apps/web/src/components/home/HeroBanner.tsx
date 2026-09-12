@@ -45,7 +45,7 @@ export default function HeroBanner() {
             <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-10">
               <span className="inline-flex items-center gap-2 bg-[#6CAE14] hover:bg-[#5B960E] text-white font-bold text-xs sm:text-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full transition-all shadow-xl active:scale-95 border-2 border-white group/btn animate-pulse-glow">
                 <ShoppingBag className="w-4 h-4 text-white" />
-                <span>অর্ডার করুন (Shop Now)</span>
+                <span>Shop Now</span>
                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
               </span>
             </div>
@@ -91,7 +91,7 @@ export default function HeroBanner() {
 
                 <div className="hidden sm:flex items-center gap-2 text-xs text-white/90 bg-white/15 backdrop-blur-xs px-3 py-2 rounded-full border border-white/20">
                   <ShieldCheck className="w-4 h-4 text-[#F59E0B]" />
-                  <span>ক্যাশ অন ডেলিভারি ও bKash / Nagad</span>
+                  <span>Cash on Delivery & bKash / Nagad</span>
                 </div>
               </div>
             </div>
