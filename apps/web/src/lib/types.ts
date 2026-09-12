@@ -62,6 +62,7 @@ export interface CategoryItem {
   isActive: boolean;
   subCategories?: SubCategoryItem[];
   productCount?: number;
+  itemCount?: number;
 }
 
 export interface SubCategoryItem {

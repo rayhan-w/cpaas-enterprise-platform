@@ -7,6 +7,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import MobileBottomBar from '@/components/layout/MobileBottomBar';
 import CartDrawer from '@/components/cart/CartDrawer';
+import FloatingWhatsApp from '@/components/common/FloatingWhatsApp';
 
 export const metadata: Metadata = {
   title: 'Jawata Mart | Trusted Multi-Category Shopping Platform in Bangladesh',
@@ -56,6 +57,7 @@ export default function RootLayout({
             <Footer />
             <MobileBottomBar />
             <CartDrawer />
+            <FloatingWhatsApp />
           </CartProvider>
         </ToastProvider>
       </body>

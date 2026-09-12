@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, Sparkles, Flame, Award, HeartHandshake } from 'lucide-react';
 import { dbService } from '@/lib/db-service';
 import HeroBanner from '@/components/home/HeroBanner';
+import TrustBadgesStrip from '@/components/home/TrustBadgesStrip';
 import CategoryPills from '@/components/home/CategoryPills';
 import FlashSaleSection from '@/components/home/FlashSaleSection';
 import CuratedCategoryShowcase from '@/components/home/CuratedCategoryShowcase';
@@ -23,29 +24,32 @@ export default async function HomePage() {
       {/* 1. Hero Banner Carousel */}
       <HeroBanner />
 
-      {/* 2. Category Department Pills */}
+      {/* 2. Ghorer Bazar Signature 4-Trust Badges Strip */}
+      <TrustBadgesStrip />
+
+      {/* 3. Category Department Pills */}
       <CategoryPills />
 
-      {/* 3. Flash Sale Deals */}
+      {/* 4. Flash Sale Deals */}
       <FlashSaleSection products={products} />
 
-      {/* 4. Best Sellers Across Bangladesh */}
+      {/* 5. Best Sellers Across Bangladesh */}
       <section className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-6">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-[#6CAE14] flex items-center gap-1">
               <Flame className="w-3.5 h-3.5 fill-current" />
-              Customer Favorites
+              গ্রাহকদের সবচেয়ে পছন্দের
             </span>
-            <h2 className="section-title text-2xl sm:text-3xl text-[#1A1512]">
-              Best Selling Products
+            <h2 className="section-title text-2xl sm:text-3xl text-[#0E140E]">
+              বেস্ট সেলিং পণ্যসমূহ
             </h2>
           </div>
           <Link
             href="/category/all"
-            className="text-xs font-semibold text-[#1A1512] hover:text-[#6CAE14] flex items-center gap-1 transition-colors"
+            className="text-xs font-bold text-[#0E140E] hover:text-[#6CAE14] flex items-center gap-1 transition-colors"
           >
-            <span>View All ({products.length})</span>
+            <span>সব পণ্য দেখুন ({products.length})</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
