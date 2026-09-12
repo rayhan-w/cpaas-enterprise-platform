@@ -12,6 +12,9 @@ import {
   AlertCircle,
   CheckCircle2,
   Lock,
+  Minus,
+  Plus,
+  Trash2,
 } from 'lucide-react';
 import { useCart } from '@/context/cart-context';
 import { formatPrice, isValidBDPhone } from '@/lib/formatters';
@@ -25,6 +28,8 @@ export default function CheckoutForm() {
   const {
     items,
     clearCart,
+    removeItem,
+    updateQuantity,
     subtotal,
     deliveryZone,
     setDeliveryZone,
@@ -186,18 +191,41 @@ export default function CheckoutForm() {
 
   const selectedDiv = BD_DIVISIONS.find((d) => d.name === division) || BD_DIVISIONS[0];
 
+  if (items.length === 0) {
+    return (
+      <div className="bg-white rounded-3xl p-12 text-center max-w-lg mx-auto border border-[#EDE5E1] shadow-elevation-1 space-y-4">
+        <div className="w-16 h-16 rounded-full bg-[#F1F8E8] text-[#6CAE14] flex items-center justify-center mx-auto">
+          <Truck className="w-8 h-8" />
+        </div>
+        <h2 className="text-xl font-bold text-[#1A1512]">Your Cart is Currently Empty</h2>
+        <p className="text-xs text-[#6B5B58] max-w-sm mx-auto">
+          You don&apos;t have any products in your cart yet. Browse our top collections and add items to proceed with checkout.
+        </p>
+        <div className="pt-2">
+          <button
+            type="button"
+            onClick={() => router.push('/products')}
+            className="bg-[#6CAE14] hover:bg-[#5B960E] text-white font-bold text-xs px-6 py-3 rounded-xl transition-colors shadow-md"
+          >
+            Explore All Products
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <form onSubmit={handleSubmitOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-8">
       {/* Left Column: Customer & Delivery Details */}
       <div className="lg:col-span-7 space-y-6">
         {/* Guest Customer Notice */}
-        <div className="p-4 bg-[#F1F8E8] border border-[#6CAE14]/20 rounded-2xl flex items-center gap-3 text-xs text-[#1A1512]">
+        <div className="p-3.5 bg-[#F1F8E8] border border-[#6CAE14]/20 rounded-2xl flex items-center gap-3 text-xs text-[#1A1512]">
           <div className="w-8 h-8 rounded-full bg-[#6CAE14]/15 text-[#6CAE14] flex items-center justify-center shrink-0">
             <ShieldCheck className="w-4 h-4" />
           </div>
           <div>
             <p className="font-bold">Fast Guest Checkout</p>
-            <p className="text-[#6B5B58]">No account or password needed. Simply fill in your shipping details below.</p>
+            <p className="text-[#6B5B58]">No password required. Enter your delivery info to confirm order.</p>
           </div>
         </div>
 
@@ -674,12 +702,27 @@ export default function CheckoutForm() {
       {/* Right Column: Order Summary & Place Order */}
       <div className="lg:col-span-5 space-y-6">
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#EDE5E1] shadow-elevation-2 sticky top-24 space-y-5">
-          <h3 className="section-title text-xl text-[#1A1512] border-b border-[#EDE5E1] pb-4">
-            Order Summary ({items.reduce((s, i) => s + i.quantity, 0)} Items)
-          </h3>
+          <div className="flex items-center justify-between border-b border-[#EDE5E1] pb-3">
+            <h3 className="section-title text-xl text-[#1A1512]">
+              Order Summary ({items.reduce((s, i) => s + i.quantity, 0)})
+            </h3>
+            {items.length > 0 && (
+              <button
+                type="button"
+                onClick={() => {
+                  if (confirm('Clear all items from your order?')) {
+                    clearCart();
+                  }
+                }}
+                className="text-[11px] text-[#9B8A86] hover:text-[#D94040] font-medium transition-colors"
+              >
+                Clear Cart
+              </button>
+            )}
+          </div>
 
           {/* Item thumbnails */}
-          <div className="max-h-52 overflow-y-auto space-y-3 pr-1 divide-y divide-[#F2EDEA]">
+          <div className="max-h-56 overflow-y-auto space-y-3 pr-1 divide-y divide-[#F2EDEA]">
             {items.map((item) => (
               <div
                 key={`${item.productId}-${item.selectedVariant?.id || 'base'}`}
@@ -688,19 +731,49 @@ export default function CheckoutForm() {
                 <img
                   src={item.product.image}
                   alt={item.product.name}
-                  className="w-12 h-12 rounded-lg object-cover bg-[#F8F7F5] border border-[#EDE5E1] shrink-0"
+                  className="w-12 h-12 rounded-xl object-cover bg-[#F8F7F5] border border-[#EDE5E1] shrink-0"
                 />
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-semibold text-[#1A1512] truncate">
                     {item.product.name}
                   </p>
-                  <p className="text-[10px] text-[#9B8A86]">
-                    Qty: {item.quantity} {item.selectedVariant ? `• ${item.selectedVariant.value}` : ''}
+                  <p className="text-[11px] font-bold text-[#6CAE14] mt-0.5">
+                    {formatPrice(item.unitPrice)}
                   </p>
+                  {item.selectedVariant && (
+                    <p className="text-[10px] text-[#9B8A86]">
+                      {item.selectedVariant.name}: {item.selectedVariant.value}
+                    </p>
+                  )}
                 </div>
-                <span className="text-xs font-bold text-[#1A1512]">
-                  {formatPrice(item.totalPrice)}
-                </span>
+
+                {/* Quantity and Remove Control */}
+                <div className="flex items-center gap-2 shrink-0">
+                  <div className="flex items-center border border-[#EDE5E1] rounded-lg bg-[#F8F7F5]">
+                    <button
+                      type="button"
+                      onClick={() => updateQuantity(item.productId, item.quantity - 1, item.selectedVariant?.id)}
+                      className="p-1 text-[#6B5B58] hover:text-[#1A1512]"
+                    >
+                      <Minus className="w-3 h-3" />
+                    </button>
+                    <span className="px-1.5 text-xs font-bold text-[#1A1512]">{item.quantity}</span>
+                    <button
+                      type="button"
+                      onClick={() => updateQuantity(item.productId, item.quantity + 1, item.selectedVariant?.id)}
+                      className="p-1 text-[#6B5B58] hover:text-[#1A1512]"
+                    >
+                      <Plus className="w-3 h-3" />
+                    </button>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => removeItem(item.productId, item.selectedVariant?.id)}
+                    className="p-1 text-[#9B8A86] hover:text-[#D94040] transition-colors"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
               </div>
             ))}
           </div>

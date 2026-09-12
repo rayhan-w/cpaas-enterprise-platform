@@ -31,6 +31,7 @@ export default function CartPage() {
     appliedCoupon,
     applyCoupon,
     removeCoupon,
+    clearCart,
   } = useCart();
   const { success, error } = useToast();
   const [couponInput, setCouponInput] = useState('');
@@ -53,7 +54,7 @@ export default function CartPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12 space-y-8">
       {/* Title */}
-      <div className="flex items-center justify-between border-b border-[#EDE5E1] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#EDE5E1] pb-4 gap-3">
         <div>
           <h1 className="section-title text-2xl sm:text-3xl text-[#1A1512]">
             Your Shopping Bag
@@ -62,13 +63,27 @@ export default function CartPage() {
             Review your selected products before proceeding to high-speed guest checkout.
           </p>
         </div>
-        <Link
-          href="/"
-          className="text-xs font-semibold text-[#1A1512] hover:text-[#6CAE14] flex items-center gap-1.5 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Continue Shopping</span>
-        </Link>
+        <div className="flex items-center gap-3">
+          {items.length > 0 && (
+            <button
+              onClick={() => {
+                if (confirm('Are you sure you want to clear your shopping bag?')) {
+                  clearCart();
+                }
+              }}
+              className="text-xs font-semibold text-[#9B8A86] hover:text-[#D94040] transition-colors px-3 py-1.5 rounded-lg border border-[#EDE5E1] hover:bg-red-50"
+            >
+              Clear Bag
+            </button>
+          )}
+          <Link
+            href="/"
+            className="text-xs font-semibold text-[#1A1512] hover:text-[#6CAE14] flex items-center gap-1.5 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Continue Shopping</span>
+          </Link>
+        </div>
       </div>
 
       {items.length === 0 ? (

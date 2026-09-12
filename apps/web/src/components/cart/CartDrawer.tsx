@@ -21,6 +21,7 @@ export default function CartDrawer() {
     appliedCoupon,
     applyCoupon,
     removeCoupon,
+    clearCart,
   } = useCart();
   const { success, error } = useToast();
   const [couponInput, setCouponInput] = useState('');
@@ -58,19 +59,37 @@ export default function CartDrawer() {
       <div className="relative w-full max-w-md bg-[#F8F7F5] h-full shadow-2xl flex flex-col z-10 animate-slide-in-right">
         {/* Drawer Header */}
         <div className="p-4 sm:p-5 bg-white border-b border-[#EDE5E1] flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <ShoppingBag className="w-5 h-5 text-[#6CAE14]" />
-            <h2 className="section-title text-xl text-[#1A1512]">Your Shopping Bag</h2>
-            <span className="bg-[#F1F8E8] text-[#6CAE14] font-bold text-xs px-2 py-0.5 rounded-full">
-              {items.reduce((s, i) => s + i.quantity, 0)}
-            </span>
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-[#F1F8E8] text-[#6CAE14] flex items-center justify-center">
+              <ShoppingBag className="w-4 h-4" />
+            </div>
+            <div>
+              <h2 className="text-base font-bold text-[#1A1512]">Your Shopping Bag</h2>
+              <p className="text-[11px] text-[#6B5B58]">
+                {items.reduce((s, i) => s + i.quantity, 0)} {items.reduce((s, i) => s + i.quantity, 0) === 1 ? 'item' : 'items'}
+              </p>
+            </div>
           </div>
-          <button
-            onClick={closeCart}
-            className="p-1.5 text-[#6B5B58] hover:text-[#1A1512] rounded-lg transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            {items.length > 0 && (
+              <button
+                onClick={() => {
+                  if (confirm('Remove all items from your bag?')) {
+                    clearCart();
+                  }
+                }}
+                className="text-[11px] text-[#9B8A86] hover:text-[#D94040] transition-colors font-medium px-2 py-1 rounded-lg hover:bg-red-50"
+              >
+                Clear
+              </button>
+            )}
+            <button
+              onClick={closeCart}
+              className="p-1.5 text-[#6B5B58] hover:text-[#1A1512] rounded-lg transition-colors hover:bg-[#F8F7F5]"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* Free Shipping Meter */}

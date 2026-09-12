@@ -37,11 +37,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   // Load from localStorage on mount
   useEffect(() => {
     try {
-      const stored = localStorage.getItem('nurtura_cart');
+      // Check for current cart storage
+      const stored = localStorage.getItem('jawata_mart_cart');
       if (stored) {
         setItems(JSON.parse(stored));
+      } else {
+        // Clear any old mock data from previous demo templates
+        localStorage.removeItem('nurtura_cart');
+        setItems([]);
       }
-      const storedZone = localStorage.getItem('nurtura_delivery_zone');
+      const storedZone = localStorage.getItem('jawata_mart_delivery_zone');
       if (storedZone === 'OUTSIDE_DHAKA' || storedZone === 'INSIDE_DHAKA') {
         setDeliveryZone(storedZone);
       }
@@ -55,8 +60,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (mounted) {
       try {
-        localStorage.setItem('nurtura_cart', JSON.stringify(items));
-        localStorage.setItem('nurtura_delivery_zone', deliveryZone);
+        localStorage.setItem('jawata_mart_cart', JSON.stringify(items));
+        localStorage.setItem('jawata_mart_delivery_zone', deliveryZone);
       } catch {
         // Ignore
       }

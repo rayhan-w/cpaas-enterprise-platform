@@ -192,39 +192,40 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
               </div>
             </div>
 
-            {/* Inputs: Name, Phone, Address */}
-            <div className="space-y-3">
+            {/* Customer Information */}
+            <div className="space-y-3 bg-white p-4 rounded-2xl border border-[#DFECCE]">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#6CAE14]">Shipping Details</h4>
               <div>
-                <label className="block text-xs font-bold text-[#0E140E] mb-1">
+                <label className="block text-[11px] font-semibold text-[#0E140E] mb-1">
                   Full Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="Enter your full name"
+                  placeholder="e.g. Tanvir Ahmed"
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
-                  className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl px-3.5 py-2.5 text-xs text-[#0E140E] focus:outline-none focus:border-[#6CAE14]"
+                  className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl px-3.5 py-2 text-xs text-[#0E140E] focus:outline-none focus:border-[#6CAE14]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#0E140E] mb-1">
-                  Mobile Phone Number <span className="text-red-500">*</span>
+                <label className="block text-[11px] font-semibold text-[#0E140E] mb-1">
+                  Mobile Number <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="tel"
                   required
-                  placeholder="11-digit phone number (e.g. 017XXXXXXXX)"
+                  placeholder="017XXXXXXXX (11 digits)"
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value)}
-                  className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl px-3.5 py-2.5 text-xs text-[#0E140E] focus:outline-none focus:border-[#6CAE14]"
+                  className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl px-3.5 py-2 text-xs text-[#0E140E] focus:outline-none focus:border-[#6CAE14]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#0E140E] mb-1">
-                  Complete Delivery Address <span className="text-red-500">*</span>
+                <label className="block text-[11px] font-semibold text-[#0E140E] mb-1">
+                  Delivery Address <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   required
@@ -238,111 +239,97 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
             </div>
 
             {/* Delivery Area Selection */}
-            <div>
-              <label className="block text-xs font-bold text-[#0E140E] mb-1.5">
-                Select Delivery Zone:
+            <div className="bg-white p-4 rounded-2xl border border-[#DFECCE] space-y-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#6CAE14]">
+                Delivery Zone
               </label>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <button
                   type="button"
                   onClick={() => setDeliveryZone('INSIDE_DHAKA')}
-                  className={`p-2.5 rounded-xl border text-left flex flex-col gap-0.5 transition-all ${
+                  className={`p-2.5 rounded-xl border text-left flex items-center justify-between transition-all ${
                     deliveryZone === 'INSIDE_DHAKA'
                       ? 'border-[#6CAE14] bg-[#F1F8E8] text-[#0E140E] ring-1 ring-[#6CAE14]'
                       : 'border-[#DFECCE] bg-white text-[#526052]'
                   }`}
                 >
-                  <span className="font-bold">Inside Dhaka</span>
-                  <span className="text-[11px] text-[#6CAE14] font-semibold">Delivery Charge ৳60</span>
+                  <span className="font-bold text-xs">Inside Dhaka</span>
+                  <span className="text-xs font-bold text-[#6CAE14]">৳60</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setDeliveryZone('OUTSIDE_DHAKA')}
-                  className={`p-2.5 rounded-xl border text-left flex flex-col gap-0.5 transition-all ${
+                  className={`p-2.5 rounded-xl border text-left flex items-center justify-between transition-all ${
                     deliveryZone === 'OUTSIDE_DHAKA'
                       ? 'border-[#6CAE14] bg-[#F1F8E8] text-[#0E140E] ring-1 ring-[#6CAE14]'
                       : 'border-[#DFECCE] bg-white text-[#526052]'
                   }`}
                 >
-                  <span className="font-bold">Outside Dhaka</span>
-                  <span className="text-[11px] text-[#6CAE14] font-semibold">Delivery Charge ৳120</span>
+                  <span className="font-bold text-xs">Outside Dhaka</span>
+                  <span className="text-xs font-bold text-[#6CAE14]">৳120</span>
                 </button>
               </div>
             </div>
 
-            {/* Bill Summary */}
-            <div className="bg-[#FAFCF7] p-3 rounded-xl border border-[#DFECCE] space-y-1.5 text-xs">
-              <div className="flex justify-between text-[#526052]">
-                <span>Product Subtotal:</span>
-                <span className="font-semibold text-[#0E140E]">{formatPrice(subtotal)}</span>
-              </div>
-              <div className="flex justify-between text-[#526052]">
-                <span>Delivery Charge:</span>
-                <span className="font-semibold text-[#0E140E]">
-                  {deliveryCharge === 0 ? 'Free (৳0)' : formatPrice(deliveryCharge)}
-                </span>
-              </div>
-              <div className="border-t border-[#DFECCE] pt-1.5 flex justify-between font-bold text-sm text-[#0E140E]">
-                <span>Total Payable:</span>
-                <span className="text-[#6CAE14] text-base">{formatPrice(total)}</span>
-              </div>
-            </div>
-
             {/* Payment Method Selector */}
-            <div>
-              <label className="block text-xs font-bold text-[#0E140E] mb-1.5">
-                Select Payment Method:
+            <div className="bg-white p-4 rounded-2xl border border-[#DFECCE] space-y-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#6CAE14]">
+                Payment Option
               </label>
               <div className="grid grid-cols-3 gap-2">
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('COD')}
-                  className={`p-2.5 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition-all text-center ${
+                  className={`py-2 px-1 rounded-xl border flex flex-col items-center justify-center gap-1 transition-all text-center ${
                     paymentMethod === 'COD'
                       ? 'border-[#6CAE14] bg-[#F1F8E8] text-[#0E140E] ring-1 ring-[#6CAE14]'
                       : 'border-[#DFECCE] bg-white text-[#526052] hover:bg-[#FAFCF7]'
                   }`}
                 >
-                  <CodBadge />
+                  <CodBadge className="px-2 py-0.5 text-[10px]" />
                   <span className="text-[10px] font-bold text-[#0E140E]">Cash on Delivery</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('BKASH')}
-                  className={`p-2.5 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition-all text-center ${
+                  className={`py-2 px-1 rounded-xl border flex flex-col items-center justify-center gap-1 transition-all text-center ${
                     paymentMethod === 'BKASH'
                       ? 'border-[#E2136E] bg-[#FFF0F5] text-[#0E140E] ring-1 ring-[#E2136E]'
                       : 'border-[#DFECCE] bg-white text-[#526052] hover:bg-[#FAFCF7]'
                   }`}
                 >
-                  <BkashLogo className="h-4.5 w-auto" />
-                  <span className="text-[10px] font-bold text-[#E2136E]">bKash</span>
+                  <div className="h-5 flex items-center">
+                    <BkashLogo className="h-4.5 w-auto" />
+                  </div>
+                  <span className="text-[10px] font-bold text-[#E2136E]">bKash Send</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('NAGAD')}
-                  className={`p-2.5 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition-all text-center ${
+                  className={`py-2 px-1 rounded-xl border flex flex-col items-center justify-center gap-1 transition-all text-center ${
                     paymentMethod === 'NAGAD'
                       ? 'border-[#F4821F] bg-[#FFF8F0] text-[#0E140E] ring-1 ring-[#F4821F]'
                       : 'border-[#DFECCE] bg-white text-[#526052] hover:bg-[#FAFCF7]'
                   }`}
                 >
-                  <NagadLogo className="h-4.5 w-auto" />
-                  <span className="text-[10px] font-bold text-[#F4821F]">Nagad</span>
+                  <div className="h-5 flex items-center">
+                    <NagadLogo className="h-4.5 w-auto" />
+                  </div>
+                  <span className="text-[10px] font-bold text-[#F4821F]">Nagad Send</span>
                 </button>
               </div>
 
               {/* bKash Instructions in Modal */}
               {paymentMethod === 'BKASH' && (
-                <div className="mt-2.5 p-3 bg-[#FFF0F5] border border-[#E2136E]/20 rounded-xl space-y-2 text-xs">
+                <div className="p-3 bg-[#FFF0F5] border border-[#E2136E]/25 rounded-xl space-y-2 text-xs animate-fade-in">
                   <div className="flex items-center justify-between text-[11px] text-[#6B5B58]">
-                    <span>Send Money (Personal):</span>
-                    <span className="font-mono font-bold text-[#E2136E]">01700-000000</span>
+                    <span>Send Money (Personal / Merchant):</span>
+                    <span className="font-mono font-bold text-[#E2136E] bg-white px-2 py-0.5 rounded border border-[#E2136E]/20">01915210799</span>
                   </div>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-2 pt-1">
                     <input
                       type="text"
                       placeholder="bKash Number"
@@ -363,12 +350,12 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
 
               {/* Nagad Instructions in Modal */}
               {paymentMethod === 'NAGAD' && (
-                <div className="mt-2.5 p-3 bg-[#FFF8F0] border border-[#F4821F]/20 rounded-xl space-y-2 text-xs">
+                <div className="p-3 bg-[#FFF8F0] border border-[#F4821F]/25 rounded-xl space-y-2 text-xs animate-fade-in">
                   <div className="flex items-center justify-between text-[11px] text-[#6B5B58]">
-                    <span>Send Money (Personal):</span>
-                    <span className="font-mono font-bold text-[#F4821F]">01800-000000</span>
+                    <span>Send Money (Personal / Merchant):</span>
+                    <span className="font-mono font-bold text-[#F4821F] bg-white px-2 py-0.5 rounded border border-[#F4821F]/20">01915210799</span>
                   </div>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-2 pt-1">
                     <input
                       type="text"
                       placeholder="Nagad Number"
@@ -386,6 +373,24 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
                   </div>
                 </div>
               )}
+            </div>
+
+            {/* Bill Summary */}
+            <div className="bg-[#FAFCF7] p-3.5 rounded-2xl border border-[#DFECCE] space-y-1.5 text-xs">
+              <div className="flex justify-between text-[#526052]">
+                <span>Product Subtotal:</span>
+                <span className="font-semibold text-[#0E140E]">{formatPrice(subtotal)}</span>
+              </div>
+              <div className="flex justify-between text-[#526052]">
+                <span>Delivery Charge:</span>
+                <span className="font-semibold text-[#0E140E]">
+                  {deliveryCharge === 0 ? 'Free (৳0)' : formatPrice(deliveryCharge)}
+                </span>
+              </div>
+              <div className="border-t border-[#DFECCE] pt-2 flex justify-between font-bold text-sm text-[#0E140E]">
+                <span>Total Payable:</span>
+                <span className="text-[#6CAE14] text-base">{formatPrice(total)}</span>
+              </div>
             </div>
 
             {/* Submit Button */}
