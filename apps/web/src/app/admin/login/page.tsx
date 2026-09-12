@@ -7,8 +7,8 @@ import { useToast } from '@/context/toast-context';
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('jawatamart@gmail.com');
-  const [password, setPassword] = useState('admin123456');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const { toast } = useToast();
@@ -61,17 +61,6 @@ export default function AdminLoginPage() {
           </p>
         </div>
 
-        {/* Demo Credentials Alert */}
-        <div className="p-3 bg-[#F1F8E8] border border-[#6CAE14]/20 rounded-xl text-xs text-[#1A1512] space-y-1">
-          <p className="font-bold text-[#6CAE14]">Admin Account (Proprietor: Md. Abdur Rahim):</p>
-          <p className="text-[#6B5B58]">
-            Email: <code className="font-mono bg-white px-1.5 py-0.5 rounded border border-[#EDE5E1]">jawatamart@gmail.com</code>
-          </p>
-          <p className="text-[#6B5B58]">
-            Password: <code className="font-mono bg-white px-1.5 py-0.5 rounded border border-[#EDE5E1]">admin123456</code>
-          </p>
-        </div>
-
         {/* Login Form */}
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
@@ -82,6 +71,7 @@ export default function AdminLoginPage() {
               <input
                 type="email"
                 required
+                placeholder="admin@jawatamart.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl py-2.5 pl-10 pr-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
@@ -98,6 +88,7 @@ export default function AdminLoginPage() {
               <input
                 type="password"
                 required
+                placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl py-2.5 pl-10 pr-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
