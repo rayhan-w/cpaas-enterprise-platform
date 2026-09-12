@@ -374,7 +374,7 @@ export default function AdminCategoriesPage() {
               </button>
             </div>
 
-            <form onSubmit={handleAddCategory} className="space-y-3.5 text-xs">
+            <form onSubmit={handleAddCategory} noValidate className="space-y-3.5 text-xs">
               <div>
                 <label className="block font-semibold text-[#1A1512] mb-1">Category Name *</label>
                 <input
@@ -407,7 +407,7 @@ export default function AdminCategoriesPage() {
                 <label className="block font-semibold text-[#1A1512] mb-1">Cover Image URL</label>
                 <div className="flex gap-2">
                   <input
-                    type="url"
+                    type="text"
                     value={newCatImage}
                     onChange={(e) => setNewCatImage(e.target.value)}
                     placeholder="https://images.unsplash.com/..."
@@ -469,7 +469,7 @@ export default function AdminCategoriesPage() {
               </button>
             </div>
 
-            <form onSubmit={handleUpdateCategory} className="space-y-3.5 text-xs">
+            <form onSubmit={handleUpdateCategory} noValidate className="space-y-3.5 text-xs">
               <div>
                 <label className="block font-semibold text-[#1A1512] mb-1">Category Name *</label>
                 <input
@@ -497,7 +497,7 @@ export default function AdminCategoriesPage() {
                 <label className="block font-semibold text-[#1A1512] mb-1">Cover Image URL</label>
                 <div className="flex gap-2">
                   <input
-                    type="url"
+                    type="text"
                     value={editCatImage}
                     onChange={(e) => setEditCatImage(e.target.value)}
                     placeholder="https://images.unsplash.com/..."

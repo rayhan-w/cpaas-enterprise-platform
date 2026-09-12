@@ -397,7 +397,7 @@ export default function AdminProductsPage() {
               </button>
             </div>
 
-            <form onSubmit={handleUpdateProduct} className="space-y-3.5 text-xs">
+            <form onSubmit={handleUpdateProduct} noValidate className="space-y-3.5 text-xs">
               {/* Product Title */}
               <div>
                 <label className="block font-semibold text-[#1A1512] mb-1">Product Title *</label>
@@ -515,7 +515,7 @@ export default function AdminProductsPage() {
                 <label className="block font-semibold text-[#1A1512] mb-1">Image URL</label>
                 <div className="flex gap-2">
                   <input
-                    type="url"
+                    type="text"
                     value={editImage}
                     onChange={(e) => setEditImage(e.target.value)}
                     placeholder="https://..."
@@ -579,7 +579,7 @@ export default function AdminProductsPage() {
               </button>
             </div>
 
-            <form onSubmit={handleAddProduct} className="space-y-3.5 text-xs">
+            <form onSubmit={handleAddProduct} noValidate className="space-y-3.5 text-xs">
               <div>
                 <label className="block font-semibold text-[#1A1512] mb-1">Product Title *</label>
                 <input
@@ -694,7 +694,7 @@ export default function AdminProductsPage() {
                 <label className="block font-semibold text-[#1A1512] mb-1">Image URL</label>
                 <div className="flex gap-2">
                   <input
-                    type="url"
+                    type="text"
                     value={image}
                     onChange={(e) => setImage(e.target.value)}
                     className="flex-1 bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
