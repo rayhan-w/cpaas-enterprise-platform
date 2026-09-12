@@ -18,6 +18,7 @@ import { formatPrice, isValidBDPhone } from '@/lib/formatters';
 import { BD_DIVISIONS, DHAKA_AREAS } from '@/lib/bd-locations';
 import { PaymentMethod, DeliveryZone } from '@/lib/types';
 import { useToast } from '@/context/toast-context';
+import { BkashLogo, NagadLogo, CardLogosGroup } from '@/components/common/PaymentLogos';
 
 export default function CheckoutForm() {
   const router = useRouter();
@@ -402,12 +403,14 @@ export default function CheckoutForm() {
               onClick={() => setPaymentMethod('COD')}
               className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all ${
                 paymentMethod === 'COD'
-                  ? 'border-[#7A9C78] bg-[#EAF3E9] text-[#1A1512] font-bold shadow-xs'
+                  ? 'border-[#7A9C78] bg-[#EAF3E9] text-[#1A1512] font-bold shadow-xs ring-1 ring-[#7A9C78]'
                   : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#7A9C78]/40'
               }`}
             >
-              <Banknote className="w-5 h-5 text-[#7A9C78]" />
-              <span className="text-xs">Cash on Delivery</span>
+              <div className="h-6 flex items-center justify-center">
+                <Banknote className="w-5 h-5 text-[#7A9C78]" />
+              </div>
+              <span className="text-xs font-semibold">Cash on Delivery</span>
             </button>
 
             <button
@@ -415,14 +418,14 @@ export default function CheckoutForm() {
               onClick={() => setPaymentMethod('BKASH')}
               className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all ${
                 paymentMethod === 'BKASH'
-                  ? 'border-[#E2136E] bg-[#F1F8E8] text-[#1A1512] font-bold shadow-xs'
+                  ? 'border-[#E2136E] bg-[#FFF0F6] text-[#1A1512] font-bold shadow-xs ring-1 ring-[#E2136E]'
                   : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#E2136E]/40'
               }`}
             >
-              <span className="w-5 h-5 rounded-full bg-[#E2136E] text-white flex items-center justify-center font-bold text-[10px]">
-                b
-              </span>
-              <span className="text-xs">bKash (Send Money)</span>
+              <div className="h-6 flex items-center justify-center">
+                <BkashLogo className="h-5 w-auto" />
+              </div>
+              <span className="text-xs font-semibold">bKash Payment</span>
             </button>
 
             <button
@@ -430,14 +433,14 @@ export default function CheckoutForm() {
               onClick={() => setPaymentMethod('NAGAD')}
               className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all ${
                 paymentMethod === 'NAGAD'
-                  ? 'border-[#F4821F] bg-[#FFF8F0] text-[#1A1512] font-bold shadow-xs'
+                  ? 'border-[#F4821F] bg-[#FFF8F0] text-[#1A1512] font-bold shadow-xs ring-1 ring-[#F4821F]'
                   : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#F4821F]/40'
               }`}
             >
-              <span className="w-5 h-5 rounded-full bg-[#F4821F] text-white flex items-center justify-center font-bold text-[10px]">
-                N
-              </span>
-              <span className="text-xs">Nagad (Send Money)</span>
+              <div className="h-6 flex items-center justify-center">
+                <NagadLogo className="h-5 w-auto" />
+              </div>
+              <span className="text-xs font-semibold">Nagad Payment</span>
             </button>
 
             <button
@@ -445,12 +448,14 @@ export default function CheckoutForm() {
               onClick={() => setPaymentMethod('SSLCOMMERZ')}
               className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all ${
                 paymentMethod === 'SSLCOMMERZ'
-                  ? 'border-[#1565C0] bg-[#E3F2FD] text-[#1A1512] font-bold shadow-xs'
+                  ? 'border-[#1565C0] bg-[#E3F2FD] text-[#1A1512] font-bold shadow-xs ring-1 ring-[#1565C0]'
                   : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#1565C0]/40'
               }`}
             >
-              <CreditCard className="w-5 h-5 text-[#1565C0]" />
-              <span className="text-xs">SSLCommerz (Online)</span>
+              <div className="h-6 flex items-center justify-center">
+                <CardLogosGroup className="h-4" />
+              </div>
+              <span className="text-xs font-semibold">Cards / Online</span>
             </button>
           </div>
 
@@ -471,9 +476,9 @@ export default function CheckoutForm() {
           {paymentMethod === 'BKASH' && (
             <div className="p-5 bg-gradient-to-br from-[#F1F8E8] to-white rounded-2xl border-2 border-[#E2136E]/30 space-y-4 shadow-sm animate-fade-in">
               <div className="flex items-center justify-between border-b border-[#E2136E]/20 pb-3">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#E2136E] text-white font-bold flex items-center justify-center text-sm shadow-xs">
-                    bK
+                <div className="flex items-center gap-3">
+                  <div className="bg-white p-1.5 rounded-xl border border-[#E2136E]/20 shadow-xs flex items-center">
+                    <BkashLogo className="h-6 w-auto" />
                   </div>
                   <div>
                     <h4 className="font-bold text-sm text-[#1A1512]">bKash Send Money Payment</h4>
@@ -564,8 +569,8 @@ export default function CheckoutForm() {
             <div className="p-5 bg-gradient-to-br from-[#FFF8F0] to-white rounded-2xl border-2 border-[#F4821F]/30 space-y-4 shadow-sm animate-fade-in">
               <div className="flex items-center justify-between border-b border-[#F4821F]/20 pb-3">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#F4821F] text-white font-bold flex items-center justify-center text-sm shadow-xs">
-                    N
+                  <div className="bg-white p-1 rounded-lg border border-[#F4821F]/25 shadow-xs flex items-center justify-center">
+                    <NagadLogo className="h-6 w-auto" />
                   </div>
                   <div>
                     <h4 className="font-bold text-sm text-[#1A1512]">Nagad Send Money Payment</h4>

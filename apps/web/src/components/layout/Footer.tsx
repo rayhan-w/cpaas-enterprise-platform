@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Phone, Mail, MapPin, ShieldCheck, Truck, RefreshCw, Heart } from 'lucide-react';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
+import { BkashLogo, NagadLogo, CardLogosGroup, CodBadge } from '@/components/common/PaymentLogos';
 
 export default function Footer() {
   return (
@@ -155,22 +156,19 @@ export default function Footer() {
             <p className="text-xs text-white/60 mb-3">
               We accept safe and reliable local payments:
             </p>
-            <div className="flex flex-wrap gap-2">
-              <span className="px-2.5 py-1 rounded bg-[#E2136E] text-white text-[11px] font-bold">
-                bKash
-              </span>
-              <span className="px-2.5 py-1 rounded bg-[#F4821F] text-white text-[11px] font-bold">
-                Nagad
-              </span>
-              <span className="px-2.5 py-1 rounded bg-[#8B1874] text-white text-[11px] font-bold">
-                Rocket
-              </span>
-              <span className="px-2.5 py-1 rounded bg-[#1A73E8] text-white text-[11px] font-bold">
-                Cards
-              </span>
-              <span className="px-2.5 py-1 rounded bg-white/20 text-white text-[11px] font-bold">
-                COD
-              </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="bg-white px-2.5 py-1.5 rounded-lg flex items-center shadow-xs">
+                <BkashLogo className="h-4.5 w-auto" />
+              </div>
+              <div className="bg-white px-2.5 py-1.5 rounded-lg flex items-center shadow-xs">
+                <NagadLogo className="h-4.5 w-auto" />
+              </div>
+              <div className="bg-white px-2.5 py-1.5 rounded-lg flex items-center shadow-xs">
+                <CardLogosGroup />
+              </div>
+              <div className="bg-white px-2.5 py-1.5 rounded-lg flex items-center shadow-xs">
+                <CodBadge />
+              </div>
             </div>
             <div className="mt-4 pt-3 border-t border-white/10">
               <Link

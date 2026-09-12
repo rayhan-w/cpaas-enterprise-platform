@@ -1,5 +1,6 @@
 import React from 'react';
-import { Truck, ShieldCheck, CreditCard, Banknote } from 'lucide-react';
+import { Truck, ShieldCheck } from 'lucide-react';
+import { BkashLogo, NagadLogo, CardLogosGroup, CodBadge } from '@/components/common/PaymentLogos';
 
 export default function DeliveryInfoSection() {
   const rates = [
@@ -66,44 +67,56 @@ export default function DeliveryInfoSection() {
             </div>
 
             <div className="grid grid-cols-2 gap-3 mt-4">
-              <div className="p-3.5 rounded-2xl border border-[#EDE5E1] bg-[#F8F7F5]">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#E2136E]" />
-                  <h4 className="text-xs font-bold text-[#1A1512]">bKash Send Money</h4>
+              <div className="p-3.5 rounded-2xl border border-[#E2136E]/20 bg-[#FFF0F5]/40 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <BkashLogo className="h-5 w-auto" />
+                    <span className="text-[10px] font-bold text-[#E2136E] bg-white px-2 py-0.5 rounded-full border border-[#E2136E]/20">Personal / Merchant</span>
+                  </div>
+                  <h4 className="text-xs font-bold text-[#1A1512]">bKash Payment</h4>
+                  <p className="text-[11px] text-[#6B5B58] leading-tight mt-1">
+                    Instant mobile payment with fast verification via TrxID.
+                  </p>
                 </div>
-                <p className="text-[11px] text-[#6B5B58] leading-tight">
-                  Instant mobile payment with fast verification via TrxID.
-                </p>
               </div>
 
-              <div className="p-3.5 rounded-2xl border border-[#EDE5E1] bg-[#F8F7F5]">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#F4821F]" />
-                  <h4 className="text-xs font-bold text-[#1A1512]">Nagad Send Money</h4>
+              <div className="p-3.5 rounded-2xl border border-[#F4821F]/20 bg-[#FFF8F0]/50 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <NagadLogo className="h-5 w-auto" />
+                    <span className="text-[10px] font-bold text-[#F4821F] bg-white px-2 py-0.5 rounded-full border border-[#F4821F]/20">Personal / Merchant</span>
+                  </div>
+                  <h4 className="text-xs font-bold text-[#1A1512]">Nagad Payment</h4>
+                  <p className="text-[11px] text-[#6B5B58] leading-tight mt-1">
+                    Pay directly to our merchant number using your Nagad app.
+                  </p>
                 </div>
-                <p className="text-[11px] text-[#6B5B58] leading-tight">
-                  Pay directly to our merchant number using your Nagad app.
-                </p>
               </div>
 
-              <div className="p-3.5 rounded-2xl border border-[#EDE5E1] bg-[#F8F7F5]">
-                <div className="flex items-center gap-2 mb-1">
-                  <Banknote className="w-4 h-4 text-[#7A9C78]" />
+              <div className="p-3.5 rounded-2xl border border-[#6CAE14]/20 bg-[#F1F8E8]/50 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <CodBadge />
+                    <span className="text-[10px] font-bold text-[#6CAE14] bg-white px-2 py-0.5 rounded-full border border-[#6CAE14]/20">Pay on Hand</span>
+                  </div>
                   <h4 className="text-xs font-bold text-[#1A1512]">Cash on Delivery</h4>
+                  <p className="text-[11px] text-[#6B5B58] leading-tight mt-1">
+                    Inspect the package and pay when the delivery agent arrives.
+                  </p>
                 </div>
-                <p className="text-[11px] text-[#6B5B58] leading-tight">
-                  Inspect the package and pay when the delivery agent arrives.
-                </p>
               </div>
 
-              <div className="p-3.5 rounded-2xl border border-[#EDE5E1] bg-[#F8F7F5]">
-                <div className="flex items-center gap-2 mb-1">
-                  <CreditCard className="w-4 h-4 text-[#1565C0]" />
-                  <h4 className="text-xs font-bold text-[#1A1512]">SSLCommerz Gateway</h4>
+              <div className="p-3.5 rounded-2xl border border-[#1A1F71]/15 bg-white flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <CardLogosGroup />
+                    <span className="text-[10px] font-bold text-[#1A1F71] bg-[#F1F8E8]/60 px-2 py-0.5 rounded-full border border-[#1A1F71]/15">SSLCommerz</span>
+                  </div>
+                  <h4 className="text-xs font-bold text-[#1A1512]">Debit / Credit Cards</h4>
+                  <p className="text-[11px] text-[#6B5B58] leading-tight mt-1">
+                    Visa, Mastercard & online banking via secure payment gateway.
+                  </p>
                 </div>
-                <p className="text-[11px] text-[#6B5B58] leading-tight">
-                  Secure automated online payment with cards & internet banking.
-                </p>
               </div>
             </div>
           </div>

@@ -7,6 +7,8 @@ import { ProductItem } from '@/lib/types';
 import { formatPrice } from '@/lib/formatters';
 import { useToast } from '@/context/toast-context';
 
+import { BkashLogo, NagadLogo, CodBadge } from '@/components/common/PaymentLogos';
+
 interface QuickOrderModalProps {
   product: ProductItem | null;
   isOpen: boolean;
@@ -22,7 +24,9 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
   const [customerPhone, setCustomerPhone] = useState('');
   const [address, setAddress] = useState('');
   const [deliveryZone, setDeliveryZone] = useState<'INSIDE_DHAKA' | 'OUTSIDE_DHAKA'>('INSIDE_DHAKA');
-  const [paymentMethod, setPaymentMethod] = useState<'COD' | 'BKASH_MANUAL'>('COD');
+  const [paymentMethod, setPaymentMethod] = useState<'COD' | 'BKASH' | 'NAGAD'>('COD');
+  const [transactionId, setTransactionId] = useState('');
+  const [senderNumber, setSenderNumber] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState<any | null>(null);
 
@@ -56,6 +60,8 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
         city: deliveryZone === 'INSIDE_DHAKA' ? 'Dhaka' : 'Outside Dhaka',
         deliveryZone,
         paymentMethod,
+        transactionId: transactionId.trim() || undefined,
+        senderNumber: senderNumber.trim() || undefined,
         items: [
           {
             productId: product.id,
@@ -65,7 +71,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
             image: product.image,
           },
         ],
-        notes: 'Ghorer Bazar Style 1-Click Fast Order',
+        notes: `Ghorer Bazar Style 1-Click Fast Order (${paymentMethod})`,
       };
 
       const res = await fetch('/api/orders', {
@@ -283,12 +289,103 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
               </div>
             </div>
 
-            {/* Payment Mode Note */}
-            <div className="flex items-center gap-2 p-2.5 bg-[#F1F8E8] border border-[#6CAE14]/20 rounded-xl text-xs text-[#0E140E]">
-              <Truck className="w-4 h-4 text-[#6CAE14] shrink-0" />
-              <span>
-                <strong>Cash on Delivery:</strong> Inspect the package and pay delivery personnel.
-              </span>
+            {/* Payment Method Selector */}
+            <div>
+              <label className="block text-xs font-bold text-[#0E140E] mb-1.5">
+                Select Payment Method:
+              </label>
+              <div className="grid grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('COD')}
+                  className={`p-2.5 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition-all text-center ${
+                    paymentMethod === 'COD'
+                      ? 'border-[#6CAE14] bg-[#F1F8E8] text-[#0E140E] ring-1 ring-[#6CAE14]'
+                      : 'border-[#DFECCE] bg-white text-[#526052] hover:bg-[#FAFCF7]'
+                  }`}
+                >
+                  <CodBadge />
+                  <span className="text-[10px] font-bold text-[#0E140E]">Cash on Delivery</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('BKASH')}
+                  className={`p-2.5 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition-all text-center ${
+                    paymentMethod === 'BKASH'
+                      ? 'border-[#E2136E] bg-[#FFF0F5] text-[#0E140E] ring-1 ring-[#E2136E]'
+                      : 'border-[#DFECCE] bg-white text-[#526052] hover:bg-[#FAFCF7]'
+                  }`}
+                >
+                  <BkashLogo className="h-4.5 w-auto" />
+                  <span className="text-[10px] font-bold text-[#E2136E]">bKash</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('NAGAD')}
+                  className={`p-2.5 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition-all text-center ${
+                    paymentMethod === 'NAGAD'
+                      ? 'border-[#F4821F] bg-[#FFF8F0] text-[#0E140E] ring-1 ring-[#F4821F]'
+                      : 'border-[#DFECCE] bg-white text-[#526052] hover:bg-[#FAFCF7]'
+                  }`}
+                >
+                  <NagadLogo className="h-4.5 w-auto" />
+                  <span className="text-[10px] font-bold text-[#F4821F]">Nagad</span>
+                </button>
+              </div>
+
+              {/* bKash Instructions in Modal */}
+              {paymentMethod === 'BKASH' && (
+                <div className="mt-2.5 p-3 bg-[#FFF0F5] border border-[#E2136E]/20 rounded-xl space-y-2 text-xs">
+                  <div className="flex items-center justify-between text-[11px] text-[#6B5B58]">
+                    <span>Send Money (Personal):</span>
+                    <span className="font-mono font-bold text-[#E2136E]">01700-000000</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="text"
+                      placeholder="bKash Number"
+                      value={senderNumber}
+                      onChange={(e) => setSenderNumber(e.target.value)}
+                      className="bg-white border border-[#E2136E]/30 rounded-lg px-2.5 py-1.5 text-xs text-[#0E140E] focus:outline-none focus:border-[#E2136E]"
+                    />
+                    <input
+                      type="text"
+                      placeholder="TrxID (Optional)"
+                      value={transactionId}
+                      onChange={(e) => setTransactionId(e.target.value)}
+                      className="bg-white border border-[#E2136E]/30 rounded-lg px-2.5 py-1.5 text-xs text-[#0E140E] focus:outline-none focus:border-[#E2136E]"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Nagad Instructions in Modal */}
+              {paymentMethod === 'NAGAD' && (
+                <div className="mt-2.5 p-3 bg-[#FFF8F0] border border-[#F4821F]/20 rounded-xl space-y-2 text-xs">
+                  <div className="flex items-center justify-between text-[11px] text-[#6B5B58]">
+                    <span>Send Money (Personal):</span>
+                    <span className="font-mono font-bold text-[#F4821F]">01800-000000</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="text"
+                      placeholder="Nagad Number"
+                      value={senderNumber}
+                      onChange={(e) => setSenderNumber(e.target.value)}
+                      className="bg-white border border-[#F4821F]/30 rounded-lg px-2.5 py-1.5 text-xs text-[#0E140E] focus:outline-none focus:border-[#F4821F]"
+                    />
+                    <input
+                      type="text"
+                      placeholder="TrxID (Optional)"
+                      value={transactionId}
+                      onChange={(e) => setTransactionId(e.target.value)}
+                      className="bg-white border border-[#F4821F]/30 rounded-lg px-2.5 py-1.5 text-xs text-[#0E140E] focus:outline-none focus:border-[#F4821F]"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Submit Button */}
