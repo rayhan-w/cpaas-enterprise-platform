@@ -22,6 +22,48 @@ export default function AdminProductsPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<ProductItem | null>(null);
+  const [editPrice, setEditPrice] = useState('');
+  const [editOriginalPrice, setEditOriginalPrice] = useState('');
+  const [editStock, setEditStock] = useState('');
+  const [editBadge, setEditBadge] = useState('');
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const openEditModal = (prod: ProductItem) => {
+    setEditingProduct(prod);
+    setEditPrice(String(prod.price));
+    setEditOriginalPrice(prod.originalPrice ? String(prod.originalPrice) : '');
+    setEditStock(String(prod.stock));
+    setEditBadge(prod.badge || '');
+  };
+
+  const handleUpdateProduct = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingProduct) return;
+    setIsUpdating(true);
+    try {
+      const res = await fetch('/api/products', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: editingProduct.id,
+          price: Number(editPrice) || 0,
+          originalPrice: editOriginalPrice ? Number(editOriginalPrice) : undefined,
+          stock: Number(editStock) || 0,
+          badge: editBadge || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to update');
+      success('Updated price & details for ' + editingProduct.name.slice(0, 20) + '...');
+      setEditingProduct(null);
+      fetchProducts();
+    } catch (err: any) {
+      error(err.message);
+    } finally {
+      setIsUpdating(false);
+    }
+  };
 
   // New Product Form
   const [name, setName] = useState('');
@@ -157,6 +199,7 @@ export default function AdminProductsPage() {
                   <th className="p-3">SKU</th>
                   <th className="p-3">Badge</th>
                   <th className="p-3 text-right">Rating</th>
+                    <th className="p-3 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#F2EDEA]">
@@ -220,6 +263,93 @@ export default function AdminProductsPage() {
         )}
       </div>
 
+      {/* Edit Product Modal */}
+{editingProduct && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-[#EDE5E1] shadow-2xl space-y-4">
+      <div className="flex items-center justify-between border-b border-[#EDE5E1] pb-3">
+        <div>
+          <h3 className="section-title text-lg text-[#1A1512]">Update Product Pricing</h3>
+          <p className="text-[11px] text-[#6B5B58] line-clamp-1">{editingProduct.name}</p>
+        </div>
+        <button
+          onClick={() => setEditingProduct(null)}
+          className="p-1.5 text-[#6B5B58] hover:text-[#1A1512]"
+        >
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+
+      <form onSubmit={handleUpdateProduct} className="space-y-3.5 text-xs">
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="block font-semibold text-[#1A1512] mb-1">Selling Price (৳) *</label>
+            <input
+              type="number"
+              required
+              min="0"
+              value={editPrice}
+              onChange={(e) => setEditPrice(e.target.value)}
+              placeholder="e.g. 850"
+              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl p-2.5 font-bold text-[#6CAE14] focus:outline-none focus:border-[#6CAE14]"
+            />
+          </div>
+          <div>
+            <label className="block font-semibold text-[#1A1512] mb-1">Regular (৳)</label>
+            <input
+              type="number"
+              min="0"
+              value={editOriginalPrice}
+              onChange={(e) => setEditOriginalPrice(e.target.value)}
+              placeholder="e.g. 1200"
+              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl p-2.5 text-[#6B5B58] focus:outline-none focus:border-[#6CAE14]"
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="block font-semibold text-[#1A1512] mb-1">Stock Quantity</label>
+            <input
+              type="number"
+              min="0"
+              value={editStock}
+              onChange={(e) => setEditStock(e.target.value)}
+              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl p-2.5 focus:outline-none focus:border-[#6CAE14]"
+            />
+          </div>
+          <div>
+            <label className="block font-semibold text-[#1A1512] mb-1">Highlight Badge</label>
+            <input
+              type="text"
+              value={editBadge}
+              onChange={(e) => setEditBadge(e.target.value)}
+              placeholder="e.g. Hot Deal / Popular"
+              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl p-2.5 focus:outline-none focus:border-[#6CAE14]"
+            />
+          </div>
+        </div>
+
+        <div className="pt-2 flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setEditingProduct(null)}
+            className="flex-1 py-2.5 px-3 rounded-xl border border-[#EDE5E1] text-[#6B5B58] hover:bg-[#F8F7F5] font-semibold"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            disabled={isUpdating}
+            className="flex-1 py-2.5 px-3 rounded-xl bg-[#6CAE14] hover:bg-[#5B960E] disabled:opacity-50 text-white font-bold transition-colors shadow-sm"
+          >
+            {isUpdating ? "Saving..." : "Save Changes"}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
       {/* Add Product Modal */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in">

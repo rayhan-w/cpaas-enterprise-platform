@@ -32,3 +32,33 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: err.message || 'Failed to create product' }, { status: 500 });
   }
 }
+
+export async function PUT(request: Request) {
+  try {
+    const body = await request.json();
+    if (!body.id) {
+      return NextResponse.json({ error: 'Product ID is required' }, { status: 400 });
+    }
+    const updated = await dbService.updateProduct(body.id, body);
+    if (!updated) {
+      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+    }
+    return NextResponse.json({ success: true, product: updated });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message || 'Failed to update product' }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+    if (!id) {
+      return NextResponse.json({ error: 'Product ID is required' }, { status: 400 });
+    }
+    const deleted = await dbService.deleteProduct(id);
+    return NextResponse.json({ success: deleted });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message || 'Failed to delete product' }, { status: 500 });
+  }
+}
