@@ -28,6 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_BD',
     siteName: 'Jawata Mart',
+    images: ['/jawata-mart-cover.jpg'],
   },
 };
 

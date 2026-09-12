@@ -2062,13 +2062,23 @@ export const INITIAL_PRODUCTS: ProductItem[] = [
 
 export const INITIAL_BANNERS: BannerItem[] = [
   {
+    id: 'ban-cover',
+    title: '',
+    subtitle: '',
+    image: '/jawata-mart-cover.jpg',
+    ctaText: 'অর্ডার করুন (Shop Now)',
+    ctaLink: '/category/all',
+    order: 1,
+    isActive: true,
+  },
+  {
     id: 'ban-1',
     title: 'Jawata Mart - Pure & Authentic Lifestyle Shopping',
     subtitle: '10,000+ Genuine Family & Kids Essentials with Fast Nationwide Delivery from Uttara, Dhaka.',
     image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=1600&h=600&fit=crop',
     ctaText: 'অর্ডার করুন (Shop Now)',
     ctaLink: '/category/all',
-    order: 1,
+    order: 2,
     isActive: true,
   },
   {
@@ -2078,7 +2088,7 @@ export const INITIAL_BANNERS: BannerItem[] = [
     image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=1600&h=600&fit=crop',
     ctaText: 'Explore Collection',
     ctaLink: '/category/bag',
-    order: 2,
+    order: 3,
     isActive: true,
   },
   {
@@ -2088,7 +2098,7 @@ export const INITIAL_BANNERS: BannerItem[] = [
     image: 'https://images.unsplash.com/photo-1629949009765-40fc74c95018?w=1600&h=600&fit=crop',
     ctaText: 'View Home Tex',
     ctaLink: '/category/home-tex',
-    order: 3,
+    order: 4,
     isActive: true,
   },
 ];
