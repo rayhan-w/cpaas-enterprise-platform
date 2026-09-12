@@ -8,6 +8,7 @@ import {
 } from './sample-data';
 import {
   CategoryItem,
+  SubCategoryItem,
   ProductItem,
   OrderRecord,
   StoreSettings,
@@ -295,6 +296,28 @@ export const dbService = {
   },
 
   async updateProduct(id: string, data: Partial<ProductItem>): Promise<ProductItem | null> {
+    try {
+      if (process.env.DATABASE_URL && prisma.product) {
+        await prisma.product.update({
+          where: { id },
+          data: {
+            name: data.name,
+            price: data.price !== undefined ? Number(data.price) : undefined,
+            originalPrice: data.originalPrice !== undefined ? Number(data.originalPrice) : undefined,
+            stock: data.stock !== undefined ? Number(data.stock) : undefined,
+            badge: data.badge,
+            image: data.image,
+            images: data.images ? JSON.stringify(data.images) : undefined,
+            description: data.description,
+            categoryId: data.categoryId,
+            subCategoryId: data.subCategoryId,
+          },
+        });
+      }
+    } catch {
+      // Fall through to memory
+    }
+
     const idx = memoryProducts.findIndex((p) => p.id === id);
     if (idx !== -1) {
       memoryProducts[idx] = { ...memoryProducts[idx], ...data };
@@ -304,6 +327,14 @@ export const dbService = {
   },
 
   async deleteProduct(id: string): Promise<boolean> {
+    try {
+      if (process.env.DATABASE_URL && prisma.product) {
+        await prisma.product.delete({ where: { id } });
+      }
+    } catch {
+      // Fall through to memory
+    }
+
     const initialLen = memoryProducts.length;
     memoryProducts = memoryProducts.filter((p) => p.id !== id);
     return memoryProducts.length < initialLen;
@@ -324,6 +355,149 @@ export const dbService = {
       // Fall through
     }
     return memoryCategories;
+  },
+
+  async addCategory(data: any): Promise<CategoryItem> {
+    const slug =
+      data.slug ||
+      data.name
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)+/g, '');
+    const id = data.id || `cat-${slug || Date.now()}`;
+    const newCat: CategoryItem = {
+      id,
+      name: data.name,
+      slug,
+      image: data.image || 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop',
+      description: data.description || '',
+      icon: data.icon || null,
+      isFeatured: !!data.isFeatured,
+      order: memoryCategories.length + 1,
+      isActive: true,
+      subCategories: [],
+    };
+
+    try {
+      if (process.env.DATABASE_URL && prisma.category) {
+        await prisma.category.create({
+          data: {
+            id: newCat.id,
+            name: newCat.name,
+            slug: newCat.slug,
+            image: newCat.image,
+            description: newCat.description,
+            isFeatured: newCat.isFeatured,
+            order: newCat.order,
+            isActive: newCat.isActive,
+          },
+        });
+      }
+    } catch {
+      // Fallback
+    }
+
+    memoryCategories.push(newCat);
+    return newCat;
+  },
+
+  async updateCategory(id: string, data: Partial<CategoryItem>): Promise<CategoryItem | null> {
+    try {
+      if (process.env.DATABASE_URL && prisma.category) {
+        await prisma.category.update({
+          where: { id },
+          data: {
+            name: data.name,
+            slug: data.slug,
+            image: data.image,
+            description: data.description,
+            isActive: data.isActive,
+          },
+        });
+      }
+    } catch {
+      // Fallback
+    }
+
+    const idx = memoryCategories.findIndex((c) => c.id === id);
+    if (idx !== -1) {
+      memoryCategories[idx] = { ...memoryCategories[idx], ...data };
+      return memoryCategories[idx];
+    }
+    return null;
+  },
+
+  async deleteCategory(id: string): Promise<boolean> {
+    try {
+      if (process.env.DATABASE_URL && prisma.category) {
+        await prisma.category.delete({ where: { id } });
+      }
+    } catch {
+      // Fallback
+    }
+
+    const initialLen = memoryCategories.length;
+    memoryCategories = memoryCategories.filter((c) => c.id !== id);
+    return memoryCategories.length < initialLen;
+  },
+
+  async addSubCategory(categoryId: string, data: { name: string; slug?: string }): Promise<SubCategoryItem | null> {
+    const slug =
+      data.slug ||
+      data.name
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)+/g, '');
+    const id = `sub-${slug || Date.now()}`;
+    const newSub: SubCategoryItem = {
+      id,
+      categoryId,
+      name: data.name,
+      slug,
+      order: 1,
+    };
+
+    try {
+      if (process.env.DATABASE_URL && prisma.subCategory) {
+        await prisma.subCategory.create({
+          data: {
+            id: newSub.id,
+            categoryId: newSub.categoryId,
+            name: newSub.name,
+            slug: newSub.slug,
+            order: newSub.order,
+          },
+        });
+      }
+    } catch {
+      // Fallback
+    }
+
+    const cat = memoryCategories.find((c) => c.id === categoryId);
+    if (cat) {
+      if (!cat.subCategories) cat.subCategories = [];
+      cat.subCategories.push(newSub);
+      return newSub;
+    }
+    return null;
+  },
+
+  async deleteSubCategory(categoryId: string, subCategoryId: string): Promise<boolean> {
+    try {
+      if (process.env.DATABASE_URL && prisma.subCategory) {
+        await prisma.subCategory.delete({ where: { id: subCategoryId } });
+      }
+    } catch {
+      // Fallback
+    }
+
+    const cat = memoryCategories.find((c) => c.id === categoryId);
+    if (cat && cat.subCategories) {
+      const initialLen = cat.subCategories.length;
+      cat.subCategories = cat.subCategories.filter((s) => s.id !== subCategoryId);
+      return cat.subCategories.length < initialLen;
+    }
+    return false;
   },
 
   // ORDERS
