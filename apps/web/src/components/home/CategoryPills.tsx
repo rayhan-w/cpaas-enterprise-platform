@@ -11,17 +11,17 @@ export default function CategoryPills() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-[#6CAE14] block">
-            আমাদের সেকশন সমূহ
+            Explore Marketplace
           </span>
           <h2 className="section-title text-2xl sm:text-3xl text-[#0E140E]">
-            জনপ্রিয় ক্যাটাগরি সমূহ
+            Popular Categories
           </h2>
         </div>
         <Link
           href="/category/all"
           className="text-xs font-bold text-[#0E140E] hover:text-[#6CAE14] flex items-center gap-1 transition-colors"
         >
-          <span>সব দেখুন</span>
+          <span>View All</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>
@@ -45,7 +45,7 @@ export default function CategoryPills() {
               {cat.name}
             </h3>
             <span className="text-[10px] text-[#526052] mt-0.5 font-medium">
-              {cat.productCount || cat.itemCount || 10}+ পণ্য
+              {cat.productCount || cat.itemCount || 10}+ Products
             </span>
           </Link>
         ))}
@@ -59,10 +59,10 @@ export default function CategoryPills() {
             <span className="text-3xl">☔</span>
           </div>
           <h3 className="text-xs font-bold text-[#6CAE14] group-hover:text-[#5B960E] transition-colors line-clamp-1">
-            রোদ-বৃষ্টির সুরক্ষা
+            Weather Gear
           </h3>
           <span className="text-[10px] text-[#6CAE14] mt-0.5 font-bold">
-            ছাতা ও রেইনকোট
+            Raincoats & Umbrellas
           </span>
         </Link>
       </div>

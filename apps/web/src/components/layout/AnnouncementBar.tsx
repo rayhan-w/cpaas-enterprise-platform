@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Phone, Truck, ShieldCheck, MapPin, Sparkles } from 'lucide-react';
+import { Phone, Truck, ShieldCheck, MapPin } from 'lucide-react';
 
 export default function AnnouncementBar() {
   return (
@@ -12,12 +12,12 @@ export default function AnnouncementBar() {
         <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
           <div className="flex items-center gap-1.5 text-white/95 font-medium">
             <Truck className="w-3.5 h-3.5 text-[#9ED114]" />
-            <span>সারাদেশে ২,০০০ টাকার অর্ডারে <strong>ফ্রি হোম ডেলিভারি!</strong> 🎉</span>
+            <span>Free delivery across Bangladesh on orders over <strong>৳2,000!</strong> 🎉</span>
           </div>
           <span className="hidden md:inline text-white/30">|</span>
           <div className="hidden md:flex items-center gap-1.5 text-white/80">
             <ShieldCheck className="w-3.5 h-3.5 text-[#6CAE14]" />
-            <span>১০০% খাঁটি ও গুণগত মান সম্পন্ন পণ্য</span>
+            <span>100% Genuine & Authentic Products</span>
           </div>
         </div>
 
@@ -28,7 +28,7 @@ export default function AnnouncementBar() {
             className="hover:text-[#9ED114] transition-colors flex items-center gap-1 font-medium"
           >
             <MapPin className="w-3.5 h-3.5 text-[#9ED114]" />
-            <span>অর্ডার ট্র্যাক করুন</span>
+            <span>Track Order</span>
           </Link>
           <span className="text-white/30">|</span>
           <a
@@ -36,7 +36,7 @@ export default function AnnouncementBar() {
             className="hover:text-[#9ED114] transition-colors flex items-center gap-1 font-bold text-white"
           >
             <Phone className="w-3.5 h-3.5 text-[#9ED114]" />
-            <span>হটলাইন: 01915210799</span>
+            <span>Hotline: 01915210799</span>
           </a>
         </div>
       </div>

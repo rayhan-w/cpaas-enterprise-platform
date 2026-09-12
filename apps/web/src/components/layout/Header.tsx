@@ -34,7 +34,6 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [expandedMobileCat, setExpandedMobileCat] = useState<string | null>(null);
   const searchRef = useRef<HTMLDivElement>(null);
-  const mobileSearchRef = useRef<HTMLDivElement>(null);
 
   // Debounced search
   useEffect(() => {
@@ -93,7 +92,7 @@ export default function Header() {
           <Menu className="w-6 h-6" />
         </button>
 
-        {/* Brand Logo (Ghorer Bazar Style Brand presentation) */}
+        {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
           <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-black ring-2 ring-[#9ED114]/80 shadow-md group-hover:scale-105 transition-transform flex items-center justify-center shrink-0">
             <img
@@ -108,12 +107,12 @@ export default function Header() {
               <span className="w-2 h-2 rounded-full bg-[#9ED114] ml-1 inline-block"></span>
             </div>
             <span className="text-[10px] sm:text-[11px] text-[#6CAE14] font-bold block">
-              খাঁটি ও প্রাকৃতিক পণ্যের সমাহার
+              Pure & Authentic Products
             </span>
           </div>
         </Link>
 
-        {/* Desktop Search Bar (Ghorer Bazar Signature Wide Search) */}
+        {/* Desktop Search Bar */}
         <div ref={searchRef} className="hidden lg:flex flex-1 max-w-xl relative">
           <form onSubmit={handleSearchSubmit} className="w-full relative flex items-center">
             <input
@@ -121,7 +120,7 @@ export default function Header() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => searchQuery.trim() && setShowSearchDropdown(true)}
-              placeholder="পণ্য খুঁজুন... যেমন মধু, তেল, ঘি, ছাতা ইত্যাদি"
+              placeholder="Search for products (e.g., honey, ghee, oil, bags, umbrellas)..."
               className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl py-2.5 pl-10 pr-24 text-xs sm:text-sm text-[#0E140E] placeholder-[#879787] focus:outline-none focus:border-[#6CAE14] focus:ring-2 focus:ring-[#6CAE14]/10 transition-all shadow-inner"
             />
             <Search className="w-4 h-4 text-[#879787] absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -129,7 +128,7 @@ export default function Header() {
               type="submit"
               className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-[#6CAE14] hover:bg-[#5B960E] text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-colors flex items-center gap-1 shadow-xs"
             >
-              <span>খুঁজুন</span>
+              <span>Search</span>
             </button>
           </form>
 
@@ -138,12 +137,12 @@ export default function Header() {
             <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl border border-[#DFECCE] shadow-2xl overflow-hidden z-50 animate-slide-in-up">
               {isSearching ? (
                 <div className="p-5 text-center text-xs text-[#879787]">
-                  পণ্য খোঁজা হচ্ছে...
+                  Searching products...
                 </div>
               ) : searchResults.length > 0 ? (
                 <div className="divide-y divide-[#F2EDEA]">
                   <div className="p-3 text-xs font-bold text-[#526052] bg-[#FAFCF7]">
-                    মিল পাওয়া পণ্যসমূহ ({searchResults.length})
+                    Matching Products ({searchResults.length})
                   </div>
                   {searchResults.map((prod) => (
                     <Link
@@ -182,19 +181,19 @@ export default function Header() {
                     onClick={() => setShowSearchDropdown(false)}
                     className="block p-3 text-center text-xs font-bold text-[#6CAE14] hover:bg-[#F1F8E8] transition-colors"
                   >
-                    &ldquo;{searchQuery}&rdquo; এর সব ফলাফল দেখুন →
+                    View all results for &ldquo;{searchQuery}&rdquo; →
                   </Link>
                 </div>
               ) : (
                 <div className="p-5 text-center text-xs text-[#879787]">
-                  কোনো পণ্য পাওয়া যায়নি
+                  No products found for &ldquo;{searchQuery}&rdquo;
                 </div>
               )}
             </div>
           )}
         </div>
 
-        {/* Right Actions: Hotline, Account, Cart (Ghorer Bazar Header layout) */}
+        {/* Right Actions: Hotline, Account, Cart */}
         <div className="flex items-center gap-2 sm:gap-3">
           {/* Hotline Call Button */}
           <a
@@ -205,7 +204,7 @@ export default function Header() {
               <Phone className="w-4 h-4" />
             </div>
             <div className="text-left leading-tight">
-              <span className="text-[10px] text-[#526052] block font-medium">হটলাইন নম্বর</span>
+              <span className="text-[10px] text-[#526052] block font-medium">Customer Hotline</span>
               <span className="text-xs font-bold text-[#0E140E]">01915210799</span>
             </div>
           </a>
@@ -219,7 +218,7 @@ export default function Header() {
             <User className="w-5 h-5" />
           </Link>
 
-          {/* Cart Trigger Button with Live Subtotal (Ghorer Bazar Signature) */}
+          {/* Cart Trigger Button with Live Subtotal */}
           <button
             onClick={openCart}
             className="flex items-center gap-2.5 bg-[#0E140E] hover:bg-[#1B241B] text-white px-3.5 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all shadow-md group active:scale-95"
@@ -234,21 +233,21 @@ export default function Header() {
               )}
             </div>
             <div className="hidden sm:flex flex-col text-left leading-tight">
-              <span className="text-[10px] text-white/70">কার্ট ({totalItems})</span>
+              <span className="text-[10px] text-white/70">Cart ({totalItems})</span>
               <span className="text-xs font-bold text-[#9ED114]">{formatPrice(subtotal)}</span>
             </div>
           </button>
         </div>
       </div>
 
-      {/* Mobile Search Bar (Directly visible on mobile like Ghorer Bazar) */}
+      {/* Mobile Search Bar */}
       <div className="lg:hidden px-4 pb-3">
         <form onSubmit={handleSearchSubmit} className="relative w-full">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="পণ্য সার্চ করুন..."
+            placeholder="Search products..."
             className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl py-2 pl-9 pr-20 text-xs text-[#0E140E] placeholder-[#879787] focus:outline-none focus:border-[#6CAE14]"
           />
           <Search className="w-4 h-4 text-[#879787] absolute left-3 top-1/2 -translate-y-1/2" />
@@ -256,12 +255,12 @@ export default function Header() {
             type="submit"
             className="absolute right-1 top-1/2 -translate-y-1/2 bg-[#6CAE14] text-white text-[11px] font-bold px-3 py-1 rounded-lg"
           >
-            সার্চ
+            Search
           </button>
         </form>
       </div>
 
-      {/* Category Navbar (All Categories Dropdown & Menu) */}
+      {/* Category Navbar */}
       <CategoryNavbar />
 
       {/* Mobile Drawer Menu */}
@@ -287,7 +286,7 @@ export default function Header() {
                 </div>
                 <div>
                   <span className="font-serif text-lg font-bold text-[#0E140E]">Jawata Mart</span>
-                  <p className="text-[10px] text-[#6CAE14] font-semibold">খাঁটি পণ্যের নির্ভরযোগ্য প্রতিষ্ঠান</p>
+                  <p className="text-[10px] text-[#6CAE14] font-semibold">Pure & Authentic Products</p>
                 </div>
               </div>
               <button
@@ -305,25 +304,25 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="block p-3 rounded-xl font-bold text-xs text-[#0E140E] hover:bg-[#F1F8E8] hover:text-[#6CAE14]"
               >
-                হোম
+                Home
               </Link>
               <Link
                 href="/category/all"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block p-3 rounded-xl font-bold text-xs text-[#0E140E] hover:bg-[#F1F8E8] hover:text-[#6CAE14]"
               >
-                সকল পণ্য
+                All Products
               </Link>
               <Link
                 href="/category/all?offer=1"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block p-3 rounded-xl font-bold text-xs text-[#F59E0B] hover:bg-[#F1F8E8]"
               >
-                হট ডিলস 🔥
+                Hot Deals 🔥
               </Link>
 
               <div className="pt-2 pb-1 text-[11px] font-bold text-[#879787] uppercase tracking-wider px-3">
-                ক্যাটাগরি সমূহ
+                Product Categories
               </div>
 
               {INITIAL_CATEGORIES.map((cat) => (
@@ -344,8 +343,8 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-between p-3 rounded-xl text-xs font-bold text-[#6CAE14] bg-[#F1F8E8]"
               >
-                <span>রোদ-বৃষ্টির সুরক্ষা ☔</span>
-                <span className="text-[10px] text-[#6CAE14]">নতুন</span>
+                <span>Weather Gear ☔</span>
+                <span className="text-[10px] text-[#6CAE14]">New</span>
               </Link>
 
               <div className="pt-4 border-t border-[#DFECCE] space-y-2">
@@ -355,7 +354,7 @@ export default function Header() {
                   className="flex items-center gap-2 p-3 rounded-xl text-xs font-bold text-[#0E140E] hover:bg-[#F1F8E8]"
                 >
                   <Truck className="w-4 h-4 text-[#6CAE14]" />
-                  <span>অর্ডার ট্র্যাক করুন</span>
+                  <span>Track Order</span>
                 </Link>
                 <Link
                   href="/admin/login"
@@ -363,7 +362,7 @@ export default function Header() {
                   className="flex items-center gap-2 p-3 rounded-xl text-xs font-bold text-[#526052] hover:bg-[#F1F8E8]"
                 >
                   <User className="w-4 h-4 text-[#6CAE14]" />
-                  <span>অ্যাডমিন লগইন</span>
+                  <span>Admin Login</span>
                 </Link>
               </div>
             </div>
@@ -375,7 +374,7 @@ export default function Header() {
                 className="flex items-center justify-center gap-2 w-full bg-[#6CAE14] text-white py-3 rounded-xl font-bold text-xs"
               >
                 <Phone className="w-4 h-4" />
-                <span>কল করুন: 01915210799</span>
+                <span>Call Hotline: 01915210799</span>
               </a>
             </div>
           </div>

@@ -7,23 +7,23 @@ export default function TrustBadgesStrip() {
   const badges = [
     {
       icon: ShieldCheck,
-      title: '১০০% খাঁটি ও নিরাপদ',
-      desc: 'সেরা কোয়ালিটির প্রাকৃতিক ও প্রিমিয়াম পণ্য',
+      title: '100% Pure & Authentic',
+      desc: 'Premium quality organic & verified products',
     },
     {
       icon: Truck,
-      title: 'দ্রুততম হোম ডেলিভারি',
-      desc: 'ঢাকা ও সারাদেশে দ্রুততম সময়ে ডেলিভারি',
+      title: 'Fast Home Delivery',
+      desc: 'Dhaka and nationwide express delivery',
     },
     {
       icon: Banknote,
-      title: 'ক্যাশ অন ডেলিভারি',
-      desc: 'পণ্য হাতে পেয়ে দেখে মূল্য পরিশোধের সুবিধা',
+      title: 'Cash on Delivery',
+      desc: 'Inspect parcel and pay upon arrival',
     },
     {
       icon: RefreshCw,
-      title: 'সহজ রিটার্ন পলিসি',
-      desc: 'পছন্দ না হলে বা সমস্যায় সহজ রিটার্ন সুবিধা',
+      title: 'Easy Return Policy',
+      desc: 'Hassle-free 7-day replacement warranty',
     },
   ];
 

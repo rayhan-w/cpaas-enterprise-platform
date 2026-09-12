@@ -23,7 +23,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
     e.stopPropagation();
     addItem(product, 1);
     setAddedAnim(true);
-    success(`"${product.name.slice(0, 24)}..." কার্টে যোগ হয়েছে!`);
+    success(`"${product.name.slice(0, 24)}..." added to bag!`);
     setTimeout(() => setAddedAnim(false), 1200);
   };
 
@@ -47,7 +47,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
           <div className="flex flex-col gap-1 items-start">
             {product.discount > 0 ? (
               <span className="bg-[#6CAE14] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm pointer-events-auto">
-                {product.discount}% ছাড়
+                -{product.discount}% OFF
               </span>
             ) : product.badge ? (
               <span className="bg-[#0E140E] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm pointer-events-auto">
@@ -82,7 +82,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
           />
           {product.stock <= 10 && product.stock > 0 && (
             <span className="absolute bottom-3 left-3 bg-[#F59E0B] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
-              স্টক সীমিত ({product.stock} টি)
+              Only {product.stock} left!
             </span>
           )}
         </Link>
@@ -123,7 +123,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
               )}
             </div>
 
-            {/* Actions: Add to Cart & Buy Now (Ghorer Bazar Signature) */}
+            {/* Actions: Add to Cart & Buy Now (English) */}
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
@@ -137,12 +137,12 @@ export default function ProductCard({ product }: { product: ProductItem }) {
                 {addedAnim ? (
                   <>
                     <Check className="w-3.5 h-3.5" />
-                    <span>যুক্ত হয়েছে!</span>
+                    <span>Added!</span>
                   </>
                 ) : (
                   <>
                     <ShoppingBag className="w-3.5 h-3.5 text-[#6CAE14]" />
-                    <span>কার্ট</span>
+                    <span>Cart</span>
                   </>
                 )}
               </button>
@@ -153,7 +153,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
                 className="flex items-center justify-center gap-1 py-2.5 px-2 rounded-xl text-xs font-bold bg-[#6CAE14] hover:bg-[#5B960E] text-white transition-all shadow-sm hover:shadow active:scale-95"
               >
                 <Zap className="w-3.5 h-3.5 fill-current text-[#F59E0B]" />
-                <span>অর্ডার করুন</span>
+                <span>Order Now</span>
               </button>
             </div>
           </div>

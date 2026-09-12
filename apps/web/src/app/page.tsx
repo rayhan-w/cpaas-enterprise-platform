@@ -9,7 +9,6 @@ import FlashSaleSection from '@/components/home/FlashSaleSection';
 import CuratedCategoryShowcase from '@/components/home/CuratedCategoryShowcase';
 import DeliveryInfoSection from '@/components/home/DeliveryInfoSection';
 import ReviewsSection from '@/components/home/ReviewsSection';
-import WeatherSection from '@/components/home/WeatherSection';
 import ProductGrid from '@/components/product/ProductGrid';
 
 export const revalidate = 60; // ISR revalidation
@@ -39,26 +38,23 @@ export default async function HomePage() {
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-[#6CAE14] flex items-center gap-1">
               <Flame className="w-3.5 h-3.5 fill-current" />
-              গ্রাহকদের সবচেয়ে পছন্দের
+              Customer Favorites
             </span>
             <h2 className="section-title text-2xl sm:text-3xl text-[#0E140E]">
-              বেস্ট সেলিং পণ্যসমূহ
+              Best Selling Products
             </h2>
           </div>
           <Link
             href="/category/all"
             className="text-xs font-bold text-[#0E140E] hover:text-[#6CAE14] flex items-center gap-1 transition-colors"
           >
-            <span>সব পণ্য দেখুন ({products.length})</span>
+            <span>View All ({products.length})</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
         <ProductGrid products={bestSellers} />
       </section>
-
-      {/* 5. Weather & Umbrella Department Showcase */}
-      <WeatherSection products={products} />
 
       {/* 6. Bag Department Showcase */}
       <CuratedCategoryShowcase

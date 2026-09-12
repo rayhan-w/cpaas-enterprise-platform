@@ -64,7 +64,7 @@ export default function CategoryNavbar() {
       className="w-full bg-[#0E140E] border-t border-b border-white/10 select-none relative z-30 shadow-md"
     >
       <div className="max-w-7xl mx-auto px-2 sm:px-4 flex items-center justify-between">
-        {/* Left: Ghorer Bazar Signature "সকল ক্যাটাগরি" Dropdown Button */}
+        {/* Left: Ghorer Bazar Signature "All Categories" Dropdown Button */}
         <div className="relative shrink-0" ref={allCategoriesRef}>
           <button
             type="button"
@@ -72,8 +72,8 @@ export default function CategoryNavbar() {
             className="flex items-center gap-2 bg-[#6CAE14] hover:bg-[#5B960E] text-white px-3.5 py-2.5 sm:py-3 text-xs font-bold transition-colors rounded-none tracking-wide"
           >
             <Menu className="w-4 h-4" />
-            <span className="hidden sm:inline">সকল ক্যাটাগরি</span>
-            <span className="sm:hidden">ক্যাটাগরি</span>
+            <span className="hidden sm:inline">All Categories</span>
+            <span className="sm:hidden">Categories</span>
             <ChevronDown
               className={`w-3.5 h-3.5 transition-transform duration-200 ${
                 allCategoriesOpen ? 'rotate-180' : ''
@@ -88,7 +88,7 @@ export default function CategoryNavbar() {
               className="absolute left-0 top-full mt-0 w-64 bg-white border border-[#DFECCE] shadow-2xl rounded-b-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-150"
             >
               <div className="px-3 py-1.5 text-[11px] font-bold text-[#526052] uppercase tracking-wider border-b border-[#DFECCE]/60">
-                ক্যাটাগরি সমূহ
+                Product Categories
               </div>
               <div className="divide-y divide-[#F2EDEA] max-h-[380px] overflow-y-auto">
                 {INITIAL_CATEGORIES.map((cat) => (
@@ -109,7 +109,7 @@ export default function CategoryNavbar() {
                 >
                   <span className="flex items-center gap-1.5">
                     <Umbrella className="w-3.5 h-3.5" />
-                    রোদ-বৃষ্টির সুরক্ষা
+                    Weather Protection
                   </span>
                   <ChevronRight className="w-3.5 h-3.5 text-[#6CAE14]" />
                 </Link>
@@ -124,14 +124,14 @@ export default function CategoryNavbar() {
             href="/"
             className="px-3 py-2.5 sm:py-3 text-xs font-semibold text-white/90 hover:text-[#9ED114] hover:bg-white/5 transition-all shrink-0 rounded-md"
           >
-            হোম
+            Home
           </Link>
 
           <Link
             href="/category/all"
             className="px-3 py-2.5 sm:py-3 text-xs font-semibold text-white/90 hover:text-[#9ED114] hover:bg-white/5 transition-all shrink-0 rounded-md"
           >
-            সকল পণ্য
+            All Products
           </Link>
 
           {/* Hot Deals / Offer Zone */}
@@ -140,7 +140,7 @@ export default function CategoryNavbar() {
             className="flex items-center gap-1 px-3 py-2.5 sm:py-3 text-xs font-bold text-[#F59E0B] hover:text-[#FBBF24] hover:bg-white/5 transition-all shrink-0 rounded-md group"
           >
             <Flame className="w-3.5 h-3.5 fill-current text-[#F59E0B] group-hover:scale-110 transition-transform animate-pulse" />
-            <span className="tracking-wide">হট ডিলস 🔥</span>
+            <span className="tracking-wide">Hot Deals 🔥</span>
           </Link>
 
           {/* Customer Defined Categories with Dropdown */}
@@ -208,7 +208,7 @@ export default function CategoryNavbar() {
             className="flex items-center gap-1 px-3 py-2.5 sm:py-3 text-xs font-semibold text-[#9ED114] hover:bg-white/5 transition-all shrink-0 rounded-md"
           >
             <Umbrella className="w-3.5 h-3.5" />
-            <span>বৃষ্টির কালেকশন</span>
+            <span>Weather Protection</span>
           </Link>
         </div>
       </div>
@@ -233,7 +233,7 @@ export default function CategoryNavbar() {
           >
             <span className="flex items-center gap-2">
               <Layers className="w-4 h-4 text-[#6CAE14]" />
-              সকল {activeCategory.name}
+              All {activeCategory.name}
             </span>
             <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#6CAE14]" />
           </Link>

@@ -24,7 +24,7 @@ export default function MobileBottomBar() {
         }`}
       >
         <Home className="w-5 h-5" />
-        <span>হোম</span>
+        <span>Home</span>
       </Link>
 
       <Link
@@ -34,7 +34,7 @@ export default function MobileBottomBar() {
         }`}
       >
         <Grid className="w-5 h-5" />
-        <span>ক্যাটাগরি</span>
+        <span>Categories</span>
       </Link>
 
       <button
@@ -50,7 +50,7 @@ export default function MobileBottomBar() {
             </span>
           )}
         </div>
-        <span>কার্ট</span>
+        <span>Cart</span>
       </button>
 
       <Link
@@ -60,7 +60,7 @@ export default function MobileBottomBar() {
         }`}
       >
         <Truck className="w-5 h-5" />
-        <span>ট্র্যাক</span>
+        <span>Track</span>
       </Link>
 
       <a
@@ -68,7 +68,7 @@ export default function MobileBottomBar() {
         className="flex flex-col items-center gap-1 text-[11px] font-bold text-[#526052]"
       >
         <Phone className="w-5 h-5 text-[#6CAE14]" />
-        <span>কল করুন</span>
+        <span>Call Us</span>
       </a>
     </div>
   );

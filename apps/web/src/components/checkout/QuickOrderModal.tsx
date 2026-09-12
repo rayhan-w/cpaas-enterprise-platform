@@ -37,12 +37,12 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
     e.preventDefault();
 
     if (!customerName.trim() || !customerPhone.trim() || !address.trim()) {
-      toast('অনুগ্রহ করে নাম, মোবাইল নম্বর এবং সম্পূর্ণ ঠিকানা লিখুন', 'error');
+      toast('Please enter your name, phone number, and delivery address', 'error');
       return;
     }
 
     if (!/^01[3-9]\d{8}$/.test(customerPhone.trim().replace('+88', ''))) {
-      toast('সঠিক ১১ ডিজিটের মোবাইল নম্বর প্রদান করুন (যেমন: 017XXXXXXXX)', 'error');
+      toast('Please enter a valid 11-digit mobile number (e.g. 017XXXXXXXX)', 'error');
       return;
     }
 
@@ -53,7 +53,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
         customerName: customerName.trim(),
         customerPhone: customerPhone.trim(),
         address: address.trim(),
-        city: deliveryZone === 'INSIDE_DHAKA' ? 'ঢাকা' : 'ঢাকার বাইরে',
+        city: deliveryZone === 'INSIDE_DHAKA' ? 'Dhaka' : 'Outside Dhaka',
         deliveryZone,
         paymentMethod,
         items: [
@@ -65,7 +65,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
             image: product.image,
           },
         ],
-        notes: 'Ghorer Bazar 1-Click Fast Order',
+        notes: 'Ghorer Bazar Style 1-Click Fast Order',
       };
 
       const res = await fetch('/api/orders', {
@@ -77,13 +77,13 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || 'অর্ডার প্রক্রিয়া করা যায়নি');
+        throw new Error(data.error || 'Failed to place order');
       }
 
       setOrderSuccess(data.order);
-      toast('আপনার অর্ডারটি সফলভাবে সম্পন্ন হয়েছে!', 'success');
+      toast('Your order has been placed successfully!', 'success');
     } catch (err: any) {
-      toast(err.message || 'অর্ডার করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।', 'error');
+      toast(err.message || 'Something went wrong. Please try again.', 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -97,7 +97,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#6CAE14] animate-ping" />
             <h3 className="font-bold text-base sm:text-lg text-[#0E140E]">
-              সহজ দ্রুত অর্ডার (১-ক্লিক চেকআউট)
+              Quick Order (1-Click Checkout)
             </h3>
           </div>
           <button
@@ -115,19 +115,19 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
               <CheckCircle2 className="w-10 h-10" />
             </div>
             <div>
-              <h4 className="text-xl font-bold text-[#0E140E]">ধন্যবাদ! আপনার অর্ডারটি নিশ্চিত হয়েছে</h4>
+              <h4 className="text-xl font-bold text-[#0E140E]">Thank You! Your Order is Confirmed</h4>
               <p className="text-xs text-[#526052] mt-1">
-                অর্ডার নম্বর: <span className="font-mono font-bold text-[#6CAE14]">{orderSuccess.orderNumber}</span>
+                Order Number: <span className="font-mono font-bold text-[#6CAE14]">{orderSuccess.orderNumber}</span>
               </p>
             </div>
             <div className="bg-[#FAFCF7] border border-[#DFECCE] p-4 rounded-2xl text-left text-xs space-y-1.5 text-[#526052]">
-              <p><strong className="text-[#0E140E]">গ্রাহকের নাম:</strong> {orderSuccess.customerName}</p>
-              <p><strong className="text-[#0E140E]">মোবাইল:</strong> {orderSuccess.customerPhone}</p>
-              <p><strong className="text-[#0E140E]">ঠিকানা:</strong> {orderSuccess.address}</p>
-              <p><strong className="text-[#0E140E]">মোট বিল:</strong> {formatPrice(orderSuccess.total)} (ক্যাশ অন ডেলিভারি)</p>
+              <p><strong className="text-[#0E140E]">Customer Name:</strong> {orderSuccess.customerName}</p>
+              <p><strong className="text-[#0E140E]">Phone:</strong> {orderSuccess.customerPhone}</p>
+              <p><strong className="text-[#0E140E]">Address:</strong> {orderSuccess.address}</p>
+              <p><strong className="text-[#0E140E]">Total Bill:</strong> {formatPrice(orderSuccess.total)} (Cash on Delivery)</p>
             </div>
             <p className="text-xs text-[#6CAE14] font-medium bg-[#F1F8E8] p-3 rounded-xl">
-              আমাদের কাস্টমার কেয়ার থেকে ফোন দিয়ে অর্ডারটি দ্রুত কনফার্ম করে ডেলিভারি পাঠানো হবে।
+              Our customer service team will call you shortly to verify and dispatch your order.
             </p>
             <div className="flex gap-2 pt-2">
               <button
@@ -137,7 +137,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
                 }}
                 className="w-full bg-[#6CAE14] hover:bg-[#5B960E] text-white font-bold py-3 rounded-xl text-xs transition-colors"
               >
-                বিস্তারিত দেখুন
+                View Details
               </button>
               <button
                 onClick={() => {
@@ -146,7 +146,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
                 }}
                 className="w-full bg-white border border-[#DFECCE] hover:bg-[#F1F8E8] text-[#0E140E] font-bold py-3 rounded-xl text-xs transition-colors"
               >
-                আরো পণ্য দেখুন
+                Continue Shopping
               </button>
             </div>
           </div>
@@ -164,7 +164,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
                 <h4 className="text-xs sm:text-sm font-bold text-[#0E140E] line-clamp-1">{product.name}</h4>
                 <p className="text-xs font-bold text-[#6CAE14] mt-0.5">{formatPrice(product.price)}</p>
                 <div className="flex items-center gap-2 mt-1.5">
-                  <span className="text-[11px] text-[#526052]">পরিমাণ:</span>
+                  <span className="text-[11px] text-[#526052]">Quantity:</span>
                   <div className="flex items-center border border-[#DFECCE] bg-white rounded-lg">
                     <button
                       type="button"
@@ -190,12 +190,12 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
             <div className="space-y-3">
               <div>
                 <label className="block text-xs font-bold text-[#0E140E] mb-1">
-                  আপনার নাম <span className="text-red-500">*</span>
+                  Full Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="আপনার পুরো নাম লিখুন"
+                  placeholder="Enter your full name"
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
                   className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl px-3.5 py-2.5 text-xs text-[#0E140E] focus:outline-none focus:border-[#6CAE14]"
@@ -204,12 +204,12 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
 
               <div>
                 <label className="block text-xs font-bold text-[#0E140E] mb-1">
-                  মোবাইল নম্বর <span className="text-red-500">*</span>
+                  Mobile Phone Number <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="tel"
                   required
-                  placeholder="১১ ডিজিটের মোবাইল নম্বর (যেমন: 017XXXXXXXX)"
+                  placeholder="11-digit phone number (e.g. 017XXXXXXXX)"
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value)}
                   className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl px-3.5 py-2.5 text-xs text-[#0E140E] focus:outline-none focus:border-[#6CAE14]"
@@ -218,12 +218,12 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
 
               <div>
                 <label className="block text-xs font-bold text-[#0E140E] mb-1">
-                  সম্পূর্ণ ডেলিভারি ঠিকানা <span className="text-red-500">*</span>
+                  Complete Delivery Address <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   required
                   rows={2}
-                  placeholder="বাসা নং, রোড নং, এলাকা, থানা ও জেলা লিখুন"
+                  placeholder="House, Road, Area, Thana & District"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl px-3.5 py-2 text-xs text-[#0E140E] focus:outline-none focus:border-[#6CAE14] resize-none"
@@ -234,7 +234,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
             {/* Delivery Area Selection */}
             <div>
               <label className="block text-xs font-bold text-[#0E140E] mb-1.5">
-                ডেলিভারি এলাকা নির্বাচন করুন:
+                Select Delivery Zone:
               </label>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <button
@@ -246,8 +246,8 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
                       : 'border-[#DFECCE] bg-white text-[#526052]'
                   }`}
                 >
-                  <span className="font-bold">ঢাকার ভিতরে</span>
-                  <span className="text-[11px] text-[#6CAE14] font-semibold">ডেলিভারি চার্জ ৳৬০</span>
+                  <span className="font-bold">Inside Dhaka</span>
+                  <span className="text-[11px] text-[#6CAE14] font-semibold">Delivery Charge ৳60</span>
                 </button>
 
                 <button
@@ -259,8 +259,8 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
                       : 'border-[#DFECCE] bg-white text-[#526052]'
                   }`}
                 >
-                  <span className="font-bold">ঢাকার বাইরে</span>
-                  <span className="text-[11px] text-[#6CAE14] font-semibold">ডেলিভারি চার্জ ৳১২০</span>
+                  <span className="font-bold">Outside Dhaka</span>
+                  <span className="text-[11px] text-[#6CAE14] font-semibold">Delivery Charge ৳120</span>
                 </button>
               </div>
             </div>
@@ -268,17 +268,17 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
             {/* Bill Summary */}
             <div className="bg-[#FAFCF7] p-3 rounded-xl border border-[#DFECCE] space-y-1.5 text-xs">
               <div className="flex justify-between text-[#526052]">
-                <span>পণ্য সাবটোটাল:</span>
+                <span>Product Subtotal:</span>
                 <span className="font-semibold text-[#0E140E]">{formatPrice(subtotal)}</span>
               </div>
               <div className="flex justify-between text-[#526052]">
-                <span>ডেলিভারি চার্জ:</span>
+                <span>Delivery Charge:</span>
                 <span className="font-semibold text-[#0E140E]">
-                  {deliveryCharge === 0 ? 'ফ্রি (৳০)' : formatPrice(deliveryCharge)}
+                  {deliveryCharge === 0 ? 'Free (৳0)' : formatPrice(deliveryCharge)}
                 </span>
               </div>
               <div className="border-t border-[#DFECCE] pt-1.5 flex justify-between font-bold text-sm text-[#0E140E]">
-                <span>সর্বমোট প্রদেয়:</span>
+                <span>Total Payable:</span>
                 <span className="text-[#6CAE14] text-base">{formatPrice(total)}</span>
               </div>
             </div>
@@ -287,7 +287,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
             <div className="flex items-center gap-2 p-2.5 bg-[#F1F8E8] border border-[#6CAE14]/20 rounded-xl text-xs text-[#0E140E]">
               <Truck className="w-4 h-4 text-[#6CAE14] shrink-0" />
               <span>
-                <strong>ক্যাশ অন ডেলিভারি:</strong> পণ্য হাতে পেয়ে দেখে মূল্য পরিশোধ করবেন।
+                <strong>Cash on Delivery:</strong> Inspect the package and pay delivery personnel.
               </span>
             </div>
 
@@ -298,11 +298,11 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
               className="w-full bg-[#6CAE14] hover:bg-[#5B960E] disabled:opacity-50 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition-all shadow-md active:scale-98 flex items-center justify-center gap-2"
             >
               {isSubmitting ? (
-                <span>অর্ডার তৈরি হচ্ছে...</span>
+                <span>Placing order...</span>
               ) : (
                 <>
                   <ShoppingBag className="w-4 h-4" />
-                  <span>অর্ডার কনফার্ম করুন • {formatPrice(total)}</span>
+                  <span>Confirm Order • {formatPrice(total)}</span>
                 </>
               )}
             </button>
