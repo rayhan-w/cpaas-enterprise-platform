@@ -16,7 +16,6 @@ import {
   Heart,
   ExternalLink,
   Flame,
-  User,
 } from 'lucide-react';
 import { useCart } from '@/context/cart-context';
 import { formatPrice } from '@/lib/formatters';
@@ -209,15 +208,6 @@ export default function Header() {
             </div>
           </a>
 
-          {/* Account / Login Link */}
-          <Link
-            href="/admin/login"
-            className="hidden sm:flex items-center justify-center w-10 h-10 rounded-xl border border-[#DFECCE] hover:border-[#6CAE14] text-[#526052] hover:text-[#6CAE14] transition-colors"
-            title="Admin Login"
-          >
-            <User className="w-5 h-5" />
-          </Link>
-
           {/* Cart Trigger Button with Live Subtotal */}
           <button
             onClick={openCart}
@@ -355,14 +345,6 @@ export default function Header() {
                 >
                   <Truck className="w-4 h-4 text-[#6CAE14]" />
                   <span>Track Order</span>
-                </Link>
-                <Link
-                  href="/admin/login"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-2 p-3 rounded-xl text-xs font-bold text-[#526052] hover:bg-[#F1F8E8]"
-                >
-                  <User className="w-4 h-4 text-[#6CAE14]" />
-                  <span>Admin Login</span>
                 </Link>
               </div>
             </div>
