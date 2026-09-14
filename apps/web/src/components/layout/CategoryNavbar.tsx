@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronDown, ChevronRight, Flame, Layers, Menu, Grid, Sparkles, Umbrella } from 'lucide-react';
+import { ChevronDown, ChevronRight, Flame, Layers, Menu, Grid, Sparkles, Umbrella, Leaf } from 'lucide-react';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
 
 export default function CategoryNavbar() {
@@ -144,7 +144,7 @@ export default function CategoryNavbar() {
           </Link>
 
           {/* Customer Defined Categories with Dropdown */}
-          {INITIAL_CATEGORIES.slice(0, 6).map((cat) => {
+          {INITIAL_CATEGORIES.slice(0, 8).map((cat) => {
             const hasSub = !!cat.subCategories && cat.subCategories.length > 0;
             const isOpen = activeDropdown === cat.id;
             const isActive = pathname === `/category/${cat.slug}`;
@@ -162,14 +162,17 @@ export default function CategoryNavbar() {
                 <div className="flex items-center">
                   <Link
                     href={`/category/${cat.slug}`}
-                    className={`flex items-center gap-1 pl-3 pr-1 py-2.5 sm:py-3 text-xs font-medium transition-all whitespace-nowrap ${
+                    className={`flex items-center gap-1.5 pl-3 pr-1 py-2.5 sm:py-3 text-xs font-medium transition-all whitespace-nowrap ${
                       isActive
                         ? 'text-[#9ED114] font-bold bg-white/10'
                         : isOpen
                         ? 'text-[#9ED114] bg-white/5'
+                        : cat.slug === 'organic-food'
+                        ? 'text-[#9ED114] font-bold hover:text-white'
                         : 'text-white/90 hover:text-[#9ED114] hover:bg-white/5'
                     }`}
                   >
+                    {cat.slug === 'organic-food' && <Leaf className="w-3.5 h-3.5 text-[#9ED114]" />}
                     <span>{cat.name}</span>
                   </Link>
 

@@ -56,7 +56,15 @@ export default async function HomePage() {
         <ProductGrid products={bestSellers} />
       </section>
 
-      {/* 6. Bag Department Showcase */}
+      {/* 6. Organic Food Showcase */}
+      <CuratedCategoryShowcase
+        title="100% Pure Organic Food & Delicacies"
+        subtitle="Sundarbans raw wildflower honey, village cow ghee, wood-pressed mustard oil & superfoods"
+        categorySlug="organic-food"
+        products={products}
+      />
+
+      {/* 7. Bag Department Showcase */}
       <CuratedCategoryShowcase
         title="Bags & Backpacks Collection"
         subtitle="Ergonomic school bags, plush kids bags, ladies handbags & travel duffels"
