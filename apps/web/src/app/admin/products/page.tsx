@@ -17,6 +17,7 @@ import { ProductItem, CategoryItem } from '@/lib/types';
 import { formatPrice } from '@/lib/formatters';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
 import { useToast } from '@/context/toast-context';
+import ImageUploadPicker from '@/components/admin/ImageUploadPicker';
 
 export default function AdminProductsPage() {
   const { success, error } = useToast();
@@ -590,26 +591,12 @@ export default function AdminProductsPage() {
                 </div>
               </div>
 
-              {/* Image URL & Preview */}
-              <div>
-                <label className="block font-semibold text-[#1A1512] mb-1">Image URL</label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={editImage}
-                    onChange={(e) => setEditImage(e.target.value)}
-                    placeholder="https://..."
-                    className="flex-1 bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
-                  />
-                  {editImage && (
-                    <img
-                      src={editImage}
-                      alt="Preview"
-                      className="w-9 h-9 rounded-lg object-cover border border-[#EDE5E1] shrink-0"
-                    />
-                  )}
-                </div>
-              </div>
+              {/* Image Input (Device & Link) */}
+              <ImageUploadPicker
+                label="Product Image (পণ্যের ছবি)"
+                value={editImage}
+                onChange={setEditImage}
+              />
 
               {/* Description */}
               <div>
@@ -792,24 +779,13 @@ export default function AdminProductsPage() {
                 </div>
               </div>
 
-              <div>
-                <label className="block font-semibold text-[#1A1512] mb-1">Image URL</label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={image}
-                    onChange={(e) => setImage(e.target.value)}
-                    className="flex-1 bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
-                  />
-                  {image && (
-                    <img
-                      src={image}
-                      alt="Preview"
-                      className="w-9 h-9 rounded-lg object-cover border border-[#EDE5E1] shrink-0"
-                    />
-                  )}
-                </div>
-              </div>
+              {/* Image Input (Device & Link) */}
+              <ImageUploadPicker
+                label="Product Image (পণ্যের ছবি)"
+                value={image}
+                onChange={setImage}
+                required
+              />
 
               <div>
                 <label className="block font-semibold text-[#1A1512] mb-1">Description</label>

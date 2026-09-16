@@ -18,6 +18,7 @@ import { CategoryItem, SubCategoryItem } from '@/lib/types';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
 import { useToast } from '@/context/toast-context';
 import Link from 'next/link';
+import ImageUploadPicker from '@/components/admin/ImageUploadPicker';
 
 export default function AdminCategoriesPage() {
   const { success, error } = useToast();
@@ -542,25 +543,12 @@ export default function AdminCategoriesPage() {
                 />
               </div>
 
-              <div>
-                <label className="block font-semibold text-[#1A1512] mb-1">Cover Image URL</label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={newCatImage}
-                    onChange={(e) => setNewCatImage(e.target.value)}
-                    placeholder="https://images.unsplash.com/..."
-                    className="flex-1 bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
-                  />
-                  {newCatImage && (
-                    <img
-                      src={newCatImage}
-                      alt="Preview"
-                      className="w-9 h-9 rounded-lg object-cover border border-[#EDE5E1] shrink-0"
-                    />
-                  )}
-                </div>
-              </div>
+              {/* Category Image (Device & Link) */}
+              <ImageUploadPicker
+                label="Cover Image (ক্যাটাগরির ছবি)"
+                value={newCatImage}
+                onChange={setNewCatImage}
+              />
 
               <div>
                 <label className="block font-semibold text-[#1A1512] mb-1">Description</label>
@@ -632,25 +620,12 @@ export default function AdminCategoriesPage() {
                 />
               </div>
 
-              <div>
-                <label className="block font-semibold text-[#1A1512] mb-1">Cover Image URL</label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={editCatImage}
-                    onChange={(e) => setEditCatImage(e.target.value)}
-                    placeholder="https://images.unsplash.com/..."
-                    className="flex-1 bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
-                  />
-                  {editCatImage && (
-                    <img
-                      src={editCatImage}
-                      alt="Preview"
-                      className="w-9 h-9 rounded-lg object-cover border border-[#EDE5E1] shrink-0"
-                    />
-                  )}
-                </div>
-              </div>
+              {/* Category Image (Device & Link) */}
+              <ImageUploadPicker
+                label="Cover Image (ক্যাটাগরির ছবি)"
+                value={editCatImage}
+                onChange={setEditCatImage}
+              />
 
               <div>
                 <label className="block font-semibold text-[#1A1512] mb-1">Description</label>
