@@ -23,6 +23,8 @@ import { useCart } from '@/context/cart-context';
 import { useToast } from '@/context/toast-context';
 import ProductCard from './ProductCard';
 
+import BackButton from '@/components/common/BackButton';
+
 export default function ProductView({
   product,
   relatedProducts,
@@ -68,21 +70,25 @@ export default function ProductView({
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 sm:py-10 space-y-12">
-      {/* Breadcrumb Navigation */}
-      <nav className="flex items-center gap-1.5 text-xs text-[#9B8A86] flex-wrap">
-        <Link href="/" className="hover:text-[#6CAE14] transition-colors">
-          Home
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <Link
-          href={`/category/${product.categorySlug}`}
-          className="hover:text-[#6CAE14] transition-colors"
-        >
-          {product.categoryName || 'Category'}
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <span className="text-[#1A1512] font-semibold truncate max-w-xs">{product.name}</span>
-      </nav>
+      {/* Top Nav with Back Button & Breadcrumbs */}
+      <div className="flex flex-wrap items-center gap-3">
+        <BackButton label="Back" fallback={product.categorySlug ? `/category/${product.categorySlug}` : '/'} />
+        <span className="text-[#EDE5E1] hidden sm:inline">|</span>
+        <nav className="flex items-center gap-1.5 text-xs text-[#9B8A86] flex-wrap">
+          <Link href="/" className="hover:text-[#6CAE14] transition-colors">
+            Home
+          </Link>
+          <ChevronRight className="w-3 h-3" />
+          <Link
+            href={`/category/${product.categorySlug}`}
+            className="hover:text-[#6CAE14] transition-colors"
+          >
+            {product.categoryName || 'Category'}
+          </Link>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-[#1A1512] font-semibold truncate max-w-xs">{product.name}</span>
+        </nav>
+      </div>
 
       {/* Main Product Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">

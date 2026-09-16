@@ -556,9 +556,39 @@ export const dbService = {
               : undefined,
           },
         });
+
+        // Automatically deduct stock for each ordered item in database
+        for (const item of newOrder.items) {
+          try {
+            if (item.productId) {
+              await prisma.product.update({
+                where: { id: item.productId },
+                data: { stock: { decrement: item.quantity } },
+              });
+            } else if (item.productName) {
+              const p = await prisma.product.findFirst({ where: { name: item.productName } });
+              if (p) {
+                await prisma.product.update({
+                  where: { id: p.id },
+                  data: { stock: Math.max(0, p.stock - item.quantity) },
+                });
+              }
+            }
+          } catch (stockErr) {
+            console.error('Stock decrement error:', stockErr);
+          }
+        }
       }
     } catch {
       // Memory fallback
+    }
+
+    // Also deduct in memory cache
+    for (const item of newOrder.items) {
+      const m = memoryProducts.find((p) => p.id === item.productId || p.name === item.productName);
+      if (m) {
+        m.stock = Math.max(0, m.stock - item.quantity);
+      }
     }
 
     memoryOrders.unshift(newOrder);
@@ -589,9 +619,34 @@ export const dbService = {
 
   async updateOrderStatus(id: string, orderStatus: string): Promise<OrderRecord | null> {
     const order = memoryOrders.find((o) => o.id === id);
+    const prevStatus = order?.orderStatus;
     if (order) {
       order.orderStatus = orderStatus as any;
       order.updatedAt = new Date().toISOString();
+
+      // If order was cancelled, restore stock in database and memory
+      if (orderStatus === 'CANCELLED' && prevStatus !== 'CANCELLED') {
+        for (const item of order.items) {
+          try {
+            if (item.productId) {
+              await prisma.product.update({
+                where: { id: item.productId },
+                data: { stock: { increment: item.quantity } },
+              });
+            } else if (item.productName) {
+              const p = await prisma.product.findFirst({ where: { name: item.productName } });
+              if (p) {
+                await prisma.product.update({
+                  where: { id: p.id },
+                  data: { stock: { increment: item.quantity } },
+                });
+              }
+            }
+          } catch {}
+          const m = memoryProducts.find((p) => p.id === item.productId || p.name === item.productName);
+          if (m) m.stock += item.quantity;
+        }
+      }
       return order;
     }
     return null;

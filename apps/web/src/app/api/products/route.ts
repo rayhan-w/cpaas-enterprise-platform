@@ -49,6 +49,20 @@ export async function PUT(request: Request) {
   }
 }
 
+export async function PATCH(request: Request) {
+  try {
+    const body = await request.json();
+    if (!body.id || body.stock === undefined) {
+      return NextResponse.json({ error: 'Product ID and stock value are required' }, { status: 400 });
+    }
+    const newStock = Math.max(0, parseInt(body.stock, 10));
+    const updated = await dbService.updateProduct(body.id, { stock: newStock });
+    return NextResponse.json({ success: true, product: updated });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message || 'Failed to update stock' }, { status: 500 });
+  }
+}
+
 export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);

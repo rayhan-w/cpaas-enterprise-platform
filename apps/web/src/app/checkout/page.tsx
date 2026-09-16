@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ChevronRight, ShieldCheck, Lock } from 'lucide-react';
 import CheckoutForm from '@/components/checkout/CheckoutForm';
+import BackButton from '@/components/common/BackButton';
 
 export const metadata = {
   title: 'Guest Checkout | Jawata Mart',
@@ -11,18 +12,22 @@ export const metadata = {
 export default function CheckoutPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12 space-y-8">
-      {/* Breadcrumb Navigation */}
-      <nav className="flex items-center gap-1.5 text-xs text-[#9B8A86]">
-        <Link href="/" className="hover:text-[#6CAE14] transition-colors">
-          Home
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <Link href="/cart" className="hover:text-[#6CAE14] transition-colors">
-          Cart
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <span className="text-[#1A1512] font-semibold">Guest Checkout</span>
-      </nav>
+      {/* Back Button & Breadcrumb Navigation */}
+      <div className="flex flex-wrap items-center gap-3">
+        <BackButton label="Back to Cart" fallback="/cart" />
+        <span className="text-[#EDE5E1] hidden sm:inline">|</span>
+        <nav className="flex items-center gap-1.5 text-xs text-[#9B8A86]">
+          <Link href="/" className="hover:text-[#6CAE14] transition-colors">
+            Home
+          </Link>
+          <ChevronRight className="w-3 h-3" />
+          <Link href="/cart" className="hover:text-[#6CAE14] transition-colors">
+            Cart
+          </Link>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-[#1A1512] font-semibold">Guest Checkout</span>
+        </nav>
+      </div>
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EDE5E1] pb-4">

@@ -4,6 +4,7 @@ import { dbService } from '@/lib/db-service';
 import ProductGrid from '@/components/product/ProductGrid';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
 import SubCategoryFilter from '@/components/category/SubCategoryFilter';
+import BackButton from '@/components/common/BackButton';
 import { Sparkles, ChevronRight, SlidersHorizontal } from 'lucide-react';
 
 interface CategoryPageProps {
@@ -54,12 +55,15 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 sm:py-10 space-y-8">
-      {/* Breadcrumbs */}
-      <nav className="flex items-center gap-1.5 text-xs text-[#9B8A86] flex-wrap">
-        <Link href="/" className="hover:text-[#6CAE14] transition-colors">
-          Home
-        </Link>
-        <ChevronRight className="w-3 h-3" />
+      {/* Back Button & Breadcrumbs */}
+      <div className="flex flex-wrap items-center gap-3">
+        <BackButton label="Back" fallback="/" />
+        <span className="text-[#EDE5E1] hidden sm:inline">|</span>
+        <nav className="flex items-center gap-1.5 text-xs text-[#9B8A86] flex-wrap">
+          <Link href="/" className="hover:text-[#6CAE14] transition-colors">
+            Home
+          </Link>
+          <ChevronRight className="w-3 h-3" />
         {isAll ? (
           <span className="text-[#0E140E] font-semibold">
             {isOffer ? 'Special Offer Zone' : 'All Products'}
@@ -87,6 +91,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
           </>
         )}
       </nav>
+    </div>
 
       {/* Category Header Banner */}
       <div className="bg-white rounded-3xl p-6 sm:p-10 border border-[#EDE5E1] shadow-elevation-1 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Package,
   Plus,
@@ -12,6 +12,10 @@ import {
   Sparkles,
   Layers,
   Image as ImageIcon,
+  Boxes,
+  Filter,
+  Check,
+  BarChart3,
 } from 'lucide-react';
 import { ProductItem, CategoryItem } from '@/lib/types';
 import { formatPrice } from '@/lib/formatters';
@@ -274,15 +278,120 @@ export default function AdminProductsPage() {
     }
   };
 
-  const filteredProducts = products.filter((p) => {
-    if (!search.trim()) return true;
-    const q = search.toLowerCase();
-    return (
-      p.name.toLowerCase().includes(q) ||
-      (p.brand && p.brand.toLowerCase().includes(q)) ||
-      (p.sku && p.sku.toLowerCase().includes(q)) ||
-      (p.categoryName && p.categoryName.toLowerCase().includes(q))
+  // Category & Stock Filters & Inline Editing State
+  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('all');
+  const [stockFilter, setStockFilter] = useState<'all' | 'instock' | 'low' | 'out'>('all');
+  const [updatingStockId, setUpdatingStockId] = useState<string | null>(null);
+  const [editingStockValues, setEditingStockValues] = useState<Record<string, number>>({});
+
+  const handleInlineStockChange = async (productId: string, newStock: number) => {
+    if (newStock < 0) newStock = 0;
+    setUpdatingStockId(productId);
+
+    // Optimistic local update
+    setProducts((prev) =>
+      prev.map((p) => (p.id === productId ? { ...p, stock: newStock } : p))
     );
+    // Clear temporary edit state for this product
+    setEditingStockValues((prev) => {
+      const next = { ...prev };
+      delete next[productId];
+      return next;
+    });
+
+    try {
+      const res = await fetch('/api/products', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: productId, stock: newStock }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to update stock');
+      success(`Stock updated to ${newStock} units`);
+    } catch (err: any) {
+      error(err.message || 'Could not update stock');
+      fetchProducts(); // rollback on error
+    } finally {
+      setUpdatingStockId(null);
+    }
+  };
+
+  const categoryStats = useMemo(() => {
+    const map = new Map<string, {
+      id: string;
+      name: string;
+      slug?: string;
+      productCount: number;
+      totalUnits: number;
+      lowStockCount: number;
+      outOfStockCount: number;
+    }>();
+
+    categories.forEach((c) => {
+      map.set(c.id, {
+        id: c.id,
+        name: c.name,
+        slug: c.slug,
+        productCount: 0,
+        totalUnits: 0,
+        lowStockCount: 0,
+        outOfStockCount: 0,
+      });
+    });
+
+    products.forEach((p) => {
+      let catStat = p.categoryId ? map.get(p.categoryId) : undefined;
+      if (!catStat && p.categoryName) {
+        catStat = Array.from(map.values()).find(
+          (c) => c.name.toLowerCase() === p.categoryName?.toLowerCase()
+        );
+      }
+      if (catStat) {
+        catStat.productCount += 1;
+        catStat.totalUnits += (p.stock || 0);
+        if ((p.stock || 0) === 0) catStat.outOfStockCount += 1;
+        else if ((p.stock || 0) <= 10) catStat.lowStockCount += 1;
+      }
+    });
+
+    return Array.from(map.values());
+  }, [products, categories]);
+
+  const totalStockUnits = products.reduce((acc, p) => acc + (p.stock || 0), 0);
+  const totalLowStock = products.filter((p) => (p.stock || 0) > 0 && (p.stock || 0) <= 10).length;
+  const totalOutOfStock = products.filter((p) => (p.stock || 0) === 0).length;
+  const totalInStock = products.filter((p) => (p.stock || 0) > 10).length;
+
+  const filteredProducts = products.filter((p) => {
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      const matchSearch =
+        p.name.toLowerCase().includes(q) ||
+        (p.brand && p.brand.toLowerCase().includes(q)) ||
+        (p.sku && p.sku.toLowerCase().includes(q)) ||
+        (p.categoryName && p.categoryName.toLowerCase().includes(q));
+      if (!matchSearch) return false;
+    }
+
+    if (selectedCategoryFilter !== 'all') {
+      const matchCat =
+        p.categoryId === selectedCategoryFilter ||
+        p.categorySlug === selectedCategoryFilter ||
+        (p.categoryName &&
+          categories.find((c) => c.id === selectedCategoryFilter)?.name.toLowerCase() ===
+            p.categoryName.toLowerCase());
+      if (!matchCat) return false;
+    }
+
+    if (stockFilter === 'out') {
+      if ((p.stock || 0) !== 0) return false;
+    } else if (stockFilter === 'low') {
+      if ((p.stock || 0) <= 0 || (p.stock || 0) > 10) return false;
+    } else if (stockFilter === 'instock') {
+      if ((p.stock || 0) <= 10) return false;
+    }
+
+    return true;
   });
 
   const activeCategoryForAdd = categories.find((c) => c.id === categoryId);
@@ -294,10 +403,10 @@ export default function AdminProductsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="section-title text-2xl sm:text-3xl text-[#1A1512]">
-            Product Catalog ({products.length})
+            Product Catalog & Stock Management
           </h1>
           <p className="text-xs text-[#6B5B58] mt-1">
-            Manage your store items, update pricing, categories, stock, and product details.
+            Real-time stock tracking by category, automatic deduction on orders, and instant inline stock editing.
           </p>
         </div>
         <button
@@ -309,8 +418,105 @@ export default function AdminProductsPage() {
         </button>
       </div>
 
-      {/* Search Filter Bar */}
-      <div className="flex flex-col sm:flex-row items-center gap-4 bg-white p-4 rounded-2xl border border-[#EDE5E1]">
+      {/* Category Stock & Inventory Overview */}
+      <div className="bg-white p-5 rounded-3xl border border-[#EDE5E1] shadow-xs space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#EDE5E1] pb-3">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-[#F1F8E8] text-[#6CAE14] flex items-center justify-center">
+              <Boxes className="w-4 h-4" />
+            </div>
+            <div>
+              <h2 className="font-bold text-sm text-[#1A1512]">Category Stock Overview</h2>
+              <p className="text-[11px] text-[#6B5B58]">
+                Click any category card to filter items. Shows available units and out-of-stock alerts.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 flex-wrap text-xs">
+            <div className="px-3 py-1 bg-[#F8F7F5] rounded-xl border border-[#EDE5E1] text-[#1A1512]">
+              Total Units: <span className="font-bold text-[#6CAE14]">{totalStockUnits}</span>
+            </div>
+            {totalLowStock > 0 && (
+              <div className="px-2.5 py-1 bg-amber-50 rounded-xl border border-amber-200 text-amber-800 font-semibold text-[11px]">
+                ⚠️ {totalLowStock} Low Stock
+              </div>
+            )}
+            {totalOutOfStock > 0 && (
+              <div className="px-2.5 py-1 bg-red-50 rounded-xl border border-red-200 text-red-700 font-semibold text-[11px]">
+                🚫 {totalOutOfStock} Out of Stock
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Category Cards Carousel / Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 pt-1">
+          {/* All Categories Card */}
+          <button
+            type="button"
+            onClick={() => setSelectedCategoryFilter('all')}
+            className={`p-3 rounded-2xl text-left border transition-all cursor-pointer ${
+              selectedCategoryFilter === 'all'
+                ? 'bg-[#F1F8E8] border-[#6CAE14] shadow-xs ring-1 ring-[#6CAE14]'
+                : 'bg-[#F8F7F5] border-[#EDE5E1] hover:border-[#6CAE14]/50'
+            }`}
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#6B5B58]">Catalog</span>
+              {selectedCategoryFilter === 'all' && (
+                <span className="w-2 h-2 rounded-full bg-[#6CAE14]" />
+              )}
+            </div>
+            <p className="font-bold text-xs text-[#1A1512] mt-1 truncate">All Categories</p>
+            <div className="mt-2 flex items-baseline justify-between text-[11px]">
+              <span className="text-[#6B5B58]">{products.length} items</span>
+              <span className="font-bold text-[#6CAE14]">{totalStockUnits} pcs</span>
+            </div>
+          </button>
+
+          {/* Each Category Card */}
+          {categoryStats.map((cat) => {
+            const isSelected = selectedCategoryFilter === cat.id;
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setSelectedCategoryFilter(isSelected ? 'all' : cat.id)}
+                className={`p-3 rounded-2xl text-left border transition-all cursor-pointer relative ${
+                  isSelected
+                    ? 'bg-[#F1F8E8] border-[#6CAE14] shadow-xs ring-1 ring-[#6CAE14]'
+                    : 'bg-[#F8F7F5] border-[#EDE5E1] hover:border-[#6CAE14]/50'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-[#6B5B58] font-medium truncate max-w-[75%]">
+                    {cat.productCount} {cat.productCount === 1 ? 'item' : 'items'}
+                  </span>
+                  {cat.outOfStockCount > 0 ? (
+                    <span className="w-2 h-2 rounded-full bg-red-500" title={`${cat.outOfStockCount} out of stock`} />
+                  ) : cat.lowStockCount > 0 ? (
+                    <span className="w-2 h-2 rounded-full bg-amber-500" title={`${cat.lowStockCount} low stock`} />
+                  ) : (
+                    <span className="w-2 h-2 rounded-full bg-[#7A9C78]" title="Stock healthy" />
+                  )}
+                </div>
+                <p className="font-bold text-xs text-[#1A1512] mt-1 truncate" title={cat.name}>
+                  {cat.name}
+                </p>
+                <div className="mt-2 flex items-baseline justify-between text-[11px]">
+                  <span className="text-[#6B5B58]">Stock:</span>
+                  <span className={`font-bold ${cat.totalUnits === 0 ? 'text-red-600' : 'text-[#1A1512]'}`}>
+                    {cat.totalUnits} pcs
+                  </span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Search and Quick Filters Bar */}
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-[#EDE5E1]">
         <div className="relative flex-1 w-full">
           <Search className="w-4 h-4 text-[#9B8A86] absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -318,8 +524,67 @@ export default function AdminProductsPage() {
             placeholder="Search products by title, SKU, or department..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 bg-[#F8F7F5] border border-transparent rounded-xl text-xs text-[#1A1512] placeholder-[#9B8A86] focus:border-[#6CAE14] focus:bg-white focus:outline-none transition-all"
+            className="w-full pl-9 pr-8 py-2 bg-[#F8F7F5] border border-transparent rounded-xl text-xs text-[#1A1512] placeholder-[#9B8A86] focus:border-[#6CAE14] focus:bg-white focus:outline-none transition-all"
           />
+          {search && (
+            <button
+              onClick={() => setSearch('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9B8A86] hover:text-[#1A1512]"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
+
+        {/* Quick Stock Filter Pills */}
+        <div className="flex items-center gap-1.5 flex-wrap w-full lg:w-auto">
+          <span className="text-xs text-[#6B5B58] font-medium mr-1 flex items-center gap-1">
+            <Filter className="w-3 h-3 text-[#9B8A86]" /> Stock:
+          </span>
+          <button
+            type="button"
+            onClick={() => setStockFilter('all')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              stockFilter === 'all'
+                ? 'bg-[#1A1512] text-white'
+                : 'bg-[#F8F7F5] text-[#6B5B58] hover:bg-[#EDE5E1]'
+            }`}
+          >
+            All ({products.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setStockFilter('instock')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              stockFilter === 'instock'
+                ? 'bg-[#7A9C78] text-white'
+                : 'bg-[#F8F7F5] text-[#7A9C78] hover:bg-[#EAF3E9]'
+            }`}
+          >
+            In Stock ({totalInStock})
+          </button>
+          <button
+            type="button"
+            onClick={() => setStockFilter('low')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              stockFilter === 'low'
+                ? 'bg-amber-600 text-white'
+                : 'bg-[#F8F7F5] text-amber-800 hover:bg-amber-50'
+            }`}
+          >
+            Low Stock ({totalLowStock})
+          </button>
+          <button
+            type="button"
+            onClick={() => setStockFilter('out')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              stockFilter === 'out'
+                ? 'bg-[#D94040] text-white'
+                : 'bg-[#F8F7F5] text-[#D94040] hover:bg-red-50'
+            }`}
+          >
+            Out of Stock ({totalOutOfStock})
+          </button>
         </div>
       </div>
 
@@ -382,17 +647,75 @@ export default function AdminProductsPage() {
                       )}
                     </td>
                     <td className="p-3">
-                      <span
-                        className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                          prod.stock > 10
-                            ? 'bg-[#EAF3E9] text-[#7A9C78]'
-                            : prod.stock > 0
-                            ? 'bg-amber-100 text-amber-800'
-                            : 'bg-[#FBDADA] text-[#D94040]'
-                        }`}
-                      >
-                        {prod.stock > 0 ? `${prod.stock} in stock` : 'Out of stock'}
-                      </span>
+                      <div className="flex flex-col gap-1.5 min-w-[135px]">
+                        <div className="flex items-center gap-1.5">
+                          <span
+                            className={`px-2 py-0.5 rounded-full text-[10px] font-bold inline-flex items-center gap-1 ${
+                              prod.stock > 10
+                                ? 'bg-[#EAF3E9] text-[#7A9C78]'
+                                : prod.stock > 0
+                                ? 'bg-amber-100 text-amber-800'
+                                : 'bg-[#FBDADA] text-[#D94040]'
+                            }`}
+                          >
+                            <span
+                              className={`w-1.5 h-1.5 rounded-full ${
+                                prod.stock > 10 ? 'bg-[#7A9C78]' : prod.stock > 0 ? 'bg-amber-500' : 'bg-[#D94040]'
+                              }`}
+                            />
+                            {prod.stock > 0 ? `${prod.stock} in stock` : 'Out of stock'}
+                          </span>
+                          {updatingStockId === prod.id && (
+                            <span className="animate-spin w-3 h-3 border-2 border-[#6CAE14] border-t-transparent rounded-full" />
+                          )}
+                        </div>
+
+                        {/* Quick Inline Stepper & Input */}
+                        <div className="flex items-center gap-1">
+                          <button
+                            type="button"
+                            disabled={prod.stock <= 0 || updatingStockId === prod.id}
+                            onClick={() => handleInlineStockChange(prod.id, Math.max(0, prod.stock - 1))}
+                            className="w-6 h-6 rounded bg-[#F8F7F5] hover:bg-[#EDE5E1] disabled:opacity-40 text-[#1A1512] font-bold text-xs flex items-center justify-center border border-[#EDE5E1] transition-all cursor-pointer"
+                            title="Decrease stock by 1"
+                          >
+                            -
+                          </button>
+                          <input
+                            type="number"
+                            min="0"
+                            value={editingStockValues[prod.id] !== undefined ? editingStockValues[prod.id] : prod.stock}
+                            onChange={(e) => {
+                              const val = parseInt(e.target.value, 10);
+                              setEditingStockValues((prev) => ({
+                                ...prev,
+                                [prod.id]: isNaN(val) ? 0 : Math.max(0, val),
+                              }));
+                            }}
+                            onBlur={() => {
+                              if (editingStockValues[prod.id] !== undefined && editingStockValues[prod.id] !== prod.stock) {
+                                handleInlineStockChange(prod.id, editingStockValues[prod.id]);
+                              }
+                            }}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.currentTarget.blur();
+                              }
+                            }}
+                            className="w-14 px-1 py-0.5 text-center bg-white border border-[#EDE5E1] focus:border-[#6CAE14] rounded text-xs font-semibold text-[#1A1512] focus:outline-none transition-all"
+                            title="Edit stock directly, press Enter or click away to save"
+                          />
+                          <button
+                            type="button"
+                            disabled={updatingStockId === prod.id}
+                            onClick={() => handleInlineStockChange(prod.id, prod.stock + 1)}
+                            className="w-6 h-6 rounded bg-[#F8F7F5] hover:bg-[#EDE5E1] disabled:opacity-40 text-[#1A1512] font-bold text-xs flex items-center justify-center border border-[#EDE5E1] transition-all cursor-pointer"
+                            title="Increase stock by 1"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
                     </td>
                     <td className="p-3 font-mono text-[11px] text-[#6B5B58]">
                       {prod.sku || 'N/A'}
