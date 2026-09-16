@@ -188,4 +188,17 @@ export interface StoreSettings {
   freeDeliveryThreshold: number;
   sslcommerzStoreId: string;
   sslcommerzIsLive: boolean;
+
+  // Tracking & Analytics Configuration
+  metaPixelId?: string;
+  metaCapiToken?: string;
+  metaTestEventCode?: string;
+  enableMetaPixel?: boolean;
+  enableMetaCapi?: boolean;
+  
+  ga4MeasurementId?: string;
+  enableGA4?: boolean;
+  
+  gtmId?: string;
+  enableGTM?: boolean;
 }

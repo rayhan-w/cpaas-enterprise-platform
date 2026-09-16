@@ -11,7 +11,12 @@ import {
   CheckCircle2, 
   AlertCircle,
   Clock,
-  ShieldCheck
+  ShieldCheck,
+  BarChart3,
+  Activity,
+  Send,
+  Globe,
+  Radio
 } from 'lucide-react';
 import { useToast } from '@/context/toast-context';
 
@@ -46,8 +51,61 @@ export default function AdminSettingsPage() {
     enableBkash: true,
     enableNagad: true,
     enableSSLCommerz: true,
-    bannerAnnouncement: 'Eid Special Offer: Free delivery across Bangladesh on orders over ৳2,000!'
+    bannerAnnouncement: 'Eid Special Offer: Free delivery across Bangladesh on orders over ৳2,000!',
+
+    // Tracking & Analytics Configuration
+    metaPixelId: '',
+    metaCapiToken: '',
+    metaTestEventCode: '',
+    enableMetaPixel: true,
+    enableMetaCapi: true,
+    ga4MeasurementId: '',
+    enableGA4: true,
+    gtmId: '',
+    enableGTM: true,
   });
+
+  const [testLoading, setTestLoading] = useState(false);
+  const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null);
+
+  const handleTestCapiEvent = async () => {
+    setTestLoading(true);
+    setTestResult(null);
+    try {
+      const res = await fetch('/api/tracking/capi', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          eventName: 'TestEvent',
+          eventId: `test_${Date.now()}`,
+          value: 1250,
+          currency: 'BDT',
+          customerPhone: '01915210799',
+          customerEmail: 'test@jawatamart.com',
+          customerName: 'Jawata Mart Test',
+          items: [{ id: 'test-1', name: 'Tracking Verification Sample Item', price: 1250, quantity: 1 }],
+          eventSourceUrl: window.location.href,
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setTestResult({
+          success: true,
+          message: `Event successfully received by Meta Graph API! (Trace ID: ${data.fbtrace_id || 'OK'})`,
+        });
+      } else {
+        setTestResult({
+          success: false,
+          message: data.warning || data.metaError?.error?.message || 'Meta CAPI request failed. Please verify Pixel ID and Access Token.',
+        });
+      }
+    } catch (err: any) {
+      setTestResult({ success: false, message: err.message || 'Network error testing CAPI' });
+    } finally {
+      setTestLoading(false);
+    }
+  };
 
   useEffect(() => {
     async function fetchSettings() {
@@ -392,6 +450,246 @@ export default function AdminSettingsPage() {
                 onChange={handleChange}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20"
               />
+            </div>
+          </div>
+        </div>
+
+        {/* Tracking & Analytics (Meta Pixel, CAPI, GA4, GTM) */}
+        <div className="bg-white rounded-2xl border border-charcoal-100 shadow-sm overflow-hidden">
+          <div className="px-6 py-4 border-b border-charcoal-100 bg-linen-50 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <BarChart3 className="w-5 h-5 text-[#6CAE14]" />
+              <div>
+                <h2 className="text-base font-bold text-charcoal-900">Tracking & Marketing Analytics (Meta Pixel, CAPI & GA4)</h2>
+                <p className="text-xs text-charcoal-500">
+                  Configure Meta Pixel, Server-Side Conversions API (CAPI), GA4 and GTM with automatic deduplication
+                </p>
+              </div>
+            </div>
+            <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-bold bg-[#EBF5DC] text-[#5B960E] px-2.5 py-1 rounded-full">
+              <Activity className="w-3.5 h-3.5 animate-pulse" />
+              CAPI Ready
+            </span>
+          </div>
+
+          <div className="p-6 space-y-8">
+            {/* Meta Section */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between border-b border-charcoal-100 pb-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-md bg-blue-600 text-white flex items-center justify-center font-bold text-xs">
+                    f
+                  </div>
+                  <h3 className="text-sm font-bold text-charcoal-900">Meta (Facebook) Pixel & Server-Side CAPI</h3>
+                </div>
+                <div className="flex items-center gap-4 text-xs">
+                  <label className="flex items-center gap-2 cursor-pointer font-medium text-charcoal-700">
+                    <input
+                      type="checkbox"
+                      name="enableMetaPixel"
+                      checked={formData.enableMetaPixel ?? true}
+                      onChange={handleChange}
+                      className="rounded text-[#6CAE14] focus:ring-[#6CAE14]"
+                    />
+                    Enable Pixel
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer font-medium text-charcoal-700">
+                    <input
+                      type="checkbox"
+                      name="enableMetaCapi"
+                      checked={formData.enableMetaCapi ?? true}
+                      onChange={handleChange}
+                      className="rounded text-[#6CAE14] focus:ring-[#6CAE14]"
+                    />
+                    Enable Server CAPI
+                  </label>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                    Meta Pixel ID
+                  </label>
+                  <input
+                    type="text"
+                    name="metaPixelId"
+                    value={formData.metaPixelId || ''}
+                    onChange={handleChange}
+                    placeholder="e.g. 123456789012345"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#6CAE14]/20 focus:border-[#6CAE14]"
+                  />
+                  <p className="text-[11px] text-charcoal-500 mt-1">
+                    Find in Meta Events Manager &gt; Data Sources &gt; Settings
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                    Meta Test Event Code (Optional for Testing)
+                  </label>
+                  <input
+                    type="text"
+                    name="metaTestEventCode"
+                    value={formData.metaTestEventCode || ''}
+                    onChange={handleChange}
+                    placeholder="e.g. TEST12345"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#6CAE14]/20 focus:border-[#6CAE14]"
+                  />
+                  <p className="text-[11px] text-charcoal-500 mt-1">
+                    Meta Events Manager &gt; Test Events tab &gt; Test Server Events code
+                  </p>
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                    Meta Conversions API (CAPI) Access Token
+                  </label>
+                  <textarea
+                    rows={2}
+                    name="metaCapiToken"
+                    value={formData.metaCapiToken || ''}
+                    onChange={handleChange}
+                    placeholder="EAABw..."
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#6CAE14]/20 focus:border-[#6CAE14] resize-none"
+                  />
+                  <p className="text-[11px] text-charcoal-500 mt-1">
+                    Generated in Meta Events Manager &gt; Settings &gt; Conversions API &gt; Generate access token
+                  </p>
+                </div>
+              </div>
+
+              {/* CAPI Event Verification Action */}
+              <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-[#F8F7F5] border border-[#EDE5E1]">
+                <div>
+                  <div className="text-xs font-bold text-[#1A1512] flex items-center gap-1.5">
+                    <Radio className="w-3.5 h-3.5 text-[#6CAE14]" />
+                    <span>CAPI Connectivity Verification</span>
+                  </div>
+                  <p className="text-[11px] text-[#6B5B58] mt-0.5">
+                    Send a live test event to Meta Graph API to verify server-side tracking instantly.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleTestCapiEvent}
+                  disabled={testLoading}
+                  className="px-4 py-2 rounded-xl bg-[#1A1512] hover:bg-black disabled:opacity-50 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+                >
+                  {testLoading ? (
+                    <>
+                      <Clock className="w-3.5 h-3.5 animate-spin" />
+                      Testing...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-3.5 h-3.5" />
+                      Send Test Event
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {testResult && (
+                <div
+                  className={`p-3 rounded-xl border text-xs flex items-start gap-2 ${
+                    testResult.success
+                      ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+                      : 'bg-amber-50 border-amber-200 text-amber-800'
+                  }`}
+                >
+                  {testResult.success ? (
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                  ) : (
+                    <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  )}
+                  <span>{testResult.message}</span>
+                </div>
+              )}
+            </div>
+
+            {/* Google Section */}
+            <div className="space-y-4 pt-4 border-t border-charcoal-100">
+              <div className="flex items-center justify-between border-b border-charcoal-100 pb-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-md bg-[#EA4335] text-white flex items-center justify-center font-bold text-xs">
+                    G
+                  </div>
+                  <h3 className="text-sm font-bold text-charcoal-900">Google Analytics 4 & Google Tag Manager</h3>
+                </div>
+                <div className="flex items-center gap-4 text-xs">
+                  <label className="flex items-center gap-2 cursor-pointer font-medium text-charcoal-700">
+                    <input
+                      type="checkbox"
+                      name="enableGA4"
+                      checked={formData.enableGA4 ?? true}
+                      onChange={handleChange}
+                      className="rounded text-[#6CAE14] focus:ring-[#6CAE14]"
+                    />
+                    Enable GA4
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer font-medium text-charcoal-700">
+                    <input
+                      type="checkbox"
+                      name="enableGTM"
+                      checked={formData.enableGTM ?? true}
+                      onChange={handleChange}
+                      className="rounded text-[#6CAE14] focus:ring-[#6CAE14]"
+                    />
+                    Enable GTM
+                  </label>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                    GA4 Measurement ID
+                  </label>
+                  <input
+                    type="text"
+                    name="ga4MeasurementId"
+                    value={formData.ga4MeasurementId || ''}
+                    onChange={handleChange}
+                    placeholder="e.g. G-XXXXXXXXXX"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#6CAE14]/20 focus:border-[#6CAE14]"
+                  />
+                  <p className="text-[11px] text-charcoal-500 mt-1">
+                    Google Analytics &gt; Admin &gt; Data Streams &gt; Measurement ID
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                    Google Tag Manager Container ID
+                  </label>
+                  <input
+                    type="text"
+                    name="gtmId"
+                    value={formData.gtmId || ''}
+                    onChange={handleChange}
+                    placeholder="e.g. GTM-XXXXXXX"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#6CAE14]/20 focus:border-[#6CAE14]"
+                  />
+                  <p className="text-[11px] text-charcoal-500 mt-1">
+                    Google Tag Manager &gt; Workspace Container ID (top right)
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Standard Events Reference */}
+            <div className="p-4 rounded-xl bg-[#F8F7F5] border border-[#EDE5E1] space-y-2 text-xs">
+              <div className="font-bold text-[#1A1512]">⚡ Pre-configured E-commerce Standard Events:</div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px] text-[#6B5B58]">
+                <div>✓ <b>PageView</b> (All routes)</div>
+                <div>✓ <b>ViewContent</b> (Product page)</div>
+                <div>✓ <b>AddToCart</b> (Bag drawer)</div>
+                <div>✓ <b>InitiateCheckout</b> (Checkout page)</div>
+                <div>✓ <b>Purchase</b> (Browser + CAPI)</div>
+                <div>✓ <b>Contact</b> (WhatsApp / Hotline)</div>
+              </div>
             </div>
           </div>
         </div>

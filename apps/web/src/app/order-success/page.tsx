@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { CheckCircle2, Truck, ShoppingBag, Clock, Phone, AlertCircle } from 'lucide-react';
 import { dbService } from '@/lib/db-service';
 import { formatPrice, formatDate } from '@/lib/formatters';
+import OrderSuccessTracker from '@/components/tracking/OrderSuccessTracker';
 
 interface OrderSuccessProps {
   searchParams: Promise<{ orderNumber?: string; phone?: string }>;
@@ -18,6 +19,13 @@ export default async function OrderSuccessPage({ searchParams }: OrderSuccessPro
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12 sm:py-16 space-y-8">
+      {/* Analytics & Meta Pixel / CAPI Purchase Tracker */}
+      <OrderSuccessTracker
+        order={order}
+        fallbackOrderNumber={orderNumber}
+        fallbackPhone={phone}
+      />
+
       {/* Success Card */}
       <div className="bg-white rounded-3xl p-8 sm:p-12 border border-[#EDE5E1] shadow-elevation-2 text-center space-y-6">
         <div className="w-20 h-20 rounded-full bg-[#EAF3E9] text-[#7A9C78] flex items-center justify-center mx-auto shadow-sm">

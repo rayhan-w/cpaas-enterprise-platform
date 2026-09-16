@@ -13,6 +13,15 @@ export const INITIAL_SETTINGS: StoreSettings = {
   freeDeliveryThreshold: 2000,
   sslcommerzStoreId: process.env.SSLCOMMERZ_STORE_ID || 'testbox',
   sslcommerzIsLive: process.env.SSLCOMMERZ_IS_LIVE === 'true',
+  metaPixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID || '',
+  metaCapiToken: process.env.META_CAPI_ACCESS_TOKEN || '',
+  metaTestEventCode: process.env.META_TEST_EVENT_CODE || '',
+  enableMetaPixel: true,
+  enableMetaCapi: true,
+  ga4MeasurementId: process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID || '',
+  enableGA4: true,
+  gtmId: process.env.NEXT_PUBLIC_GTM_ID || '',
+  enableGTM: true,
 };
 
 export const INITIAL_CATEGORIES: CategoryItem[] = [

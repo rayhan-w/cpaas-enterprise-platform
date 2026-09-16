@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { trackViewContent } from '@/lib/tracking';
 import {
   Star,
   ShoppingBag,
@@ -42,6 +43,16 @@ export default function ProductView({
   const [addedAnim, setAddedAnim] = useState(false);
 
   const currentPrice = selectedVariant?.price || product.price;
+
+  useEffect(() => {
+    trackViewContent({
+      id: product.id,
+      name: product.name,
+      price: currentPrice,
+      category: product.categoryName,
+      brand: product.brand,
+    });
+  }, [product.id, currentPrice]);
 
   const handleAddToCart = () => {
     addItem(product, quantity, selectedVariant);

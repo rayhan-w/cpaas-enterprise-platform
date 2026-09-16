@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { trackInitiateCheckout } from '@/lib/tracking';
 import {
   Copy,
   Check,
@@ -63,6 +64,22 @@ export default function CheckoutForm() {
 
   const bkashMerchantNumber = '01915210799';
   const nagadMerchantNumber = '01915210799';
+
+  useEffect(() => {
+    if (items.length > 0) {
+      trackInitiateCheckout({
+        items: items.map((i) => ({
+          id: i.productId,
+          name: i.product.name,
+          price: i.unitPrice,
+          quantity: i.quantity,
+          category: i.product.categoryName,
+        })),
+        total,
+        numItems: items.reduce((sum, i) => sum + i.quantity, 0),
+      });
+    }
+  }, []);
 
   const handleCopy = (text: string, type: 'bkash' | 'nagad') => {
     navigator.clipboard.writeText(text.replace(/[\s\-]/g, ''));

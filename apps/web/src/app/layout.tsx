@@ -8,6 +8,8 @@ import Footer from '@/components/layout/Footer';
 import MobileBottomBar from '@/components/layout/MobileBottomBar';
 import CartDrawer from '@/components/cart/CartDrawer';
 import FloatingWhatsApp from '@/components/common/FloatingWhatsApp';
+import TrackingScripts from '@/components/tracking/TrackingScripts';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Jawata Mart | Trusted Multi-Category Shopping Platform in Bangladesh',
@@ -58,6 +60,9 @@ export default function RootLayout({
             <MobileBottomBar />
             <CartDrawer />
             <FloatingWhatsApp />
+            <Suspense fallback={null}>
+              <TrackingScripts />
+            </Suspense>
           </CartProvider>
         </ToastProvider>
       </body>

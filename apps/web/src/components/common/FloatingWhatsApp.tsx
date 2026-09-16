@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Phone, MessageCircle } from 'lucide-react';
+import { trackContact } from '@/lib/tracking';
 
 export default function FloatingWhatsApp() {
   const phone = '01915210799';
@@ -14,6 +15,7 @@ export default function FloatingWhatsApp() {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackContact('WhatsApp')}
         aria-label="Chat on WhatsApp"
         className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all duration-300 ring-4 ring-white/80 group"
       >
@@ -28,6 +30,7 @@ export default function FloatingWhatsApp() {
       {/* Direct Call Button */}
       <a
         href={`tel:${phone}`}
+        onClick={() => trackContact('PhoneCall')}
         aria-label="Direct Phone Call"
         className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#6CAE14] hover:bg-[#5B960E] text-white flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all duration-300 ring-4 ring-white/80 group"
       >

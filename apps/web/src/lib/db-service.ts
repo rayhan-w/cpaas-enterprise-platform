@@ -617,11 +617,42 @@ export const dbService = {
 
   // SETTINGS
   async getSettings(): Promise<StoreSettings> {
+    try {
+      const dbSettings = await prisma.setting.findMany();
+      if (dbSettings && dbSettings.length > 0) {
+        const mapped: any = { ...memorySettings };
+        for (const s of dbSettings) {
+          try {
+            mapped[s.key] = JSON.parse(s.value);
+          } catch {
+            mapped[s.key] = s.value;
+          }
+        }
+        memorySettings = mapped as StoreSettings;
+        return memorySettings;
+      }
+    } catch {
+      // Fallback to memorySettings
+    }
     return memorySettings;
   },
 
   async updateSettings(data: Partial<StoreSettings>): Promise<StoreSettings> {
     memorySettings = { ...memorySettings, ...data };
+    try {
+      for (const [key, value] of Object.entries(data)) {
+        if (value !== undefined) {
+          const strValue = typeof value === 'object' ? JSON.stringify(value) : String(value);
+          await prisma.setting.upsert({
+            where: { key },
+            update: { value: strValue },
+            create: { key, value: strValue },
+          });
+        }
+      }
+    } catch (e) {
+      console.error('Failed to persist settings to DB:', e);
+    }
     return memorySettings;
   },
 

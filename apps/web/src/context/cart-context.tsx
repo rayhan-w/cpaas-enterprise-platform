@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { CartItem, ProductItem, ProductVariant, DeliveryZone } from '@/lib/types';
+import { trackAddToCart } from '@/lib/tracking';
 
 interface CartContextType {
   items: CartItem[];
@@ -98,6 +99,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           totalPrice: quantity * unitPrice,
         },
       ];
+    });
+
+    const unitPrice = variant?.price || product.price;
+    trackAddToCart({
+      id: product.id,
+      name: product.name,
+      price: unitPrice,
+      quantity,
+      category: product.categoryName,
+      brand: product.brand,
     });
 
     setIsCartOpen(true);

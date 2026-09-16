@@ -105,6 +105,27 @@ export async function POST(request: Request) {
       gatewayUrl = `https://sandbox.sslcommerz.com/gwprocess/v4/simulator?tran_id=${orderRecord.orderNumber}&amount=${orderRecord.total}`;
     }
 
+    // Trigger Server-Side Meta Conversions API (CAPI) for Purchase
+    try {
+      const origin = request.headers.get('origin') || 'https://mysterious-einstein-iota.vercel.app';
+      fetch(`${origin}/api/tracking/capi`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          eventName: 'Purchase',
+          eventId: `order_${orderRecord.orderNumber}`,
+          orderNumber: orderRecord.orderNumber,
+          value: orderRecord.total,
+          currency: 'BDT',
+          customerPhone: orderRecord.customerPhone,
+          customerEmail: orderRecord.customerEmail,
+          customerName: orderRecord.customerName,
+          items: orderRecord.items,
+          eventSourceUrl: `${origin}/checkout`,
+        }),
+      }).catch((e) => console.error('CAPI async dispatch error:', e));
+    } catch {}
+
     return NextResponse.json(
       {
         success: true,
