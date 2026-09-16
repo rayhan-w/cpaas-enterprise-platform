@@ -11,6 +11,8 @@ import {
   TrendingUp,
   CreditCard,
   Package,
+  FileSpreadsheet,
+  Download,
 } from 'lucide-react';
 import { formatPrice, formatDate } from '@/lib/formatters';
 import { OrderRecord } from '@/lib/types';
@@ -123,6 +125,102 @@ export default function AdminDashboardPage() {
           <p className="text-[11px] text-[#D94040]">
             Low stock alerts: {metrics?.lowStockProducts || 0}
           </p>
+        </div>
+      </div>
+
+      {/* Quick Excel Reports Download Banner */}
+      <div className="bg-white rounded-3xl p-6 border border-[#EDE5E1] shadow-xs space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#EDE5E1] pb-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-[#E8F5D8] text-[#4E820E] flex items-center justify-center">
+              <FileSpreadsheet className="w-5 h-5 text-[#6CAE14]" />
+            </div>
+            <div>
+              <h2 className="font-bold text-sm text-[#1A1512]">
+                Excel Reports & Data Exports (এক্সেল রিপোর্ট ডাউনলোড)
+              </h2>
+              <p className="text-[11px] text-[#6B5B58]">
+                Download official formatted Excel spreadsheets for daily, weekly, and monthly store analytics.
+              </p>
+            </div>
+          </div>
+          <div className="text-[11px] text-[#9B8A86] font-semibold">
+            UTF-8 BOM • Styled Green Headers
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {/* Daily Orders Excel */}
+          <a
+            href="/api/admin/export?type=orders&period=daily&format=excel"
+            download
+            className="flex items-center justify-between p-3.5 rounded-2xl border border-[#EDE5E1] hover:border-[#6CAE14] hover:bg-[#F1F8E8] transition-all group"
+          >
+            <div>
+              <div className="text-[11px] font-bold text-[#1A1512] flex items-center gap-1.5">
+                <span>⚡</span>
+                <span>Daily Orders Excel</span>
+              </div>
+              <div className="text-[10px] text-[#6B5B58] mt-0.5">আজকের সকল অর্ডার (.xls)</div>
+            </div>
+            <div className="w-7 h-7 rounded-xl bg-white group-hover:bg-[#6CAE14] text-[#6B5B58] group-hover:text-white flex items-center justify-center transition-colors shadow-2xs">
+              <Download className="w-3.5 h-3.5" />
+            </div>
+          </a>
+
+          {/* Weekly Orders Excel */}
+          <a
+            href="/api/admin/export?type=orders&period=weekly&format=excel"
+            download
+            className="flex items-center justify-between p-3.5 rounded-2xl border border-[#EDE5E1] hover:border-[#6CAE14] hover:bg-[#F1F8E8] transition-all group"
+          >
+            <div>
+              <div className="text-[11px] font-bold text-[#1A1512] flex items-center gap-1.5">
+                <span>📅</span>
+                <span>Weekly Orders Excel</span>
+              </div>
+              <div className="text-[10px] text-[#6B5B58] mt-0.5">বিগত ৭ দিনের রিপোর্ট (.xls)</div>
+            </div>
+            <div className="w-7 h-7 rounded-xl bg-white group-hover:bg-[#6CAE14] text-[#6B5B58] group-hover:text-white flex items-center justify-center transition-colors shadow-2xs">
+              <Download className="w-3.5 h-3.5" />
+            </div>
+          </a>
+
+          {/* Monthly Orders Excel */}
+          <a
+            href="/api/admin/export?type=orders&period=monthly&format=excel"
+            download
+            className="flex items-center justify-between p-3.5 rounded-2xl border border-[#EDE5E1] hover:border-[#6CAE14] hover:bg-[#F1F8E8] transition-all group"
+          >
+            <div>
+              <div className="text-[11px] font-bold text-[#1A1512] flex items-center gap-1.5">
+                <span>🗓️</span>
+                <span>Monthly Orders Excel</span>
+              </div>
+              <div className="text-[10px] text-[#6B5B58] mt-0.5">চলতি মাসের রিপোর্ট (.xls)</div>
+            </div>
+            <div className="w-7 h-7 rounded-xl bg-white group-hover:bg-[#6CAE14] text-[#6B5B58] group-hover:text-white flex items-center justify-center transition-colors shadow-2xs">
+              <Download className="w-3.5 h-3.5" />
+            </div>
+          </a>
+
+          {/* Product Catalog & Stock Excel */}
+          <a
+            href="/api/admin/export?type=products&format=excel"
+            download
+            className="flex items-center justify-between p-3.5 rounded-2xl border border-[#EDE5E1] hover:border-[#6CAE14] hover:bg-[#F1F8E8] transition-all group"
+          >
+            <div>
+              <div className="text-[11px] font-bold text-[#1A1512] flex items-center gap-1.5">
+                <span>📦</span>
+                <span>Product Stock Excel</span>
+              </div>
+              <div className="text-[10px] text-[#6B5B58] mt-0.5">মজুদ ও মূল্য তালিকা (.xls)</div>
+            </div>
+            <div className="w-7 h-7 rounded-xl bg-white group-hover:bg-[#6CAE14] text-[#6B5B58] group-hover:text-white flex items-center justify-center transition-colors shadow-2xs">
+              <Download className="w-3.5 h-3.5" />
+            </div>
+          </a>
         </div>
       </div>
 

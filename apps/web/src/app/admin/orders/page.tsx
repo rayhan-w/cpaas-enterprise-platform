@@ -11,10 +11,13 @@ import {
   Clock,
   Truck,
   AlertCircle,
+  FileSpreadsheet,
+  Download,
 } from 'lucide-react';
 import { OrderRecord, OrderStatus, PaymentStatus } from '@/lib/types';
 import { formatPrice, formatDate } from '@/lib/formatters';
 import { useToast } from '@/context/toast-context';
+import ExportOrdersModal from '@/components/admin/ExportOrdersModal';
 
 export default function AdminOrdersPage() {
   const { success, error } = useToast();
@@ -22,6 +25,7 @@ export default function AdminOrdersPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+  const [showExportModal, setShowExportModal] = useState(false);
 
   const fetchOrders = async () => {
     setLoading(true);
@@ -93,8 +97,8 @@ export default function AdminOrdersPage() {
           </p>
         </div>
 
-        {/* Filters */}
-        <div className="flex items-center gap-3">
+        {/* Filters & Export */}
+        <div className="flex items-center gap-3 flex-wrap">
           <input
             type="text"
             value={search}
@@ -115,6 +119,15 @@ export default function AdminOrdersPage() {
               </option>
             ))}
           </select>
+
+          <button
+            type="button"
+            onClick={() => setShowExportModal(true)}
+            className="flex items-center gap-2 bg-[#6CAE14] hover:bg-[#5B960E] text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer"
+          >
+            <FileSpreadsheet className="w-4 h-4" />
+            <span>Export Excel</span>
+          </button>
         </div>
       </div>
 
@@ -215,6 +228,13 @@ export default function AdminOrdersPage() {
           </div>
         )}
       </div>
+
+      {/* Export Modal */}
+      <ExportOrdersModal
+        isOpen={showExportModal}
+        onClose={() => setShowExportModal(false)}
+        orders={orders}
+      />
     </div>
   );
 }

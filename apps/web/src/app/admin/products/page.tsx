@@ -16,12 +16,15 @@ import {
   Filter,
   Check,
   BarChart3,
+  FileSpreadsheet,
+  Download,
 } from 'lucide-react';
 import { ProductItem, CategoryItem } from '@/lib/types';
 import { formatPrice } from '@/lib/formatters';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
 import { useToast } from '@/context/toast-context';
 import ImageUploadPicker from '@/components/admin/ImageUploadPicker';
+import ExportProductsModal from '@/components/admin/ExportProductsModal';
 
 export default function AdminProductsPage() {
   const { success, error } = useToast();
@@ -30,6 +33,7 @@ export default function AdminProductsPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
 
   // Edit Product Modal State
   const [editingProduct, setEditingProduct] = useState<ProductItem | null>(null);
@@ -409,13 +413,23 @@ export default function AdminProductsPage() {
             Real-time stock tracking by category, automatic deduction on orders, and instant inline stock editing.
           </p>
         </div>
-        <button
-          onClick={() => setShowAddModal(true)}
-          className="flex items-center justify-center gap-2 bg-[#6CAE14] hover:bg-[#5B960E] text-white px-5 py-2.5 rounded-xl font-bold text-xs shadow-sm transition-all self-start sm:self-auto cursor-pointer"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Add New Product</span>
-        </button>
+        <div className="flex items-center gap-3 self-start sm:self-auto flex-wrap">
+          <button
+            type="button"
+            onClick={() => setShowExportModal(true)}
+            className="flex items-center justify-center gap-2 bg-white hover:bg-[#F1F8E8] text-[#1A1512] hover:text-[#4E820E] border border-[#EDE5E1] hover:border-[#6CAE14] px-4 py-2.5 rounded-xl font-bold text-xs shadow-xs transition-all cursor-pointer"
+          >
+            <FileSpreadsheet className="w-4 h-4 text-[#6CAE14]" />
+            <span>Export Products Excel</span>
+          </button>
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="flex items-center justify-center gap-2 bg-[#6CAE14] hover:bg-[#5B960E] text-white px-5 py-2.5 rounded-xl font-bold text-xs shadow-sm transition-all cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Add New Product</span>
+          </button>
+        </div>
       </div>
 
       {/* Category Stock & Inventory Overview */}
@@ -1141,6 +1155,14 @@ export default function AdminProductsPage() {
           </div>
         </div>
       )}
+
+      {/* Export Modal */}
+      <ExportProductsModal
+        isOpen={showExportModal}
+        onClose={() => setShowExportModal(false)}
+        products={products}
+        categories={categories}
+      />
     </div>
   );
 }
