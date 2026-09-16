@@ -4,7 +4,7 @@ export const INITIAL_SETTINGS: StoreSettings = {
   storeName: 'Jawata Mart',
   tagline: 'Your Trusted Online Shopping Destination in Bangladesh',
   phone: '01915210799',
-  email: 'jawatamart@gmail.com',
+  email: 'jawatamart3@gmail.com',
   address: 'Uttara Sector-12, Dhaka, Bangladesh',
   bkashMerchantNumber: '01915210799',
   nagadMerchantNumber: '01915210799',

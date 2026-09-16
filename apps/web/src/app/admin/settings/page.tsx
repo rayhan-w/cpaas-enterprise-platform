@@ -31,7 +31,7 @@ export default function AdminSettingsPage() {
     storeName: 'Jawata Mart',
     storeTagline: 'Your Trusted Online Shopping Destination in Bangladesh',
     hotline: '+880 1915-210799',
-    supportEmail: 'jawatamart@gmail.com',
+    supportEmail: 'jawatamart3@gmail.com',
     address: 'Uttara Sector-12, Dhaka, Bangladesh',
     
     // Delivery fees

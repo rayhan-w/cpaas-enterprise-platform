@@ -11,6 +11,7 @@ export async function POST(request: Request) {
 
     // Default master admin account check
     const isMasterEmail =
+      email.toLowerCase() === 'jawatamart3@gmail.com' ||
       email.toLowerCase() === 'jawatamart@gmail.com' ||
       email.toLowerCase() === 'admin@jawatamart.com' ||
       email.toLowerCase() === 'admin@nurtura.com.bd';
