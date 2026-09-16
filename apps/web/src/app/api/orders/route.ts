@@ -83,7 +83,9 @@ export async function POST(request: Request) {
         total: Number(i.price) * Number(i.quantity),
       })),
       payments:
-        body.paymentMethod === 'BKASH' || body.paymentMethod === 'NAGAD'
+        body.paymentMethod === 'BKASH' ||
+        body.paymentMethod === 'NAGAD' ||
+        body.paymentMethod === 'BANK_TRANSFER'
           ? [
               {
                 id: `pay_${Date.now()}`,
@@ -91,18 +93,41 @@ export async function POST(request: Request) {
                 method: body.paymentMethod,
                 amount: calculatedTotal,
                 status: 'PENDING_VERIFICATION',
-                transactionId: body.transactionId,
-                senderNumber: body.senderNumber,
+                transactionId: body.transactionId || body.bankReference || 'BANK_TRANSFER',
+                senderNumber: body.senderNumber || body.bankSenderInfo || '',
                 createdAt: new Date().toISOString(),
               },
             ]
           : [],
     });
 
-    // If SSLCommerz, return sandbox session initiation
+    // If SSLCommerz or Stripe, return gateway checkout URL
     let gatewayUrl = undefined;
     if (body.paymentMethod === 'SSLCOMMERZ') {
       gatewayUrl = `https://sandbox.sslcommerz.com/gwprocess/v4/simulator?tran_id=${orderRecord.orderNumber}&amount=${orderRecord.total}`;
+    } else if (body.paymentMethod === 'STRIPE') {
+      const origin = request.headers.get('origin') || 'https://mysterious-einstein-iota.vercel.app';
+      try {
+        const stripeRes = await fetch(`${origin}/api/payments/stripe/init`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            orderId: orderRecord.id,
+            orderNumber: orderRecord.orderNumber,
+            amount: orderRecord.total,
+            customerName: orderRecord.customerName,
+            customerPhone: orderRecord.customerPhone,
+            customerEmail: orderRecord.customerEmail,
+            items: orderRecord.items,
+          }),
+        });
+        const stripeData = await stripeRes.json();
+        if (stripeData?.gatewayUrl) {
+          gatewayUrl = stripeData.gatewayUrl;
+        }
+      } catch (e) {
+        gatewayUrl = `${origin}/api/payments/stripe/callback?orderId=${orderRecord.id}&orderNumber=${orderRecord.orderNumber}&status=success&simulated=true`;
+      }
     }
 
     // Trigger Server-Side Meta Conversions API (CAPI) for Purchase

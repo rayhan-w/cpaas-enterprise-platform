@@ -618,7 +618,7 @@ export const dbService = {
   },
 
   async updateOrderStatus(id: string, orderStatus: string): Promise<OrderRecord | null> {
-    const order = memoryOrders.find((o) => o.id === id);
+    const order = memoryOrders.find((o) => o.id === id || o.orderNumber === id);
     const prevStatus = order?.orderStatus;
     if (order) {
       order.orderStatus = orderStatus as any;
@@ -647,13 +647,24 @@ export const dbService = {
           if (m) m.stock += item.quantity;
         }
       }
-      return order;
     }
-    return null;
+
+    try {
+      if (process.env.DATABASE_URL && prisma.order) {
+        await prisma.order.updateMany({
+          where: { OR: [{ id }, { orderNumber: id }] },
+          data: { orderStatus: orderStatus as any, updatedAt: new Date() },
+        });
+      }
+    } catch (e) {
+      console.error('Failed to update order status in DB:', e);
+    }
+
+    return order || null;
   },
 
   async verifyPayment(orderId: string, status: PaymentStatus, note?: string): Promise<OrderRecord | null> {
-    const order = memoryOrders.find((o) => o.id === orderId);
+    const order = memoryOrders.find((o) => o.id === orderId || o.orderNumber === orderId);
     if (order) {
       order.paymentStatus = status;
       if (status === 'PAID' && order.orderStatus === 'PENDING') {
@@ -665,9 +676,41 @@ export const dbService = {
         order.payments[0].verifiedAt = new Date().toISOString();
       }
       order.updatedAt = new Date().toISOString();
-      return order;
     }
-    return null;
+
+    try {
+      if (process.env.DATABASE_URL && prisma.order) {
+        const foundOrder = await prisma.order.findFirst({
+          where: { OR: [{ id: orderId }, { orderNumber: orderId }] },
+          include: { payments: true },
+        });
+        if (foundOrder) {
+          const updateData: any = { paymentStatus: status, updatedAt: new Date() };
+          if (status === 'PAID' && foundOrder.orderStatus === 'PENDING') {
+            updateData.orderStatus = 'CONFIRMED';
+          }
+          await prisma.order.update({
+            where: { id: foundOrder.id },
+            data: updateData,
+          });
+
+          if (foundOrder.payments && foundOrder.payments.length > 0) {
+            await prisma.payment.update({
+              where: { id: foundOrder.payments[0].id },
+              data: {
+                status,
+                verificationNote: note,
+                verifiedAt: new Date(),
+              },
+            });
+          }
+        }
+      }
+    } catch (e) {
+      console.error('Failed to update payment status in DB:', e);
+    }
+
+    return order || null;
   },
 
   // SETTINGS

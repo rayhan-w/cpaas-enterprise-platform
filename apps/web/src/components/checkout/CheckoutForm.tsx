@@ -16,6 +16,8 @@ import {
   Minus,
   Plus,
   Trash2,
+  Landmark,
+  Mail,
 } from 'lucide-react';
 import { useCart } from '@/context/cart-context';
 import { formatPrice, isValidBDPhone } from '@/lib/formatters';
@@ -55,15 +57,25 @@ export default function CheckoutForm() {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('COD');
   const [transactionId, setTransactionId] = useState('');
   const [senderNumber, setSenderNumber] = useState('');
+  const [bankReference, setBankReference] = useState('');
+  const [bankSenderInfo, setBankSenderInfo] = useState('');
   const [paymentConfirmedCheckbox, setPaymentConfirmedCheckbox] = useState(false);
 
   // Copy helper
   const [copiedBkash, setCopiedBkash] = useState(false);
   const [copiedNagad, setCopiedNagad] = useState(false);
+  const [copiedBankAcc, setCopiedBankAcc] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const bkashMerchantNumber = '01915210799';
   const nagadMerchantNumber = '01915210799';
+  const bankAccountInfo = {
+    accountName: 'Jawata Mart',
+    accountNumber: '1462101000775432',
+    bankName: 'UCB Bank (United Commercial Bank)',
+    branch: 'Uttara Sector-12 more',
+    email: 'jawatamart3@gmail.com',
+  };
 
   useEffect(() => {
     if (items.length > 0) {
@@ -81,14 +93,17 @@ export default function CheckoutForm() {
     }
   }, []);
 
-  const handleCopy = (text: string, type: 'bkash' | 'nagad') => {
+  const handleCopy = (text: string, type: 'bkash' | 'nagad' | 'bank') => {
     navigator.clipboard.writeText(text.replace(/[\s\-]/g, ''));
     if (type === 'bkash') {
       setCopiedBkash(true);
       setTimeout(() => setCopiedBkash(false), 2000);
-    } else {
+    } else if (type === 'nagad') {
       setCopiedNagad(true);
       setTimeout(() => setCopiedNagad(false), 2000);
+    } else {
+      setCopiedBankAcc(true);
+      setTimeout(() => setCopiedBankAcc(false), 2000);
     }
   };
 
@@ -144,6 +159,18 @@ export default function CheckoutForm() {
       }
     }
 
+    // Validation for Bank Transfer
+    if (paymentMethod === 'BANK_TRANSFER') {
+      if (!bankReference.trim()) {
+        error('Please enter your Bank Deposit Slip or Transfer Reference number');
+        return;
+      }
+      if (!paymentConfirmedCheckbox) {
+        error('Please check the confirmation box indicating you have transferred or deposited the amount');
+        return;
+      }
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -163,8 +190,10 @@ export default function CheckoutForm() {
         couponCode: appliedCoupon?.code,
         total,
         paymentMethod,
-        transactionId: transactionId.trim() || undefined,
-        senderNumber: senderNumber.trim() || undefined,
+        transactionId: (paymentMethod === 'BANK_TRANSFER' ? bankReference : transactionId).trim() || undefined,
+        senderNumber: (paymentMethod === 'BANK_TRANSFER' ? bankSenderInfo : senderNumber).trim() || undefined,
+        bankReference: bankReference.trim() || undefined,
+        bankSenderInfo: bankSenderInfo.trim() || undefined,
         items: items.map((i) => ({
           productId: i.productId,
           productName: i.product.name,
@@ -188,8 +217,8 @@ export default function CheckoutForm() {
         throw new Error(data.error || 'Failed to place order');
       }
 
-      // If SSLCommerz was selected, redirect to SSLCommerz gateway url
-      if (paymentMethod === 'SSLCOMMERZ' && data.gatewayUrl) {
+      // If SSLCommerz or Stripe was selected, redirect to gateway url
+      if ((paymentMethod === 'SSLCOMMERZ' || paymentMethod === 'STRIPE') && data.gatewayUrl) {
         clearCart();
         window.location.href = data.gatewayUrl;
         return;
@@ -442,11 +471,11 @@ export default function CheckoutForm() {
           </h3>
 
           {/* Payment Method Pills */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
             <button
               type="button"
               onClick={() => setPaymentMethod('COD')}
-              className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all ${
+              className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
                 paymentMethod === 'COD'
                   ? 'border-[#7A9C78] bg-[#EAF3E9] text-[#1A1512] font-bold shadow-xs ring-1 ring-[#7A9C78]'
                   : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#7A9C78]/40'
@@ -461,7 +490,7 @@ export default function CheckoutForm() {
             <button
               type="button"
               onClick={() => setPaymentMethod('BKASH')}
-              className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all ${
+              className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
                 paymentMethod === 'BKASH'
                   ? 'border-[#E2136E] bg-[#FFF0F6] text-[#1A1512] font-bold shadow-xs ring-1 ring-[#E2136E]'
                   : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#E2136E]/40'
@@ -470,13 +499,13 @@ export default function CheckoutForm() {
               <div className="h-6 flex items-center justify-center">
                 <BkashLogo className="h-5 w-auto" />
               </div>
-              <span className="text-xs font-semibold">bKash Payment</span>
+              <span className="text-xs font-semibold">bKash</span>
             </button>
 
             <button
               type="button"
               onClick={() => setPaymentMethod('NAGAD')}
-              className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all ${
+              className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
                 paymentMethod === 'NAGAD'
                   ? 'border-[#F4821F] bg-[#FFF8F0] text-[#1A1512] font-bold shadow-xs ring-1 ring-[#F4821F]'
                   : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#F4821F]/40'
@@ -485,22 +514,37 @@ export default function CheckoutForm() {
               <div className="h-6 flex items-center justify-center">
                 <NagadLogo className="h-5 w-auto" />
               </div>
-              <span className="text-xs font-semibold">Nagad Payment</span>
+              <span className="text-xs font-semibold">Nagad</span>
             </button>
 
             <button
               type="button"
-              onClick={() => setPaymentMethod('SSLCOMMERZ')}
-              className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all ${
-                paymentMethod === 'SSLCOMMERZ'
-                  ? 'border-[#1565C0] bg-[#E3F2FD] text-[#1A1512] font-bold shadow-xs ring-1 ring-[#1565C0]'
-                  : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#1565C0]/40'
+              onClick={() => setPaymentMethod('BANK_TRANSFER')}
+              className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                paymentMethod === 'BANK_TRANSFER'
+                  ? 'border-[#00529B] bg-[#EBF3FB] text-[#1A1512] font-bold shadow-xs ring-1 ring-[#00529B]'
+                  : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#00529B]/40'
               }`}
             >
-              <div className="h-6 flex items-center justify-center">
-                <CardLogosGroup className="h-4" />
+              <div className="h-6 flex items-center justify-center text-[#00529B]">
+                <Landmark className="w-5 h-5" />
               </div>
-              <span className="text-xs font-semibold">Cards / Online</span>
+              <span className="text-xs font-semibold">Bank (UCB)</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setPaymentMethod('STRIPE')}
+              className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                paymentMethod === 'STRIPE'
+                  ? 'border-[#635BFF] bg-[#F4F3FF] text-[#1A1512] font-bold shadow-xs ring-1 ring-[#635BFF]'
+                  : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#635BFF]/40'
+              }`}
+            >
+              <div className="h-6 flex items-center justify-center text-[#635BFF]">
+                <CreditCard className="w-5 h-5" />
+              </div>
+              <span className="text-xs font-semibold">Stripe / Cards</span>
             </button>
           </div>
 
@@ -701,6 +745,150 @@ export default function CheckoutForm() {
             </div>
           )}
 
+          {/* Bank Transfer (UCB Bank) Flow */}
+          {paymentMethod === 'BANK_TRANSFER' && (
+            <div className="p-5 bg-gradient-to-br from-[#EBF3FB] to-white rounded-2xl border-2 border-[#00529B]/30 space-y-4 shadow-sm animate-fade-in">
+              <div className="flex items-center justify-between border-b border-[#00529B]/20 pb-3">
+                <div className="flex items-center gap-3">
+                  <div className="bg-white p-2 rounded-xl border border-[#00529B]/20 text-[#00529B] shadow-xs flex items-center justify-center">
+                    <Landmark className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm text-[#1A1512]">UCB Bank Deposit / Transfer</h4>
+                    <p className="text-[11px] text-[#6B5B58]">Direct Bank Deposit, BEFTN, NPSB or Online Transfer</p>
+                  </div>
+                </div>
+                <span className="text-sm font-bold text-[#00529B] bg-white px-2.5 py-1 rounded-full border border-[#00529B]/20">
+                  {formatPrice(total)}
+                </span>
+              </div>
+
+              {/* Bank Account Details Card */}
+              <div className="bg-white p-4 rounded-xl border border-[#EDE5E1] space-y-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div className="p-2.5 bg-[#F8F7F5] rounded-lg border border-[#EDE5E1]">
+                    <span className="text-[10px] text-[#9B8A86] uppercase font-bold block">Account Name</span>
+                    <span className="font-bold text-sm text-[#1A1512]">{bankAccountInfo.accountName}</span>
+                  </div>
+                  <div className="p-2.5 bg-[#F8F7F5] rounded-lg border border-[#EDE5E1]">
+                    <span className="text-[10px] text-[#9B8A86] uppercase font-bold block">Bank Name</span>
+                    <span className="font-bold text-sm text-[#00529B]">{bankAccountInfo.bankName}</span>
+                  </div>
+                  <div className="p-2.5 bg-[#F8F7F5] rounded-lg border border-[#EDE5E1] sm:col-span-2 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] text-[#9B8A86] uppercase font-bold block">Bank Account Number</span>
+                      <span className="font-bold font-mono text-base text-[#1A1512] tracking-wider">
+                        {bankAccountInfo.accountNumber}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(bankAccountInfo.accountNumber, 'bank')}
+                      className="flex items-center gap-1 text-[11px] font-bold bg-white text-[#00529B] border border-[#00529B]/40 px-3 py-1.5 rounded-lg hover:bg-[#00529B] hover:text-white transition-colors active:scale-95 cursor-pointer"
+                    >
+                      {copiedBankAcc ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                      <span>{copiedBankAcc ? 'Copied!' : 'Copy Account'}</span>
+                    </button>
+                  </div>
+                  <div className="p-2.5 bg-[#F8F7F5] rounded-lg border border-[#EDE5E1]">
+                    <span className="text-[10px] text-[#9B8A86] uppercase font-bold block">Branch</span>
+                    <span className="font-semibold text-xs text-[#1A1512]">{bankAccountInfo.branch}</span>
+                  </div>
+                  <div className="p-2.5 bg-[#F8F7F5] rounded-lg border border-[#EDE5E1]">
+                    <span className="text-[10px] text-[#9B8A86] uppercase font-bold block">Deposit Slip / Receipt Email</span>
+                    <span className="font-semibold text-xs text-[#00529B] font-mono">{bankAccountInfo.email}</span>
+                  </div>
+                </div>
+
+                <div className="p-2.5 bg-[#EBF3FB] rounded-lg border border-[#00529B]/20 text-[11px] text-[#1A1512] flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-[#00529B] shrink-0" />
+                  <span>
+                    টাকা পাঠানোর পর স্লিপ বা স্ক্রিনশট <strong>{bankAccountInfo.email}</strong> এ ইমেইল করুন অথবা নিচে রেফারেন্স নম্বরটি লিখুন।
+                  </span>
+                </div>
+              </div>
+
+              {/* Customer Inputs */}
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-xs font-semibold text-[#1A1512] mb-1">
+                    Your Bank & Account Name / Number (ঐচ্ছিক)
+                  </label>
+                  <input
+                    type="text"
+                    value={bankSenderInfo}
+                    onChange={(e) => setBankSenderInfo(e.target.value)}
+                    placeholder="e.g. City Bank / Rahim / 112233..."
+                    className="w-full bg-white border border-[#EDE5E1] rounded-xl px-3 py-2 text-xs text-[#1A1512] focus:outline-none focus:border-[#00529B]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-[#1A1512] mb-1">
+                    Deposit Slip No. / Transfer Reference / TrxID <span className="text-[#D94040]">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={bankReference}
+                    onChange={(e) => setBankReference(e.target.value.toUpperCase())}
+                    placeholder="e.g. UCB-775432 or Deposit Slip #12345"
+                    className="w-full bg-white border border-[#EDE5E1] rounded-xl px-3 py-2 text-xs font-mono font-bold text-[#1A1512] uppercase focus:outline-none focus:border-[#00529B]"
+                  />
+                </div>
+              </div>
+
+              {/* Confirmation Checkbox */}
+              <label className="flex items-start gap-2 cursor-pointer pt-1 text-xs text-[#1A1512]">
+                <input
+                  type="checkbox"
+                  required
+                  checked={paymentConfirmedCheckbox}
+                  onChange={(e) => setPaymentConfirmedCheckbox(e.target.checked)}
+                  className="mt-0.5 accent-[#00529B]"
+                />
+                <span className="text-[11px] text-[#6B5B58]">
+                  I have transferred or deposited <strong>{formatPrice(total)}</strong> to Jawata Mart&apos;s UCB Bank Account and the Reference / Slip No. entered above is accurate.
+                </span>
+              </label>
+            </div>
+          )}
+
+          {/* Stripe Card & Global Payment Flow */}
+          {paymentMethod === 'STRIPE' && (
+            <div className="p-5 bg-gradient-to-br from-[#F4F3FF] to-white rounded-2xl border-2 border-[#635BFF]/30 space-y-4 shadow-sm animate-fade-in">
+              <div className="flex items-center justify-between border-b border-[#635BFF]/20 pb-3">
+                <div className="flex items-center gap-3">
+                  <div className="bg-white p-2 rounded-xl border border-[#635BFF]/20 text-[#635BFF] shadow-xs flex items-center justify-center">
+                    <CreditCard className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm text-[#1A1512]">Stripe Secure Payment</h4>
+                    <p className="text-[11px] text-[#6B5B58]">Visa, Mastercard, Amex, Apple Pay & Google Pay</p>
+                  </div>
+                </div>
+                <span className="text-sm font-bold text-[#635BFF] bg-white px-2.5 py-1 rounded-full border border-[#635BFF]/20">
+                  {formatPrice(total)}
+                </span>
+              </div>
+
+              <div className="bg-white p-4 rounded-xl border border-[#EDE5E1] space-y-3 text-xs text-[#1A1512]">
+                <div className="flex items-center gap-2 text-[#635BFF] font-semibold">
+                  <Lock className="w-4 h-4" />
+                  <span>256-bit End-to-End SSL Encrypted via Stripe</span>
+                </div>
+                <p className="text-[#6B5B58] text-[11px] leading-relaxed">
+                  Upon clicking <strong>&quot;Confirm Order&quot;</strong> below, you will be securely redirected to Stripe Checkout to complete payment. Supports international cards and instant verification.
+                </p>
+                <div className="flex items-center gap-2 pt-1 flex-wrap">
+                  <span className="px-2 py-0.5 bg-[#F8F7F5] rounded font-bold text-[10px] text-[#6B5B58] border border-[#EDE5E1]">VISA</span>
+                  <span className="px-2 py-0.5 bg-[#F8F7F5] rounded font-bold text-[#6B5B58] border border-[#EDE5E1]">Mastercard</span>
+                  <span className="px-2 py-0.5 bg-[#F8F7F5] rounded font-bold text-[#6B5B58] border border-[#EDE5E1]">American Express</span>
+                  <span className="px-2 py-0.5 bg-[#F8F7F5] rounded font-bold text-[#6B5B58] border border-[#EDE5E1]">Apple Pay</span>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* SSLCommerz Online Gateway */}
           {paymentMethod === 'SSLCOMMERZ' && (
             <div className="p-4 bg-[#E3F2FD] rounded-2xl border border-[#1565C0]/20 text-xs text-[#1A1512] space-y-2">
@@ -830,10 +1018,20 @@ export default function CheckoutForm() {
           <button
             type="submit"
             disabled={isSubmitting || items.length === 0}
-            className="w-full bg-[#6CAE14] hover:bg-[#5B960E] disabled:opacity-50 text-white font-bold text-sm py-4 px-6 rounded-2xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2"
+            className="w-full bg-[#6CAE14] hover:bg-[#5B960E] disabled:opacity-50 text-white font-bold text-sm py-4 px-6 rounded-2xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
           >
             {isSubmitting ? (
               <span>Placing Your Order...</span>
+            ) : paymentMethod === 'STRIPE' ? (
+              <>
+                <CreditCard className="w-4 h-4" />
+                <span>Pay with Stripe ({formatPrice(total)})</span>
+              </>
+            ) : paymentMethod === 'BANK_TRANSFER' ? (
+              <>
+                <Landmark className="w-4 h-4" />
+                <span>Confirm Bank Deposit ({formatPrice(total)})</span>
+              </>
             ) : (
               <>
                 <Lock className="w-4 h-4" />

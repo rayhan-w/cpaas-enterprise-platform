@@ -19,7 +19,7 @@ export default function AdminPaymentVerificationPage() {
   const { success, error } = useToast();
   const [orders, setOrders] = useState<OrderRecord[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filterMethod, setFilterMethod] = useState<'ALL' | 'BKASH' | 'NAGAD'>('ALL');
+  const [filterMethod, setFilterMethod] = useState<'ALL' | 'BKASH' | 'NAGAD' | 'BANK_TRANSFER' | 'STRIPE'>('ALL');
   const [filterStatus, setFilterStatus] = useState<string>('PENDING_VERIFICATION');
   const [notes, setNotes] = useState<Record<string, string>>({});
   const [actionLoading, setActionLoading] = useState<string | null>(null);
@@ -65,10 +65,14 @@ export default function AdminPaymentVerificationPage() {
     }
   };
 
-  // Filter bKash and Nagad orders
+  // Filter verification orders (bKash, Nagad, Bank Transfer, Stripe)
   const paymentOrders = orders.filter((o) => {
-    const isManual = o.paymentMethod === 'BKASH' || o.paymentMethod === 'NAGAD';
-    if (!isManual) return false;
+    const isPayable =
+      o.paymentMethod === 'BKASH' ||
+      o.paymentMethod === 'NAGAD' ||
+      o.paymentMethod === 'BANK_TRANSFER' ||
+      o.paymentMethod === 'STRIPE';
+    if (!isPayable) return false;
     if (filterMethod !== 'ALL' && o.paymentMethod !== filterMethod) return false;
     if (filterStatus && o.paymentStatus !== filterStatus) return false;
     return true;
@@ -80,10 +84,10 @@ export default function AdminPaymentVerificationPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="section-title text-2xl sm:text-3xl text-[#1A1512]">
-            Manual Payment Verification
+            Payment Verification & Transactions
           </h1>
           <p className="text-xs text-[#6B5B58] mt-1">
-            Review bKash and Nagad Send Money transactions submitted by customers.
+            Review bKash, Nagad, UCB Bank Deposits, and Stripe transactions.
           </p>
         </div>
 
@@ -97,6 +101,8 @@ export default function AdminPaymentVerificationPage() {
             <option value="ALL">All Methods</option>
             <option value="BKASH">bKash Only</option>
             <option value="NAGAD">Nagad Only</option>
+            <option value="BANK_TRANSFER">Bank (UCB) Only</option>
+            <option value="STRIPE">Stripe Only</option>
           </select>
 
           <select
@@ -162,11 +168,21 @@ export default function AdminPaymentVerificationPage() {
                         <span
                           className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                             order.paymentMethod === 'BKASH'
-                              ? 'bg-[#F1F8E8] text-[#E2136E] border border-[#E2136E]/20'
-                              : 'bg-[#FFF8F0] text-[#F4821F] border border-[#F4821F]/20'
+                              ? 'bg-[#FFF0F6] text-[#E2136E] border border-[#E2136E]/20'
+                              : order.paymentMethod === 'NAGAD'
+                              ? 'bg-[#FFF8F0] text-[#F4821F] border border-[#F4821F]/20'
+                              : order.paymentMethod === 'BANK_TRANSFER'
+                              ? 'bg-[#EBF3FB] text-[#00529B] border border-[#00529B]/20'
+                              : order.paymentMethod === 'STRIPE'
+                              ? 'bg-[#F4F3FF] text-[#635BFF] border border-[#635BFF]/20'
+                              : 'bg-[#F8F7F5] text-[#1A1512] border border-[#EDE5E1]'
                           }`}
                         >
-                          {order.paymentMethod}
+                          {order.paymentMethod === 'BANK_TRANSFER'
+                            ? 'Bank (UCB)'
+                            : order.paymentMethod === 'STRIPE'
+                            ? 'Stripe'
+                            : order.paymentMethod}
                         </span>
                       </td>
 

@@ -84,7 +84,7 @@ export interface CartItem {
 
 export type DeliveryZone = 'INSIDE_DHAKA' | 'OUTSIDE_DHAKA';
 
-export type PaymentMethod = 'COD' | 'BKASH' | 'NAGAD' | 'SSLCOMMERZ';
+export type PaymentMethod = 'COD' | 'BKASH' | 'NAGAD' | 'SSLCOMMERZ' | 'STRIPE' | 'BANK_TRANSFER';
 
 export type PaymentStatus = 'PENDING_VERIFICATION' | 'PAID' | 'FAILED' | 'REJECTED' | 'REFUNDED';
 

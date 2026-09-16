@@ -16,7 +16,8 @@ import {
   Activity,
   Send,
   Globe,
-  Radio
+  Radio,
+  Landmark
 } from 'lucide-react';
 import { useToast } from '@/context/toast-context';
 
@@ -45,6 +46,19 @@ export default function AdminSettingsPage() {
     bkashAccountType: 'Personal',
     nagadMerchantNumber: '01915210799',
     nagadAccountType: 'Personal',
+
+    // Bank Account Details (UCB Bank)
+    bankAccountName: 'Jawata Mart',
+    bankAccountNumber: '1462101000775432',
+    bankName: 'UCB Bank (United Commercial Bank)',
+    bankBranch: 'Uttara Sector-12 more',
+    bankConfirmationEmail: 'jawatamart3@gmail.com',
+    enableBankTransfer: true,
+
+    // Stripe Gateway Configuration
+    stripePublishableKey: '',
+    stripeSecretKey: '',
+    enableStripe: true,
     
     // Feature Toggles
     enableCOD: true,
@@ -316,6 +330,149 @@ export default function AdminSettingsPage() {
                   <option value="Merchant">Merchant Account</option>
                   <option value="Personal">Personal Account (Send Money)</option>
                 </select>
+              </div>
+            </div>
+
+            {/* UCB Bank Deposit Config */}
+            <div className="p-5 rounded-xl border border-blue-200 bg-blue-50/40 space-y-4 md:col-span-2">
+              <div className="flex items-center justify-between border-b border-blue-200 pb-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-[#00529B] text-white flex items-center justify-center">
+                    <Landmark className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="font-bold text-charcoal-900 block text-sm">UCB Bank Direct Deposit</span>
+                    <span className="text-xs text-charcoal-500">United Commercial Bank details shown to buyers at checkout</span>
+                  </div>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    name="enableBankTransfer"
+                    checked={formData.enableBankTransfer}
+                    onChange={handleChange}
+                    className="sr-only peer"
+                  />
+                  <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#00529B]"></div>
+                </label>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                    Account Name
+                  </label>
+                  <input
+                    type="text"
+                    name="bankAccountName"
+                    value={formData.bankAccountName}
+                    onChange={handleChange}
+                    className="w-full px-3.5 py-2 rounded-lg border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00529B]/20"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                    Bank Account Number
+                  </label>
+                  <input
+                    type="text"
+                    name="bankAccountNumber"
+                    value={formData.bankAccountNumber}
+                    onChange={handleChange}
+                    className="w-full px-3.5 py-2 rounded-lg border border-charcoal-200 text-sm font-mono font-bold focus:outline-none focus:ring-2 focus:ring-[#00529B]/20"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                    Bank Name
+                  </label>
+                  <input
+                    type="text"
+                    name="bankName"
+                    value={formData.bankName}
+                    onChange={handleChange}
+                    className="w-full px-3.5 py-2 rounded-lg border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00529B]/20"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                    Branch Name
+                  </label>
+                  <input
+                    type="text"
+                    name="bankBranch"
+                    value={formData.bankBranch}
+                    onChange={handleChange}
+                    className="w-full px-3.5 py-2 rounded-lg border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00529B]/20"
+                  />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                    Receipt Confirmation Email
+                  </label>
+                  <input
+                    type="email"
+                    name="bankConfirmationEmail"
+                    value={formData.bankConfirmationEmail}
+                    onChange={handleChange}
+                    placeholder="jawatamart3@gmail.com"
+                    className="w-full px-3.5 py-2 rounded-lg border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00529B]/20"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Stripe Card Payment Gateway Config */}
+            <div className="p-5 rounded-xl border border-indigo-200 bg-indigo-50/40 space-y-4 md:col-span-2">
+              <div className="flex items-center justify-between border-b border-indigo-200 pb-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-[#635BFF] text-white flex items-center justify-center font-bold text-xs">
+                    <CreditCard className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="font-bold text-charcoal-900 block text-sm">Stripe International & Local Cards</span>
+                    <span className="text-xs text-charcoal-500">Enable Visa, Mastercard, AMEX, Apple Pay via Stripe Checkout</span>
+                  </div>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    name="enableStripe"
+                    checked={formData.enableStripe}
+                    onChange={handleChange}
+                    className="sr-only peer"
+                  />
+                  <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#635BFF]"></div>
+                </label>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                    Stripe Publishable Key
+                  </label>
+                  <input
+                    type="text"
+                    name="stripePublishableKey"
+                    value={formData.stripePublishableKey}
+                    onChange={handleChange}
+                    placeholder="pk_live_... or pk_test_..."
+                    className="w-full px-3.5 py-2 rounded-lg border border-charcoal-200 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#635BFF]/20"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                    Stripe Secret Key
+                  </label>
+                  <input
+                    type="password"
+                    name="stripeSecretKey"
+                    value={formData.stripeSecretKey}
+                    onChange={handleChange}
+                    placeholder="sk_live_... or sk_test_..."
+                    className="w-full px-3.5 py-2 rounded-lg border border-charcoal-200 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#635BFF]/20"
+                  />
+                </div>
               </div>
             </div>
           </div>

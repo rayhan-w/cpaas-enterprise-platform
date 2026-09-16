@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { CheckCircle2, Truck, ShoppingBag, Clock, Phone, AlertCircle } from 'lucide-react';
+import { CheckCircle2, Truck, ShoppingBag, Clock, Phone, AlertCircle, Landmark } from 'lucide-react';
 import { dbService } from '@/lib/db-service';
 import { formatPrice, formatDate } from '@/lib/formatters';
 import OrderSuccessTracker from '@/components/tracking/OrderSuccessTracker';
@@ -73,8 +73,25 @@ export default async function OrderSuccessPage({ searchParams }: OrderSuccessPro
 
           {/* Payment Status Alert */}
           <div className="pt-2 border-t border-[#EDE5E1]">
-            {order?.paymentMethod === 'BKASH' || order?.paymentMethod === 'NAGAD' ? (
-              <div className="flex items-start gap-2 text-xs bg-[#FFF8F0] p-3 rounded-xl border border-[#F4821F]/20 text-[#7D3800]">
+            {order?.paymentMethod === 'BANK_TRANSFER' ? (
+              <div className="space-y-2 text-xs bg-[#EBF3FB] p-3.5 rounded-xl border border-[#00529B]/20 text-[#00529B] text-left">
+                <div className="flex items-center gap-1.5 font-bold text-sm">
+                  <Landmark className="w-4 h-4 text-[#00529B]" />
+                  <span>UCB Bank Deposit / Transfer Instructions</span>
+                </div>
+                <div className="space-y-1 text-[11px] text-[#1A1512]">
+                  <p><strong>Account Name:</strong> Jawata Mart</p>
+                  <p><strong>Bank:</strong> UCB Bank (United Commercial Bank)</p>
+                  <p><strong>Account Number:</strong> <span className="font-mono font-bold">1462101000775432</span></p>
+                  <p><strong>Branch:</strong> Uttara Sector-12 more</p>
+                  <p><strong>Deposit Slip / Receipt Email:</strong> <span className="text-[#00529B] font-semibold font-mono">jawatamart3@gmail.com</span></p>
+                </div>
+                <p className="text-[10px] text-[#6B5B58] pt-1">
+                  Please email your deposit slip or transfer screenshot to <strong>jawatamart3@gmail.com</strong> with your Order Reference ({order.orderNumber}).
+                </p>
+              </div>
+            ) : order?.paymentMethod === 'BKASH' || order?.paymentMethod === 'NAGAD' ? (
+              <div className="flex items-start gap-2 text-xs bg-[#FFF8F0] p-3 rounded-xl border border-[#F4821F]/20 text-[#7D3800] text-left">
                 <Clock className="w-4 h-4 text-[#F4821F] shrink-0 mt-0.5" />
                 <div>
                   <p className="font-bold">Payment Status: Pending Verification</p>
@@ -82,6 +99,11 @@ export default async function OrderSuccessPage({ searchParams }: OrderSuccessPro
                     Our accounts department is verifying your Transaction ID. Once verified, your order status will update to Confirmed automatically.
                   </p>
                 </div>
+              </div>
+            ) : order?.paymentMethod === 'STRIPE' ? (
+              <div className="flex items-center gap-2 text-xs bg-[#F4F3FF] p-3 rounded-xl border border-[#635BFF]/20 text-[#4338CA]">
+                <CheckCircle2 className="w-4 h-4 text-[#635BFF] shrink-0" />
+                <span>Stripe Payment Confirmed & Secured</span>
               </div>
             ) : (
               <div className="flex items-center gap-2 text-xs bg-[#EAF3E9] p-3 rounded-xl border border-[#7A9C78]/20 text-[#2B7A47]">
