@@ -22,6 +22,17 @@ export const INITIAL_SETTINGS: StoreSettings = {
   enableGA4: true,
   gtmId: process.env.NEXT_PUBLIC_GTM_ID || '',
   enableGTM: true,
+
+  // Owner Profile & About Details
+  ownerName: 'Abdur Rahim',
+  ownerTitle: 'Founder & Managing Director',
+  ownerBio: 'Passionate entrepreneur dedicated to bringing 100% authentic lifestyle, baby care, fashion, and organic food products directly to households across all 64 districts of Bangladesh.',
+  ownerPhoto: '/images/abdur-rahim-owner.jpg',
+  ownerPhone: '01915210799',
+  ownerEmail: 'jawatamart3@gmail.com',
+  aboutStory: 'Jawata Mart was founded by Abdur Rahim with a clear purpose: to bridge the gap between quality and affordability in online shopping in Bangladesh. Operating from Uttara Sector-12, Dhaka, we curate and inspect every item—ensuring only genuine products reach your family.',
+  aboutMission: 'To provide a trustworthy, reliable shopping experience where every customer receives genuine products, responsive support, and prompt doorstep delivery.',
+  aboutVision: 'To be the most respected and dependable lifestyle & e-commerce brand in Bangladesh, celebrated for authenticity, customer delight, and ethical commerce.',
 };
 
 export const INITIAL_CATEGORIES: CategoryItem[] = [

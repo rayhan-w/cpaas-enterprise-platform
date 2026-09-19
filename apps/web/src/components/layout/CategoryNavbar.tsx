@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronDown, ChevronRight, Flame, Layers, Menu, Grid, Sparkles, Umbrella, Leaf, Shirt } from 'lucide-react';
+import { ChevronDown, ChevronRight, Flame, Layers, Menu, Grid, Sparkles, Umbrella, Leaf, Shirt, Info } from 'lucide-react';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
 
 export default function CategoryNavbar() {
@@ -213,6 +213,19 @@ export default function CategoryNavbar() {
           >
             <Umbrella className="w-3.5 h-3.5" />
             <span>Weather Protection</span>
+          </Link>
+
+          {/* About Us Link */}
+          <Link
+            href="/about"
+            className={`flex items-center gap-1 px-3 py-2.5 sm:py-3 text-xs font-semibold transition-all shrink-0 rounded-md ${
+              pathname === '/about'
+                ? 'text-[#9ED114] bg-white/10'
+                : 'text-white/80 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <Info className="w-3.5 h-3.5 text-[#9ED114]" />
+            <span>About Us</span>
           </Link>
         </div>
       </div>

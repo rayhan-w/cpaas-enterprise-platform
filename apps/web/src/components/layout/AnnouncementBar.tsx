@@ -21,8 +21,15 @@ export default function AnnouncementBar() {
           </div>
         </div>
 
-        {/* Right: Hotline & Track Order */}
+        {/* Right: About Us, Hotline & Track Order */}
         <div className="flex items-center gap-3 sm:gap-4 text-white/85">
+          <Link
+            href="/about"
+            className="hover:text-[#9ED114] transition-colors flex items-center gap-1 font-medium"
+          >
+            <span>About Us</span>
+          </Link>
+          <span className="text-white/30">|</span>
           <Link
             href="/track-order"
             className="hover:text-[#9ED114] transition-colors flex items-center gap-1 font-medium"

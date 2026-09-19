@@ -16,6 +16,7 @@ import {
   Heart,
   ExternalLink,
   Flame,
+  Info,
 } from 'lucide-react';
 import { useCart } from '@/context/cart-context';
 import { formatPrice } from '@/lib/formatters';
@@ -338,6 +339,14 @@ export default function Header() {
               </Link>
 
               <div className="pt-4 border-t border-[#DFECCE] space-y-2">
+                <Link
+                  href="/about"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2 p-3 rounded-xl text-xs font-bold text-[#0E140E] hover:bg-[#F1F8E8] hover:text-[#6CAE14]"
+                >
+                  <Info className="w-4 h-4 text-[#6CAE14]" />
+                  <span>About Us (আমাদের সম্পর্কে)</span>
+                </Link>
                 <Link
                   href="/track-order"
                   onClick={() => setMobileMenuOpen(false)}

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { 
   Settings, 
   Save, 
@@ -17,9 +18,15 @@ import {
   Send,
   Globe,
   Radio,
-  Landmark
+  Landmark,
+  User,
+  Award,
+  FileText,
+  Sparkles,
+  ExternalLink
 } from 'lucide-react';
 import { useToast } from '@/context/toast-context';
+import ImageUploadPicker from '@/components/admin/ImageUploadPicker';
 
 export default function AdminSettingsPage() {
   const { toast } = useToast();
@@ -77,6 +84,17 @@ export default function AdminSettingsPage() {
     enableGA4: true,
     gtmId: '',
     enableGTM: true,
+
+    // Founder & Owner Profile (About Page)
+    ownerName: 'Abdur Rahim',
+    ownerTitle: 'Founder & Managing Director',
+    ownerBio: 'Passionate entrepreneur dedicated to bringing 100% authentic lifestyle, baby care, fashion, and organic food products directly to households across all 64 districts of Bangladesh.',
+    ownerPhoto: '/images/abdur-rahim-owner.jpg',
+    ownerPhone: '01915210799',
+    ownerEmail: 'jawatamart3@gmail.com',
+    aboutStory: 'Jawata Mart was founded by Abdur Rahim with a clear purpose: to bridge the gap between quality and affordability in online shopping in Bangladesh. Operating from Uttara Sector-12, Dhaka, we curate and inspect every item—ensuring only genuine products reach your family.',
+    aboutMission: 'To provide a trustworthy, reliable shopping experience where every customer receives genuine products, responsive support, and prompt doorstep delivery.',
+    aboutVision: 'To be the most respected and dependable lifestyle & e-commerce brand in Bangladesh, celebrated for authenticity, customer delight, and ethical commerce.',
   });
 
   const [testLoading, setTestLoading] = useState(false);
@@ -607,6 +625,213 @@ export default function AdminSettingsPage() {
                 onChange={handleChange}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20"
               />
+            </div>
+          </div>
+        </div>
+
+        {/* Founder & Owner Profile (About Us Page) */}
+        <div className="bg-white rounded-2xl border border-charcoal-100 shadow-sm overflow-hidden">
+          <div className="px-6 py-4 border-b border-charcoal-100 bg-[#F1F8E8] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-[#6CAE14] text-white flex items-center justify-center shadow-xs">
+                <User className="w-4 h-4" />
+              </div>
+              <div>
+                <h2 className="text-base font-bold text-charcoal-900">Founder & Owner Profile (About Us Page)</h2>
+                <p className="text-xs text-charcoal-500">
+                  Update Abdur Rahim's profile, photos, direct contact, and brand story shown on the public About page
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/about"
+              target="_blank"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#DFECCE] text-xs font-bold text-[#6CAE14] hover:bg-[#E5F3D4] transition-colors shrink-0 shadow-2xs"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span>Preview Live About Page</span>
+            </Link>
+          </div>
+
+          <div className="p-6 space-y-6">
+            {/* Top row: Photo Picker + Live Card Preview */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start pb-6 border-b border-charcoal-100">
+              {/* Photo Selector with Upload & Link */}
+              <div className="lg:col-span-7 space-y-3">
+                <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider">
+                  Founder / Owner Photo (মালিকের ছবি)
+                </label>
+                <ImageUploadPicker
+                  label="Upload from Device or Paste Image URL (ডিভাইস থেকে আপলোড বা লিংক দিন)"
+                  value={formData.ownerPhoto || ''}
+                  onChange={(url) => setFormData((prev) => ({ ...prev, ownerPhoto: url }))}
+                />
+                <p className="text-xs text-charcoal-500">
+                  Select a photo from your computer/mobile or paste a direct image URL. Supported formats: JPG, PNG, WebP.
+                </p>
+              </div>
+
+              {/* Live Card Preview */}
+              <div className="lg:col-span-5 bg-gradient-to-br from-[#FAFCF7] to-[#F1F8E8] border border-[#DFECCE] rounded-2xl p-5 shadow-xs">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[11px] font-bold text-[#6CAE14] uppercase tracking-wider flex items-center gap-1">
+                    <Sparkles className="w-3 h-3" />
+                    Live Website Preview
+                  </span>
+                  <span className="text-[10px] bg-white border border-[#DFECCE] text-[#526052] font-semibold px-2 py-0.5 rounded-full">
+                    Customer View
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="relative w-20 h-20 rounded-2xl overflow-hidden ring-3 ring-[#6CAE14]/40 shadow-md shrink-0 bg-white">
+                    {formData.ownerPhoto ? (
+                      <img
+                        src={formData.ownerPhoto}
+                        alt={formData.ownerName || 'Founder'}
+                        className="w-full h-full object-cover object-top"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-[#DFECCE] flex items-center justify-center text-charcoal-400">
+                        <User className="w-8 h-8" />
+                      </div>
+                    )}
+                    <span className="absolute bottom-1 right-1 w-3.5 h-3.5 bg-[#6CAE14] border-2 border-white rounded-full"></span>
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <h4 className="font-bold text-sm text-[#0E140E] truncate">
+                        {formData.ownerName || 'Abdur Rahim'}
+                      </h4>
+                      <span className="inline-flex items-center gap-0.5 text-[10px] font-bold bg-[#EBF5DC] text-[#5B960E] px-1.5 py-0.5 rounded-full">
+                        <CheckCircle2 className="w-2.5 h-2.5" />
+                        Verified
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#6CAE14] font-semibold mt-0.5">
+                      {formData.ownerTitle || 'Founder & Managing Director'}
+                    </p>
+                    <p className="text-[11px] text-charcoal-500 mt-1 line-clamp-2">
+                      {formData.ownerBio || 'Leading Jawata Mart across 64 districts with authentic products.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Profile Inputs */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                  Founder Full Name (মালিকের পুরো নাম)
+                </label>
+                <input
+                  type="text"
+                  name="ownerName"
+                  value={formData.ownerName || ''}
+                  onChange={handleChange}
+                  placeholder="e.g. Abdur Rahim"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                  Designation / Role Title (পদবী)
+                </label>
+                <input
+                  type="text"
+                  name="ownerTitle"
+                  value={formData.ownerTitle || ''}
+                  onChange={handleChange}
+                  placeholder="e.g. Founder & Managing Director"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                  Direct Phone / WhatsApp (ফোন / হোয়াটসঅ্যাপ)
+                </label>
+                <input
+                  type="text"
+                  name="ownerPhone"
+                  value={formData.ownerPhone || ''}
+                  onChange={handleChange}
+                  placeholder="e.g. 01915210799"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                  Owner Email Address (মালিকের ইমেইল)
+                </label>
+                <input
+                  type="email"
+                  name="ownerEmail"
+                  value={formData.ownerEmail || ''}
+                  onChange={handleChange}
+                  placeholder="e.g. jawatamart3@gmail.com"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                  Founder Biography &amp; Welcome Message (মালিকের সংক্ষিপ্ত পরিচিতি ও বার্তা)
+                </label>
+                <textarea
+                  name="ownerBio"
+                  rows={3}
+                  value={formData.ownerBio || ''}
+                  onChange={handleChange}
+                  placeholder="Short bio or welcome quote from the founder..."
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                  Our Story / About Jawata Mart (আমাদের গল্প ও যাত্রার বিবরণ)
+                </label>
+                <textarea
+                  name="aboutStory"
+                  rows={4}
+                  value={formData.aboutStory || ''}
+                  onChange={handleChange}
+                  placeholder="Describe how Jawata Mart started and what it stands for..."
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                  Our Mission (আমাদের মিশন)
+                </label>
+                <textarea
+                  name="aboutMission"
+                  rows={3}
+                  value={formData.aboutMission || ''}
+                  onChange={handleChange}
+                  placeholder="Our core purpose and commitments to buyers..."
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                  Our Vision (আমাদের ভিশন)
+                </label>
+                <textarea
+                  name="aboutVision"
+                  rows={3}
+                  value={formData.aboutVision || ''}
+                  onChange={handleChange}
+                  placeholder="Where we aim to take Jawata Mart in the coming years..."
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -118,9 +118,14 @@ export default function Footer() {
           {/* Customer Service */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#6CAE14] mb-4">
-              Customer Care
+              Company &amp; Care
             </h4>
             <ul className="space-y-2.5 text-xs text-white/70">
+              <li>
+                <Link href="/about" className="hover:text-[#9ED114] text-white font-medium transition-colors flex items-center gap-1.5">
+                  <span>About Us (আমাদের সম্পর্কে)</span>
+                </Link>
+              </li>
               <li>
                 <Link href="/track-order" className="hover:text-white transition-colors">
                   Track Your Order
