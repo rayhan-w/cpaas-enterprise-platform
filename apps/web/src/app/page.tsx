@@ -64,6 +64,14 @@ export default async function HomePage() {
         products={products}
       />
 
+      {/* Fashion Department Showcase */}
+      <CuratedCategoryShowcase
+        title="Fashion & Lifestyle Collection"
+        subtitle="Premium embroidered Panjabi, pure soft silk sarees, casual Oxford shirts, designer kurtis & leather accessories"
+        categorySlug="fashion"
+        products={products}
+      />
+
       {/* 7. Bag Department Showcase */}
       <CuratedCategoryShowcase
         title="Bags & Backpacks Collection"

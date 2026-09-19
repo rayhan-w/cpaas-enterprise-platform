@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronDown, ChevronRight, Flame, Layers, Menu, Grid, Sparkles, Umbrella, Leaf } from 'lucide-react';
+import { ChevronDown, ChevronRight, Flame, Layers, Menu, Grid, Sparkles, Umbrella, Leaf, Shirt } from 'lucide-react';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
 
 export default function CategoryNavbar() {
@@ -173,6 +173,7 @@ export default function CategoryNavbar() {
                     }`}
                   >
                     {cat.slug === 'organic-food' && <Leaf className="w-3.5 h-3.5 text-[#9ED114]" />}
+                    {cat.slug === 'fashion' && <Shirt className="w-3.5 h-3.5 text-[#F0B840]" />}
                     <span>{cat.name}</span>
                   </Link>
 
