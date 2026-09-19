@@ -192,6 +192,51 @@ export async function GET() {
       results.push(`Pickle upsert warning: ${e.message}`);
     }
 
+    // 7. Delete all other products in Organic Food except the 4 allowed user items
+    try {
+      const cat = await prisma.category.findFirst({
+        where: { OR: [{ id: 'cat-organic-food' }, { slug: 'organic-food' }] },
+      });
+      if (cat) {
+        const allowedProductSlugs = [
+          'jawata-mart-special-offer-danadar-pure-cow-ghee-500g',
+          'authentic-village-fresh-cow-milk-ghee-500g',
+          'jawata-mart-special-offer-pure-wood-ghani-mustard-oil-1l',
+          'cold-pressed-wood-ghani-pure-mustard-oil-1l',
+          'jawata-mart-100-pure-natural-raw-honey-500g',
+          'natural-raw-sundarbans-wild-flower-honey-500g',
+          'jawata-mart-traditional-homemade-mango-pickle-500g',
+        ];
+        const allowedProductIds = [
+          'p-org-pure-cow-ghee',
+          'p-org-mustard-oil-1l',
+          'p-org-sundarbans-honey',
+          'p-org-homemade-pickle',
+        ];
+
+        const deleted = await prisma.product.deleteMany({
+          where: {
+            categoryId: cat.id,
+            id: { notIn: allowedProductIds },
+            slug: { notIn: allowedProductSlugs },
+          },
+        });
+        results.push(`Deleted ${deleted.count} non-user products from Organic Food category in DB`);
+
+        // Also clean up obsolete subcategories
+        const allowedSubSlugs = ['pure-ghee', 'mustard-oil', 'natural-honey', 'homemade-pickle'];
+        const deletedSubs = await prisma.subCategory.deleteMany({
+          where: {
+            categoryId: cat.id,
+            slug: { notIn: allowedSubSlugs },
+          },
+        });
+        results.push(`Deleted ${deletedSubs.count} obsolete subcategories from Organic Food category in DB`);
+      }
+    } catch (e: any) {
+      results.push(`Delete non-user products warning: ${e.message}`);
+    }
+
     return NextResponse.json({ success: true, results });
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });

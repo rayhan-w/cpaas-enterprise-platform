@@ -113,6 +113,27 @@ let memorySettings: StoreSettings = { ...INITIAL_SETTINGS };
 let memoryCoupons: CouponItem[] = [...INITIAL_COUPONS];
 let memoryBanners: BannerItem[] = [...INITIAL_BANNERS];
 
+const ALLOWED_ORGANIC_IDS = new Set([
+  'p-org-pure-cow-ghee',
+  'p-org-mustard-oil-1l',
+  'p-org-sundarbans-honey',
+  'p-org-homemade-pickle',
+]);
+
+function isAllowedOrganicProduct(p: any): boolean {
+  if (p.categorySlug !== 'organic-food' && p.categoryId !== 'cat-organic-food') {
+    return true;
+  }
+  const id = p.id || '';
+  const slug = p.slug || '';
+  if (ALLOWED_ORGANIC_IDS.has(id)) return true;
+  if (slug.includes('cow-milk-ghee') || slug.includes('danadar-pure-cow-ghee')) return true;
+  if (slug.includes('mustard-oil') || slug.includes('wood-ghani')) return true;
+  if (slug.includes('sundarbans-wild-flower-honey') || slug.includes('pure-natural-raw-honey')) return true;
+  if (slug.includes('homemade-mango-pickle')) return true;
+  return false;
+}
+
 function patchOrganicProduct(p: any): ProductItem {
   if (!p) return p;
   const id = p.id || '';
@@ -199,7 +220,7 @@ export const dbService = {
               if (pickle) mapped.push(pickle);
             }
           }
-          return mapped;
+          return mapped.filter(isAllowedOrganicProduct);
         }
       }
     } catch {
@@ -207,7 +228,7 @@ export const dbService = {
     }
 
     // Memory Store Filtering
-    let list = memoryProducts.filter((p) => p.isActive);
+    let list = memoryProducts.filter((p) => p.isActive).filter(isAllowedOrganicProduct);
     if (params?.categorySlug) {
       list = list.filter((p) => p.categorySlug === params.categorySlug);
     }
@@ -393,9 +414,12 @@ export const dbService = {
         if (cats.length > 0) {
           return cats.map((c) => {
             if (c.id === 'cat-organic-food' || c.slug === 'organic-food') {
+              const allowedSubs = new Set(['pure-ghee', 'mustard-oil', 'natural-honey', 'homemade-pickle']);
               return {
                 ...c,
                 image: '/images/organic-pure-ghee.jpg',
+                productCount: 4,
+                subCategories: (c.subCategories || []).filter((s) => allowedSubs.has(s.slug)),
               };
             }
             return c;
