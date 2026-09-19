@@ -113,6 +113,35 @@ let memorySettings: StoreSettings = { ...INITIAL_SETTINGS };
 let memoryCoupons: CouponItem[] = [...INITIAL_COUPONS];
 let memoryBanners: BannerItem[] = [...INITIAL_BANNERS];
 
+function patchOrganicProduct(p: any): ProductItem {
+  if (!p) return p;
+  const id = p.id || '';
+  const slug = p.slug || '';
+
+  if (id === 'p-org-pure-cow-ghee' || slug.includes('cow-milk-ghee') || slug.includes('danadar-pure-cow-ghee')) {
+    p.image = '/images/organic-pure-ghee.jpg';
+    p.images = ['/images/organic-pure-ghee.jpg'];
+    p.name = 'Jawata Mart Special Offer Danadar Pure Cow Ghee (খাঁটি দানাদার গাওয়া ঘি - ৫০০ গ্রাম)';
+    p.badge = 'Special Offer 🔥';
+  } else if (id === 'p-org-mustard-oil-1l' || slug.includes('mustard-oil') || slug.includes('wood-ghani')) {
+    p.image = '/images/organic-mustard-oil.jpg';
+    p.images = ['/images/organic-mustard-oil.jpg'];
+    p.name = 'Jawata Mart Special Offer Pure Wood Ghani Mustard Oil (জাওয়াটা মার্ট কাঠের ঘানি ভাঙা খাঁটি সরিষার তেল - ১ লিটার)';
+    p.badge = 'Special Offer 🔥';
+  } else if (id === 'p-org-sundarbans-honey' || slug.includes('sundarbans-wild-flower-honey') || slug.includes('pure-natural-raw-honey')) {
+    p.image = '/images/organic-natural-honey.png';
+    p.images = ['/images/organic-natural-honey.png'];
+    p.name = 'Jawata Mart 100% Pure Natural Raw Honey (খাঁটি প্রাকৃতিক সুন্দরবন মধু - ৫০০ গ্রাম)';
+    p.badge = '100% Pure Raw 🍯';
+  } else if (id === 'p-org-homemade-pickle' || slug.includes('homemade-mango-pickle')) {
+    p.image = '/images/organic-homemade-pickle.jpg';
+    p.images = ['/images/organic-homemade-pickle.jpg'];
+    p.name = 'Jawata Mart Traditional Homemade Raw Mango Pickle (টক-ঝাল-মিষ্টি ঘরোয়া আমের আচার - ৫০০ গ্রাম)';
+    p.badge = 'Homemade Special 🌶️';
+  }
+  return p;
+}
+
 export const dbService = {
   // PRODUCTS
   async getProducts(params?: {
@@ -152,14 +181,25 @@ export const dbService = {
         });
 
         if (items.length > 0) {
-          return items.map((p) => ({
-            ...p,
-            images: p.images ? JSON.parse(p.images) : [p.image],
-            specifications: p.specifications ? JSON.parse(p.specifications) : {},
-            categoryName: p.category.name,
-            categorySlug: p.category.slug,
-            subCategoryName: p.subCategory?.name,
-          }));
+          const mapped = items.map((p) =>
+            patchOrganicProduct({
+              ...p,
+              images: p.images ? JSON.parse(p.images) : [p.image],
+              specifications: p.specifications ? JSON.parse(p.specifications) : {},
+              categoryName: p.category.name,
+              categorySlug: p.category.slug,
+              subCategoryName: p.subCategory?.name,
+            })
+          );
+
+          // If querying organic-food or all products, ensure homemade pickle is present
+          if (!params?.categorySlug || params.categorySlug === 'organic-food') {
+            if (!mapped.some((p) => p.id === 'p-org-homemade-pickle' || p.slug.includes('homemade-mango-pickle'))) {
+              const pickle = memoryProducts.find((p) => p.id === 'p-org-homemade-pickle');
+              if (pickle) mapped.push(pickle);
+            }
+          }
+          return mapped;
         }
       }
     } catch {
@@ -212,20 +252,21 @@ export const dbService = {
           include: { category: true, subCategory: true, variants: true, reviews: true },
         });
         if (item) {
-          return {
+          return patchOrganicProduct({
             ...item,
             images: item.images ? JSON.parse(item.images) : [item.image],
             specifications: item.specifications ? JSON.parse(item.specifications) : {},
             categoryName: item.category.name,
             categorySlug: item.category.slug,
             subCategoryName: item.subCategory?.name,
-          };
+          });
         }
       }
     } catch {
       // Fall through
     }
-    return memoryProducts.find((p) => p.slug === slug) || null;
+    const mem = memoryProducts.find((p) => p.slug === slug);
+    return mem ? patchOrganicProduct(mem) : null;
   },
 
   async addProduct(data: any): Promise<ProductItem> {
@@ -349,7 +390,17 @@ export const dbService = {
           include: { subCategories: true },
           orderBy: { order: 'asc' },
         });
-        if (cats.length > 0) return cats;
+        if (cats.length > 0) {
+          return cats.map((c) => {
+            if (c.id === 'cat-organic-food' || c.slug === 'organic-food') {
+              return {
+                ...c,
+                image: '/images/organic-pure-ghee.jpg',
+              };
+            }
+            return c;
+          });
+        }
       }
     } catch {
       // Fall through
