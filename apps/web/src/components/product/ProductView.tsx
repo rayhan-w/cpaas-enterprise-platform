@@ -272,7 +272,7 @@ export default function ProductView({
             </div>
             <div className="flex items-center gap-2.5">
               <ShieldCheck className="w-4 h-4 text-[#78B81B] shrink-0" />
-              <span>Pay with Cash on Delivery, bKash or Nagad Send Money</span>
+              <span>Pay with Cash on Delivery, bKash, Nagad, UCB Bank Transfer or Cards</span>
             </div>
             <div className="flex items-center gap-2.5">
               <RefreshCw className="w-4 h-4 text-[#F0B840] shrink-0" />

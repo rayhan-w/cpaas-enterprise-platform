@@ -174,6 +174,10 @@ export default function Footer() {
               <div className="bg-white px-2.5 py-1.5 rounded-lg flex items-center shadow-xs">
                 <CodBadge />
               </div>
+              <div className="bg-white px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 shadow-xs">
+                <span className="text-xs">🏛️</span>
+                <span className="text-[11px] font-bold text-[#00529B] tracking-tight">UCB Bank</span>
+              </div>
             </div>
             <div className="mt-4 pt-3 border-t border-white/10">
               <Link

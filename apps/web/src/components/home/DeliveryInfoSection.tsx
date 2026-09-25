@@ -106,15 +106,30 @@ export default function DeliveryInfoSection() {
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-2xl border border-[#1A1F71]/15 bg-white flex flex-col justify-between">
+              <div className="p-3.5 rounded-2xl border border-[#00529B]/20 bg-[#EBF3FB]/50 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-bold text-xs text-[#00529B] flex items-center gap-1">
+                      🏛️ UCB Bank
+                    </span>
+                    <span className="text-[10px] font-bold text-[#00529B] bg-white px-2 py-0.5 rounded-full border border-[#00529B]/20">Deposit / Transfer</span>
+                  </div>
+                  <h4 className="text-xs font-bold text-[#1A1512]">Bank Transfer</h4>
+                  <p className="text-[11px] text-[#6B5B58] leading-tight mt-1">
+                    Direct deposit, BEFTN, NPSB or online transfer to Jawata Mart account.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-2xl border border-[#635BFF]/20 bg-[#F4F3FF]/50 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <CardLogosGroup />
-                    <span className="text-[10px] font-bold text-[#1A1F71] bg-[#F1F8E8]/60 px-2 py-0.5 rounded-full border border-[#1A1F71]/15">SSLCommerz</span>
+                    <span className="text-[10px] font-bold text-[#635BFF] bg-white px-2 py-0.5 rounded-full border border-[#635BFF]/20">Stripe / Cards</span>
                   </div>
-                  <h4 className="text-xs font-bold text-[#1A1512]">Debit / Credit Cards</h4>
+                  <h4 className="text-xs font-bold text-[#1A1512]">Stripe & Cards</h4>
                   <p className="text-[11px] text-[#6B5B58] leading-tight mt-1">
-                    Visa, Mastercard & online banking via secure payment gateway.
+                    Visa, Mastercard, Amex, Apple Pay & Google Pay instant payments.
                   </p>
                 </div>
               </div>
