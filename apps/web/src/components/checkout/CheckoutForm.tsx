@@ -470,14 +470,15 @@ export default function CheckoutForm() {
             2. Payment Method
           </h3>
 
-          {/* Payment Method Pills */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+          {/* Payment Method Selector Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5 sm:gap-3">
+            {/* 1. Cash on Delivery */}
             <button
               type="button"
               onClick={() => setPaymentMethod('COD')}
               className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
                 paymentMethod === 'COD'
-                  ? 'border-[#7A9C78] bg-[#EAF3E9] text-[#1A1512] font-bold shadow-xs ring-1 ring-[#7A9C78]'
+                  ? 'border-[#7A9C78] bg-[#EAF3E9] text-[#1A1512] font-bold shadow-xs ring-2 ring-[#7A9C78]'
                   : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#7A9C78]/40'
               }`}
             >
@@ -487,12 +488,13 @@ export default function CheckoutForm() {
               <span className="text-xs font-semibold">Cash on Delivery</span>
             </button>
 
+            {/* 2. bKash */}
             <button
               type="button"
               onClick={() => setPaymentMethod('BKASH')}
               className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
                 paymentMethod === 'BKASH'
-                  ? 'border-[#E2136E] bg-[#FFF0F6] text-[#1A1512] font-bold shadow-xs ring-1 ring-[#E2136E]'
+                  ? 'border-[#E2136E] bg-[#FFF0F6] text-[#1A1512] font-bold shadow-xs ring-2 ring-[#E2136E]'
                   : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#E2136E]/40'
               }`}
             >
@@ -502,12 +504,13 @@ export default function CheckoutForm() {
               <span className="text-xs font-semibold">bKash</span>
             </button>
 
+            {/* 3. Nagad */}
             <button
               type="button"
               onClick={() => setPaymentMethod('NAGAD')}
               className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
                 paymentMethod === 'NAGAD'
-                  ? 'border-[#F4821F] bg-[#FFF8F0] text-[#1A1512] font-bold shadow-xs ring-1 ring-[#F4821F]'
+                  ? 'border-[#F4821F] bg-[#FFF8F0] text-[#1A1512] font-bold shadow-xs ring-2 ring-[#F4821F]'
                   : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#F4821F]/40'
               }`}
             >
@@ -517,27 +520,29 @@ export default function CheckoutForm() {
               <span className="text-xs font-semibold">Nagad</span>
             </button>
 
+            {/* 4. Bank Transfer (UCB Bank) */}
             <button
               type="button"
               onClick={() => setPaymentMethod('BANK_TRANSFER')}
               className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
                 paymentMethod === 'BANK_TRANSFER'
-                  ? 'border-[#00529B] bg-[#EBF3FB] text-[#1A1512] font-bold shadow-xs ring-1 ring-[#00529B]'
+                  ? 'border-[#00529B] bg-[#EBF3FB] text-[#1A1512] font-bold shadow-xs ring-2 ring-[#00529B]'
                   : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#00529B]/40'
               }`}
             >
               <div className="h-6 flex items-center justify-center text-[#00529B]">
                 <Landmark className="w-5 h-5" />
               </div>
-              <span className="text-xs font-semibold">Bank (UCB)</span>
+              <span className="text-xs font-semibold text-[#00529B]">Bank Transfer (UCB)</span>
             </button>
 
+            {/* 5. Stripe / Cards */}
             <button
               type="button"
               onClick={() => setPaymentMethod('STRIPE')}
-              className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
+              className={`p-3 rounded-2xl border text-center flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer col-span-2 sm:col-span-1 ${
                 paymentMethod === 'STRIPE'
-                  ? 'border-[#635BFF] bg-[#F4F3FF] text-[#1A1512] font-bold shadow-xs ring-1 ring-[#635BFF]'
+                  ? 'border-[#635BFF] bg-[#F4F3FF] text-[#1A1512] font-bold shadow-xs ring-2 ring-[#635BFF]'
                   : 'border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] hover:border-[#635BFF]/40'
               }`}
             >
