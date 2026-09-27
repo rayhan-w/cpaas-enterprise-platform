@@ -9,6 +9,7 @@ import MobileBottomBar from '@/components/layout/MobileBottomBar';
 import CartDrawer from '@/components/cart/CartDrawer';
 import FloatingWhatsApp from '@/components/common/FloatingWhatsApp';
 import TrackingScripts from '@/components/tracking/TrackingScripts';
+import ScrollToTopOnNav from '@/components/common/ScrollToTopOnNav';
 import { Suspense } from 'react';
 
 export const metadata: Metadata = {
@@ -41,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -53,6 +54,9 @@ export default function RootLayout({
       <body className="bg-[#FAFCF7] text-[#0E140E] min-h-screen font-sans antialiased flex flex-col justify-between">
         <ToastProvider>
           <CartProvider>
+            <Suspense fallback={null}>
+              <ScrollToTopOnNav />
+            </Suspense>
             <AnnouncementBar />
             <Header />
             <main className="flex-1 pb-16 lg:pb-0">{children}</main>
