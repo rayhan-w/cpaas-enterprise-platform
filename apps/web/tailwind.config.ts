@@ -18,6 +18,16 @@ const config: Config = {
         },
         brand: {
           DEFAULT: '#6CAE14', // Leaf Green from Jawata Mart Logo
+          50: '#F1F8E8',
+          100: '#E8F5D3',
+          200: '#CBE59C',
+          300: '#AFD565',
+          400: '#9ED114',
+          500: '#6CAE14',
+          600: '#5B960E',
+          700: '#4A7D0A',
+          800: '#3A6307',
+          900: '#0B0F0B',
           hover: '#5B960E',
           accent: '#9ED114', // Exact Logo Lime Leaf
           light: '#F1F8E8',

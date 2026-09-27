@@ -216,14 +216,14 @@ export default function AdminSettingsPage() {
           type="button"
           onClick={handleSubmit}
           disabled={saving}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-xl transition-all shadow-sm disabled:opacity-50"
+          className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#6CAE14] hover:bg-[#5B960E] text-white font-semibold text-sm rounded-xl transition-all shadow-md hover:shadow-lg active:scale-95 disabled:opacity-50 cursor-pointer"
         >
           {saving ? (
             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
           ) : (
-            <Save className="w-4 h-4" />
+            <Save className="w-4 h-4 text-white" />
           )}
-          {saving ? 'Saving...' : 'Save Settings'}
+          <span>{saving ? 'Saving...' : 'Save Settings'}</span>
         </button>
       </div>
 
@@ -1072,6 +1072,23 @@ export default function AdminSettingsPage() {
                 <div>✓ <b>Purchase</b> (Browser + CAPI)</div>
                 <div>✓ <b>Contact</b> (WhatsApp / Hotline)</div>
               </div>
+            </div>
+
+            {/* Bottom Save Action */}
+            <div className="pt-4 border-t border-charcoal-100 flex items-center justify-between">
+              <p className="text-xs text-charcoal-500">Make sure to save after updating payment or tracking credentials.</p>
+              <button
+                type="submit"
+                disabled={saving}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[#6CAE14] hover:bg-[#5B960E] text-white font-semibold text-sm rounded-xl transition-all shadow-md hover:shadow-lg active:scale-95 disabled:opacity-50 cursor-pointer"
+              >
+                {saving ? (
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <Save className="w-4 h-4 text-white" />
+                )}
+                <span>{saving ? 'Saving...' : 'Save Settings'}</span>
+              </button>
             </div>
           </div>
         </div>
