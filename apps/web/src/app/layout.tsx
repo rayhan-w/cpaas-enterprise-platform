@@ -6,9 +6,35 @@ import { ToastProvider } from '@/context/toast-context';
 import AppShell from '@/components/layout/AppShell';
 
 export const metadata: Metadata = {
-  title: 'TrackOps | Enterprise Operations, Link Management & Telemetry Intelligence',
+  title: 'Jawata Mart | Trusted Multi-Category Shopping Platform in Bangladesh',
   description:
-    'TrackOps: High-assurance enterprise platform for role-based operations, access approvals, link management, and privacy-friendly telemetry analytics.',
+    'Discover 10,000+ authentic lifestyle products at Jawata Mart: Baby & Mother Care, Men & Women Fashion, Electronics, Health & Beauty, Home Living & Groceries with fast nationwide delivery from Uttara Sector-12, Dhaka.',
+  keywords: [
+    'Jawata Mart',
+    'Jawata Mart Bangladesh',
+    'online shopping bangladesh',
+    'ecommerce bangladesh',
+    'uttara online shop',
+    'bKash payment ecommerce',
+    'nagad payment',
+    'cash on delivery dhaka',
+  ],
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/jawata-mart-logo.jpg', sizes: '192x192', type: 'image/jpeg' },
+    ],
+    shortcut: '/icon.svg',
+    apple: '/jawata-mart-logo.jpg',
+  },
+  openGraph: {
+    title: 'Jawata Mart | Lifestyle & Family Shopping',
+    description: 'Fast nationwide delivery with bKash, Nagad, UCB Bank, and Cash on Delivery.',
+    type: 'website',
+    locale: 'en_BD',
+    siteName: 'Jawata Mart',
+    images: ['/jawata-mart-cover.jpg'],
+  },
 };
 
 export default function RootLayout({

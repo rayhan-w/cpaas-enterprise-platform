@@ -35,11 +35,11 @@ export default function AdminSettingsPage() {
   const [savedSuccess, setSavedSuccess] = useState(false);
 
   const [formData, setFormData] = useState({
-    storeName: 'TrackOps Enterprise',
-    storeTagline: 'Enterprise Operations, Link Intelligence & Telemetry Platform',
+    storeName: 'Jawata Mart',
+    storeTagline: 'Trusted Multi-Category Shopping Platform in Bangladesh',
     hotline: '+880 1915-210799',
-    supportEmail: 'support@trackops.dev',
-    address: 'Dhaka, Bangladesh',
+    supportEmail: 'support@jawatamart.com',
+    address: 'House #42, Road #18, Sector #12, Uttara, Dhaka-1230',
     
     // Delivery fees
     insideDhakaDeliveryFee: 60,
@@ -55,11 +55,11 @@ export default function AdminSettingsPage() {
     nagadAccountType: 'Personal',
 
     // Bank Account Details (UCB Bank)
-    bankAccountName: 'TrackOps Enterprise',
+    bankAccountName: 'Jawata Mart',
     bankAccountNumber: '1462101000775432',
     bankName: 'UCB Bank (United Commercial Bank)',
     bankBranch: 'Dhaka',
-    bankConfirmationEmail: 'billing@trackops.dev',
+    bankConfirmationEmail: 'payments@jawatamart.com',
     enableBankTransfer: true,
 
     // Stripe Gateway Configuration
@@ -91,10 +91,10 @@ export default function AdminSettingsPage() {
     ownerBio: 'Passionate entrepreneur dedicated to bringing 100% authentic lifestyle, baby care, fashion, and organic food products directly to households across all 64 districts of Bangladesh.',
     ownerPhoto: '/images/abdur-rahim-owner.jpg',
     ownerPhone: '01915210799',
-    ownerEmail: 'support@trackops.dev',
-    aboutStory: 'TrackOps Enterprise provides high-reliability operations, role-based telemetry, link intelligence, and secure audit tracking.',
-    aboutMission: 'To deliver transparent, secure, and robust operational tracking and enterprise SaaS solutions.',
-    aboutVision: 'To be the most dependable and secure operational telemetry platform.',
+    ownerEmail: 'support@jawatamart.com',
+    aboutStory: 'Jawata Mart is committed to delivering 100% authentic and premium products directly to families across Bangladesh.',
+    aboutMission: 'To make trusted, high-quality, and ethical online shopping accessible to every doorstep in Bangladesh.',
+    aboutVision: 'To become Bangladesh’s most reliable, customer-centric family shopping platform.',
   });
 
   const [testLoading, setTestLoading] = useState(false);
@@ -113,8 +113,8 @@ export default function AdminSettingsPage() {
           value: 1250,
           currency: 'BDT',
           customerPhone: '01915210799',
-          customerEmail: 'test@trackops.dev',
-          customerName: 'TrackOps Test User',
+          customerEmail: 'test@jawatamart.com',
+          customerName: 'Jawata Mart Test Customer',
           items: [{ id: 'test-1', name: 'Tracking Verification Sample Item', price: 1250, quantity: 1 }],
           eventSourceUrl: window.location.href,
         }),

@@ -11,9 +11,14 @@ export async function POST(request: Request) {
 
     // Default master admin account check
     const isMasterEmail =
+      email.toLowerCase() === 'admin@jawatamart.com' ||
+      email.toLowerCase() === 'admin@jawata.com' ||
       email.toLowerCase() === 'admin@trackops.dev' ||
       email.toLowerCase() === 'superadmin@trackops.dev';
-    const isMasterPassword = password === 'Admin@TrackOps2026!' || password === 'admin123456';
+    const isMasterPassword =
+      password === 'Admin@JawataMart2026!' ||
+      password === 'Admin@TrackOps2026!' ||
+      password === 'admin123456';
 
     if (!isMasterEmail || !isMasterPassword) {
       return NextResponse.json({ error: 'Invalid admin credentials' }, { status: 401 });
@@ -22,7 +27,7 @@ export async function POST(request: Request) {
     const adminUser = {
       id: 'admin_master_1',
       email: email.toLowerCase(),
-      name: 'TrackOps Administrator',
+      name: 'Jawata Mart Administrator',
       role: 'SUPERADMIN',
     };
 
