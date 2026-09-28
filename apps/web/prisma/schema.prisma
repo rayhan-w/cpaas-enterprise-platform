@@ -237,3 +237,435 @@ model Setting {
 
   @@map("settings")
 }
+
+// =============================================================
+// TrackOps: Enterprise SaaS Role, Permission & Security Models
+// =============================================================
+
+enum RoleType {
+  SUPER_ADMIN
+  ADMIN
+  USER
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  PENDING_VERIFICATION
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  REVOKED
+  EXPIRED
+}
+
+enum CaseStatus {
+  OPEN
+  IN_PROGRESS
+  UNDER_REVIEW
+  CLOSED
+  ARCHIVED
+}
+
+enum CasePriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+model User {
+  id                   String                  @id @default(uuid())
+  name                 String
+  email                String                  @unique
+  passwordHash         String
+  role                 RoleType                @default(USER)
+  status               UserStatus              @default(ACTIVE)
+  twoFactorEnabled     Boolean                 @default(false)
+  twoFactorSecret      String?
+  avatarUrl            String?
+  lastLoginAt          DateTime?
+  suspensionReason     String?
+  createdAt            DateTime                @default(now())
+  updatedAt            DateTime                @updatedAt
+
+  featurePermissions   UserFeaturePermission[]
+  accessRequests       AccessRequest[]         @relation("UserRequests")
+  handledRequests      AccessRequest[]         @relation("AdminHandledRequests")
+  links                Link[]
+  sessions             UserSession[]
+  investigations       InvestigationCase[]     @relation("CaseCreator")
+  caseAssignments      CaseAssignment[]
+  caseNotes            CaseNote[]
+  evidenceRecords      EvidenceRecord[]
+  notifications        Notification[]
+  adminScopes          AdministratorScope[]
+  permissionHistories  PermissionHistory[]
+  cellularTowerRecords CellularTowerRecord[]
+
+  @@index([email])
+  @@index([role])
+  @@index([status])
+  @@map("users")
+}
+
+model AdministratorScope {
+  id         String   @id @default(uuid())
+  adminId    String
+  featureKey String   // e.g. "FEATURE_CAMERA", "FEATURE_LOCATION", "FEATURE_EXPORT", "FEATURE_INVESTIGATION", "FEATURE_ANALYTICS_PRO"
+  canApprove Boolean  @default(true)
+  canRevoke  Boolean  @default(true)
+  assignedBy String   // Super Admin User ID
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  admin      User     @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@unique([adminId, featureKey])
+  @@map("administrator_scopes")
+}
+
+model UserFeaturePermission {
+  id               String        @id @default(uuid())
+  userId           String
+  featureKey       String        // e.g. "FEATURE_CAMERA", "FEATURE_LOCATION", "FEATURE_EXPORT", "FEATURE_INVESTIGATION", "FEATURE_ANALYTICS_PRO"
+  status           RequestStatus @default(APPROVED)
+  grantedBy        String        // ID of Admin or Super Admin who approved
+  grantedByName    String?
+  grantedAt        DateTime      @default(now())
+  expiresAt        DateTime?
+  revokedAt        DateTime?
+  revokedBy        String?
+  revocationReason String?
+  requestId        String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, featureKey])
+  @@index([featureKey])
+  @@index([status])
+  @@map("user_feature_permissions")
+}
+
+model AccessRequest {
+  id              String        @id @default(uuid())
+  userId          String
+  featureKey      String
+  purpose         String
+  status          RequestStatus @default(PENDING)
+  reviewedById    String?
+  reviewedByName  String?
+  reviewedAt      DateTime?
+  decisionReason  String?
+  requestedExpiry DateTime?
+  grantedExpiry   DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  user            User          @relation("UserRequests", fields: [userId], references: [id], onDelete: Cascade)
+  reviewedBy      User?         @relation("AdminHandledRequests", fields: [reviewedById], references: [id], onDelete: SetNull)
+
+  @@index([userId, featureKey, status])
+  @@index([status])
+  @@map("access_requests")
+}
+
+model PermissionHistory {
+  id         String   @id @default(uuid())
+  userId     String
+  featureKey String
+  action     String   // REQUESTED, APPROVED, REJECTED, REVOKED, EXPIRED, OVERRIDDEN
+  actorId    String
+  actorName  String
+  actorRole  String
+  reason     String?
+  metadata   String?  // JSON stringified additional context
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([featureKey])
+  @@map("permission_history")
+}
+
+model UserSession {
+  id           String   @id @default(uuid())
+  userId       String
+  sessionToken String   @unique
+  ipAddress    String?
+  userAgent    String?
+  device       String?
+  browser      String?
+  os           String?
+  isValid      Boolean  @default(true)
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  lastActiveAt DateTime @default(now())
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([sessionToken])
+  @@index([userId])
+  @@map("user_sessions")
+}
+
+model VerificationToken {
+  id        String   @id @default(uuid())
+  email     String
+  token     String   @unique
+  type      String   // EMAIL_VERIFY, PASSWORD_RESET, TWO_FACTOR_RECOVERY
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([token])
+  @@index([email, type])
+  @@map("verification_tokens")
+}
+
+model Link {
+  id             String        @id @default(uuid())
+  userId         String
+  title          String
+  slug           String        @unique
+  destinationUrl String
+  isActive       Boolean       @default(true)
+  isReported     Boolean       @default(false)
+  expiresAt      DateTime?
+  visitCount     Int           @default(0)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  events         LinkEvent[]
+  abuseReports   AbuseReport[]
+
+  @@index([userId])
+  @@index([slug])
+  @@map("links")
+}
+
+model LinkEvent {
+  id             String   @id @default(uuid())
+  linkId         String
+  visitorHash    String   // Salted SHA-256 hash of IP - Privacy Friendly, never stores raw IP
+  deviceCategory String   // Desktop, Mobile, Tablet, Other
+  browserFamily  String   // Chrome, Safari, Firefox, Edge, etc.
+  osFamily       String   // Windows, macOS, Linux, iOS, Android, etc.
+  referrer       String?
+  country        String?  @default("Global")
+  region         String?  @default("Unknown")
+  city           String?
+  carrier        String?
+  connectionType String?  // 4g, 3g, 2g, wifi
+  mcc            String?  // e.g. "470" (Bangladesh)
+  mnc            String?  // e.g. "01" (Grameenphone), "02" (Robi), "03" (Banglalink)
+  lac            String?  // Location Area Code / TAC
+  cellId         String?  // Cell Tower ID
+  latitude       Float?
+  longitude      Float?
+  accuracy       Float?
+  timestamp      DateTime @default(now())
+
+  link           Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
+
+  @@index([linkId])
+  @@index([timestamp])
+  @@index([visitorHash])
+  @@index([mcc, mnc, lac, cellId])
+  @@map("link_events")
+}
+
+model AnalyticsAggregate {
+  id               String   @id @default(uuid())
+  linkId           String?
+  date             DateTime
+  totalVisits      Int      @default(0)
+  uniqueVisitors   Int      @default(0)
+  deviceBreakdown  String?  // JSON string
+  browserBreakdown String?  // JSON string
+  osBreakdown      String?  // JSON string
+  countryBreakdown String?  // JSON string
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@unique([linkId, date])
+  @@index([date])
+  @@map("analytics_aggregates")
+}
+
+model InvestigationCase {
+  id             String                @id @default(uuid())
+  caseNumber     String                @unique // e.g. CAS-2026-001
+  title          String
+  description    String
+  status         CaseStatus            @default(OPEN)
+  priority       CasePriority          @default(MEDIUM)
+  createdById    String
+  closedAt       DateTime?
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+
+  creator        User                  @relation("CaseCreator", fields: [createdById], references: [id], onDelete: Restrict)
+  assignments    CaseAssignment[]
+  notes          CaseNote[]
+  evidence       EvidenceRecord[]
+  cellularTowers CellularTowerRecord[]
+
+  @@index([caseNumber])
+  @@index([status])
+  @@index([priority])
+  @@map("investigation_cases")
+}
+
+model CaseAssignment {
+  id         String            @id @default(uuid())
+  caseId     String
+  userId     String
+  assignedBy String            // Super Admin or Lead Admin ID
+  role       String            @default("INVESTIGATOR") // LEAD_INVESTIGATOR, INVESTIGATOR, REVIEWER
+  assignedAt DateTime          @default(now())
+
+  case       InvestigationCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  user       User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([caseId, userId])
+  @@map("case_assignments")
+}
+
+model CaseNote {
+  id         String            @id @default(uuid())
+  caseId     String
+  authorId   String
+  authorName String
+  content    String
+  isInternal Boolean           @default(true)
+  createdAt  DateTime          @default(now())
+
+  case       InvestigationCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  author     User              @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([caseId])
+  @@map("case_notes")
+}
+
+model EvidenceRecord {
+  id             String            @id @default(uuid())
+  caseId         String
+  title          String
+  description    String
+  evidenceType   String            // TELEMETRY, LOG_EXTRACT, DOCUMENT, SCREENSHOT, SYSTEM_TRACE
+  fileUrl        String?
+  fileHash       String?           // SHA-256 integrity hash
+  chainOfCustody String            // JSON array of custody transfers / verifications
+  submittedById  String
+  createdAt      DateTime          @default(now())
+
+  case           InvestigationCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  submittedBy    User              @relation(fields: [submittedById], references: [id], onDelete: Cascade)
+
+  @@index([caseId])
+  @@map("evidence_records")
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  message   String
+  type      String   // REQUEST_APPROVED, REQUEST_REJECTED, PERMISSION_REVOKED, SECURITY_ALERT, SYSTEM
+  isRead    Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+  @@map("notifications")
+}
+
+model AuditLog {
+  id           String   @id @default(uuid())
+  actorId      String
+  actorName    String
+  actorEmail   String
+  actorRole    String
+  action       String   // e.g. "USER_LOGIN", "ROLE_CHANGE", "REQUEST_APPROVE", "IMMEDIATE_REVOKE", "SETTINGS_UPDATE"
+  resourceType String   // "USER", "PERMISSION", "ACCESS_REQUEST", "LINK", "CASE", "SETTING"
+  resourceId   String?
+  ipAddress    String?
+  userAgent    String?
+  details      String?  // JSON string
+  createdAt    DateTime @default(now())
+
+  @@index([actorId])
+  @@index([action])
+  @@index([resourceType])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+model AbuseReport {
+  id             String   @id @default(uuid())
+  linkId         String
+  reporterEmail  String?
+  reason         String
+  details        String?
+  status         String   @default("PENDING") // PENDING, RESOLVED, DISMISSED
+  resolvedBy     String?
+  resolutionNote String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  link           Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
+
+  @@index([linkId])
+  @@index([status])
+  @@map("abuse_reports")
+}
+
+model SystemSetting {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       String
+  category    String   @default("GENERAL") // GENERAL, SECURITY, PERMISSIONS, RETENTION, INTEGRATIONS
+  description String?
+  updatedBy   String?
+  updatedAt   DateTime @updatedAt
+
+  @@map("system_settings")
+}
+
+model CellularTowerRecord {
+  id          String             @id @default(uuid())
+  caseId      String?
+  userId      String?
+  mcc         String             // Mobile Country Code (e.g. "470" for Bangladesh)
+  mnc         String             // Mobile Network Code (e.g. "01" for Grameenphone)
+  lac         String             // Location Area Code (e.g. "24510")
+  cellId      String             // Cell ID / CID (e.g. "1428590")
+  radio       String?            @default("LTE") // GSM, UMTS, LTE, 5G
+  carrier     String?            // e.g. "Grameenphone"
+  latitude    Float?             // Resolved Tower Latitude
+  longitude   Float?             // Resolved Tower Longitude
+  range       Float?             // Estimated coverage radius in meters
+  address     String?            // Area/City/Division location
+  signalPower Int?               // dBm (e.g. -85)
+  timingAdv   Int?               // Timing Advance
+  notes       String?
+  recordedAt  DateTime           @default(now())
+
+  case        InvestigationCase? @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  user        User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([mcc, mnc, lac, cellId])
+  @@index([caseId])
+  @@index([userId])
+  @@map("cellular_tower_records")
+}
+

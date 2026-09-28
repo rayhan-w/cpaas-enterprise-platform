@@ -50,3 +50,11 @@ Thumbs.db
 .idea/
 
 .vercel
+
+# Unrelated project folders
+Hakathon/
+homeease-smart-service/
+humble-portfolio-maker/
+smartserve/
+solvear_temp_stash/
+umrah-planner-plus/

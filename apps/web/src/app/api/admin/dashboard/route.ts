@@ -1,51 +1,90 @@
-import { NextResponse } from 'next/server';
-import { dbService } from '@/lib/db-service';
+import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import { getAuthenticatedUser, requireRole } from '@/lib/auth-service';
+import { RoleType, RequestStatus, CaseStatus } from '@prisma/client';
 
-export async function GET() {
-  const orders = await dbService.getOrders();
-  const products = await dbService.getProducts();
+export async function GET(req: NextRequest) {
+  try {
+    const { user, error, status } = await getAuthenticatedUser(req);
+    if (!user) {
+      return NextResponse.json({ error }, { status });
+    }
 
-  const totalSales = orders
-    .filter((o) => o.paymentStatus === 'PAID')
-    .reduce((sum, o) => sum + o.total, 0);
+    const auth = requireRole(user, [RoleType.ADMIN, RoleType.SUPER_ADMIN]);
+    if (!auth.authorized) {
+      return NextResponse.json({ error: auth.error }, { status: 403 });
+    }
 
-  const now = new Date();
-  const todayStr = now.toISOString().slice(0, 10);
-  const todaySales = orders
-    .filter((o) => o.paymentStatus === 'PAID' && o.createdAt.startsWith(todayStr))
-    .reduce((sum, o) => sum + o.total, 0);
+    // 1. Get Admin's assigned scopes
+    const scopes = await prisma.administratorScope.findMany({
+      where: { adminId: user.id },
+      select: { featureKey: true, canApprove: true, canRevoke: true },
+    });
 
-  const pendingOrders = orders.filter((o) => o.orderStatus === 'PENDING').length;
-  const completedOrders = orders.filter((o) => o.orderStatus === 'DELIVERED').length;
-  const cancelledOrders = orders.filter((o) => o.orderStatus === 'CANCELLED').length;
+    const scopedFeatures = user.role === RoleType.SUPER_ADMIN
+      ? ['FEATURE_CAMERA', 'FEATURE_LOCATION', 'FEATURE_EXPORT', 'FEATURE_INVESTIGATION', 'FEATURE_ANALYTICS_PRO']
+      : scopes.map((s) => s.featureKey);
 
-  const pendingPayments = orders.filter((o) => o.paymentStatus === 'PENDING_VERIFICATION').length;
-  const pendingBkash = orders.filter(
-    (o) => o.paymentMethod === 'BKASH' && o.paymentStatus === 'PENDING_VERIFICATION'
-  ).length;
-  const pendingNagad = orders.filter(
-    (o) => o.paymentMethod === 'NAGAD' && o.paymentStatus === 'PENDING_VERIFICATION'
-  ).length;
+    // 2. Metrics within assigned authority
+    const [
+      pendingCount,
+      approvedCount,
+      rejectedCount,
+      assignedCasesCount,
+      recentRequests,
+      recentCases,
+    ] = await Promise.all([
+      prisma.accessRequest.count({
+        where: {
+          featureKey: { in: scopedFeatures },
+          status: RequestStatus.PENDING,
+        },
+      }),
+      prisma.accessRequest.count({
+        where: {
+          featureKey: { in: scopedFeatures },
+          status: RequestStatus.APPROVED,
+        },
+      }),
+      prisma.accessRequest.count({
+        where: {
+          featureKey: { in: scopedFeatures },
+          status: RequestStatus.REJECTED,
+        },
+      }),
+      prisma.caseAssignment.count({
+        where: { userId: user.id },
+      }),
+      prisma.accessRequest.findMany({
+        where: { featureKey: { in: scopedFeatures } },
+        include: { user: { select: { id: true, name: true, email: true } } },
+        take: 8,
+        orderBy: { createdAt: 'desc' },
+      }),
+      prisma.investigationCase.findMany({
+        where: {
+          assignments: { some: { userId: user.id } },
+          status: { in: [CaseStatus.OPEN, CaseStatus.IN_PROGRESS, CaseStatus.UNDER_REVIEW] },
+        },
+        take: 5,
+        orderBy: { updatedAt: 'desc' },
+      }),
+    ]);
 
-  const lowStockProducts = products.filter((p) => p.stock <= 10).length;
-
-  // Recent 10 orders
-  const recentOrders = orders.slice(0, 10);
-
-  return NextResponse.json({
-    metrics: {
-      totalSales,
-      todaySales,
-      totalOrders: orders.length,
-      pendingOrders,
-      completedOrders,
-      cancelledOrders,
-      totalProducts: products.length,
-      lowStockProducts,
-      pendingPayments,
-      pendingBkash,
-      pendingNagad,
-    },
-    recentOrders,
-  });
+    return NextResponse.json({
+      metrics: {
+        pendingCount,
+        approvedCount,
+        rejectedCount,
+        assignedCasesCount,
+        assignedScopeCount: scopedFeatures.length,
+      },
+      scopes,
+      recentRequests,
+      recentCases,
+    });
+  } catch (err: any) {
+    console.error('GET /api/admin/dashboard Error:', err);
+    return NextResponse.json({ error: 'Failed to retrieve admin dashboard metrics.' }, { status: 500 });
+  }
 }
