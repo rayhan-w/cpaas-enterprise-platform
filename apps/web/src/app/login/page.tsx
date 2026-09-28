@@ -36,13 +36,16 @@ export default function LoginPage() {
   };
 
   // Demo credential autofill helper
-  const autofill = (role: 'super' | 'admin' | 'user') => {
+  const autofill = (role: 'super' | 'admin' | 'user' | 'demo') => {
     if (role === 'super') {
       setEmail('superadmin@trackops.dev');
       setPassword('SuperAdmin@TrackOps2026!');
     } else if (role === 'admin') {
       setEmail('admin@trackops.dev');
       setPassword('Admin@TrackOps2026!');
+    } else if (role === 'demo') {
+      setEmail('demo@trackops.dev');
+      setPassword('Password123!');
     } else {
       setEmail('user@trackops.dev');
       setPassword('User@TrackOps2026!');
@@ -62,29 +65,39 @@ export default function LoginPage() {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-6 shadow-xl shadow-slate-200/50 sm:rounded-2xl border border-slate-200/80 sm:px-10">
           {/* Demo Credentials Switcher */}
-          <div className="mb-6 p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs">
-            <p className="font-semibold text-slate-700 mb-2">⚡ Quick Autofill Test Credentials:</p>
-            <div className="grid grid-cols-3 gap-2">
+          <div className="mb-6 p-3.5 bg-gradient-to-r from-emerald-50 to-indigo-50 rounded-xl border border-emerald-200 text-xs space-y-2">
+            <button
+              type="button"
+              onClick={() => autofill('demo')}
+              className="w-full py-2.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg transition flex items-center justify-center gap-1.5 shadow-sm"
+            >
+              <span>⚡ Free Demo (All 5 Features Pre-Approved)</span>
+            </button>
+            <p className="text-[10px] text-center text-slate-500">
+              Zero admin wait time! Camera, GPS, Cellular, Export & Analytics already approved.
+            </p>
+
+            <div className="grid grid-cols-3 gap-1.5 pt-1 text-[11px]">
               <button
                 type="button"
-                onClick={() => autofill('super')}
-                className="py-1.5 px-2 text-center rounded-lg bg-purple-50 text-purple-700 font-medium hover:bg-purple-100 transition border border-purple-200"
+                onClick={() => autofill('user')}
+                className="py-1 px-1.5 text-center rounded bg-white text-slate-700 font-medium hover:bg-slate-100 border border-slate-200"
               >
-                Super Admin
+                User
               </button>
               <button
                 type="button"
                 onClick={() => autofill('admin')}
-                className="py-1.5 px-2 text-center rounded-lg bg-blue-50 text-blue-700 font-medium hover:bg-blue-100 transition border border-blue-200"
+                className="py-1 px-1.5 text-center rounded bg-white text-blue-700 font-medium hover:bg-blue-50 border border-blue-200"
               >
                 Admin
               </button>
               <button
                 type="button"
-                onClick={() => autofill('user')}
-                className="py-1.5 px-2 text-center rounded-lg bg-emerald-50 text-emerald-700 font-medium hover:bg-emerald-100 transition border border-emerald-200"
+                onClick={() => autofill('super')}
+                className="py-1 px-1.5 text-center rounded bg-white text-purple-700 font-medium hover:bg-purple-50 border border-purple-200"
               >
-                Regular User
+                Super Admin
               </button>
             </div>
           </div>
