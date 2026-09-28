@@ -19,7 +19,7 @@ import {
   Cell,
   Legend,
 } from 'recharts';
-import { BarChart3, Users, MousePointerClick, Globe, Smartphone, ShieldCheck, Loader2 } from 'lucide-react';
+import { BarChart3, Users, MousePointerClick, Globe, Smartphone, ShieldCheck, Loader2, MapPin, ExternalLink } from 'lucide-react';
 import { fetchApi } from '@/lib/api-client';
 
 const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6', '#3b82f6'];
@@ -71,6 +71,7 @@ function AnalyticsContent() {
   const devices = data?.deviceCategories || [];
   const browsers = data?.browserFamilies || [];
   const countries = data?.topCountries || data?.geographicRegions || [];
+  const recentEvents = data?.recentEvents || [];
 
   const totalVisits = data?.summary?.totalVisits ?? data?.totalVisits ?? 0;
   const uniqueVisitors = data?.summary?.uniqueVisitors ?? data?.uniqueVisitors ?? 0;
@@ -296,6 +297,116 @@ function AnalyticsContent() {
                       <td className="px-6 py-3.5 font-medium text-slate-900">{countryName}</td>
                       <td className="px-6 py-3.5 text-slate-700 font-semibold">{count}</td>
                       <td className="px-6 py-3.5 text-right text-slate-500">{pct}%</td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Recent Visitor GPS & Location Telemetry Table */}
+      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden space-y-0">
+        <div className="px-6 py-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-rose-500" />
+              Visitor Telemetry & GPS Logs (ভিসিটর লোকেশন ও জিপিএস লগ)
+            </h3>
+            <p className="text-xs text-slate-500">
+              Real-time records of visitor devices, timestamps, and GPS coordinates (with user permission).
+            </p>
+          </div>
+          <span className="px-2.5 py-1 bg-indigo-50 text-indigo-700 text-[11px] font-semibold rounded-full border border-indigo-100 shrink-0">
+            {recentEvents.length} Recent Visits
+          </span>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-100 uppercase">
+              <tr>
+                <th className="px-6 py-3">Time (সময়)</th>
+                <th className="px-6 py-3">Device / Browser</th>
+                <th className="px-6 py-3">IP Location (আইপি লোকেশন)</th>
+                <th className="px-6 py-3">GPS Location (জিপিএস লোকেশন)</th>
+                <th className="px-6 py-3 text-right">Map View (ম্যাপ)</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {recentEvents.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="px-6 py-8 text-center text-slate-400">
+                    No visitor events recorded yet. Share your short link to capture visitor analytics.
+                  </td>
+                </tr>
+              ) : (
+                recentEvents.map((ev: any) => {
+                  const hasGps = ev.latitude !== null && ev.latitude !== undefined && ev.longitude !== null && ev.longitude !== undefined;
+                  const dateStr = ev.timestamp ? new Date(ev.timestamp).toLocaleString() : 'N/A';
+
+                  return (
+                    <tr key={ev.id} className="hover:bg-slate-50/60 transition">
+                      {/* Time */}
+                      <td className="px-6 py-3.5 text-slate-600 font-mono text-[11px]">
+                        {dateStr}
+                      </td>
+
+                      {/* Device / Browser */}
+                      <td className="px-6 py-3.5 text-slate-800 font-medium">
+                        <div>
+                          <span>{ev.deviceCategory || 'Desktop'}</span>
+                          <span className="text-slate-400 text-[11px] ml-1.5 font-normal">
+                            ({ev.browserFamily || 'Browser'} / {ev.osFamily || 'OS'})
+                          </span>
+                        </div>
+                      </td>
+
+                      {/* IP Location */}
+                      <td className="px-6 py-3.5 text-slate-700">
+                        <span className="font-semibold text-slate-900">{ev.country || 'Global'}</span>
+                        {ev.city && <span className="text-slate-500 text-[11px] ml-1">({ev.city})</span>}
+                      </td>
+
+                      {/* GPS Location */}
+                      <td className="px-6 py-3.5">
+                        {hasGps ? (
+                          <div className="space-y-0.5">
+                            <span className="font-mono text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 block w-fit">
+                              {Number(ev.latitude).toFixed(5)}, {Number(ev.longitude).toFixed(5)}
+                            </span>
+                            {ev.accuracy && (
+                              <span className="text-[10px] text-slate-400 block">
+                                Accuracy: ±{Math.round(ev.accuracy)}m
+                              </span>
+                            )}
+                          </div>
+                        ) : (
+                          <span className="text-slate-400 text-[11px] italic">
+                            Permission Skipped / Pending
+                          </span>
+                        )}
+                      </td>
+
+                      {/* Map Action */}
+                      <td className="px-6 py-3.5 text-right">
+                        {hasGps ? (
+                          <a
+                            href={`https://www.google.com/maps?q=${ev.latitude},${ev.longitude}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1 px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-700 font-semibold rounded-lg text-[11px] border border-rose-200 transition"
+                            title="Open Google Maps Pin"
+                          >
+                            <MapPin className="w-3 h-3 text-rose-600" />
+                            <span>Google Maps</span>
+                            <ExternalLink className="w-3 h-3 text-rose-400" />
+                          </a>
+                        ) : (
+                          <span className="text-slate-300 text-xs">—</span>
+                        )}
+                      </td>
                     </tr>
                   );
                 })

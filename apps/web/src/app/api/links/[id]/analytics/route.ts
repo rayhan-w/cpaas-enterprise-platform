@@ -99,6 +99,22 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
         browserFamilies,
         osFamilies,
         geographicRegions,
+        recentEvents: events.slice(-50).reverse().map((e) => ({
+          id: e.id,
+          timestamp: e.timestamp,
+          deviceCategory: e.deviceCategory,
+          browserFamily: e.browserFamily,
+          osFamily: e.osFamily,
+          country: e.country,
+          region: e.region,
+          city: e.city,
+          latitude: e.latitude,
+          longitude: e.longitude,
+          accuracy: e.accuracy,
+          carrier: e.carrier,
+          cellId: e.cellId,
+          lac: e.lac,
+        })),
       },
     });
   } catch (err: any) {
