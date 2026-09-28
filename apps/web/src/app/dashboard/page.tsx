@@ -42,6 +42,40 @@ export default function UserDashboardPage() {
   const [createError, setCreateError] = useState('');
   const [creating, setCreating] = useState(false);
 
+  // Custom Tracking Domain override
+  const [customDomain, setCustomDomain] = useState('');
+  const [isEditingDomain, setIsEditingDomain] = useState(false);
+  const [tempDomain, setTempDomain] = useState('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('trackops_custom_domain');
+      if (saved) {
+        setCustomDomain(saved);
+        setTempDomain(saved);
+      }
+    }
+  }, []);
+
+  const saveCustomDomain = () => {
+    let clean = tempDomain.trim();
+    if (clean) {
+      if (!clean.startsWith('http://') && !clean.startsWith('https://')) {
+        clean = `https://${clean}`;
+      }
+      clean = clean.replace(/\/+$/, '');
+    }
+    setCustomDomain(clean);
+    if (typeof window !== 'undefined') {
+      if (clean) {
+        localStorage.setItem('trackops_custom_domain', clean);
+      } else {
+        localStorage.removeItem('trackops_custom_domain');
+      }
+    }
+    setIsEditingDomain(false);
+  };
+
   // Link Created Success Modal
   const [createdSuccessLink, setCreatedSuccessLink] = useState<any | null>(null);
 
@@ -174,7 +208,8 @@ export default function UserDashboardPage() {
 
   const totalVisits = links.reduce((acc, l) => acc + (l.visitCount || 0), 0);
   const activeLinks = links.filter((l) => l.isActive).length;
-  const currentOrigin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : '';
+  const rawOrigin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : '';
+  const currentOrigin = customDomain || rawOrigin;
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
@@ -279,6 +314,71 @@ export default function UserDashboardPage() {
                   New Link
                 </button>
               </div>
+            </div>
+
+            {/* Tracking Domain Configurator Banner */}
+            <div className="px-6 py-2.5 bg-slate-50 border-b border-slate-200/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-2">
+                <Globe className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+                <span className="text-slate-600">
+                  Current Tracking Domain: <strong className="text-indigo-700 font-mono font-bold">{currentOrigin || 'Detecting...'}</strong>
+                </span>
+                {customDomain && (
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200">
+                    Custom Domain Active
+                  </span>
+                )}
+              </div>
+
+              {isEditingDomain ? (
+                <div className="flex items-center gap-2 flex-wrap">
+                  <input
+                    type="text"
+                    value={tempDomain}
+                    onChange={(e) => setTempDomain(e.target.value)}
+                    placeholder="e.g. https://banglanews.vercel.app or mydomain.com"
+                    className="px-2.5 py-1 text-xs border border-indigo-300 rounded bg-white text-slate-800 focus:outline-none focus:ring-1 focus:ring-indigo-500 w-64 font-mono shadow-inner"
+                  />
+                  <button
+                    onClick={saveCustomDomain}
+                    className="px-2.5 py-1 bg-indigo-600 text-white rounded text-xs font-semibold hover:bg-indigo-700 transition"
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={() => {
+                      setTempDomain(customDomain);
+                      setIsEditingDomain(false);
+                    }}
+                    className="px-2.5 py-1 bg-slate-200 text-slate-700 rounded text-xs hover:bg-slate-300 transition"
+                  >
+                    Cancel
+                  </button>
+                  {customDomain && (
+                    <button
+                      onClick={() => {
+                        setTempDomain('');
+                        setCustomDomain('');
+                        localStorage.removeItem('trackops_custom_domain');
+                        setIsEditingDomain(false);
+                      }}
+                      className="px-2 py-1 text-rose-600 hover:text-rose-800 text-[11px] underline"
+                    >
+                      Reset to Default
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    setTempDomain(customDomain || rawOrigin);
+                    setIsEditingDomain(true);
+                  }}
+                  className="text-xs text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-1 hover:underline"
+                >
+                  ⚙️ Change Domain / ডোমেইন পরিবর্তন করুন
+                </button>
+              )}
             </div>
 
             {loading ? (
