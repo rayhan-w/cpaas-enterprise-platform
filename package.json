@@ -1,24 +1,21 @@
 {
-  "name": "cpaas-enterprise-platform",
+  "name": "trackops-enterprise-platform",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "npm run dev --prefix homeease-smart-service",
-    "build": "npm run build --prefix homeease-smart-service",
-    "start": "npm run start --prefix homeease-smart-service"
+    "dev": "npm run dev --prefix apps/web",
+    "build": "npm run build --prefix apps/web",
+    "start": "npm run start --prefix apps/web",
+    "postinstall": "npm run postinstall --prefix apps/web"
   },
   "workspaces": [
-    "homeease-smart-service",
-    "apps/*",
-    "moto-design-magic-main"
+    "apps/*"
   ],
   "keywords": [
-    "cpaas",
-    "bulk-sms",
-    "enterprise",
-    "dlt",
-    "vite",
-    "react"
+    "trackops",
+    "saas",
+    "telemetry",
+    "investigations"
   ],
   "author": "",
   "license": "MIT"
