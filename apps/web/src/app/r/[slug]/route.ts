@@ -76,26 +76,30 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ slug
     const { deviceCategory, browserFamily, osFamily } = parseUserAgent(ua);
     const referrer = req.headers.get('referer') || 'Direct';
 
-    // Record visit asynchronously to avoid blocking redirect
-    prisma.$transaction([
-      prisma.link.update({
-        where: { id: link.id },
-        data: { visitCount: { increment: 1 } },
-      }),
-      prisma.linkEvent.create({
-        data: {
-          linkId: link.id,
-          visitorHash,
-          deviceCategory,
-          browserFamily,
-          osFamily,
-          referrer,
-          country: req.headers.get('x-vercel-ip-country') || 'Global',
-          region: req.headers.get('x-vercel-ip-country-region') || 'Unknown',
-          city: req.headers.get('x-vercel-ip-city') || null,
-        },
-      }),
-    ]).catch((err) => console.error('Failed to log link telemetry event:', err));
+    // Ensure telemetry writes to database before completing response on serverless
+    try {
+      await prisma.$transaction([
+        prisma.link.update({
+          where: { id: link.id },
+          data: { visitCount: { increment: 1 } },
+        }),
+        prisma.linkEvent.create({
+          data: {
+            linkId: link.id,
+            visitorHash,
+            deviceCategory,
+            browserFamily,
+            osFamily,
+            referrer,
+            country: req.headers.get('x-vercel-ip-country') || 'Global',
+            region: req.headers.get('x-vercel-ip-country-region') || 'Unknown',
+            city: req.headers.get('x-vercel-ip-city') || null,
+          },
+        }),
+      ]);
+    } catch (dbErr) {
+      console.error('Failed to log link telemetry event:', dbErr);
+    }
 
     // Return 302 safe redirect
     return NextResponse.redirect(link.destinationUrl, 302);
