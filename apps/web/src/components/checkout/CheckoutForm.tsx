@@ -70,11 +70,11 @@ export default function CheckoutForm() {
   const bkashMerchantNumber = '01915210799';
   const nagadMerchantNumber = '01915210799';
   const bankAccountInfo = {
-    accountName: 'Jawata Mart',
+    accountName: 'TrackOps Enterprise',
     accountNumber: '1462101000775432',
     bankName: 'UCB Bank (United Commercial Bank)',
-    branch: 'Uttara Sector-12 more',
-    email: 'jawatamart3@gmail.com',
+    branch: 'Dhaka',
+    email: 'billing@trackops.dev',
   };
 
   useEffect(() => {

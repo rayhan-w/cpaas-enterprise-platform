@@ -35,8 +35,8 @@ export default async function AboutPage() {
   const ownerBio = settings.ownerBio || 'Passionate entrepreneur dedicated to bringing 100% authentic lifestyle, baby care, fashion, and organic food products directly to households across all 64 districts of Bangladesh.';
   const ownerPhoto = settings.ownerPhoto || '/images/abdur-rahim-owner.jpg';
   const ownerPhone = settings.ownerPhone || '01915210799';
-  const ownerEmail = settings.ownerEmail || 'jawatamart3@gmail.com';
-  const officeAddress = settings.address || 'Uttara Sector-12, Dhaka, Bangladesh';
+  const ownerEmail = settings.ownerEmail || 'support@trackops.dev';
+  const officeAddress = settings.address || 'Dhaka, Bangladesh';
 
   const aboutStory = settings.aboutStory || 'Jawata Mart was founded by Abdur Rahim with a clear purpose: to bridge the gap between quality and affordability in online shopping across Bangladesh. Operating from Uttara Sector-12, Dhaka, we hand-inspect every product before dispatch, ensuring only genuine, premium-grade items reach you and your family.';
   const aboutMission = settings.aboutMission || 'To provide a trustworthy, reliable shopping experience where every Bangladeshi customer receives genuine products, transparent pricing, dedicated support, and swift doorstep delivery.';

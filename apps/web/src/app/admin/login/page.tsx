@@ -7,7 +7,7 @@ import { useToast } from '@/context/toast-context';
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('jawatamart3@gmail.com');
+  const [email, setEmail] = useState('admin@trackops.dev');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -52,12 +52,12 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md bg-white rounded-3xl p-8 sm:p-10 border border-[#EDE5E1] shadow-elevation-2 space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <div className="w-16 h-16 rounded-full overflow-hidden bg-black ring-2 ring-[#9ED114]/80 shadow-md mx-auto flex items-center justify-center shrink-0">
-            <img src="/jawata-mart-logo.jpg" alt="Jawata Mart" className="w-full h-full object-cover" />
+          <div className="w-14 h-14 rounded-2xl bg-indigo-600 text-white font-bold text-xl flex items-center justify-center mx-auto shadow-md">
+            T
           </div>
-          <h1 className="section-title text-2xl text-[#1A1512]">Jawata Mart Staff Portal</h1>
+          <h1 className="section-title text-2xl text-[#1A1512]">TrackOps Admin Portal</h1>
           <p className="text-xs text-[#6B5B58]">
-            Secure administrative access for orders, manual bKash/Nagad verification and inventory.
+            Secure administrative access for operations, platform controls, and telemetry intelligence.
           </p>
         </div>
 
@@ -71,7 +71,7 @@ export default function AdminLoginPage() {
               <input
                 type="email"
                 required
-                placeholder="jawatamart3@gmail.com"
+                placeholder="admin@trackops.dev"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl py-2.5 pl-10 pr-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"

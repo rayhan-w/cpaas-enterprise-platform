@@ -35,11 +35,11 @@ export default function AdminSettingsPage() {
   const [savedSuccess, setSavedSuccess] = useState(false);
 
   const [formData, setFormData] = useState({
-    storeName: 'Jawata Mart',
-    storeTagline: 'Your Trusted Online Shopping Destination in Bangladesh',
+    storeName: 'TrackOps Enterprise',
+    storeTagline: 'Enterprise Operations, Link Intelligence & Telemetry Platform',
     hotline: '+880 1915-210799',
-    supportEmail: 'jawatamart3@gmail.com',
-    address: 'Uttara Sector-12, Dhaka, Bangladesh',
+    supportEmail: 'support@trackops.dev',
+    address: 'Dhaka, Bangladesh',
     
     // Delivery fees
     insideDhakaDeliveryFee: 60,
@@ -55,11 +55,11 @@ export default function AdminSettingsPage() {
     nagadAccountType: 'Personal',
 
     // Bank Account Details (UCB Bank)
-    bankAccountName: 'Jawata Mart',
+    bankAccountName: 'TrackOps Enterprise',
     bankAccountNumber: '1462101000775432',
     bankName: 'UCB Bank (United Commercial Bank)',
-    bankBranch: 'Uttara Sector-12 more',
-    bankConfirmationEmail: 'jawatamart3@gmail.com',
+    bankBranch: 'Dhaka',
+    bankConfirmationEmail: 'billing@trackops.dev',
     enableBankTransfer: true,
 
     // Stripe Gateway Configuration
@@ -91,10 +91,10 @@ export default function AdminSettingsPage() {
     ownerBio: 'Passionate entrepreneur dedicated to bringing 100% authentic lifestyle, baby care, fashion, and organic food products directly to households across all 64 districts of Bangladesh.',
     ownerPhoto: '/images/abdur-rahim-owner.jpg',
     ownerPhone: '01915210799',
-    ownerEmail: 'jawatamart3@gmail.com',
-    aboutStory: 'Jawata Mart was founded by Abdur Rahim with a clear purpose: to bridge the gap between quality and affordability in online shopping in Bangladesh. Operating from Uttara Sector-12, Dhaka, we curate and inspect every item—ensuring only genuine products reach your family.',
-    aboutMission: 'To provide a trustworthy, reliable shopping experience where every customer receives genuine products, responsive support, and prompt doorstep delivery.',
-    aboutVision: 'To be the most respected and dependable lifestyle & e-commerce brand in Bangladesh, celebrated for authenticity, customer delight, and ethical commerce.',
+    ownerEmail: 'support@trackops.dev',
+    aboutStory: 'TrackOps Enterprise provides high-reliability operations, role-based telemetry, link intelligence, and secure audit tracking.',
+    aboutMission: 'To deliver transparent, secure, and robust operational tracking and enterprise SaaS solutions.',
+    aboutVision: 'To be the most dependable and secure operational telemetry platform.',
   });
 
   const [testLoading, setTestLoading] = useState(false);
@@ -113,8 +113,8 @@ export default function AdminSettingsPage() {
           value: 1250,
           currency: 'BDT',
           customerPhone: '01915210799',
-          customerEmail: 'test@jawatamart.com',
-          customerName: 'Jawata Mart Test',
+          customerEmail: 'test@trackops.dev',
+          customerName: 'TrackOps Test User',
           items: [{ id: 'test-1', name: 'Tracking Verification Sample Item', price: 1250, quantity: 1 }],
           eventSourceUrl: window.location.href,
         }),
@@ -433,7 +433,7 @@ export default function AdminSettingsPage() {
                     name="bankConfirmationEmail"
                     value={formData.bankConfirmationEmail}
                     onChange={handleChange}
-                    placeholder="jawatamart3@gmail.com"
+                    placeholder="billing@trackops.dev"
                     className="w-full px-3.5 py-2 rounded-lg border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00529B]/20"
                   />
                 </div>
@@ -772,7 +772,7 @@ export default function AdminSettingsPage() {
                   name="ownerEmail"
                   value={formData.ownerEmail || ''}
                   onChange={handleChange}
-                  placeholder="e.g. jawatamart3@gmail.com"
+                  placeholder="e.g. support@trackops.dev"
                   className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
                 />
               </div>

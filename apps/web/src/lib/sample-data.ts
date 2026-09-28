@@ -1,11 +1,11 @@
 import { CategoryItem, ProductItem, BannerItem, CouponItem, StoreSettings } from './types';
 
 export const INITIAL_SETTINGS: StoreSettings = {
-  storeName: 'Jawata Mart',
-  tagline: 'Your Trusted Online Shopping Destination in Bangladesh',
+  storeName: 'TrackOps Enterprise',
+  tagline: 'Enterprise Operations, Link Intelligence & Telemetry Platform',
   phone: '01915210799',
-  email: 'jawatamart3@gmail.com',
-  address: 'Uttara Sector-12, Dhaka, Bangladesh',
+  email: 'support@trackops.dev',
+  address: 'Dhaka, Bangladesh',
   bkashMerchantNumber: '01915210799',
   nagadMerchantNumber: '01915210799',
   insideDhakaFee: 60,
@@ -24,15 +24,15 @@ export const INITIAL_SETTINGS: StoreSettings = {
   enableGTM: true,
 
   // Owner Profile & About Details
-  ownerName: 'Abdur Rahim',
-  ownerTitle: 'Founder & Managing Director',
-  ownerBio: 'Passionate entrepreneur dedicated to bringing 100% authentic lifestyle, baby care, fashion, and organic food products directly to households across all 64 districts of Bangladesh.',
-  ownerPhoto: '/images/abdur-rahim-owner.jpg',
+  ownerName: 'TrackOps Administrator',
+  ownerTitle: 'Systems Director',
+  ownerBio: 'Enterprise telemetry operations and link management.',
+  ownerPhoto: '',
   ownerPhone: '01915210799',
-  ownerEmail: 'jawatamart3@gmail.com',
-  aboutStory: 'Jawata Mart was founded by Abdur Rahim with a clear purpose: to bridge the gap between quality and affordability in online shopping in Bangladesh. Operating from Uttara Sector-12, Dhaka, we curate and inspect every item—ensuring only genuine products reach your family.',
-  aboutMission: 'To provide a trustworthy, reliable shopping experience where every customer receives genuine products, responsive support, and prompt doorstep delivery.',
-  aboutVision: 'To be the most respected and dependable lifestyle & e-commerce brand in Bangladesh, celebrated for authenticity, customer delight, and ethical commerce.',
+  ownerEmail: 'support@trackops.dev',
+  aboutStory: 'TrackOps Enterprise provides high-reliability operations, role-based telemetry, link intelligence, and secure audit tracking.',
+  aboutMission: 'To deliver transparent, secure, and robust operational tracking and enterprise SaaS solutions.',
+  aboutVision: 'To be the most dependable and secure operational telemetry platform.',
 };
 
 export const INITIAL_CATEGORIES: CategoryItem[] = [

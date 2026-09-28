@@ -80,14 +80,14 @@ export default async function OrderSuccessPage({ searchParams }: OrderSuccessPro
                   <span>UCB Bank Deposit / Transfer Instructions</span>
                 </div>
                 <div className="space-y-1 text-[11px] text-[#1A1512]">
-                  <p><strong>Account Name:</strong> Jawata Mart</p>
+                  <p><strong>Account Name:</strong> TrackOps Enterprise</p>
                   <p><strong>Bank:</strong> UCB Bank (United Commercial Bank)</p>
                   <p><strong>Account Number:</strong> <span className="font-mono font-bold">1462101000775432</span></p>
-                  <p><strong>Branch:</strong> Uttara Sector-12 more</p>
-                  <p><strong>Deposit Slip / Receipt Email:</strong> <span className="text-[#00529B] font-semibold font-mono">jawatamart3@gmail.com</span></p>
+                  <p><strong>Branch:</strong> Dhaka</p>
+                  <p><strong>Deposit Slip / Receipt Email:</strong> <span className="text-[#00529B] font-semibold font-mono">billing@trackops.dev</span></p>
                 </div>
                 <p className="text-[10px] text-[#6B5B58] pt-1">
-                  Please email your deposit slip or transfer screenshot to <strong>jawatamart3@gmail.com</strong> with your Order Reference ({order.orderNumber}).
+                  Please email your deposit slip or transfer screenshot to <strong>billing@trackops.dev</strong> with your Order Reference ({order.orderNumber}).
                 </p>
               </div>
             ) : order?.paymentMethod === 'BKASH' || order?.paymentMethod === 'NAGAD' ? (

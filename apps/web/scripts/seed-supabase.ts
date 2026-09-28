@@ -9,19 +9,19 @@ import {
 } from '../src/lib/sample-data';
 
 async function seed() {
-  console.log('--- Seeding Supabase Database for Jawata Mart ---');
+  console.log('--- Seeding Supabase Database for TrackOps ---');
 
   // 1. Admin
-  const adminEmail = 'jawatamart@gmail.com';
+  const adminEmail = 'admin@trackops.dev';
   const salt = await bcrypt.genSalt(10);
   const passwordHash = await bcrypt.hash('admin123456', salt);
 
   await prisma.admin.upsert({
     where: { email: adminEmail },
-    update: { passwordHash, name: 'Md. Abdur Rahim (Jawata Mart)', role: 'SUPERADMIN' },
+    update: { passwordHash, name: 'TrackOps Administrator', role: 'SUPERADMIN' },
     create: {
       email: adminEmail,
-      name: 'Md. Abdur Rahim (Jawata Mart)',
+      name: 'TrackOps Administrator',
       passwordHash,
       role: 'SUPERADMIN',
     },
