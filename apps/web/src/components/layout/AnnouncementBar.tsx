@@ -21,8 +21,8 @@ export default function AnnouncementBar() {
           </div>
         </div>
 
-        {/* Right: About Us, Hotline & Track Order */}
-        <div className="flex items-center gap-3 sm:gap-4 text-white/85">
+        {/* Right: About Us, Hotline & Track Order (Desktop & Tablet) */}
+        <div className="hidden sm:flex items-center gap-3 sm:gap-4 text-white/85">
           <Link
             href="/about"
             className="hover:text-[#9ED114] transition-colors flex items-center gap-1 font-medium"

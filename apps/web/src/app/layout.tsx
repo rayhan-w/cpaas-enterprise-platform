@@ -1,9 +1,16 @@
 import './globals.css';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { AuthProvider } from '@/context/AuthContext';
 import { CartProvider } from '@/context/cart-context';
 import { ToastProvider } from '@/context/toast-context';
 import AppShell from '@/components/layout/AppShell';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#6CAE14',
+};
 
 export const metadata: Metadata = {
   title: 'Jawata Mart | Trusted Multi-Category Shopping Platform in Bangladesh',

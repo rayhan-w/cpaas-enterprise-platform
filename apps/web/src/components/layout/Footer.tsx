@@ -64,24 +64,35 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
-                T
+              <div className="w-10 h-10 rounded-full overflow-hidden bg-black ring-2 ring-[#9ED114] flex items-center justify-center shrink-0">
+                <img
+                  src="/jawata-mart-logo.jpg"
+                  alt="Jawata Mart Logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <span className="text-xl font-bold tracking-tight text-white">
-                TrackOps Enterprise
-              </span>
+              <div>
+                <span className="text-xl font-bold tracking-tight text-white font-serif">
+                  Jawata Mart
+                </span>
+                <p className="text-[10px] text-[#9ED114] font-semibold">Pure & Authentic Products</p>
+              </div>
             </div>
             <p className="text-xs text-white/70 leading-relaxed max-w-sm">
-              TrackOps Enterprise operations, role-based telemetry, link intelligence, and secure audit platform.
+              Jawata Mart is your trusted shopping destination in Bangladesh for pure organic food, weather gear, lifestyle essentials, and premium family products with nationwide fast delivery.
             </p>
             <div className="space-y-2 pt-2 text-xs text-white/80">
               <p className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#6CAE14] shrink-0" />
-                <span>Dhaka, Bangladesh</span>
+                <span>Sector-12, Uttara, Dhaka-1230, Bangladesh</span>
+              </p>
+              <p className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-[#9ED114] shrink-0" />
+                <a href="tel:01915210799" className="hover:text-white transition-colors font-semibold">Hotline: 01915210799</a>
               </p>
               <p className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#7A9C78] shrink-0" />
-                <a href="mailto:support@trackops.dev" className="hover:text-white transition-colors">support@trackops.dev</a>
+                <a href="mailto:support@jawatamart.com" className="hover:text-white transition-colors">support@jawatamart.com</a>
               </p>
             </div>
           </div>
@@ -108,7 +119,7 @@ export default function Footer() {
           {/* Customer Service */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#6CAE14] mb-4">
-              Company &amp; Care
+              Customer Care
             </h4>
             <ul className="space-y-2.5 text-xs text-white/70">
               <li>
@@ -123,22 +134,23 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/checkout" className="hover:text-white transition-colors">
-                  Guest Checkout
+                  Fast Checkout
                 </Link>
               </li>
               <li>
-                <Link href="/cart" className="hover:text-white transition-colors">
-                  Shopping Cart
+                <Link href="/privacy" className="hover:text-white transition-colors">
+                  Privacy Policy
                 </Link>
               </li>
               <li>
-                <span className="text-white/40 cursor-not-allowed">Shipping & Delivery Rates</span>
+                <Link href="/terms" className="hover:text-white transition-colors">
+                  Terms of Service
+                </Link>
               </li>
               <li>
-                <span className="text-white/40 cursor-not-allowed">Return & Refund Policy</span>
-              </li>
-              <li>
-                <span className="text-white/40 cursor-not-allowed">Terms of Service</span>
+                <Link href="/contact" className="hover:text-white transition-colors">
+                  Contact & Support
+                </Link>
               </li>
             </ul>
           </div>
@@ -182,10 +194,10 @@ export default function Footer() {
 
         {/* Bottom Copyright Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50">
-          <p>© 2026 TrackOps Enterprise Platform. All rights reserved.</p>
+          <p>© 2026 Jawata Mart. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <span className="text-white/60">Enterprise SaaS Platform</span>
-            <span>Dhaka, Bangladesh</span>
+            <span className="text-white/60">Trusted Shopping Platform</span>
+            <span>Uttara, Dhaka, Bangladesh</span>
           </div>
         </div>
       </div>

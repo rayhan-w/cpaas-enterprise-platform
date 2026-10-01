@@ -276,7 +276,7 @@ export default function CheckoutForm() {
         </div>
 
         {/* Shipping Address Card */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#EDE5E1] shadow-elevation-1 space-y-4">
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-[#EDE5E1] shadow-elevation-1 space-y-4">
           <h3 className="section-title text-xl text-[#1A1512] flex items-center gap-2">
             <span>1. Delivery Information</span>
           </h3>
@@ -465,7 +465,7 @@ export default function CheckoutForm() {
         </div>
 
         {/* 2. Payment Method Card */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#EDE5E1] shadow-elevation-1 space-y-5">
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-[#EDE5E1] shadow-elevation-1 space-y-5">
           <h3 className="section-title text-xl text-[#1A1512]">
             2. Payment Method
           </h3>
@@ -911,7 +911,7 @@ export default function CheckoutForm() {
 
       {/* Right Column: Order Summary & Place Order */}
       <div className="lg:col-span-5 space-y-6">
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#EDE5E1] shadow-elevation-2 sticky top-24 space-y-5">
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-[#EDE5E1] shadow-elevation-2 sticky top-24 space-y-5">
           <div className="flex items-center justify-between border-b border-[#EDE5E1] pb-3">
             <h3 className="section-title text-xl text-[#1A1512]">
               Order Summary ({items.reduce((s, i) => s + i.quantity, 0)})

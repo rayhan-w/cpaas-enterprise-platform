@@ -63,7 +63,7 @@ export default function FlashSaleSection({ products }: { products: ProductItem[]
         </div>
 
         {/* Product Cards Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6">
           {dealProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

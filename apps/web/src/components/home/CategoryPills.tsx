@@ -26,14 +26,14 @@ export default function CategoryPills() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-3 sm:gap-4">
+      <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-2 sm:gap-4">
         {INITIAL_CATEGORIES.map((cat) => (
           <Link
             key={cat.id}
             href={`/category/${cat.slug}`}
-            className="group bg-white rounded-2xl p-3 border border-[#DFECCE] text-center flex flex-col items-center justify-between hover:border-[#6CAE14] hover:shadow-md transition-all"
+            className="group bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-[#DFECCE] text-center flex flex-col items-center justify-between hover:border-[#6CAE14] hover:shadow-md transition-all"
           >
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden mb-2 bg-[#FAFCF7] border-2 border-white ring-2 ring-[#DFECCE] group-hover:ring-[#6CAE14] shadow-xs group-hover:scale-105 transition-all">
+            <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-20 sm:h-20 rounded-full overflow-hidden mb-1.5 sm:mb-2 bg-[#FAFCF7] border-2 border-white ring-1.5 sm:ring-2 ring-[#DFECCE] group-hover:ring-[#6CAE14] shadow-xs group-hover:scale-105 transition-all">
               <img
                 src={cat.image || 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=200&h=200&fit=crop'}
                 alt={cat.name}
@@ -41,11 +41,11 @@ export default function CategoryPills() {
                 loading="lazy"
               />
             </div>
-            <h3 className="text-xs font-bold text-[#0E140E] group-hover:text-[#6CAE14] transition-colors line-clamp-1">
+            <h3 className="text-[11px] sm:text-xs font-bold text-[#0E140E] group-hover:text-[#6CAE14] transition-colors line-clamp-1 leading-tight">
               {cat.name}
             </h3>
-            <span className="text-[10px] text-[#526052] mt-0.5 font-medium">
-              {cat.productCount || cat.itemCount || 10}+ Products
+            <span className="text-[9px] sm:text-[10px] text-[#526052] mt-0.5 font-medium leading-tight">
+              {cat.productCount || cat.itemCount || 10}+ Items
             </span>
           </Link>
         ))}
@@ -53,16 +53,16 @@ export default function CategoryPills() {
         {/* Weather Items Category Card */}
         <Link
           href="/category/weather-items"
-          className="group bg-white rounded-2xl p-3 border border-[#DFECCE] text-center flex flex-col items-center justify-between hover:border-[#6CAE14] hover:shadow-md transition-all"
+          className="group bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-[#DFECCE] text-center flex flex-col items-center justify-between hover:border-[#6CAE14] hover:shadow-md transition-all"
         >
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden mb-2 bg-[#F1F8E8] border-2 border-white ring-2 ring-[#DFECCE] group-hover:ring-[#6CAE14] shadow-xs group-hover:scale-105 transition-all flex items-center justify-center">
-            <span className="text-3xl">☔</span>
+          <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-20 sm:h-20 rounded-full overflow-hidden mb-1.5 sm:mb-2 bg-[#F1F8E8] border-2 border-white ring-1.5 sm:ring-2 ring-[#DFECCE] group-hover:ring-[#6CAE14] shadow-xs group-hover:scale-105 transition-all flex items-center justify-center">
+            <span className="text-xl sm:text-3xl">☔</span>
           </div>
-          <h3 className="text-xs font-bold text-[#6CAE14] group-hover:text-[#5B960E] transition-colors line-clamp-1">
+          <h3 className="text-[11px] sm:text-xs font-bold text-[#6CAE14] group-hover:text-[#5B960E] transition-colors line-clamp-1 leading-tight">
             Weather Gear
           </h3>
-          <span className="text-[10px] text-[#6CAE14] mt-0.5 font-bold">
-            Raincoats & Umbrellas
+          <span className="text-[9px] sm:text-[10px] text-[#6CAE14] mt-0.5 font-bold leading-tight">
+            Raincoats
           </span>
         </Link>
       </div>
