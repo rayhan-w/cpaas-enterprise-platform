@@ -26,7 +26,7 @@ export default function HeroBanner() {
   };
 
   const current = banners[currentIdx] || banners[0];
-  const isGraphicCover = current.image.includes('cover') || !current.title;
+  const isGraphicCover = current.image.includes('cover') || current.image.includes('promo') || !current.title;
 
   return (
     <div className="relative max-w-7xl mx-auto px-4 pt-4 pb-2">
@@ -35,17 +35,25 @@ export default function HeroBanner() {
         {isGraphicCover ? (
           /* Pure Graphic Cover Banner (Full high-fidelity view) */
           <Link href={current.ctaLink || '/category/all'} className="block relative w-full h-full">
+            <div className="absolute inset-0 overflow-hidden">
+              <img
+                src={current.image}
+                alt=""
+                className="w-full h-full object-cover blur-xl opacity-35 scale-110"
+              />
+              <div className="absolute inset-0 bg-black/10" />
+            </div>
             <img
               src={current.image}
               alt="Jawata Mart Official Cover"
-              className="w-full h-full object-cover sm:object-contain object-center group-hover:scale-[1.01] transition-transform duration-700"
+              className="relative z-10 w-full h-full object-contain object-center group-hover:scale-[1.01] transition-transform duration-700"
             />
             
             {/* Interactive Floating CTA Button on Bottom Right */}
-            <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-10">
+            <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-20">
               <span className="inline-flex items-center gap-2 bg-[#6CAE14] hover:bg-[#5B960E] text-white font-bold text-xs sm:text-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full transition-all shadow-xl active:scale-95 border-2 border-white group/btn animate-pulse-glow">
                 <ShoppingBag className="w-4 h-4 text-white" />
-                <span>Shop Now</span>
+                <span>{current.ctaText || 'Shop Now'}</span>
                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
               </span>
             </div>
