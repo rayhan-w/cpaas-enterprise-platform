@@ -1,13 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Lock, Mail, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Lock, Mail, ArrowRight, ArrowLeft } from 'lucide-react';
 import { useToast } from '@/context/toast-context';
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('jawatamart3@gmail.com');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -48,8 +49,22 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
+    <div className="min-h-[85vh] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md bg-white rounded-3xl p-8 sm:p-10 border border-[#EDE5E1] shadow-elevation-2 space-y-6">
+        {/* Top Back Navigation */}
+        <div className="flex items-center justify-between pb-3 border-b border-[#EDE5E1]">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#6B5B58] hover:text-[#1A1512] transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Back to Store</span>
+          </Link>
+          <span className="text-[11px] font-bold text-[#6CAE14] bg-[#F1F8E8] px-2.5 py-0.5 rounded-full">
+            Admin Portal
+          </span>
+        </div>
+
         {/* Header */}
         <div className="text-center space-y-2">
           <div className="w-16 h-16 rounded-full overflow-hidden bg-black ring-2 ring-[#9ED114]/80 shadow-md mx-auto flex items-center justify-center shrink-0">
@@ -59,23 +74,6 @@ export default function AdminLoginPage() {
           <p className="text-xs text-[#6B5B58]">
             Secure administrative access for orders, manual bKash/Nagad verification and inventory.
           </p>
-        </div>
-
-        {/* Quick Credentials Hint */}
-        <div className="p-3 bg-[#F1F8E8] border border-[#6CAE14]/30 rounded-xl text-[11px] text-[#4E820C] flex items-center justify-between">
-          <div>
-            <span className="font-bold">Staff Login:</span> <span className="font-mono">jawatamart3@gmail.com</span>
-          </div>
-          <button
-            type="button"
-            onClick={() => {
-              setEmail('jawatamart3@gmail.com');
-              setPassword('admin123456');
-            }}
-            className="text-[10px] font-bold px-2 py-1 bg-[#6CAE14] text-white rounded-md hover:bg-[#5B960E] transition-colors"
-          >
-            Auto-fill
-          </button>
         </div>
 
         {/* Login Form */}
@@ -88,7 +86,7 @@ export default function AdminLoginPage() {
               <input
                 type="email"
                 required
-                placeholder="jawatamart3@gmail.com"
+                placeholder="admin@jawatamart.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl py-2.5 pl-10 pr-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"

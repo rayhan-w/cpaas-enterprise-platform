@@ -15,6 +15,8 @@ import {
   LogOut,
   ExternalLink,
   ShieldCheck,
+  ArrowLeft,
+  Store,
 } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -64,6 +66,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </span>
             </div>
           </div>
+
+          {/* Quick Back to Store in Sidebar */}
+          <Link
+            href="/"
+            className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-[#F1F8E8] hover:bg-[#E2F0D2] border border-[#6CAE14]/30 text-xs font-bold text-[#4E820C] transition-all shadow-xs"
+            title="Return to Jawata Mart storefront"
+          >
+            <ArrowLeft className="w-4 h-4 text-[#6CAE14]" />
+            <span>← Back to Store</span>
+          </Link>
 
           {/* Navigation Links */}
           <nav className="space-y-1">
@@ -119,7 +131,41 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 p-4 sm:p-8 lg:p-10 max-w-7xl overflow-x-hidden">{children}</main>
+      <main className="flex-1 p-4 sm:p-8 lg:p-10 max-w-7xl overflow-x-hidden">
+        {/* Admin Top Navigation Bar with Back buttons */}
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3 bg-white p-3.5 sm:px-5 sm:py-3.5 rounded-2xl border border-[#EDE5E1] shadow-xs">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              onClick={() => router.back()}
+              type="button"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#F8F7F5] hover:bg-[#EDE5E1] active:scale-95 text-[#1A1512] text-xs font-semibold border border-[#EDE5E1] transition-all cursor-pointer"
+              title="Go back to previous page"
+            >
+              <ArrowLeft className="w-4 h-4 text-[#6B5B58]" />
+              <span>Back</span>
+            </button>
+
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#F1F8E8] hover:bg-[#E2F0D2] active:scale-95 text-[#4E820C] text-xs font-bold border border-[#6CAE14]/30 transition-all shadow-xs"
+              title="Return to Jawata Mart storefront"
+            >
+              <Store className="w-4 h-4 text-[#6CAE14]" />
+              <span>Back to Store</span>
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-2.5 text-xs">
+            <span className="hidden sm:inline font-semibold text-[#6B5B58]">Jawata Mart Admin</span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#E8F5E9] text-[#2E7D32] text-[11px] font-bold">
+              <span className="w-2 h-2 rounded-full bg-[#4CAF50] animate-pulse"></span>
+              Live Portal
+            </span>
+          </div>
+        </div>
+
+        {children}
+      </main>
     </div>
   );
 }
