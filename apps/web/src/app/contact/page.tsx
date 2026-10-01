@@ -32,8 +32,8 @@ export default function ContactPage() {
       <main className="flex-1">
         <PageHero
           eyebrow="Get In Touch"
-          title="Schedule a Personalized Consultation &amp; Demo"
-          description="Speak with our CPaaS architects and discover how Solvear can accelerate your sales, automations, and white-label agency revenue."
+          title="Contact Jawata Mart (যোগাযোগ করুন)"
+          description="Have questions about an order, product availability, or nationwide delivery? Reach out to our dedicated support team."
         />
 
         <section className="section-y">
@@ -44,8 +44,8 @@ export default function ContactPage() {
                 <SectionHeading
                   align="left"
                   eyebrow="We're Here To Help"
-                  title="Let's build your next conversation channel"
-                  description="Whether you have questions about Meta Cloud API verification, DLT compliance, custom integrations, or our White-label reseller program, our team is ready."
+                  title="Fast & Dependable Customer Care"
+                  description="Our team is available 7 days a week to assist with order tracking, bKash/Nagad verification, product queries, and home deliveries."
                 />
 
                 <div className="space-y-5 pt-4">
@@ -54,9 +54,9 @@ export default function ContactPage() {
                       <Phone className="h-5 w-5" />
                     </div>
                     <div>
-                      <h4 className="font-display text-sm font-bold text-foreground">Phone &amp; WhatsApp Sales</h4>
-                      <p className="text-sm text-muted-foreground mt-0.5">+91 98765 43210 (India) / +880 1700 000000 (BD)</p>
-                      <p className="text-xs text-primary font-semibold mt-1">Available Mon–Sat: 9:00 AM – 8:00 PM IST</p>
+                      <h4 className="font-display text-sm font-bold text-foreground">Phone &amp; WhatsApp Hotline</h4>
+                      <p className="text-sm text-muted-foreground mt-0.5">01915210799 (Hotline &amp; WhatsApp)</p>
+                      <p className="text-xs text-[#6CAE14] font-semibold mt-1">Available Daily: 9:00 AM – 11:00 PM</p>
                     </div>
                   </div>
 
@@ -65,9 +65,9 @@ export default function ContactPage() {
                       <Mail className="h-5 w-5" />
                     </div>
                     <div>
-                      <h4 className="font-display text-sm font-bold text-foreground">24/7 Support Desk</h4>
-                      <p className="text-sm text-muted-foreground mt-0.5">support@solvear.in / sales@solvear.in</p>
-                      <p className="text-xs text-muted-foreground font-semibold mt-1">Average response time: &lt; 15 minutes</p>
+                      <h4 className="font-display text-sm font-bold text-foreground">Customer Support Email</h4>
+                      <p className="text-sm text-muted-foreground mt-0.5">jawatamart3@gmail.com</p>
+                      <p className="text-xs text-muted-foreground font-semibold mt-1">Average response time: &lt; 30 minutes</p>
                     </div>
                   </div>
 
@@ -76,9 +76,9 @@ export default function ContactPage() {
                       <MapPin className="h-5 w-5" />
                     </div>
                     <div>
-                      <h4 className="font-display text-sm font-bold text-foreground">Headquarters &amp; Tech Hub</h4>
-                      <p className="text-sm text-muted-foreground mt-0.5">Solvear CPaaS Enterprise Technologies Inc.</p>
-                      <p className="text-xs text-muted-foreground font-semibold mt-1">Dhaka • Kolkata • Singapore</p>
+                      <h4 className="font-display text-sm font-bold text-foreground">Office &amp; Dispatch Hub</h4>
+                      <p className="text-sm text-muted-foreground mt-0.5">Jawata Mart (জাওয়াটা মার্ট)</p>
+                      <p className="text-xs text-muted-foreground font-semibold mt-1">Sector 12, Uttara, Dhaka-1230, Bangladesh</p>
                     </div>
                   </div>
                 </div>
@@ -92,26 +92,26 @@ export default function ContactPage() {
                       <CheckCircle2 className="w-10 h-10" />
                     </div>
                     <h3 className="font-display text-2xl font-bold text-foreground">
-                      Demo Request Received!
+                      Message Received!
                     </h3>
                     <p className="text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
-                      Thank you for contacting Solvear. One of our CPaaS solution consultants will reach out to you via WhatsApp and Email within 1 business hour.
+                      Thank you for contacting Jawata Mart. Our customer care team will review your message and reach out shortly.
                     </p>
                     <button
                       type="button"
                       onClick={() => setSubmitted(false)}
                       className="mt-4 px-6 py-2.5 rounded-xl border border-border text-xs font-bold hover:bg-surface transition"
                     >
-                      Send Another Inquiry
+                      Send Another Message
                     </button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <h3 className="font-display text-2xl font-bold text-foreground">
-                      Book a Free 1-on-1 Consultation
+                      Send Us a Message
                     </h3>
                     <p className="text-xs text-muted-foreground font-medium">
-                      Fill out the form below and we will prepare a tailored walkthrough for your business.
+                      Fill out the form below with your order or product inquiry.
                     </p>
 
                     <div className="grid gap-4 sm:grid-cols-2">

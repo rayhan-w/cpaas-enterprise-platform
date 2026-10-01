@@ -163,6 +163,17 @@ function patchOrganicProduct(p: any): ProductItem {
   return p;
 }
 
+const withTimeout = <T>(promise: Promise<T>, ms = 1200): Promise<T> =>
+  Promise.race([
+    promise,
+    new Promise<T>((_, reject) => setTimeout(() => reject(new Error('DB Timeout')), ms)),
+  ]);
+
+const productCache = new Map<string, { data: ProductItem[]; time: number }>();
+const singleProductCache = new Map<string, { data: ProductItem | null; time: number }>();
+let categoryCache: { data: CategoryItem[]; time: number } | null = null;
+const CACHE_TTL = 60 * 1000; // 60 seconds
+
 export const dbService = {
   // PRODUCTS
   async getProducts(params?: {
@@ -174,6 +185,12 @@ export const dbService = {
     isNew?: boolean;
     limit?: number;
   }): Promise<ProductItem[]> {
+    const cacheKey = JSON.stringify(params || {});
+    const hit = productCache.get(cacheKey);
+    if (hit && Date.now() - hit.time < CACHE_TTL) {
+      return hit.data;
+    }
+
     try {
       if (process.env.DATABASE_URL && prisma.product) {
         const where: any = { isActive: true };
@@ -194,12 +211,15 @@ export const dbService = {
           ];
         }
 
-        const items = await prisma.product.findMany({
-          where,
-          include: { category: true, subCategory: true, variants: true },
-          take: params?.limit || 50,
-          orderBy: { createdAt: 'desc' },
-        });
+        const items = await withTimeout(
+          prisma.product.findMany({
+            where,
+            include: { category: true, subCategory: true, variants: true },
+            take: params?.limit || 50,
+            orderBy: { createdAt: 'desc' },
+          }),
+          1200
+        );
 
         if (items.length > 0) {
           const mapped = items.map((p) =>
@@ -220,7 +240,9 @@ export const dbService = {
               if (pickle) mapped.push(pickle);
             }
           }
-          return mapped.filter(isAllowedOrganicProduct);
+          const result = mapped.filter(isAllowedOrganicProduct);
+          productCache.set(cacheKey, { data: result, time: Date.now() });
+          return result;
         }
       }
     } catch {
@@ -262,18 +284,27 @@ export const dbService = {
     if (params?.limit) {
       list = list.slice(0, params.limit);
     }
+    productCache.set(cacheKey, { data: list, time: Date.now() });
     return list;
   },
 
   async getProductBySlug(slug: string): Promise<ProductItem | null> {
+    const hit = singleProductCache.get(slug);
+    if (hit && Date.now() - hit.time < CACHE_TTL) {
+      return hit.data;
+    }
+
     try {
       if (process.env.DATABASE_URL && prisma.product) {
-        const item = await prisma.product.findUnique({
-          where: { slug },
-          include: { category: true, subCategory: true, variants: true, reviews: true },
-        });
+        const item = await withTimeout(
+          prisma.product.findUnique({
+            where: { slug },
+            include: { category: true, subCategory: true, variants: true, reviews: true },
+          }),
+          1200
+        );
         if (item) {
-          return patchOrganicProduct({
+          const res = patchOrganicProduct({
             ...item,
             images: item.images ? JSON.parse(item.images) : [item.image],
             specifications: item.specifications ? JSON.parse(item.specifications) : {},
@@ -281,13 +312,17 @@ export const dbService = {
             categorySlug: item.category.slug,
             subCategoryName: item.subCategory?.name,
           });
+          singleProductCache.set(slug, { data: res, time: Date.now() });
+          return res;
         }
       }
     } catch {
       // Fall through
     }
     const mem = memoryProducts.find((p) => p.slug === slug);
-    return mem ? patchOrganicProduct(mem) : null;
+    const fallbackRes = mem ? patchOrganicProduct(mem) : null;
+    singleProductCache.set(slug, { data: fallbackRes, time: Date.now() });
+    return fallbackRes;
   },
 
   async addProduct(data: any): Promise<ProductItem> {
@@ -354,6 +389,8 @@ export const dbService = {
     }
 
     memoryProducts.unshift(newProduct);
+    productCache.clear();
+    singleProductCache.clear();
     return newProduct;
   },
 
@@ -383,6 +420,8 @@ export const dbService = {
     const idx = memoryProducts.findIndex((p) => p.id === id);
     if (idx !== -1) {
       memoryProducts[idx] = { ...memoryProducts[idx], ...data };
+      productCache.clear();
+      singleProductCache.clear();
       return memoryProducts[idx];
     }
     return null;
@@ -399,20 +438,28 @@ export const dbService = {
 
     const initialLen = memoryProducts.length;
     memoryProducts = memoryProducts.filter((p) => p.id !== id);
+    productCache.clear();
+    singleProductCache.clear();
     return memoryProducts.length < initialLen;
   },
 
   // CATEGORIES
   async getCategories(): Promise<CategoryItem[]> {
+    if (categoryCache && Date.now() - categoryCache.time < CACHE_TTL) {
+      return categoryCache.data;
+    }
     try {
       if (process.env.DATABASE_URL && prisma.category) {
-        const cats = await prisma.category.findMany({
-          where: { isActive: true },
-          include: { subCategories: true },
-          orderBy: { order: 'asc' },
-        });
+        const cats = await withTimeout(
+          prisma.category.findMany({
+            where: { isActive: true },
+            include: { subCategories: true },
+            orderBy: { order: 'asc' },
+          }),
+          1200
+        );
         if (cats.length > 0) {
-          return cats.map((c) => {
+          const res = cats.map((c) => {
             if (c.id === 'cat-organic-food' || c.slug === 'organic-food') {
               const allowedSubs = new Set(['pure-ghee', 'mustard-oil', 'natural-honey', 'homemade-pickle']);
               return {
@@ -424,11 +471,14 @@ export const dbService = {
             }
             return c;
           });
+          categoryCache = { data: res, time: Date.now() };
+          return res;
         }
       }
     } catch {
       // Fall through
     }
+    categoryCache = { data: memoryCategories, time: Date.now() };
     return memoryCategories;
   },
 

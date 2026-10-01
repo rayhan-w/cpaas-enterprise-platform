@@ -13,9 +13,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Solvear — Data Security & Protection",
+  title: "Privacy Policy | Jawata Mart — Customer Data Security & Protection",
   description:
-    "Privacy Policy of Solvear. Read how we protect personal information, secure data transmission, and handle electronic messaging communications.",
+    "Privacy Policy of Jawata Mart. Read how we protect personal information, secure order transactions, and handle customer data across Bangladesh.",
 };
 
 export default function PrivacyPage() {
@@ -24,12 +24,12 @@ export default function PrivacyPage() {
       {/* 1. Top Page Hero */}
       <section className="relative overflow-hidden bg-slate-900 border-b border-slate-800 py-16 sm:py-20 px-4 sm:px-6">
         <div className="mx-auto max-w-6xl">
-          <p className="text-xs font-bold uppercase tracking-widest text-rose-500">Legal &amp; Privacy</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-[#6CAE14]">Legal &amp; Privacy</p>
           <h1 className="mt-3 font-extrabold text-3xl sm:text-4xl md:text-5xl text-white">
             Privacy Policy
           </h1>
           <p className="mt-3 max-w-2xl text-sm sm:text-base text-slate-400">
-            Solvear perceives the significance of ensuring privacy. Learn how we collect, handle, and safeguard personal information across our CPaaS communication services.
+            Jawata Mart values your privacy. Learn how we collect, handle, and safeguard customer personal information and order details.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Link
@@ -84,10 +84,10 @@ export default function PrivacyPage() {
 
                 <div className="space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
                   <p>
-                    <strong>Solvear (SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED)</strong> perceives the significance of ensuring privacy. Our security strategy portrays what individual data we might gather and how we might utilize and ensure any close to home data that is made accessible to us.
+                    <strong>Jawata Mart (জাওয়াটা মার্ট)</strong> values the privacy and confidentiality of our shoppers and visitors. Our privacy policy outlines what customer details we collect (delivery address, phone number, order information) and how we protect and process them securely.
                   </p>
                   <p>
-                    This site is owned by <strong>Solvear (SOLVEAR ADVERTISING (OPC) PRIVATE LIMITED)</strong>. We are focused on keeping up with the classification, respectability and security of individual data and we will take all fitting specialized and authoritative safety efforts to guarantee that where any close to home data is given to us it will be ensured against loss, destruction and harm, and against unapproved or unintentional access, processing, deletion, move, use, alteration, revelation or other abuse.
+                    This ecommerce website is owned and operated by <strong>Jawata Mart</strong>, Sector 12, Uttara, Dhaka, Bangladesh. We are committed to maintaining the confidentiality, integrity, and security of all personal data, orders, and payment transactions.
                   </p>
                 </div>
               </div>
