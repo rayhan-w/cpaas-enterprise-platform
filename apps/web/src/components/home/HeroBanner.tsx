@@ -57,9 +57,20 @@ export default function HeroBanner() {
               <img
                 src={current.image}
                 alt={current.title}
-                className="w-full h-full object-cover object-center opacity-65 scale-100 transition-all duration-700"
+                className="w-full h-full object-cover object-center opacity-40 sm:opacity-45 scale-100 transition-all duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#1A1512] via-[#1A1512]/80 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#141A14] via-[#141A14]/85 to-transparent sm:to-[#141A14]/30" />
+            </div>
+
+            {/* Right Side Featured Visual for Products on desktop */}
+            <div className="hidden sm:flex absolute right-8 md:right-14 lg:right-20 top-1/2 -translate-y-1/2 z-10 w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 items-center justify-center pointer-events-none">
+              <div className="w-full h-full rounded-3xl overflow-hidden shadow-2xl border-2 border-white/30 bg-white/10 backdrop-blur-xs flex items-center justify-center p-2.5">
+                <img
+                  src={current.image}
+                  alt={current.title}
+                  className="w-full h-full object-contain object-center rounded-2xl"
+                />
+              </div>
             </div>
 
             <div className="relative z-10 h-full flex flex-col justify-center max-w-xl p-6 sm:p-12 text-white">
