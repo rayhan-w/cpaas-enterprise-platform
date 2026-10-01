@@ -7,7 +7,7 @@ import { useToast } from '@/context/toast-context';
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('admin@trackops.dev');
+  const [email, setEmail] = useState('jawatamart3@gmail.com');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -52,13 +52,30 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md bg-white rounded-3xl p-8 sm:p-10 border border-[#EDE5E1] shadow-elevation-2 space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <div className="w-14 h-14 rounded-2xl bg-indigo-600 text-white font-bold text-xl flex items-center justify-center mx-auto shadow-md">
-            T
+          <div className="w-16 h-16 rounded-full overflow-hidden bg-black ring-2 ring-[#9ED114]/80 shadow-md mx-auto flex items-center justify-center shrink-0">
+            <img src="/jawata-mart-logo.jpg" alt="Jawata Mart" className="w-full h-full object-cover" />
           </div>
-          <h1 className="section-title text-2xl text-[#1A1512]">TrackOps Admin Portal</h1>
+          <h1 className="section-title text-2xl text-[#1A1512]">Jawata Mart Staff Portal</h1>
           <p className="text-xs text-[#6B5B58]">
-            Secure administrative access for operations, platform controls, and telemetry intelligence.
+            Secure administrative access for orders, manual bKash/Nagad verification and inventory.
           </p>
+        </div>
+
+        {/* Quick Credentials Hint */}
+        <div className="p-3 bg-[#F1F8E8] border border-[#6CAE14]/30 rounded-xl text-[11px] text-[#4E820C] flex items-center justify-between">
+          <div>
+            <span className="font-bold">Staff Login:</span> <span className="font-mono">jawatamart3@gmail.com</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              setEmail('jawatamart3@gmail.com');
+              setPassword('admin123456');
+            }}
+            className="text-[10px] font-bold px-2 py-1 bg-[#6CAE14] text-white rounded-md hover:bg-[#5B960E] transition-colors"
+          >
+            Auto-fill
+          </button>
         </div>
 
         {/* Login Form */}
@@ -71,7 +88,7 @@ export default function AdminLoginPage() {
               <input
                 type="email"
                 required
-                placeholder="admin@trackops.dev"
+                placeholder="jawatamart3@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl py-2.5 pl-10 pr-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
