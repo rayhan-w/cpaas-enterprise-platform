@@ -23,7 +23,7 @@ let memoryCategories: CategoryItem[] = [...INITIAL_CATEGORIES];
 let memoryOrders: OrderRecord[] = [
   {
     id: 'ord-1',
-    orderNumber: 'NUR-1001',
+    orderNumber: 'JM-1001',
     customerName: 'Tasnim Akter',
     customerPhone: '01711-234567',
     customerEmail: 'tasnim@example.com',
@@ -45,20 +45,11 @@ let memoryOrders: OrderRecord[] = [
       {
         id: 'item-1',
         orderId: 'ord-1',
-        productName: 'Pampers Premium Protection Diapers Pants (L, 54 Pcs)',
-        productImage: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop',
-        price: 1850,
+        productName: 'Luxury Velvet Islamic Gift Box',
+        productImage: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=600&h=600&fit=crop',
+        price: 2450,
         quantity: 1,
-        total: 1850,
-      },
-      {
-        id: 'item-2',
-        orderId: 'ord-1',
-        productName: 'Aveeno Baby Daily Moisture Wash & Shampoo 354ml',
-        productImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&h=600&fit=crop',
-        price: 1250,
-        quantity: 1,
-        total: 1250,
+        total: 2450,
       },
     ],
     payments: [
@@ -66,7 +57,7 @@ let memoryOrders: OrderRecord[] = [
         id: 'pay-1',
         orderId: 'ord-1',
         method: 'BKASH',
-        amount: 3160,
+        amount: 2510,
         status: 'PENDING_VERIFICATION',
         transactionId: 'BK9912X8A',
         senderNumber: '01711-234567',
@@ -76,7 +67,7 @@ let memoryOrders: OrderRecord[] = [
   },
   {
     id: 'ord-2',
-    orderNumber: 'NUR-1002',
+    orderNumber: 'JM-1002',
     customerName: 'Mahmud Hossain',
     customerPhone: '01911-456789',
     customerEmail: 'mahmud@example.com',
@@ -430,17 +421,27 @@ export const dbService = {
   async deleteProduct(id: string): Promise<boolean> {
     try {
       if (process.env.DATABASE_URL && prisma.product) {
-        await prisma.product.delete({ where: { id } });
+        const existing = await prisma.product.findFirst({
+          where: { OR: [{ id }, { slug: id }] },
+        });
+        if (existing) {
+          await prisma.productVariant.deleteMany({ where: { productId: existing.id } }).catch(() => {});
+          await prisma.review.deleteMany({ where: { productId: existing.id } }).catch(() => {});
+          await prisma.orderItem.updateMany({
+            where: { productId: existing.id },
+            data: { productId: null },
+          }).catch(() => {});
+          await prisma.product.delete({ where: { id: existing.id } });
+        }
       }
-    } catch {
-      // Fall through to memory
+    } catch (e) {
+      console.error('Error permanently deleting product:', e);
     }
 
-    const initialLen = memoryProducts.length;
-    memoryProducts = memoryProducts.filter((p) => p.id !== id);
+    memoryProducts = memoryProducts.filter((p) => p.id !== id && p.slug !== id);
     productCache.clear();
     singleProductCache.clear();
-    return memoryProducts.length < initialLen;
+    return true;
   },
 
   // CATEGORIES
@@ -555,15 +556,32 @@ export const dbService = {
   async deleteCategory(id: string): Promise<boolean> {
     try {
       if (process.env.DATABASE_URL && prisma.category) {
-        await prisma.category.delete({ where: { id } });
+        const cat = await prisma.category.findFirst({
+          where: { OR: [{ id }, { slug: id }] },
+        });
+        if (cat) {
+          const prods = await prisma.product.findMany({ where: { categoryId: cat.id } });
+          for (const prod of prods) {
+            await prisma.productVariant.deleteMany({ where: { productId: prod.id } }).catch(() => {});
+            await prisma.review.deleteMany({ where: { productId: prod.id } }).catch(() => {});
+            await prisma.orderItem.updateMany({
+              where: { productId: prod.id },
+              data: { productId: null },
+            }).catch(() => {});
+          }
+          await prisma.product.deleteMany({ where: { categoryId: cat.id } }).catch(() => {});
+          await prisma.subCategory.deleteMany({ where: { categoryId: cat.id } }).catch(() => {});
+          await prisma.category.delete({ where: { id: cat.id } });
+        }
       }
-    } catch {
-      // Fallback
+    } catch (e) {
+      console.error('Error permanently deleting category:', e);
     }
 
-    const initialLen = memoryCategories.length;
-    memoryCategories = memoryCategories.filter((c) => c.id !== id);
-    return memoryCategories.length < initialLen;
+    memoryCategories = memoryCategories.filter((c) => c.id !== id && c.slug !== id);
+    categoryCache = null;
+    productCache.clear();
+    return true;
   },
 
   async addSubCategory(categoryId: string, data: { name: string; slug?: string }): Promise<SubCategoryItem | null> {
@@ -602,6 +620,7 @@ export const dbService = {
     if (cat) {
       if (!cat.subCategories) cat.subCategories = [];
       cat.subCategories.push(newSub);
+      categoryCache = null;
       return newSub;
     }
     return null;
@@ -610,24 +629,37 @@ export const dbService = {
   async deleteSubCategory(categoryId: string, subCategoryId: string): Promise<boolean> {
     try {
       if (process.env.DATABASE_URL && prisma.subCategory) {
+        await prisma.product.updateMany({
+          where: { subCategoryId },
+          data: { subCategoryId: null },
+        }).catch(() => {});
         await prisma.subCategory.delete({ where: { id: subCategoryId } });
       }
-    } catch {
-      // Fallback
+    } catch (e) {
+      console.error('Error permanently deleting subcategory:', e);
     }
 
     const cat = memoryCategories.find((c) => c.id === categoryId);
     if (cat && cat.subCategories) {
-      const initialLen = cat.subCategories.length;
       cat.subCategories = cat.subCategories.filter((s) => s.id !== subCategoryId);
-      return cat.subCategories.length < initialLen;
     }
-    return false;
+    categoryCache = null;
+    productCache.clear();
+    return true;
   },
 
   // ORDERS
   async createOrder(orderData: Omit<OrderRecord, 'id' | 'createdAt' | 'updatedAt'>): Promise<OrderRecord> {
-    const orderNumber = `NUR-${Math.floor(1000 + Math.random() * 9000)}`;
+    let orderSeq = Math.floor(1001 + Math.random() * 9000);
+    try {
+      if (process.env.DATABASE_URL && prisma.order) {
+        const orderCount = await prisma.order.count().catch(() => 0);
+        orderSeq = 1001 + orderCount;
+      } else {
+        orderSeq = 1001 + memoryOrders.length;
+      }
+    } catch {}
+    const orderNumber = `JM-${orderSeq}`;
     const newOrder: OrderRecord = {
       ...orderData,
       id: `ord_${Date.now()}`,
@@ -731,13 +763,75 @@ export const dbService = {
     return list;
   },
 
+  async getOrderByNumber(orderNumber: string): Promise<OrderRecord | null> {
+    const cleanNum = orderNumber.trim().toUpperCase();
+    try {
+      if (process.env.DATABASE_URL && prisma.order) {
+        const ord = await prisma.order.findFirst({
+          where: { orderNumber: { equals: cleanNum, mode: 'insensitive' } },
+          include: { items: true, payments: true },
+        });
+        if (ord) {
+          return {
+            ...ord,
+            createdAt: ord.createdAt.toISOString(),
+            updatedAt: ord.updatedAt.toISOString(),
+            items: ord.items.map((it: any) => ({
+              ...it,
+              createdAt: it.createdAt ? it.createdAt.toISOString() : new Date().toISOString(),
+            })),
+            payments: (ord.payments || []).map((p: any) => ({
+              ...p,
+              createdAt: p.createdAt ? p.createdAt.toISOString() : new Date().toISOString(),
+            })),
+          } as any;
+        }
+      }
+    } catch {}
+
+    return (
+      memoryOrders.find(
+        (o) => o.orderNumber.toUpperCase() === cleanNum
+      ) || null
+    );
+  },
+
   async getOrderByNumberAndPhone(orderNumber: string, phone: string): Promise<OrderRecord | null> {
+    const cleanNum = orderNumber.trim().toUpperCase();
     const cleanedPhone = phone.replace(/[\s\-\+]/g, '');
+
+    try {
+      if (process.env.DATABASE_URL && prisma.order) {
+        const ord = await prisma.order.findFirst({
+          where: { orderNumber: { equals: cleanNum, mode: 'insensitive' } },
+          include: { items: true, payments: true },
+        });
+        if (ord) {
+          const ordPhone = (ord.customerPhone || '').replace(/[\s\-\+]/g, '');
+          if (!cleanedPhone || ordPhone.includes(cleanedPhone.slice(-10)) || cleanedPhone.includes(ordPhone.slice(-10))) {
+            return {
+              ...ord,
+              createdAt: ord.createdAt.toISOString(),
+              updatedAt: ord.updatedAt.toISOString(),
+              items: ord.items.map((it: any) => ({
+                ...it,
+                createdAt: it.createdAt ? it.createdAt.toISOString() : new Date().toISOString(),
+              })),
+              payments: (ord.payments || []).map((p: any) => ({
+                ...p,
+                createdAt: p.createdAt ? p.createdAt.toISOString() : new Date().toISOString(),
+              })),
+            } as any;
+          }
+        }
+      }
+    } catch {}
+
     return (
       memoryOrders.find(
         (o) =>
-          o.orderNumber.toUpperCase() === orderNumber.toUpperCase() &&
-          o.customerPhone.replace(/[\s\-\+]/g, '').includes(cleanedPhone.slice(-10))
+          o.orderNumber.toUpperCase() === cleanNum &&
+          (!cleanedPhone || o.customerPhone.replace(/[\s\-\+]/g, '').includes(cleanedPhone.slice(-10)))
       ) || null
     );
   },

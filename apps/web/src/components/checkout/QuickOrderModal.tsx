@@ -41,12 +41,12 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
     e.preventDefault();
 
     if (!customerName.trim() || !customerPhone.trim() || !address.trim()) {
-      toast('Please enter your name, phone number, and delivery address', 'error');
+      toast('অনুগ্রহ করে আপনার নাম, মোবাইল নম্বর এবং ঠিকানা দিন', 'error');
       return;
     }
 
     if (!/^01[3-9]\d{8}$/.test(customerPhone.trim().replace('+88', ''))) {
-      toast('Please enter a valid 11-digit mobile number (e.g. 017XXXXXXXX)', 'error');
+      toast('অনুগ্রহ করে আপনার সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন (যেমন: 01711234567)', 'error');
       return;
     }
 
@@ -139,7 +139,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
               <button
                 onClick={() => {
                   onClose();
-                  router.push(`/order-success?orderNumber=${orderSuccess.orderNumber}`);
+                  router.push(`/order-success?orderNumber=${orderSuccess.orderNumber}&phone=${encodeURIComponent(orderSuccess.customerPhone || '')}`);
                 }}
                 className="w-full bg-[#6CAE14] hover:bg-[#5B960E] text-white font-bold py-3 rounded-xl text-xs transition-colors"
               >
@@ -202,7 +202,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Tanvir Ahmed"
+                  placeholder="আপনার পুরো নাম লিখুন"
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
                   className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl px-3.5 py-2 text-xs text-[#0E140E] focus:outline-none focus:border-[#6CAE14]"
@@ -216,7 +216,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
                 <input
                   type="tel"
                   required
-                  placeholder="017XXXXXXXX (11 digits)"
+                  placeholder="আপনার ১১ ডিজিটের মোবাইল নম্বর দিন"
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value)}
                   className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl px-3.5 py-2 text-xs text-[#0E140E] focus:outline-none focus:border-[#6CAE14]"
@@ -230,7 +230,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
                 <textarea
                   required
                   rows={2}
-                  placeholder="House, Road, Area, Thana & District"
+                  placeholder="বাসা নং, রোড নং, এলাকা ও পূর্ণ ঠিকানা লিখুন"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl px-3.5 py-2 text-xs text-[#0E140E] focus:outline-none focus:border-[#6CAE14] resize-none"

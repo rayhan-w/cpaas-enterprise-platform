@@ -23,22 +23,19 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'About Us | Jawata Mart - Founder & Leadership',
-  description: 'Learn about Jawata Mart, founded by Abdur Rahim. Delivering 100% genuine lifestyle, fashion, baby care, and organic products across all 64 districts of Bangladesh.',
+  title: 'About Us | Jawata Mart - Authentic Online Shopping in Bangladesh',
+  description: 'Learn about Jawata Mart. Delivering 100% genuine lifestyle, fashion, baby care, and organic products across all 64 districts of Bangladesh.',
 };
 
 export default async function AboutPage() {
   const settings = await dbService.getSettings();
 
-  const ownerName = settings.ownerName || 'Abdur Rahim';
-  const ownerTitle = settings.ownerTitle || 'Founder & Managing Director';
-  const ownerBio = settings.ownerBio || 'Passionate entrepreneur dedicated to bringing 100% authentic lifestyle, baby care, fashion, and organic food products directly to households across all 64 districts of Bangladesh.';
-  const ownerPhoto = settings.ownerPhoto || '/images/abdur-rahim-owner.jpg';
-  const ownerPhone = settings.ownerPhone || '01915210799';
-  const ownerEmail = settings.ownerEmail || 'support@trackops.dev';
-  const officeAddress = settings.address || 'Dhaka, Bangladesh';
+  const brandName = settings.storeName || 'Jawata Mart';
+  const hotline = settings.phone || '01915-210799';
+  const supportEmail = settings.email || 'support@jawatamart.com';
+  const officeAddress = settings.address || 'House #42, Road #18, Sector #12, Uttara, Dhaka-1230';
 
-  const aboutStory = settings.aboutStory || 'Jawata Mart was founded by Abdur Rahim with a clear purpose: to bridge the gap between quality and affordability in online shopping across Bangladesh. Operating from Uttara Sector-12, Dhaka, we hand-inspect every product before dispatch, ensuring only genuine, premium-grade items reach you and your family.';
+  const aboutStory = settings.aboutStory || 'Jawata Mart was established with a clear purpose: to bridge the gap between quality and affordability in online shopping across Bangladesh. Operating from Uttara, Dhaka, we hand-inspect every product before dispatch, ensuring only genuine, premium-grade items reach you and your family.';
   const aboutMission = settings.aboutMission || 'To provide a trustworthy, reliable shopping experience where every Bangladeshi customer receives genuine products, transparent pricing, dedicated support, and swift doorstep delivery.';
   const aboutVision = settings.aboutVision || 'To be Bangladesh\'s most respected, customer-centric lifestyle & household shopping brand, celebrated for honesty, authenticity, and unmatched customer delight.';
 
@@ -117,7 +114,7 @@ export default async function AboutPage() {
           </h1>
 
           <p className="text-sm sm:text-lg text-[#526052] max-w-3xl mx-auto leading-relaxed">
-            Founded by <strong>{ownerName}</strong>, Jawata Mart was built on the core belief that online shopping should be transparent, honest, and filled with authentic products that enrich your family&apos;s daily life.
+            Jawata Mart was built on the core belief that online shopping should be transparent, honest, and filled with authentic products that enrich your family&apos;s daily life.
           </p>
 
           <div className="pt-4 flex flex-wrap items-center justify-center gap-3.5">
@@ -129,7 +126,7 @@ export default async function AboutPage() {
               <span>Browse All Products</span>
             </Link>
             <a
-              href={`https://wa.me/88${ownerPhone.replace(/\D/g, '')}`}
+              href={`https://wa.me/88${hotline.replace(/\D/g, '')}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-[#F1F8E8] text-[#0E140E] border border-[#DFECCE] text-xs sm:text-sm font-bold rounded-xl transition-all shadow-2xs"
@@ -160,69 +157,62 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* Founder Spotlight Card Section */}
+      {/* Brand Commitment & Trust Spotlight */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="bg-white rounded-3xl border border-[#DFECCE] shadow-xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12">
-            {/* Left: Founder Photo & Quick Badges */}
+            {/* Left: Brand Trust Badge & Contacts */}
             <div className="lg:col-span-5 bg-gradient-to-br from-[#F6FAF0] via-[#EDF6E2] to-[#E2F0D0] p-8 sm:p-12 flex flex-col items-center justify-center text-center border-b lg:border-b-0 lg:border-r border-[#DFECCE]">
               <div className="relative group">
-                <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-3xl overflow-hidden ring-4 ring-[#6CAE14]/50 shadow-2xl bg-white">
-                  <img
-                    src={ownerPhoto}
-                    alt={ownerName}
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
-                  <div className="absolute bottom-3 left-3 right-3 text-left">
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[11px] font-bold">
-                      <CheckCircle2 className="w-3 h-3 text-[#9ED114]" />
-                      Verified Leadership
-                    </span>
+                <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-3xl bg-white ring-4 ring-[#6CAE14]/40 shadow-2xl flex flex-col items-center justify-center p-6 text-center">
+                  <div className="w-16 h-16 rounded-2xl bg-[#EBF5DC] text-[#6CAE14] flex items-center justify-center mb-3">
+                    <ShieldCheck className="w-10 h-10" />
                   </div>
+                  <span className="font-serif font-black text-xl text-[#0E140E] tracking-tight">Jawata Mart</span>
+                  <span className="text-[11px] font-bold text-[#6CAE14] uppercase tracking-wider mt-0.5">100% Genuine</span>
                 </div>
-                <div className="absolute -bottom-3 -right-3 w-12 h-12 bg-[#6CAE14] text-white rounded-2xl flex items-center justify-center shadow-lg border-2 border-white">
-                  <Award className="w-6 h-6" />
+                <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-[#6CAE14] text-white rounded-xl flex items-center justify-center shadow-lg border-2 border-white">
+                  <CheckCircle2 className="w-5 h-5" />
                 </div>
               </div>
 
               <div className="mt-8 space-y-1">
                 <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#0E140E]">
-                  {ownerName}
+                  Jawata Mart
                 </h2>
                 <p className="text-sm font-semibold text-[#6CAE14]">
-                  {ownerTitle}
+                  Pure Lifestyle &amp; Household Essentials
                 </p>
                 <p className="text-xs text-[#526052] font-medium pt-1">
-                  Jawata Mart Bangladesh
+                  Serving All 64 Districts of Bangladesh
                 </p>
               </div>
 
-              {/* Direct Founder Contact Pills */}
+              {/* Direct Support Contact Pills */}
               <div className="mt-6 w-full max-w-xs space-y-2.5 text-xs text-left">
                 <a
-                  href={`tel:${ownerPhone}`}
+                  href={`tel:${hotline}`}
                   className="flex items-center gap-3 p-2.5 rounded-xl bg-white/90 hover:bg-white border border-[#DFECCE] text-[#0E140E] transition-colors shadow-2xs group"
                 >
                   <div className="w-8 h-8 rounded-lg bg-[#F1F8E8] text-[#6CAE14] flex items-center justify-center shrink-0 group-hover:bg-[#6CAE14] group-hover:text-white transition-colors">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div className="min-w-0">
-                    <span className="text-[10px] text-[#879787] block uppercase font-bold">Direct Phone</span>
-                    <span className="font-bold text-xs truncate block">{ownerPhone}</span>
+                    <span className="text-[10px] text-[#879787] block uppercase font-bold">Customer Hotline</span>
+                    <span className="font-bold text-xs truncate block">{hotline}</span>
                   </div>
                 </a>
 
                 <a
-                  href={`mailto:${ownerEmail}`}
+                  href={`mailto:${supportEmail}`}
                   className="flex items-center gap-3 p-2.5 rounded-xl bg-white/90 hover:bg-white border border-[#DFECCE] text-[#0E140E] transition-colors shadow-2xs group"
                 >
                   <div className="w-8 h-8 rounded-lg bg-[#F1F8E8] text-[#6CAE14] flex items-center justify-center shrink-0 group-hover:bg-[#6CAE14] group-hover:text-white transition-colors">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div className="min-w-0">
-                    <span className="text-[10px] text-[#879787] block uppercase font-bold">Founder Email</span>
-                    <span className="font-bold text-xs truncate block">{ownerEmail}</span>
+                    <span className="text-[10px] text-[#879787] block uppercase font-bold">Email Support</span>
+                    <span className="font-bold text-xs truncate block">{supportEmail}</span>
                   </div>
                 </a>
 
@@ -238,20 +228,17 @@ export default async function AboutPage() {
               </div>
             </div>
 
-            {/* Right: Founder Message, Story & Philosophy */}
+            {/* Right: Brand Story, Mission & Vision */}
             <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-between space-y-8">
               <div className="space-y-6">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F1F8E8] text-xs font-bold text-[#6CAE14]">
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>A Personal Message From the Founder</span>
+                  <span>Our Promise to You</span>
                 </div>
 
                 <div className="relative">
-                  <span className="text-6xl font-serif text-[#DFECCE] absolute -top-5 -left-4 select-none pointer-events-none">
-                    &ldquo;
-                  </span>
                   <blockquote className="relative z-10 text-base sm:text-lg text-[#0E140E] font-medium leading-relaxed italic pl-4 border-l-2 border-[#6CAE14]">
-                    {ownerBio}
+                    &ldquo;Delivering genuine products with transparent pricing, guaranteed quality, and doorstep convenience across all 64 districts.&rdquo;
                   </blockquote>
                 </div>
 
@@ -295,15 +282,15 @@ export default async function AboutPage() {
                     Direct Promise to Every Customer
                   </div>
                   <div className="text-xs text-white/80">
-                    If you ever experience any issue with your order, I personally ensure it will be resolved promptly.
+                    If you ever experience any issue with your order, we guarantee prompt return, replacement, or resolution.
                   </div>
                 </div>
                 <div className="shrink-0 text-right sm:text-right">
                   <span className="font-serif italic font-bold text-sm text-[#9ED114] block">
-                    — {ownerName}
+                    — Team Jawata Mart
                   </span>
                   <span className="text-[10px] text-white/60">
-                    Owner, Jawata Mart
+                    Customer Delight &amp; Trust
                   </span>
                 </div>
               </div>

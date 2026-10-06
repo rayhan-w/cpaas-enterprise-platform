@@ -104,7 +104,7 @@ function TrackOrderContent() {
               required
               value={orderIdInput}
               onChange={(e) => setOrderIdInput(e.target.value.toUpperCase())}
-              placeholder="e.g. NUR-1001"
+              placeholder="যেমন: JM-1001"
               className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs font-mono font-bold text-[#1A1512] uppercase focus:outline-none focus:border-[#6CAE14]"
             />
           </div>
@@ -116,7 +116,7 @@ function TrackOrderContent() {
               required
               value={phoneInput}
               onChange={(e) => setPhoneInput(e.target.value)}
-              placeholder="017XXXXXXXX"
+              placeholder="আপনার অর্ডার করার মোবাইল নম্বর দিন"
               className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
             />
           </div>

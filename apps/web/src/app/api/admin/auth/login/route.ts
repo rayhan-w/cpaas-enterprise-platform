@@ -15,10 +15,7 @@ export async function POST(request: Request) {
       normalizedEmail === 'jawatamart3@gmail.com' ||
       normalizedEmail === 'jawatamart@gmail.com' ||
       normalizedEmail === 'admin@jawatamart.com' ||
-      normalizedEmail === 'admin@jawata.com' ||
-      normalizedEmail === 'admin@nurtura.com.bd' ||
-      normalizedEmail === 'admin@trackops.dev' ||
-      normalizedEmail === 'superadmin@trackops.dev';
+      normalizedEmail === 'admin@jawata.com';
 
     const isMasterPassword =
       password === 'admin123456' ||
@@ -32,7 +29,7 @@ export async function POST(request: Request) {
     const adminUser = {
       id: 'admin_master_1',
       email: normalizedEmail,
-      name: 'Md. Abdur Rahim (Jawata Mart)',
+      name: 'Jawata Mart Admin',
       role: 'SUPERADMIN',
     };
 

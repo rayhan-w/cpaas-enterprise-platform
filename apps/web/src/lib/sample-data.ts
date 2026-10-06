@@ -1,11 +1,11 @@
 import { CategoryItem, ProductItem, BannerItem, CouponItem, StoreSettings } from './types';
 
 export const INITIAL_SETTINGS: StoreSettings = {
-  storeName: 'TrackOps Enterprise',
-  tagline: 'Enterprise Operations, Link Intelligence & Telemetry Platform',
+  storeName: 'Jawata Mart',
+  tagline: 'Authentic Lifestyle, Organic & Household Products Across Bangladesh',
   phone: '01915210799',
-  email: 'support@trackops.dev',
-  address: 'Dhaka, Bangladesh',
+  email: 'support@jawatamart.com',
+  address: 'Uttara, Dhaka, Bangladesh',
   bkashMerchantNumber: '01915210799',
   nagadMerchantNumber: '01915210799',
   insideDhakaFee: 60,
@@ -23,16 +23,16 @@ export const INITIAL_SETTINGS: StoreSettings = {
   gtmId: process.env.NEXT_PUBLIC_GTM_ID || '',
   enableGTM: true,
 
-  // Owner Profile & About Details
-  ownerName: 'TrackOps Administrator',
-  ownerTitle: 'Systems Director',
-  ownerBio: 'Enterprise telemetry operations and link management.',
+  // About Details
+  ownerName: 'Jawata Mart',
+  ownerTitle: 'Management & Customer Care',
+  ownerBio: 'Dedicated to providing 100% authentic, high quality products delivered right to your doorstep across all 64 districts.',
   ownerPhoto: '',
   ownerPhone: '01915210799',
-  ownerEmail: 'support@trackops.dev',
-  aboutStory: 'TrackOps Enterprise provides high-reliability operations, role-based telemetry, link intelligence, and secure audit tracking.',
-  aboutMission: 'To deliver transparent, secure, and robust operational tracking and enterprise SaaS solutions.',
-  aboutVision: 'To be the most dependable and secure operational telemetry platform.',
+  ownerEmail: 'support@jawatamart.com',
+  aboutStory: 'Jawata Mart was established with a singular mission: to provide honest, transparent, and authentic online shopping for families across Bangladesh. We personally verify every item before dispatch to guarantee unmatched purity and satisfaction.',
+  aboutMission: 'To deliver genuine products, transparent pricing, dedicated customer care, and swift doorstep delivery to every district in Bangladesh.',
+  aboutVision: 'To be Bangladesh\'s most trusted and beloved household shopping destination.',
 };
 
 export const INITIAL_CATEGORIES: CategoryItem[] = [

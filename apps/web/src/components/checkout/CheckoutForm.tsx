@@ -70,11 +70,11 @@ export default function CheckoutForm() {
   const bkashMerchantNumber = '01915210799';
   const nagadMerchantNumber = '01915210799';
   const bankAccountInfo = {
-    accountName: 'TrackOps Enterprise',
+    accountName: 'Jawata Mart',
     accountNumber: '1462101000775432',
     bankName: 'UCB Bank (United Commercial Bank)',
     branch: 'Dhaka',
-    email: 'billing@trackops.dev',
+    email: 'billing@jawatamart.com',
   };
 
   useEffect(() => {
@@ -291,7 +291,7 @@ export default function CheckoutForm() {
                 required
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
-                placeholder="e.g. Tanvir Ahmed"
+                placeholder="আপনার পূর্ণ নাম লিখুন"
                 className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
               />
             </div>
@@ -305,7 +305,7 @@ export default function CheckoutForm() {
                 required
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
-                placeholder="017XXXXXXXX"
+                placeholder="আপনার ১১ ডিজিটের মোবাইল নম্বর দিন"
                 className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
               />
             </div>
@@ -319,7 +319,7 @@ export default function CheckoutForm() {
               type="email"
               value={customerEmail}
               onChange={(e) => setCustomerEmail(e.target.value)}
-              placeholder="e.g. tanvir@example.com"
+              placeholder="আপনার ইমেইল এড্রেস (ঐচ্ছিক)"
               className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
             />
           </div>
@@ -375,7 +375,7 @@ export default function CheckoutForm() {
                   type="text"
                   value={area}
                   onChange={(e) => setArea(e.target.value)}
-                  placeholder="e.g. Kotwali / Sadar"
+                  placeholder="যেমন: কোতোয়ালি / সদর"
                   className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
                 />
               )}
@@ -391,7 +391,7 @@ export default function CheckoutForm() {
               rows={2}
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              placeholder="House number, road number, apartment floor, landmark..."
+              placeholder="বাসা নং, রোড নং, এলাকা ও পূর্ণ ঠিকানা লিখুন..."
               className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl p-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14] resize-none"
             />
           </div>
@@ -404,7 +404,7 @@ export default function CheckoutForm() {
               type="text"
               value={deliveryNote}
               onChange={(e) => setDeliveryNote(e.target.value)}
-              placeholder="Special instructions e.g. 'Leave with security', 'Call before arriving'"
+              placeholder="ডেলিভারির জন্য কোনো বিশেষ নির্দেশনা থাকলে লিখুন..."
               className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
             />
           </div>
@@ -622,7 +622,7 @@ export default function CheckoutForm() {
                     required
                     value={senderNumber}
                     onChange={(e) => setSenderNumber(e.target.value)}
-                    placeholder="017XXXXXXXX"
+                    placeholder="আপনার বিকাশ নম্বর দিন"
                     className="w-full bg-white border border-[#EDE5E1] rounded-xl px-3 py-2 text-xs text-[#1A1512] focus:outline-none focus:border-[#E2136E]"
                   />
                 </div>
@@ -636,7 +636,7 @@ export default function CheckoutForm() {
                     required
                     value={transactionId}
                     onChange={(e) => setTransactionId(e.target.value.toUpperCase())}
-                    placeholder="e.g. BK78921X"
+                    placeholder="যেমন: BK78921X (TrxID)"
                     className="w-full bg-white border border-[#EDE5E1] rounded-xl px-3 py-2 text-xs font-mono font-bold text-[#1A1512] uppercase focus:outline-none focus:border-[#E2136E]"
                   />
                 </div>
@@ -714,7 +714,7 @@ export default function CheckoutForm() {
                     required
                     value={senderNumber}
                     onChange={(e) => setSenderNumber(e.target.value)}
-                    placeholder="018XXXXXXXX"
+                    placeholder="আপনার নগদ নম্বর দিন"
                     className="w-full bg-white border border-[#EDE5E1] rounded-xl px-3 py-2 text-xs text-[#1A1512] focus:outline-none focus:border-[#F4821F]"
                   />
                 </div>
@@ -728,7 +728,7 @@ export default function CheckoutForm() {
                     required
                     value={transactionId}
                     onChange={(e) => setTransactionId(e.target.value.toUpperCase())}
-                    placeholder="e.g. 78NGD99X"
+                    placeholder="যেমন: 78NGD99X (TrxID)"
                     className="w-full bg-white border border-[#EDE5E1] rounded-xl px-3 py-2 text-xs font-mono font-bold text-[#1A1512] uppercase focus:outline-none focus:border-[#F4821F]"
                   />
                 </div>

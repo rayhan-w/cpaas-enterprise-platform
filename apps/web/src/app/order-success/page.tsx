@@ -15,7 +15,13 @@ export default async function OrderSuccessPage({ searchParams }: OrderSuccessPro
   let order = null;
   if (orderNumber && phone) {
     order = await dbService.getOrderByNumberAndPhone(orderNumber, phone);
+  } else if (orderNumber) {
+    order = await dbService.getOrderByNumber(orderNumber);
   }
+
+  const settings = await dbService.getSettings();
+  const displayPhone = order?.customerPhone || phone || '';
+  const displayOrderNumber = order?.orderNumber || orderNumber || '';
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12 sm:py-16 space-y-8">
@@ -49,14 +55,16 @@ export default async function OrderSuccessPage({ searchParams }: OrderSuccessPro
           <div className="flex justify-between items-center text-xs">
             <span className="text-[#9B8A86]">Order Reference:</span>
             <span className="font-mono font-bold text-sm text-[#1A1512]">
-              {orderNumber || 'NUR-8291'}
+              {displayOrderNumber || 'Order Confirmed'}
             </span>
           </div>
 
-          <div className="flex justify-between items-center text-xs">
-            <span className="text-[#9B8A86]">Customer Phone:</span>
-            <span className="font-semibold text-[#1A1512]">{phone || '017XXXXXXXX'}</span>
-          </div>
+          {displayPhone && (
+            <div className="flex justify-between items-center text-xs">
+              <span className="text-[#9B8A86]">Customer Phone:</span>
+              <span className="font-semibold text-[#1A1512]">{displayPhone}</span>
+            </div>
+          )}
 
           {order && (
             <>
@@ -146,8 +154,8 @@ export default async function OrderSuccessPage({ searchParams }: OrderSuccessPro
         {/* Hotline Support Footer */}
         <p className="text-xs text-[#9B8A86] pt-4">
           Need immediate assistance with your order? Call our hotline:{' '}
-          <a href="tel:01700000000" className="text-[#6CAE14] font-semibold hover:underline">
-            01700-000000
+          <a href={`tel:${settings.phone || '01915210799'}`} className="text-[#6CAE14] font-semibold hover:underline">
+            {settings.phone || '01915-210799'}
           </a>
         </p>
       </div>
