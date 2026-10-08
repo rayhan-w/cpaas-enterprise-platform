@@ -35,9 +35,10 @@ export default function CuratedCategoryShowcase({
         </div>
         <Link
           href={`/category/${categorySlug}`}
-          className="text-xs font-semibold text-[#0E140E] hover:text-[#fd6b03] flex items-center gap-1 transition-colors"
+          className="text-xs font-bold text-[#0d1f61] hover:text-[#fd6b03] flex items-center gap-1 transition-colors self-start sm:self-auto shrink-0"
         >
-          <span>View All in {title}</span>
+          <span className="hidden sm:inline">View All in {title}</span>
+          <span className="sm:hidden">View All</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>

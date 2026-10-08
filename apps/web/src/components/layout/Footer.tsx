@@ -1,109 +1,63 @@
 import React from 'react';
 import Link from 'next/link';
-import { Phone, Mail, MapPin, ShieldCheck, Truck, RefreshCw, Heart } from 'lucide-react';
+import { Phone, Mail, MapPin, ExternalLink } from 'lucide-react';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
 import { BkashLogo, NagadLogo, CardLogosGroup, CodBadge } from '@/components/common/PaymentLogos';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1A1512] text-white pt-16 pb-24 lg:pb-12 border-t border-white/10">
+    <footer className="bg-[#141A14] text-white pt-8 sm:pt-10 pb-20 lg:pb-8 border-t border-white/10 text-xs">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Top Trust Features Row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pb-12 border-b border-white/10 text-left">
-          <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 text-[#F0B840]">
-              <Truck className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="text-sm font-bold text-white">Fast Nationwide Delivery</h4>
-              <p className="text-xs text-white/60 mt-1 leading-relaxed">
-                Dhaka same-day & 1-3 days all 64 districts in Bangladesh.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 text-[#7A9C78]">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="text-sm font-bold text-white">100% Authentic Products</h4>
-              <p className="text-xs text-white/60 mt-1 leading-relaxed">
-                Directly sourced from verified manufacturers & authorized distributors.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 text-[#6CAE14]">
-              <RefreshCw className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="text-sm font-bold text-white">Hassle-Free Returns</h4>
-              <p className="text-xs text-white/60 mt-1 leading-relaxed">
-                Easy 7-day return policy on eligible damaged or unsealed goods.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 text-[#F4821F]">
-              <Phone className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="text-sm font-bold text-white">Dedicated Support</h4>
-              <p className="text-xs text-white/60 mt-1 leading-relaxed">
-                Live customer support available daily from 9:00 AM to 11:00 PM.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Multi-column Navigation */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 py-12 border-b border-white/10">
-          {/* Brand Info */}
-          <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-xl overflow-hidden bg-white ring-2 ring-[#fd6b03] flex items-center justify-center p-0.5 shrink-0 shadow-xs">
+        {/* Main 4-Column Footer */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6 sm:gap-8 pb-8 border-b border-white/10">
+          {/* 1. Brand & Contact (Spans 2 cols on mobile) */}
+          <div className="col-span-2 md:col-span-1 space-y-3">
+            <div className="flex items-center gap-2.5">
+              <div className="w-10 h-10 rounded-xl overflow-hidden bg-white ring-2 ring-[#fd6b03]/40 flex items-center justify-center p-0.5 shrink-0 shadow-xs">
                 <img
                   src="/jawata-mart-logo.jpg"
-                  alt="Jawata Mart Logo"
+                  alt="Jawata Mart"
                   className="w-full h-full object-contain"
                 />
               </div>
               <div>
-                <span className="text-xl font-bold tracking-tight text-white font-serif">
+                <span className="text-lg font-bold tracking-tight text-white font-serif block leading-tight">
                   Jawata Mart
                 </span>
-                <p className="text-[10px] text-[#fd6b03] font-semibold">Pure & Authentic Products</p>
+                <span className="text-[10px] text-[#fd6b03] font-semibold block">Pure & Authentic Products</span>
               </div>
             </div>
-            <p className="text-xs text-white/70 leading-relaxed max-w-sm">
-              Jawata Mart is your trusted shopping destination in Bangladesh for pure organic food, weather gear, lifestyle essentials, and premium family products with nationwide fast delivery.
+
+            <p className="text-white/60 text-[11px] leading-relaxed max-w-xs">
+              Your trusted online destination in Bangladesh for authentic organic food, lifestyle & family essentials.
             </p>
-            <div className="space-y-2 pt-2 text-xs text-white/80">
+
+            <div className="space-y-1.5 pt-1 text-[11px] text-white/70">
+              <a
+                href="tel:01915210799"
+                className="flex items-center gap-2 text-white hover:text-[#fd6b03] font-bold transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5 text-[#fd6b03] shrink-0" />
+                <span>Hotline: 01915210799</span>
+              </a>
               <p className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#fd6b03] shrink-0" />
-                <span>Sector-12, Uttara, Dhaka-1230, Bangladesh</span>
-              </p>
-              <p className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-[#fd6b03] shrink-0" />
-                <a href="tel:01915210799" className="hover:text-white transition-colors font-semibold">Hotline: 01915210799</a>
-              </p>
-              <p className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-[#fd6b03] shrink-0" />
+                <Mail className="w-3.5 h-3.5 text-[#fd6b03] shrink-0" />
                 <a href="mailto:support@jawatamart.com" className="hover:text-white transition-colors">support@jawatamart.com</a>
+              </p>
+              <p className="flex items-center gap-2">
+                <MapPin className="w-3.5 h-3.5 text-[#fd6b03] shrink-0" />
+                <span>Sector-12, Uttara, Dhaka-1230</span>
               </p>
             </div>
           </div>
 
-          {/* Categories */}
+          {/* 2. Top Categories */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#fd6b03] mb-4">
-              Top Categories
+            <h4 className="text-[11px] font-bold uppercase tracking-wider text-[#fd6b03] mb-3">
+              Categories
             </h4>
-            <ul className="space-y-2.5 text-xs text-white/70">
-              {INITIAL_CATEGORIES.slice(0, 6).map((cat) => (
+            <ul className="space-y-2 text-[11px] text-white/70">
+              {INITIAL_CATEGORIES.slice(0, 5).map((cat) => (
                 <li key={cat.id}>
                   <Link
                     href={`/category/${cat.slug}`}
@@ -113,18 +67,23 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link href="/category/weather-items" className="hover:text-white transition-colors">
+                  Weather Protection
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Customer Service */}
+          {/* 3. Customer Care */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#6CAE14] mb-4">
+            <h4 className="text-[11px] font-bold uppercase tracking-wider text-[#fd6b03] mb-3">
               Customer Care
             </h4>
-            <ul className="space-y-2.5 text-xs text-white/70">
+            <ul className="space-y-2 text-[11px] text-white/70">
               <li>
-                <Link href="/about" className="hover:text-[#9ED114] text-white font-medium transition-colors flex items-center gap-1.5">
-                  <span>About Us (আমাদের সম্পর্কে)</span>
+                <Link href="/about" className="hover:text-white transition-colors font-medium">
+                  About Us (আমাদের সম্পর্কে)
                 </Link>
               </li>
               <li>
@@ -147,57 +106,50 @@ export default function Footer() {
                   Terms of Service
                 </Link>
               </li>
-              <li>
-                <Link href="/contact" className="hover:text-white transition-colors">
-                  Contact & Support
-                </Link>
-              </li>
             </ul>
           </div>
 
-          {/* Payment & Security */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#6CAE14] mb-4">
-              Payment Methods
+          {/* 4. Payment Methods & Trust */}
+          <div className="col-span-2 md:col-span-1">
+            <h4 className="text-[11px] font-bold uppercase tracking-wider text-[#fd6b03] mb-3">
+              We Accept
             </h4>
-            <p className="text-xs text-white/60 mb-3">
-              We accept safe and reliable local payments:
-            </p>
-            <div className="flex flex-wrap items-center gap-2">
-              <div className="bg-white px-2.5 py-1.5 rounded-lg flex items-center shadow-xs">
-                <BkashLogo className="h-4.5 w-auto" />
+            <div className="flex flex-wrap items-center gap-1.5 mb-3">
+              <div className="bg-white px-2 py-1 rounded-md flex items-center shadow-xs">
+                <BkashLogo className="h-4 w-auto" />
               </div>
-              <div className="bg-white px-2.5 py-1.5 rounded-lg flex items-center shadow-xs">
-                <NagadLogo className="h-4.5 w-auto" />
+              <div className="bg-white px-2 py-1 rounded-md flex items-center shadow-xs">
+                <NagadLogo className="h-4 w-auto" />
               </div>
-              <div className="bg-white px-2.5 py-1.5 rounded-lg flex items-center shadow-xs">
-                <CardLogosGroup />
-              </div>
-              <div className="bg-white px-2.5 py-1.5 rounded-lg flex items-center shadow-xs">
+              <div className="bg-white px-2 py-1 rounded-md flex items-center shadow-xs">
                 <CodBadge />
               </div>
-              <div className="bg-white px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 shadow-xs">
-                <span className="text-xs">🏛️</span>
-                <span className="text-[11px] font-bold text-[#00529B] tracking-tight">UCB Bank</span>
+              <div className="bg-white px-2 py-1 rounded-md flex items-center shadow-xs">
+                <CardLogosGroup />
               </div>
             </div>
-            <div className="mt-4 pt-3 border-t border-white/10">
+            <p className="text-[10px] text-white/50 leading-relaxed">
+              100% Secure Checkout with Cash on Delivery & Mobile Banking across 64 districts.
+            </p>
+            <div className="mt-3 pt-2 border-t border-white/10">
               <Link
                 href="/admin/login"
-                className="text-[11px] text-white/40 hover:text-[#6CAE14] transition-colors"
+                className="text-[10px] text-white/40 hover:text-white transition-colors flex items-center gap-1"
               >
-                Staff Admin Portal →
+                <span>Staff Admin Portal</span>
+                <ExternalLink className="w-2.5 h-2.5" />
               </Link>
             </div>
           </div>
         </div>
 
         {/* Bottom Copyright Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50">
+        <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-white/50">
           <p>© 2026 Jawata Mart. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <span className="text-white/60">Trusted Shopping Platform</span>
-            <span>Uttara, Dhaka, Bangladesh</span>
+          <div className="flex items-center gap-3">
+            <span>Fast Nationwide Delivery</span>
+            <span>•</span>
+            <span>Dhaka, Bangladesh</span>
           </div>
         </div>
       </div>

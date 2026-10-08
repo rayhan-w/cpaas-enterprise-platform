@@ -67,7 +67,7 @@ export default function MobileBottomBar() {
         href="tel:01915210799"
         className="flex flex-col items-center gap-1 text-[11px] font-bold text-[#526052]"
       >
-        <Phone className="w-5 h-5 text-[#6CAE14]" />
+        <Phone className="w-5 h-5 text-[#fd6b03]" />
         <span>Call Us</span>
       </a>
     </div>

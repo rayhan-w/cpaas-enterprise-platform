@@ -16,7 +16,7 @@ export default function DeliveryInfoSection() {
         {/* Left: Delivery Rates */}
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#EDE5E1] shadow-elevation-1">
           <div className="flex items-center gap-2.5 mb-4">
-            <div className="w-9 h-9 rounded-xl bg-[#EAF3E9] text-[#7A9C78] flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-orange-50 text-[#fd6b03] flex items-center justify-center">
               <Truck className="w-5 h-5" />
             </div>
             <div>
@@ -40,7 +40,7 @@ export default function DeliveryInfoSection() {
                 <span
                   className={`font-bold px-2.5 py-1 rounded-full text-xs ${
                     r.charge.includes('Free')
-                      ? 'bg-[#EAF3E9] text-[#7A9C78]'
+                      ? 'bg-orange-50 text-[#fd6b03]'
                       : 'bg-[#F8F7F5] text-[#1A1512]'
                   }`}
                 >
@@ -55,7 +55,7 @@ export default function DeliveryInfoSection() {
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#EDE5E1] shadow-elevation-1 flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-[#F1F8E8] text-[#6CAE14] flex items-center justify-center">
+              <div className="w-9 h-9 rounded-xl bg-[#0d1f61]/10 text-[#0d1f61] flex items-center justify-center">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>

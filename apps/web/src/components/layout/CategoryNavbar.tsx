@@ -61,7 +61,7 @@ export default function CategoryNavbar() {
   return (
     <nav
       data-category-navbar
-      className="w-full bg-[#fd6b03] border-t border-b border-[#e05e00] select-none relative z-30 shadow-md"
+      className="w-full bg-[#0E140E] border-t border-b border-white/10 select-none relative z-30 shadow-md"
     >
       <div className="max-w-7xl mx-auto px-2 sm:px-4 flex items-center justify-between">
         {/* Left: Signature "All Categories" Dropdown Button */}
@@ -69,7 +69,7 @@ export default function CategoryNavbar() {
           <button
             type="button"
             onClick={() => setAllCategoriesOpen(!allCategoriesOpen)}
-            className="flex items-center gap-2 bg-[#0d1f61] hover:bg-[#071342] text-white px-3.5 py-2.5 sm:py-3 text-xs font-bold transition-colors rounded-none tracking-wide shadow-xs"
+            className="flex items-center gap-2 bg-[#fd6b03] hover:bg-[#e05e00] text-white px-3.5 py-2.5 sm:py-3 text-xs font-bold transition-colors rounded-none tracking-wide shadow-xs"
           >
             <Menu className="w-4 h-4" />
             <span className="hidden sm:inline">All Categories</span>
@@ -122,14 +122,14 @@ export default function CategoryNavbar() {
         <div className="flex items-center overflow-x-auto scrollbar-hide py-1 sm:py-0 flex-1 ml-2">
           <Link
             href="/"
-            className="px-3 py-2.5 sm:py-3 text-xs font-bold text-white hover:bg-black/10 transition-all shrink-0 rounded-md"
+            className="px-3 py-2.5 sm:py-3 text-xs font-semibold text-white/90 hover:text-[#fd6b03] hover:bg-white/5 transition-all shrink-0 rounded-md"
           >
             Home
           </Link>
 
           <Link
             href="/category/all"
-            className="px-3 py-2.5 sm:py-3 text-xs font-bold text-white hover:bg-black/10 transition-all shrink-0 rounded-md"
+            className="px-3 py-2.5 sm:py-3 text-xs font-semibold text-white/90 hover:text-[#fd6b03] hover:bg-white/5 transition-all shrink-0 rounded-md"
           >
             All Products
           </Link>
@@ -137,9 +137,9 @@ export default function CategoryNavbar() {
           {/* Hot Deals / Offer Zone */}
           <Link
             href="/category/all?offer=1"
-            className="flex items-center gap-1 px-3 py-2 sm:py-2.5 text-xs font-bold text-white bg-[#0d1f61] hover:bg-[#162d85] transition-all shrink-0 rounded-lg shadow-xs mx-1"
+            className="flex items-center gap-1 px-3 py-2.5 sm:py-3 text-xs font-bold text-[#F59E0B] hover:text-[#FBBF24] hover:bg-white/5 transition-all shrink-0 rounded-md group"
           >
-            <Flame className="w-3.5 h-3.5 fill-current text-[#fd6b03] animate-pulse" />
+            <Flame className="w-3.5 h-3.5 fill-current text-[#F59E0B] group-hover:scale-110 transition-transform animate-pulse" />
             <span className="tracking-wide">Hot Deals 🔥</span>
           </Link>
 
@@ -162,14 +162,16 @@ export default function CategoryNavbar() {
                 <div className="flex items-center">
                   <Link
                     href={`/category/${cat.slug}`}
-                    className={`flex items-center gap-1.5 pl-3 pr-1 py-2 sm:py-2.5 text-xs font-bold transition-all whitespace-nowrap rounded-md ${
+                    className={`flex items-center gap-1.5 pl-3 pr-1 py-2.5 sm:py-3 text-xs font-medium transition-all whitespace-nowrap ${
                       isActive
-                        ? 'text-[#0d1f61] bg-white shadow-xs'
-                        : 'text-white hover:bg-black/10'
+                        ? 'text-[#fd6b03] font-bold bg-white/10'
+                        : isOpen
+                        ? 'text-[#fd6b03] bg-white/5'
+                        : 'text-white/90 hover:text-[#fd6b03] hover:bg-white/5'
                     }`}
                   >
-                    {cat.slug === 'organic-food' && <Leaf className="w-3.5 h-3.5 text-white" />}
-                    {cat.slug === 'fashion' && <Shirt className="w-3.5 h-3.5 text-white" />}
+                    {cat.slug === 'organic-food' && <Leaf className="w-3.5 h-3.5 text-[#fd6b03]" />}
+                    {cat.slug === 'fashion' && <Shirt className="w-3.5 h-3.5 text-[#F0B840]" />}
                     <span>{cat.name}</span>
                   </Link>
 
@@ -185,14 +187,14 @@ export default function CategoryNavbar() {
                           openDropdown(cat.id);
                         }
                       }}
-                      className={`pr-2.5 pl-0.5 py-2.5 sm:py-3 text-white/80 hover:text-white transition-colors ${
-                        isOpen ? 'text-white' : ''
+                      className={`pr-2.5 pl-0.5 py-2.5 sm:py-3 text-white/50 hover:text-[#fd6b03] transition-colors ${
+                        isOpen ? 'text-[#fd6b03]' : ''
                       }`}
                       aria-label={`Open ${cat.name} subcategories`}
                     >
                       <ChevronDown
                         className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                          isOpen ? 'rotate-180 text-white' : ''
+                          isOpen ? 'rotate-180 text-[#fd6b03]' : ''
                         }`}
                       />
                     </button>
@@ -205,22 +207,22 @@ export default function CategoryNavbar() {
           {/* Weather Season Items */}
           <Link
             href="/category/weather-items"
-            className="flex items-center gap-1 px-3 py-2.5 sm:py-3 text-xs font-bold text-white hover:bg-black/10 transition-all shrink-0 rounded-md"
+            className="flex items-center gap-1 px-3 py-2.5 sm:py-3 text-xs font-semibold text-[#fd6b03] hover:bg-white/5 transition-all shrink-0 rounded-md"
           >
-            <Umbrella className="w-3.5 h-3.5 text-white" />
+            <Umbrella className="w-3.5 h-3.5" />
             <span>Weather Protection</span>
           </Link>
 
           {/* About Us Link */}
           <Link
             href="/about"
-            className={`flex items-center gap-1 px-3 py-2 sm:py-2.5 text-xs font-bold transition-all shrink-0 rounded-md ${
+            className={`flex items-center gap-1 px-3 py-2.5 sm:py-3 text-xs font-semibold transition-all shrink-0 rounded-md ${
               pathname === '/about'
-                ? 'text-[#0d1f61] bg-white shadow-xs'
-                : 'text-white hover:bg-black/10'
+                ? 'text-[#fd6b03] bg-white/10 font-bold'
+                : 'text-white/80 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Info className="w-3.5 h-3.5" />
+            <Info className="w-3.5 h-3.5 text-[#fd6b03]" />
             <span>About Us</span>
           </Link>
         </div>

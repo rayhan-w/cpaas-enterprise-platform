@@ -30,7 +30,7 @@ export default function HeroBanner() {
 
   return (
     <div className="relative max-w-7xl mx-auto px-2 sm:px-4 pt-2 sm:pt-4 pb-2">
-      <div className="relative h-[190px] xs:h-[250px] sm:h-[360px] md:h-[420px] lg:h-[480px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-elevation-3 border border-[#EDE5E1] bg-gradient-to-r from-[#DDF2FD] via-[#F4FCF3] to-[#E5F5D4] group">
+      <div className="relative aspect-[2.6/1] sm:aspect-auto sm:h-[340px] md:h-[400px] lg:h-[460px] rounded-xl sm:rounded-3xl overflow-hidden shadow-elevation-3 border border-[#EDE5E1] bg-gradient-to-r from-[#DDF2FD] via-[#F4FCF3] to-[#E5F5D4] group">
         
         {isGraphicCover ? (
           /* Pure Graphic Cover Banner (Full high-fidelity view) */
@@ -46,7 +46,7 @@ export default function HeroBanner() {
             <img
               src={current.image}
               alt="Jawata Mart Official Cover"
-              className="relative z-10 w-full h-full object-contain object-center group-hover:scale-[1.01] transition-transform duration-700"
+              className="relative z-10 w-full h-full object-cover sm:object-contain object-center group-hover:scale-[1.01] transition-transform duration-700"
             />
             
             {/* Interactive Floating CTA Button on Bottom Right */}
