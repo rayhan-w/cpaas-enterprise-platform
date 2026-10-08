@@ -83,7 +83,7 @@ function TrackOrderContent() {
     <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12 space-y-8">
       {/* Header */}
       <div className="text-center max-w-xl mx-auto">
-        <span className="text-xs font-bold uppercase tracking-wider text-[#6CAE14] block mb-1">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#fd6b03] block mb-1">
           Live Status
         </span>
         <h1 className="section-title text-3xl sm:text-4xl text-[#1A1512]">
@@ -105,7 +105,7 @@ function TrackOrderContent() {
               value={orderIdInput}
               onChange={(e) => setOrderIdInput(e.target.value.toUpperCase())}
               placeholder="যেমন: JM-1001"
-              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs font-mono font-bold text-[#1A1512] uppercase focus:outline-none focus:border-[#6CAE14]"
+              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs font-mono font-bold text-[#1A1512] uppercase focus:outline-none focus:border-[#fd6b03]"
             />
           </div>
 
@@ -117,7 +117,7 @@ function TrackOrderContent() {
               value={phoneInput}
               onChange={(e) => setPhoneInput(e.target.value)}
               placeholder="আপনার অর্ডার করার মোবাইল নম্বর দিন"
-              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
+              className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3.5 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#fd6b03]"
             />
           </div>
 
@@ -125,13 +125,13 @@ function TrackOrderContent() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#6CAE14] hover:bg-[#5B960E] disabled:opacity-50 text-white font-bold text-xs py-3 px-4 rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5"
+              className="w-full bg-[#0d1f61] hover:bg-[#162d85] disabled:opacity-50 text-white font-bold text-xs py-3 px-4 rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5"
             >
               {loading ? (
                 <span>...</span>
               ) : (
                 <>
-                  <Search className="w-3.5 h-3.5" />
+                  <Search className="w-3.5 h-3.5 text-[#fd6b03]" />
                   <span>Track</span>
                 </>
               )}

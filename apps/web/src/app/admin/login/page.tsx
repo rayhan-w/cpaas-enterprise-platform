@@ -67,10 +67,10 @@ export default function AdminLoginPage() {
 
         {/* Header */}
         <div className="text-center space-y-2">
-          <div className="w-16 h-16 rounded-full overflow-hidden bg-black ring-2 ring-[#9ED114]/80 shadow-md mx-auto flex items-center justify-center shrink-0">
-            <img src="/jawata-mart-logo.jpg" alt="Jawata Mart" className="w-full h-full object-cover" />
+          <div className="w-16 h-16 rounded-2xl overflow-hidden bg-white ring-2 ring-[#fd6b03]/40 shadow-xs mx-auto flex items-center justify-center p-1 shrink-0">
+            <img src="/jawata-mart-logo.jpg" alt="Jawata Mart" className="w-full h-full object-contain" />
           </div>
-          <h1 className="section-title text-2xl text-[#1A1512]">Jawata Mart Staff Portal</h1>
+          <h1 className="section-title text-2xl text-[#0d1f61]">Jawata Mart Staff Portal</h1>
           <p className="text-xs text-[#6B5B58]">
             Secure administrative access for orders, manual bKash/Nagad verification and inventory.
           </p>
@@ -89,7 +89,7 @@ export default function AdminLoginPage() {
                 placeholder="admin@jawatamart.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl py-2.5 pl-10 pr-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
+                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl py-2.5 pl-10 pr-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#fd6b03]"
               />
               <Mail className="w-4 h-4 text-[#9B8A86] absolute left-3.5 top-1/2 -translate-y-1/2" />
             </div>
@@ -106,7 +106,7 @@ export default function AdminLoginPage() {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl py-2.5 pl-10 pr-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
+                className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl py-2.5 pl-10 pr-3.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#fd6b03]"
               />
               <Lock className="w-4 h-4 text-[#9B8A86] absolute left-3.5 top-1/2 -translate-y-1/2" />
             </div>
@@ -121,14 +121,14 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#6CAE14] hover:bg-[#5B960E] disabled:opacity-50 text-white font-bold text-xs py-3.5 px-4 rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
+            className="w-full bg-[#0d1f61] hover:bg-[#162d85] disabled:opacity-50 text-white font-bold text-xs py-3.5 px-4 rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
           >
             {loading ? (
               <span>Authenticating...</span>
             ) : (
               <>
                 <span>Sign In to Dashboard</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-[#fd6b03]" />
               </>
             )}
           </button>

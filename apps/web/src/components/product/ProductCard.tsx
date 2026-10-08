@@ -58,12 +58,12 @@ export default function ProductCard({ product }: { product: ProductItem }) {
 
           <button
             onClick={toggleWishlist}
-            className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-[#526052] hover:text-[#6CAE14] shadow-sm pointer-events-auto transition-transform active:scale-90"
+            className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-[#526052] hover:text-[#fd6b03] shadow-sm pointer-events-auto transition-transform active:scale-90"
             aria-label="Wishlist"
           >
             <Heart
               className={`w-4 h-4 ${
-                isWishlisted ? 'fill-[#6CAE14] text-[#6CAE14]' : 'stroke-[1.75]'
+                isWishlisted ? 'fill-[#fd6b03] text-[#fd6b03]' : 'stroke-[1.75]'
               }`}
             />
           </button>
@@ -81,7 +81,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
             loading="lazy"
           />
           {product.stock <= 10 && product.stock > 0 && (
-            <span className="absolute bottom-3 left-3 bg-[#F59E0B] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
+            <span className="absolute bottom-3 left-3 bg-[#fd6b03] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
               Only {product.stock} left!
             </span>
           )}
@@ -104,7 +104,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
 
             {/* Title */}
             <Link href={`/products/${product.slug}`}>
-              <h3 className="text-xs sm:text-sm font-bold text-[#0E140E] group-hover:text-[#6CAE14] transition-colors line-clamp-2 leading-tight sm:leading-snug">
+              <h3 className="text-xs sm:text-sm font-bold text-[#0E140E] group-hover:text-[#fd6b03] transition-colors line-clamp-2 leading-tight sm:leading-snug">
                 {product.name}
               </h3>
             </Link>
@@ -130,18 +130,18 @@ export default function ProductCard({ product }: { product: ProductItem }) {
                 onClick={handleAddToCart}
                 className={`flex items-center justify-center gap-1 py-1.5 sm:py-2.5 px-1 sm:px-2 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold border transition-all active:scale-95 ${
                   addedAnim
-                    ? 'bg-[#6CAE14] text-white border-[#6CAE14]'
-                    : 'bg-white hover:bg-[#F1F8E8] text-[#0E140E] border-[#DFECCE] hover:border-[#6CAE14]'
+                    ? 'bg-[#0d1f61] text-white border-[#0d1f61]'
+                    : 'bg-white hover:bg-orange-50/50 text-[#0d1f61] border-[#EDE5E1] hover:border-[#0d1f61]'
                 }`}
               >
                 {addedAnim ? (
                   <>
-                    <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                    <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#fd6b03]" />
                     <span>Added!</span>
                   </>
                 ) : (
                   <>
-                    <ShoppingBag className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#6CAE14]" />
+                    <ShoppingBag className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#fd6b03]" />
                     <span>Cart</span>
                   </>
                 )}
@@ -150,9 +150,9 @@ export default function ProductCard({ product }: { product: ProductItem }) {
               <button
                 type="button"
                 onClick={handleBuyNow}
-                className="flex items-center justify-center gap-1 py-1.5 sm:py-2.5 px-1 sm:px-2 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold bg-[#6CAE14] hover:bg-[#5B960E] text-white transition-all shadow-sm hover:shadow active:scale-95"
+                className="flex items-center justify-center gap-1 py-1.5 sm:py-2.5 px-1 sm:px-2 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold bg-[#0d1f61] hover:bg-[#162d85] text-white transition-all shadow-sm hover:shadow active:scale-95"
               >
-                <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-current text-[#F59E0B]" />
+                <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-current text-[#fd6b03]" />
                 <span className="hidden xs:inline">Order Now</span>
                 <span className="inline xs:hidden">Order</span>
               </button>

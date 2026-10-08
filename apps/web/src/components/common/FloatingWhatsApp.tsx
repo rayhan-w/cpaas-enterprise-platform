@@ -32,7 +32,7 @@ export default function FloatingWhatsApp() {
         href={`tel:${phone}`}
         onClick={() => trackContact('PhoneCall')}
         aria-label="Direct Phone Call"
-        className="hidden sm:flex w-14 h-14 rounded-full bg-[#6CAE14] hover:bg-[#5B960E] text-white items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all duration-300 ring-4 ring-white/80 group"
+        className="hidden sm:flex w-14 h-14 rounded-full bg-[#0d1f61] hover:bg-[#162d85] text-white items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all duration-300 ring-4 ring-white/80 group"
       >
         <Phone className="w-6 h-6" />
         <span className="sr-only">Call Us</span>

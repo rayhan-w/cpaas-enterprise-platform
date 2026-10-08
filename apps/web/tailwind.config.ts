@@ -17,22 +17,25 @@ const config: Config = {
           foreground: '#0E140E',
         },
         brand: {
-          DEFAULT: '#6CAE14', // Leaf Green from Jawata Mart Logo
-          50: '#F1F8E8',
-          100: '#E8F5D3',
-          200: '#CBE59C',
-          300: '#AFD565',
-          400: '#9ED114',
-          500: '#6CAE14',
-          600: '#5B960E',
-          700: '#4A7D0A',
-          800: '#3A6307',
-          900: '#0B0F0B',
-          hover: '#5B960E',
-          accent: '#9ED114', // Exact Logo Lime Leaf
-          light: '#F1F8E8',
-          tint: '#E8F5D3',
-          dark: '#0B0F0B',   // Logo Black
+          DEFAULT: '#fd6b03', // Orange from Jawata Mart Logo
+          50: '#FFF7ED',
+          100: '#FFEDD5',
+          200: '#FED7AA',
+          300: '#FDBA74',
+          400: '#FB923C',
+          500: '#FD6B03',
+          600: '#EA580C',
+          700: '#C2410C',
+          800: '#9A3412',
+          900: '#0D1F61',   // Dark Blue
+          dark: '#0D1F61',  // Dark Blue
+          blue: '#0D1F61',
+          navy: '#0D1F61',
+          orange: '#FD6B03',
+          hover: '#162D85',
+          accent: '#FD6B03',
+          light: '#FFF7ED',
+          tint: '#FFEDD5',
         },
         linen: '#FAFCF7',
         charcoal: {

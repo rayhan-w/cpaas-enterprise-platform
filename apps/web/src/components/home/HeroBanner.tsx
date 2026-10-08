@@ -51,10 +51,10 @@ export default function HeroBanner() {
             
             {/* Interactive Floating CTA Button on Bottom Right */}
             <div className="absolute bottom-2.5 right-2.5 sm:bottom-6 sm:right-6 z-20">
-              <span className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#6CAE14] hover:bg-[#5B960E] text-white font-bold text-[11px] sm:text-sm px-3 py-1.5 sm:px-6 sm:py-3 rounded-full transition-all shadow-xl active:scale-95 border-2 border-white group/btn animate-pulse-glow">
-                <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+              <span className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#0d1f61] hover:bg-[#162d85] text-white font-bold text-[11px] sm:text-sm px-3.5 py-1.5 sm:px-6 sm:py-3 rounded-full transition-all shadow-xl active:scale-95 border-2 border-white group/btn">
+                <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#fd6b03]" />
                 <span>{current.ctaText || 'Shop Now'}</span>
-                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover/btn:translate-x-1 transition-transform" />
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover/btn:translate-x-1 transition-transform text-[#fd6b03]" />
               </span>
             </div>
           </Link>
@@ -102,14 +102,14 @@ export default function HeroBanner() {
               <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
                 <Link
                   href={current.ctaLink}
-                  className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#6CAE14] hover:bg-[#5B960E] text-white font-bold text-[11px] sm:text-sm px-3.5 py-1.5 sm:px-6 sm:py-3 rounded-full transition-all shadow-lg group active:scale-95 border border-[#78B81B]"
+                  className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#0d1f61] hover:bg-[#162d85] text-white font-bold text-[11px] sm:text-sm px-3.5 py-1.5 sm:px-6 sm:py-3 rounded-full transition-all shadow-lg group active:scale-95 border border-[#162d85]"
                 >
                   <span>{current.ctaText}</span>
-                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform text-[#F59E0B]" />
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform text-[#fd6b03]" />
                 </Link>
 
                 <div className="hidden sm:flex items-center gap-2 text-xs text-white/90 bg-white/15 backdrop-blur-xs px-3 py-2 rounded-full border border-white/20">
-                  <ShieldCheck className="w-4 h-4 text-[#F59E0B]" />
+                  <ShieldCheck className="w-4 h-4 text-[#fd6b03]" />
                   <span>Cash on Delivery & bKash / Nagad</span>
                 </div>
               </div>
@@ -141,7 +141,7 @@ export default function HeroBanner() {
               key={i}
               onClick={() => setCurrentIdx(i)}
               className={`h-1.5 sm:h-2 rounded-full transition-all ${
-                i === currentIdx ? 'w-4 sm:w-8 bg-[#6CAE14] shadow-sm' : 'w-1.5 sm:w-2 bg-black/30 hover:bg-black/50'
+                i === currentIdx ? 'w-4 sm:w-8 bg-[#fd6b03] shadow-sm' : 'w-1.5 sm:w-2 bg-black/30 hover:bg-black/50'
               }`}
               aria-label={`Go to slide ${i + 1}`}
             />

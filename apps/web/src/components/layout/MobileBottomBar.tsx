@@ -20,7 +20,7 @@ export default function MobileBottomBar() {
       <Link
         href="/"
         className={`flex flex-col items-center gap-1 text-[11px] font-bold transition-colors ${
-          pathname === '/' ? 'text-[#6CAE14]' : 'text-[#526052]'
+          pathname === '/' ? 'text-[#fd6b03]' : 'text-[#526052]'
         }`}
       >
         <Home className="w-5 h-5" />
@@ -30,7 +30,7 @@ export default function MobileBottomBar() {
       <Link
         href="/category/all"
         className={`flex flex-col items-center gap-1 text-[11px] font-bold transition-colors ${
-          pathname.startsWith('/category') ? 'text-[#6CAE14]' : 'text-[#526052]'
+          pathname.startsWith('/category') ? 'text-[#fd6b03]' : 'text-[#526052]'
         }`}
       >
         <Grid className="w-5 h-5" />
@@ -45,7 +45,7 @@ export default function MobileBottomBar() {
         <div className="relative">
           <ShoppingBag className="w-5 h-5 text-[#0E140E]" />
           {totalItems > 0 && (
-            <span className="absolute -top-1.5 -right-2 bg-[#6CAE14] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+            <span className="absolute -top-1.5 -right-2 bg-[#fd6b03] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
               {totalItems}
             </span>
           )}
@@ -56,7 +56,7 @@ export default function MobileBottomBar() {
       <Link
         href="/track-order"
         className={`flex flex-col items-center gap-1 text-[11px] font-bold transition-colors ${
-          pathname === '/track-order' ? 'text-[#6CAE14]' : 'text-[#526052]'
+          pathname === '/track-order' ? 'text-[#fd6b03]' : 'text-[#526052]'
         }`}
       >
         <Truck className="w-5 h-5" />

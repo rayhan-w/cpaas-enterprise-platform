@@ -178,7 +178,7 @@ export default function ProductView({
                 <span className="text-sm text-[#9B8A86] line-through">
                   {formatPrice(product.originalPrice)}
                 </span>
-                <span className="bg-[#6CAE14]/15 text-[#6CAE14] font-bold text-xs px-2 py-0.5 rounded-md">
+                <span className="bg-orange-50 text-[#fd6b03] font-bold text-xs px-2 py-0.5 rounded-md">
                   Save {formatPrice(product.originalPrice - currentPrice)} ({product.discount}%)
                 </span>
               </>
@@ -198,8 +198,8 @@ export default function ProductView({
                     onClick={() => setSelectedVariant(v)}
                     className={`px-3.5 py-2 rounded-xl text-xs font-semibold border transition-all ${
                       selectedVariant?.id === v.id
-                        ? 'border-[#6CAE14] bg-[#F1F8E8] text-[#6CAE14] shadow-xs'
-                        : 'border-[#EDE5E1] bg-white text-[#1A1512] hover:border-[#6CAE14]/40'
+                        ? 'border-[#fd6b03] bg-orange-50 text-[#fd6b03] shadow-xs'
+                        : 'border-[#EDE5E1] bg-white text-[#1A1512] hover:border-[#fd6b03]/40'
                     }`}
                   >
                     {v.name}: {v.value} {v.price ? `(${formatPrice(v.price)})` : ''}
@@ -233,20 +233,20 @@ export default function ProductView({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <button
                 onClick={handleAddToCart}
-                className={`flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl text-xs font-bold border transition-all active:scale-95 shadow-sm ${
+                className={`flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl text-xs font-bold border-2 transition-all active:scale-95 shadow-sm ${
                   addedAnim
-                    ? 'bg-[#78B81B] text-white border-[#78B81B]'
-                    : 'bg-white hover:bg-[#F1F8E8] text-[#0E140E] border-[#DFECCE] hover:border-[#6CAE14]'
+                    ? 'bg-[#0d1f61] text-white border-[#0d1f61]'
+                    : 'bg-white hover:bg-orange-50/50 text-[#0d1f61] border-[#0d1f61]'
                 }`}
               >
                 {addedAnim ? (
                   <>
-                    <Check className="w-4 h-4" />
+                    <Check className="w-4 h-4 text-[#fd6b03]" />
                     <span>Added to Bag!</span>
                   </>
                 ) : (
                   <>
-                    <ShoppingBag className="w-4 h-4 text-[#6CAE14]" />
+                    <ShoppingBag className="w-4 h-4 text-[#fd6b03]" />
                     <span>Add to Bag</span>
                   </>
                 )}
@@ -254,24 +254,24 @@ export default function ProductView({
 
               <button
                 onClick={handleBuyNow}
-                className="flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl text-xs font-bold bg-[#6CAE14] hover:bg-[#5B960E] text-white transition-all shadow-md active:scale-95"
+                className="flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl text-xs font-bold bg-[#0d1f61] hover:bg-[#162d85] text-white transition-all shadow-md active:scale-95"
               >
-                <Zap className="w-4 h-4 fill-current text-[#F59E0B]" />
+                <Zap className="w-4 h-4 fill-current text-[#fd6b03]" />
                 <span>Order Now</span>
               </button>
             </div>
           </div>
 
           {/* Delivery & Trust Highlights */}
-          <div className="bg-[#F1F8E8] rounded-2xl p-4 border border-[#6CAE14]/20 space-y-2.5 text-xs text-[#1A1512]">
+          <div className="bg-orange-50/60 rounded-2xl p-4 border border-[#fd6b03]/20 space-y-2.5 text-xs text-[#1A1512]">
             <div className="flex items-center gap-2.5">
-              <Truck className="w-4 h-4 text-[#6CAE14] shrink-0" />
+              <Truck className="w-4 h-4 text-[#fd6b03] shrink-0" />
               <span>
                 <strong>Inside Dhaka:</strong> ৳60 (Same/Next Day) • <strong>Outside Dhaka:</strong> ৳120
               </span>
             </div>
             <div className="flex items-center gap-2.5">
-              <ShieldCheck className="w-4 h-4 text-[#78B81B] shrink-0" />
+              <ShieldCheck className="w-4 h-4 text-[#fd6b03] shrink-0" />
               <span>Pay with Cash on Delivery, bKash, Nagad, UCB Bank Transfer or Cards</span>
             </div>
             <div className="flex items-center gap-2.5">

@@ -10,7 +10,7 @@ export default function CategoryPills() {
     <section className="max-w-7xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#6CAE14] block">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#fd6b03] block">
             Explore Marketplace
           </span>
           <h2 className="section-title text-2xl sm:text-3xl text-[#0E140E]">
@@ -19,7 +19,7 @@ export default function CategoryPills() {
         </div>
         <Link
           href="/category/all"
-          className="text-xs font-bold text-[#0E140E] hover:text-[#6CAE14] flex items-center gap-1 transition-colors"
+          className="text-xs font-bold text-[#0E140E] hover:text-[#fd6b03] flex items-center gap-1 transition-colors"
         >
           <span>View All</span>
           <ArrowRight className="w-3.5 h-3.5" />
@@ -31,9 +31,9 @@ export default function CategoryPills() {
           <Link
             key={cat.id}
             href={`/category/${cat.slug}`}
-            className="group bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-[#DFECCE] text-center flex flex-col items-center justify-between hover:border-[#6CAE14] hover:shadow-md transition-all"
+            className="group bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-[#DFECCE] text-center flex flex-col items-center justify-between hover:border-[#fd6b03] hover:shadow-md transition-all"
           >
-            <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-20 sm:h-20 rounded-full overflow-hidden mb-1.5 sm:mb-2 bg-[#FAFCF7] border-2 border-white ring-1.5 sm:ring-2 ring-[#DFECCE] group-hover:ring-[#6CAE14] shadow-xs group-hover:scale-105 transition-all">
+            <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-20 sm:h-20 rounded-full overflow-hidden mb-1.5 sm:mb-2 bg-[#FAFCF7] border-2 border-white ring-1.5 sm:ring-2 ring-[#DFECCE] group-hover:ring-[#fd6b03] shadow-xs group-hover:scale-105 transition-all">
               <img
                 src={cat.image || 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=200&h=200&fit=crop'}
                 alt={cat.name}
@@ -41,7 +41,7 @@ export default function CategoryPills() {
                 loading="lazy"
               />
             </div>
-            <h3 className="text-[11px] sm:text-xs font-bold text-[#0E140E] group-hover:text-[#6CAE14] transition-colors line-clamp-1 leading-tight">
+            <h3 className="text-[11px] sm:text-xs font-bold text-[#0E140E] group-hover:text-[#fd6b03] transition-colors line-clamp-1 leading-tight">
               {cat.name}
             </h3>
             <span className="text-[9px] sm:text-[10px] text-[#526052] mt-0.5 font-medium leading-tight">
@@ -53,9 +53,9 @@ export default function CategoryPills() {
         {/* Weather Items Category Card */}
         <Link
           href="/category/weather-items"
-          className="group bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-[#DFECCE] text-center flex flex-col items-center justify-between hover:border-[#6CAE14] hover:shadow-md transition-all"
+          className="group bg-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-[#DFECCE] text-center flex flex-col items-center justify-between hover:border-[#fd6b03] hover:shadow-md transition-all"
         >
-          <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-20 sm:h-20 rounded-full overflow-hidden mb-1.5 sm:mb-2 bg-[#F1F8E8] border-2 border-white ring-1.5 sm:ring-2 ring-[#DFECCE] group-hover:ring-[#6CAE14] shadow-xs group-hover:scale-105 transition-all flex items-center justify-center">
+          <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-20 sm:h-20 rounded-full overflow-hidden mb-1.5 sm:mb-2 bg-orange-50 border-2 border-white ring-1.5 sm:ring-2 ring-[#DFECCE] group-hover:ring-[#fd6b03] shadow-xs group-hover:scale-105 transition-all flex items-center justify-center">
             <span className="text-xl sm:text-3xl">☔</span>
           </div>
           <h3 className="text-[11px] sm:text-xs font-bold text-[#6CAE14] group-hover:text-[#5B960E] transition-colors line-clamp-1 leading-tight">

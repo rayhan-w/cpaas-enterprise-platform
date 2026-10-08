@@ -64,18 +64,18 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full overflow-hidden bg-black ring-2 ring-[#9ED114] flex items-center justify-center shrink-0">
+              <div className="w-11 h-11 rounded-xl overflow-hidden bg-white ring-2 ring-[#fd6b03] flex items-center justify-center p-0.5 shrink-0 shadow-xs">
                 <img
                   src="/jawata-mart-logo.jpg"
                   alt="Jawata Mart Logo"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <div>
                 <span className="text-xl font-bold tracking-tight text-white font-serif">
                   Jawata Mart
                 </span>
-                <p className="text-[10px] text-[#9ED114] font-semibold">Pure & Authentic Products</p>
+                <p className="text-[10px] text-[#fd6b03] font-semibold">Pure & Authentic Products</p>
               </div>
             </div>
             <p className="text-xs text-white/70 leading-relaxed max-w-sm">
@@ -83,15 +83,15 @@ export default function Footer() {
             </p>
             <div className="space-y-2 pt-2 text-xs text-white/80">
               <p className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#6CAE14] shrink-0" />
+                <MapPin className="w-4 h-4 text-[#fd6b03] shrink-0" />
                 <span>Sector-12, Uttara, Dhaka-1230, Bangladesh</span>
               </p>
               <p className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-[#9ED114] shrink-0" />
+                <Phone className="w-4 h-4 text-[#fd6b03] shrink-0" />
                 <a href="tel:01915210799" className="hover:text-white transition-colors font-semibold">Hotline: 01915210799</a>
               </p>
               <p className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-[#7A9C78] shrink-0" />
+                <Mail className="w-4 h-4 text-[#fd6b03] shrink-0" />
                 <a href="mailto:support@jawatamart.com" className="hover:text-white transition-colors">support@jawatamart.com</a>
               </p>
             </div>
@@ -99,7 +99,7 @@ export default function Footer() {
 
           {/* Categories */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#6CAE14] mb-4">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#fd6b03] mb-4">
               Top Categories
             </h4>
             <ul className="space-y-2.5 text-xs text-white/70">

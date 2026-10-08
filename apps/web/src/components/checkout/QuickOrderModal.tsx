@@ -240,7 +240,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
 
             {/* Delivery Area Selection */}
             <div className="bg-white p-4 rounded-2xl border border-[#DFECCE] space-y-2">
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#6CAE14]">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#fd6b03]">
                 Delivery Zone
               </label>
               <div className="grid grid-cols-2 gap-2 text-xs">
@@ -249,12 +249,12 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
                   onClick={() => setDeliveryZone('INSIDE_DHAKA')}
                   className={`p-2.5 rounded-xl border text-left flex items-center justify-between transition-all ${
                     deliveryZone === 'INSIDE_DHAKA'
-                      ? 'border-[#6CAE14] bg-[#F1F8E8] text-[#0E140E] ring-1 ring-[#6CAE14]'
+                      ? 'border-[#fd6b03] bg-orange-50 text-[#0d1f61] ring-1 ring-[#fd6b03]'
                       : 'border-[#DFECCE] bg-white text-[#526052]'
                   }`}
                 >
                   <span className="font-bold text-xs">Inside Dhaka</span>
-                  <span className="text-xs font-bold text-[#6CAE14]">৳60</span>
+                  <span className="text-xs font-bold text-[#fd6b03]">৳60</span>
                 </button>
 
                 <button
@@ -262,12 +262,12 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
                   onClick={() => setDeliveryZone('OUTSIDE_DHAKA')}
                   className={`p-2.5 rounded-xl border text-left flex items-center justify-between transition-all ${
                     deliveryZone === 'OUTSIDE_DHAKA'
-                      ? 'border-[#6CAE14] bg-[#F1F8E8] text-[#0E140E] ring-1 ring-[#6CAE14]'
+                      ? 'border-[#fd6b03] bg-orange-50 text-[#0d1f61] ring-1 ring-[#fd6b03]'
                       : 'border-[#DFECCE] bg-white text-[#526052]'
                   }`}
                 >
                   <span className="font-bold text-xs">Outside Dhaka</span>
-                  <span className="text-xs font-bold text-[#6CAE14]">৳120</span>
+                  <span className="text-xs font-bold text-[#fd6b03]">৳120</span>
                 </button>
               </div>
             </div>
@@ -389,7 +389,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
               </div>
               <div className="border-t border-[#DFECCE] pt-2 flex justify-between font-bold text-sm text-[#0E140E]">
                 <span>Total Payable:</span>
-                <span className="text-[#6CAE14] text-base">{formatPrice(total)}</span>
+                <span className="text-[#fd6b03] text-base">{formatPrice(total)}</span>
               </div>
             </div>
 
@@ -397,13 +397,13 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-[#6CAE14] hover:bg-[#5B960E] disabled:opacity-50 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition-all shadow-md active:scale-98 flex items-center justify-center gap-2"
+              className="w-full bg-[#0d1f61] hover:bg-[#162d85] disabled:opacity-50 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition-all shadow-md active:scale-98 flex items-center justify-center gap-2"
             >
               {isSubmitting ? (
                 <span>Placing order...</span>
               ) : (
                 <>
-                  <ShoppingBag className="w-4 h-4" />
+                  <ShoppingBag className="w-4 h-4 text-[#fd6b03]" />
                   <span>Confirm Order • {formatPrice(total)}</span>
                 </>
               )}

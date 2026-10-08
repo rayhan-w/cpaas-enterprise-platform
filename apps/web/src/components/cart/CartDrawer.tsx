@@ -128,7 +128,7 @@ export default function CartDrawer() {
               </p>
               <button
                 onClick={closeCart}
-                className="mt-4 bg-[#6CAE14] hover:bg-[#5B960E] text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-colors"
+                className="mt-4 bg-[#0d1f61] hover:bg-[#162d85] text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-colors"
               >
                 Start Shopping
               </button>
@@ -270,7 +270,7 @@ export default function CartDrawer() {
               </div>
               <div className="flex justify-between text-sm font-bold text-[#1A1512] pt-2 border-t border-[#F2EDEA]">
                 <span>Total Amount:</span>
-                <span className="text-base text-[#6CAE14]">{formatPrice(total)}</span>
+                <span className="text-base text-[#fd6b03]">{formatPrice(total)}</span>
               </div>
             </div>
 
@@ -279,10 +279,10 @@ export default function CartDrawer() {
               <Link
                 href="/checkout"
                 onClick={closeCart}
-                className="w-full flex items-center justify-center gap-2 bg-[#6CAE14] hover:bg-[#5B960E] text-white py-3 px-4 rounded-xl text-xs font-bold transition-all shadow-md active:scale-95 text-center"
+                className="w-full flex items-center justify-center gap-2 bg-[#0d1f61] hover:bg-[#162d85] text-white py-3 px-4 rounded-xl text-xs font-bold transition-all shadow-md active:scale-95 text-center"
               >
                 <span>Proceed to Guest Checkout</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-[#fd6b03]" />
               </Link>
 
               <p className="text-[11px] text-[#9B8A86] text-center">

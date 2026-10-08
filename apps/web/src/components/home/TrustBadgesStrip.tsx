@@ -35,9 +35,9 @@ export default function TrustBadgesStrip() {
           return (
             <div
               key={i}
-              className="flex items-center gap-3 p-2.5 sm:p-3 rounded-xl hover:bg-[#F1F8E8] transition-colors group"
+              className="flex items-center gap-3 p-2.5 sm:p-3 rounded-xl hover:bg-orange-50/50 transition-colors group"
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#F1F8E8] group-hover:bg-[#6CAE14] text-[#6CAE14] group-hover:text-white flex items-center justify-center shrink-0 transition-colors shadow-xs">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-orange-50 group-hover:bg-[#0d1f61] text-[#fd6b03] group-hover:text-white flex items-center justify-center shrink-0 transition-colors shadow-xs">
                 <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
               <div>

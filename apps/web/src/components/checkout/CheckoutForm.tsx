@@ -1015,7 +1015,7 @@ export default function CheckoutForm() {
 
             <div className="flex justify-between text-base font-bold text-[#1A1512] pt-3 border-t border-[#EDE5E1]">
               <span>Payable Total:</span>
-              <span className="text-xl text-[#6CAE14]">{formatPrice(total)}</span>
+              <span className="text-xl text-[#fd6b03]">{formatPrice(total)}</span>
             </div>
           </div>
 
@@ -1023,23 +1023,23 @@ export default function CheckoutForm() {
           <button
             type="submit"
             disabled={isSubmitting || items.length === 0}
-            className="w-full bg-[#6CAE14] hover:bg-[#5B960E] disabled:opacity-50 text-white font-bold text-sm py-4 px-6 rounded-2xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full bg-[#0d1f61] hover:bg-[#162d85] disabled:opacity-50 text-white font-bold text-sm py-4 px-6 rounded-2xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
           >
             {isSubmitting ? (
               <span>Placing Your Order...</span>
             ) : paymentMethod === 'STRIPE' ? (
               <>
-                <CreditCard className="w-4 h-4" />
+                <CreditCard className="w-4 h-4 text-[#fd6b03]" />
                 <span>Pay with Stripe ({formatPrice(total)})</span>
               </>
             ) : paymentMethod === 'BANK_TRANSFER' ? (
               <>
-                <Landmark className="w-4 h-4" />
+                <Landmark className="w-4 h-4 text-[#fd6b03]" />
                 <span>Confirm Bank Deposit ({formatPrice(total)})</span>
               </>
             ) : (
               <>
-                <Lock className="w-4 h-4" />
+                <Lock className="w-4 h-4 text-[#fd6b03]" />
                 <span>Confirm Order ({formatPrice(total)})</span>
               </>
             )}

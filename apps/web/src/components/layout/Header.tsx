@@ -94,19 +94,19 @@ export default function Header() {
 
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-          <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-black ring-2 ring-[#9ED114]/80 shadow-md group-hover:scale-105 transition-transform flex items-center justify-center shrink-0">
+          <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl overflow-hidden bg-white ring-2 ring-[#fd6b03]/40 shadow-xs group-hover:scale-105 transition-transform flex items-center justify-center p-0.5 shrink-0">
             <img
               src="/jawata-mart-logo.jpg"
               alt="Jawata Mart Logo"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
           </div>
           <div>
-            <div className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-[#0E140E] flex items-center leading-tight">
+            <div className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-[#0d1f61] flex items-center leading-tight">
               Jawata Mart
-              <span className="w-2 h-2 rounded-full bg-[#9ED114] ml-1 inline-block"></span>
+              <span className="w-2 h-2 rounded-full bg-[#fd6b03] ml-1 inline-block"></span>
             </div>
-            <span className="text-[10px] sm:text-[11px] text-[#6CAE14] font-bold block">
+            <span className="text-[10px] sm:text-[11px] text-[#fd6b03] font-bold block">
               Pure & Authentic Products
             </span>
           </div>
@@ -121,12 +121,12 @@ export default function Header() {
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => searchQuery.trim() && setShowSearchDropdown(true)}
               placeholder="Search for products (e.g., honey, ghee, oil, bags, umbrellas)..."
-              className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl py-2.5 pl-10 pr-24 text-xs sm:text-sm text-[#0E140E] placeholder-[#879787] focus:outline-none focus:border-[#6CAE14] focus:ring-2 focus:ring-[#6CAE14]/10 transition-all shadow-inner"
+              className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl py-2.5 pl-10 pr-24 text-xs sm:text-sm text-[#0E140E] placeholder-[#879787] focus:outline-none focus:border-[#fd6b03] focus:ring-2 focus:ring-[#fd6b03]/10 transition-all shadow-inner"
             />
             <Search className="w-4 h-4 text-[#879787] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <button
               type="submit"
-              className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-[#6CAE14] hover:bg-[#5B960E] text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-colors flex items-center gap-1 shadow-xs"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-[#0d1f61] hover:bg-[#162d85] text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-colors flex items-center gap-1 shadow-xs"
             >
               <span>Search</span>
             </button>
@@ -198,9 +198,9 @@ export default function Header() {
           {/* Hotline Call Button */}
           <a
             href="tel:01915210799"
-            className="hidden md:flex items-center gap-2.5 px-3.5 py-2 rounded-xl border border-[#DFECCE] hover:border-[#6CAE14] hover:bg-[#F1F8E8] transition-colors group"
+            className="hidden md:flex items-center gap-2.5 px-3.5 py-2 rounded-xl border border-[#EDE5E1] hover:border-[#fd6b03] hover:bg-orange-50/40 transition-colors group"
           >
-            <div className="w-8 h-8 rounded-full bg-[#F1F8E8] group-hover:bg-[#6CAE14] text-[#6CAE14] group-hover:text-white flex items-center justify-center transition-colors">
+            <div className="w-8 h-8 rounded-full bg-orange-50 group-hover:bg-[#0d1f61] text-[#fd6b03] group-hover:text-white flex items-center justify-center transition-colors">
               <Phone className="w-4 h-4" />
             </div>
             <div className="text-left leading-tight">
@@ -212,20 +212,20 @@ export default function Header() {
           {/* Cart Trigger Button with Live Subtotal */}
           <button
             onClick={openCart}
-            className="flex items-center gap-2.5 bg-[#0E140E] hover:bg-[#1B241B] text-white px-3.5 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all shadow-md group active:scale-95"
+            className="flex items-center gap-2.5 bg-[#0d1f61] hover:bg-[#162d85] text-white px-3.5 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all shadow-md group active:scale-95"
             aria-label="Shopping Cart"
           >
             <div className="relative">
-              <ShoppingBag className="w-5 h-5 text-[#9ED114] group-hover:scale-110 transition-transform" />
+              <ShoppingBag className="w-5 h-5 text-[#fd6b03] group-hover:scale-110 transition-transform" />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-[#6CAE14] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-[#fd6b03] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                   {totalItems}
                 </span>
               )}
             </div>
             <div className="hidden sm:flex flex-col text-left leading-tight">
               <span className="text-[10px] text-white/70">Cart ({totalItems})</span>
-              <span className="text-xs font-bold text-[#9ED114]">{formatPrice(subtotal)}</span>
+              <span className="text-xs font-bold text-[#fd6b03]">{formatPrice(subtotal)}</span>
             </div>
           </button>
         </div>
@@ -239,12 +239,12 @@ export default function Header() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search products..."
-            className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl py-2 pl-9 pr-20 text-xs text-[#0E140E] placeholder-[#879787] focus:outline-none focus:border-[#6CAE14]"
+            className="w-full bg-[#FAFCF7] border border-[#DFECCE] rounded-xl py-2 pl-9 pr-20 text-xs text-[#0E140E] placeholder-[#879787] focus:outline-none focus:border-[#fd6b03]"
           />
           <Search className="w-4 h-4 text-[#879787] absolute left-3 top-1/2 -translate-y-1/2" />
           <button
             type="submit"
-            className="absolute right-1 top-1/2 -translate-y-1/2 bg-[#6CAE14] text-white text-[11px] font-bold px-3 py-1 rounded-lg"
+            className="absolute right-1 top-1/2 -translate-y-1/2 bg-[#0d1f61] hover:bg-[#162d85] text-white text-[11px] font-bold px-3 py-1 rounded-lg"
           >
             Search
           </button>
@@ -268,16 +268,16 @@ export default function Header() {
             {/* Drawer Header */}
             <div className="p-4 border-b border-[#DFECCE] flex items-center justify-between bg-white">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full overflow-hidden bg-black ring-2 ring-[#9ED114]/80 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-white ring-2 ring-[#fd6b03]/40 flex items-center justify-center p-0.5 shrink-0 shadow-xs">
                   <img
                     src="/jawata-mart-logo.jpg"
                     alt="Jawata Mart Logo"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </div>
                 <div>
-                  <span className="font-serif text-lg font-bold text-[#0E140E]">Jawata Mart</span>
-                  <p className="text-[10px] text-[#6CAE14] font-semibold">Pure & Authentic Products</p>
+                  <span className="font-serif text-lg font-bold text-[#0d1f61]">Jawata Mart</span>
+                  <p className="text-[10px] text-[#fd6b03] font-semibold">Pure & Authentic Products</p>
                 </div>
               </div>
               <button

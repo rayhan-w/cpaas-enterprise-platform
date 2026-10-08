@@ -53,15 +53,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="space-y-6">
           {/* Logo */}
           <div className="flex items-center gap-2.5 pb-4 border-b border-[#EDE5E1]">
-            <div className="w-10 h-10 rounded-full overflow-hidden bg-black ring-2 ring-[#9ED114]/80 shadow-sm shrink-0">
-              <img src="/jawata-mart-logo.jpg" alt="Jawata Mart" className="w-full h-full object-cover" />
+            <div className="w-10 h-10 rounded-xl overflow-hidden bg-white ring-2 ring-[#fd6b03]/40 p-0.5 shadow-xs shrink-0 flex items-center justify-center">
+              <img src="/jawata-mart-logo.jpg" alt="Jawata Mart" className="w-full h-full object-contain" />
             </div>
             <div>
-              <span className="font-serif text-base font-bold text-[#0E140E] block leading-tight">
+              <span className="font-serif text-base font-bold text-[#0D1F61] block leading-tight">
                 Jawata Mart Admin
               </span>
-              <span className="text-[10px] text-[#6CAE14] font-bold uppercase tracking-wider flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#9ED114]"></span>
+              <span className="text-[10px] text-[#fd6b03] font-bold uppercase tracking-wider flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#fd6b03]"></span>
                 Live Bangladesh
               </span>
             </div>
@@ -70,10 +70,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {/* Quick Back to Store in Sidebar */}
           <Link
             href="/"
-            className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-[#F1F8E8] hover:bg-[#E2F0D2] border border-[#6CAE14]/30 text-xs font-bold text-[#4E820C] transition-all shadow-xs"
+            className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-[#0D1F61]/5 hover:bg-[#0D1F61]/10 border border-[#0D1F61]/20 text-xs font-bold text-[#0D1F61] transition-all shadow-xs"
             title="Return to Jawata Mart storefront"
           >
-            <ArrowLeft className="w-4 h-4 text-[#6CAE14]" />
+            <ArrowLeft className="w-4 h-4 text-[#0D1F61]" />
             <span>← Back to Store</span>
           </Link>
 
@@ -90,11 +90,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   key={item.href}
                   href={item.href}
                   className={`admin-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold ${
-                    isActive ? 'active text-[#6CAE14]' : 'text-[#6B5B58]'
+                    isActive ? 'active text-[#0D1F61] bg-[#0D1F61]/5 font-bold' : 'text-[#6B5B58]'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <Icon className={`w-4 h-4 ${isActive ? 'text-[#6CAE14]' : 'text-[#9B8A86]'}`} />
+                    <Icon className={`w-4 h-4 ${isActive ? 'text-[#fd6b03]' : 'text-[#9B8A86]'}`} />
                     <span>{item.label}</span>
                   </div>
                   {item.href === '/admin/payments' && (
@@ -111,10 +111,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Link
             href="/"
             target="_blank"
-            className="flex items-center justify-between px-3 py-2 rounded-xl text-xs text-[#6B5B58] hover:text-[#1A1512] hover:bg-[#F8F7F5] transition-colors"
+            className="flex items-center justify-between px-3 py-2 rounded-xl text-xs text-[#6B5B58] hover:text-[#0D1F61] hover:bg-[#F8F7F5] transition-colors"
           >
             <span className="flex items-center gap-2">
-              <ExternalLink className="w-3.5 h-3.5 text-[#6CAE14]" />
+              <ExternalLink className="w-3.5 h-3.5 text-[#0D1F61]" />
               <span>View Storefront</span>
             </span>
             <span className="text-[10px] text-[#9B8A86]">Live</span>

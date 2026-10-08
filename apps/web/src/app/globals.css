@@ -10,11 +10,13 @@
     --foreground: #0E140E;
     --card: #FFFFFF;
     --card-foreground: #0E140E;
-    --border: #DFECCE;
-    --primary: #6CAE14;
-    --primary-hover: #5B960E;
-    --primary-accent: #9ED114;
+    --border: #EDE5E1;
+    --primary: #FD6B03;
+    --primary-hover: #EA580C;
+    --primary-accent: #FD6B03;
     --primary-foreground: #FFFFFF;
+    --btn-primary: #0D1F61;
+    --btn-primary-hover: #162D85;
   }
 }
 

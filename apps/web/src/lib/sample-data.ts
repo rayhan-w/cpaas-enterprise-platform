@@ -2361,7 +2361,7 @@ export const INITIAL_BANNERS: BannerItem[] = [
     id: 'ban-cover',
     title: '',
     subtitle: '',
-    image: '/jawata-mart-cover.jpg',
+    image: '/images/banner-jawata-main-cover.png',
     ctaText: 'Shop Now',
     ctaLink: '/category/all',
     order: 1,
