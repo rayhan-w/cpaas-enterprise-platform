@@ -14,8 +14,7 @@ import ScrollToTopOnNav from '@/components/common/ScrollToTopOnNav';
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() || '';
 
-  const isPlainRoute =
-    pathname === '/' ||
+  const isTrackOpsRoute =
     pathname.startsWith('/dashboard') ||
     pathname.startsWith('/super-admin') ||
     pathname.startsWith('/admin') ||
@@ -26,12 +25,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     pathname.startsWith('/unauthorized') ||
     pathname.startsWith('/r/');
 
-  if (isPlainRoute) {
-    return (
-      <div className="min-h-screen bg-white text-slate-900 antialiased flex flex-col">
-        {children}
-      </div>
-    );
+  if (isTrackOpsRoute) {
+    return <div className="min-h-screen bg-slate-50 text-slate-900 antialiased">{children}</div>;
   }
 
   return (
