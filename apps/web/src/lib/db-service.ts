@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import prisma from './prisma';
 import {
   INITIAL_CATEGORIES,
@@ -17,8 +19,54 @@ import {
   PaymentStatus,
 } from './types';
 
+const DELETED_FILE = path.join(process.cwd(), 'data', 'deleted-products.json');
+
+const DEFAULT_BLOCKED_IDS = [
+  'p-fas-mens-panjabi',
+  'p-fas-oxford-shirt',
+  'p-fas-leather-belt-wallet',
+  'p-gift-islamic-box',
+  'p-drv-bag-3pc-ladies-set',
+  'premium-semi-long-cotton-embroidered-mens-panjabi',
+  'mens-smart-casual-100-cotton-oxford-long-sleeve-shirt',
+  'genuine-leather-mens-formal-belt-bi-fold-wallet-gift-combo',
+  'luxury-velvet-islamic-gift-box',
+  'luxury-3-in-1-ladies-backpack-round-crossbody-card-wallet-set',
+];
+
+function loadDeletedIds(): Set<string> {
+  try {
+    if (fs.existsSync(DELETED_FILE)) {
+      const data = JSON.parse(fs.readFileSync(DELETED_FILE, 'utf8'));
+      if (Array.isArray(data)) return new Set([...DEFAULT_BLOCKED_IDS, ...data]);
+    }
+  } catch (err) {
+    // Ignore read errors
+  }
+  return new Set(DEFAULT_BLOCKED_IDS);
+}
+
+function saveDeletedId(idOrSlug: string, additionalSlug?: string) {
+  try {
+    const dir = path.dirname(DELETED_FILE);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    const current = loadDeletedIds();
+    current.add(idOrSlug);
+    if (additionalSlug) current.add(additionalSlug);
+    fs.writeFileSync(DELETED_FILE, JSON.stringify(Array.from(current), null, 2), 'utf8');
+  } catch (err) {
+    console.error('Error saving deleted products file:', err);
+  }
+}
+
+function isNotDeleted(p: any): boolean {
+  if (!p) return false;
+  const del = loadDeletedIds();
+  return !del.has(p.id) && !del.has(p.slug);
+}
+
 // In-memory runtime cache for development/fallback
-let memoryProducts: ProductItem[] = [...INITIAL_PRODUCTS];
+let memoryProducts: ProductItem[] = [...INITIAL_PRODUCTS].filter(isNotDeleted);
 let memoryCategories: CategoryItem[] = [...INITIAL_CATEGORIES];
 let memoryOrders: OrderRecord[] = [
   {
@@ -231,7 +279,7 @@ export const dbService = {
               if (pickle) mapped.push(pickle);
             }
           }
-          const result = mapped.filter(isAllowedOrganicProduct);
+          const result = mapped.filter(isAllowedOrganicProduct).filter(isNotDeleted);
           productCache.set(cacheKey, { data: result, time: Date.now() });
           return result;
         }
@@ -241,7 +289,7 @@ export const dbService = {
     }
 
     // Memory Store Filtering
-    let list = memoryProducts.filter((p) => p.isActive).filter(isAllowedOrganicProduct);
+    let list = memoryProducts.filter((p) => p.isActive).filter(isAllowedOrganicProduct).filter(isNotDeleted);
     if (params?.categorySlug) {
       list = list.filter((p) => p.categorySlug === params.categorySlug);
     }
@@ -280,6 +328,7 @@ export const dbService = {
   },
 
   async getProductBySlug(slug: string): Promise<ProductItem | null> {
+    if (!isNotDeleted({ slug })) return null;
     const hit = singleProductCache.get(slug);
     if (hit && Date.now() - hit.time < CACHE_TTL) {
       return hit.data;
@@ -419,12 +468,17 @@ export const dbService = {
   },
 
   async deleteProduct(id: string): Promise<boolean> {
+    let productSlug = '';
+    const memItem = memoryProducts.find((p) => p.id === id || p.slug === id);
+    if (memItem) productSlug = memItem.slug;
+
     try {
       if (process.env.DATABASE_URL && prisma.product) {
         const existing = await prisma.product.findFirst({
           where: { OR: [{ id }, { slug: id }] },
         });
         if (existing) {
+          productSlug = existing.slug;
           await prisma.productVariant.deleteMany({ where: { productId: existing.id } }).catch(() => {});
           await prisma.review.deleteMany({ where: { productId: existing.id } }).catch(() => {});
           await prisma.orderItem.updateMany({
@@ -438,7 +492,10 @@ export const dbService = {
       console.error('Error permanently deleting product:', e);
     }
 
-    memoryProducts = memoryProducts.filter((p) => p.id !== id && p.slug !== id);
+    saveDeletedId(id, productSlug);
+    memoryProducts = memoryProducts.filter(
+      (p) => p.id !== id && p.slug !== id && (productSlug ? p.slug !== productSlug : true)
+    );
     productCache.clear();
     singleProductCache.clear();
     return true;

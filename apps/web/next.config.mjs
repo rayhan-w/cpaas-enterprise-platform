@@ -53,6 +53,15 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/product/:slug',
+        destination: '/products/:slug',
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {
