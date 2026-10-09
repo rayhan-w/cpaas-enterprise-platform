@@ -2300,17 +2300,6 @@ export const INITIAL_BANNERS: BannerItem[] = [
     isActive: true,
   },
   {
-    id: 'ban-winter-earmuff-promo',
-    title: '',
-    subtitle: '',
-    image: '/images/banner-winter-earmuff-promo.jpg',
-    ctaText: 'Shop Winter Collection',
-    ctaLink: '/category/winter-items',
-    badge: 'Winter Special',
-    order: 4,
-    isActive: true,
-  },
-  {
     id: 'ban-umbrella-blue',
     title: 'Luxury 16-Rib Windproof & UV Umbrellas',
     subtitle: 'Heavy-duty fiberglass frame, water-repellent coating & stylish royal colors for all seasons.',
