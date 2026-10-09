@@ -9,38 +9,34 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#6CAE14',
+  themeColor: '#dc2626',
 };
 
 export const metadata: Metadata = {
-  title: 'Jawata Mart | Trusted Multi-Category Shopping Platform in Bangladesh',
+  title: 'বাংলা নিউজ | সত্য ও তথ্যের সাথে ২৪/৭ ব্রেকিং নিউজ',
   description:
-    'Discover 10,000+ authentic lifestyle products at Jawata Mart: Baby & Mother Care, Men & Women Fashion, Electronics, Health & Beauty, Home Living & Groceries with fast nationwide delivery from Uttara Sector-12, Dhaka.',
+    'Bangla News - জাতীয়, আন্তর্জাতিক, রাজনীতি, অর্থনীতি, খেলাধুলা, বিজ্ঞান ও তথ্যপ্রযুক্তির নির্ভরযোগ্য সংবাদ মাধ্যম। সত্য ও সঠিক খবর সবার আগে।',
   keywords: [
-    'Jawata Mart',
-    'Jawata Mart Bangladesh',
-    'online shopping bangladesh',
-    'ecommerce bangladesh',
-    'uttara online shop',
-    'bKash payment ecommerce',
-    'nagad payment',
-    'cash on delivery dhaka',
+    'Bangla News',
+    'বাংলা নিউজ',
+    'banglishnews.com',
+    'ব্রেকিং নিউজ',
+    'বাংলাদেশ সংবাদ',
+    'লাইভ আপডেট',
+    'খবর',
   ],
   icons: {
     icon: [
       { url: '/icon.svg', type: 'image/svg+xml' },
-      { url: '/jawata-mart-logo.jpg', sizes: '192x192', type: 'image/jpeg' },
     ],
     shortcut: '/icon.svg',
-    apple: '/jawata-mart-logo.jpg',
   },
   openGraph: {
-    title: 'Jawata Mart | Lifestyle & Family Shopping',
-    description: 'Fast nationwide delivery with bKash, Nagad, UCB Bank, and Cash on Delivery.',
+    title: 'বাংলা নিউজ | সত্য ও তথ্যের সাথে ২৪/৭',
+    description: 'সর্বশেষ সংবাদ ও ব্রেকিং নিউজ আপডেট সবার আগে পড়তে ভিজিট করুন বাংলা নিউজ।',
     type: 'website',
-    locale: 'en_BD',
-    siteName: 'Jawata Mart',
-    images: ['/jawata-mart-cover.jpg'],
+    locale: 'bn_BD',
+    siteName: 'Bangla News',
   },
 };
 
@@ -50,22 +46,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="bn">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="bg-slate-50 text-slate-900 min-h-screen font-sans antialiased flex flex-col justify-between">
+      <body className="font-sans antialiased bg-white text-slate-900 min-h-screen flex flex-col">
         <AuthProvider>
-          <ToastProvider>
-            <CartProvider>
+          <CartProvider>
+            <ToastProvider>
               <AppShell>{children}</AppShell>
-            </CartProvider>
-          </ToastProvider>
+            </ToastProvider>
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>
