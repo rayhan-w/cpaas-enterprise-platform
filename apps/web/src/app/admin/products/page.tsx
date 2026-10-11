@@ -18,12 +18,17 @@ import {
   BarChart3,
   FileSpreadsheet,
   Download,
+  ChevronLeft,
+  ChevronRight,
+  Maximize2,
+  Eye,
 } from 'lucide-react';
 import { ProductItem, CategoryItem } from '@/lib/types';
 import { formatPrice } from '@/lib/formatters';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
 import { useToast } from '@/context/toast-context';
 import ImageUploadPicker from '@/components/admin/ImageUploadPicker';
+import ProductImageGalleryPicker from '@/components/admin/ProductImageGalleryPicker';
 import ExportProductsModal from '@/components/admin/ExportProductsModal';
 
 export default function AdminProductsPage() {
@@ -46,6 +51,7 @@ export default function AdminProductsPage() {
   const [editSku, setEditSku] = useState('');
   const [editBadge, setEditBadge] = useState('');
   const [editImage, setEditImage] = useState('');
+  const [editImages, setEditImages] = useState<string[]>([]);
   const [editDescription, setEditDescription] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
   const [isCustomSubEdit, setIsCustomSubEdit] = useState(false);
@@ -63,8 +69,14 @@ export default function AdminProductsPage() {
   const [sku, setSku] = useState('');
   const [badge, setBadge] = useState('');
   const [image, setImage] = useState('https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop');
+  const [images, setImages] = useState<string[]>(['https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop']);
   const [description, setDescription] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Table Quick View Modal State
+  const [tablePreviewImages, setTablePreviewImages] = useState<string[] | null>(null);
+  const [tablePreviewIndex, setTablePreviewIndex] = useState(0);
+  const [tablePreviewTitle, setTablePreviewTitle] = useState('');
 
   const fetchCategories = async () => {
     try {
@@ -110,6 +122,12 @@ export default function AdminProductsPage() {
     setEditSku(prod.sku || '');
     setEditBadge(prod.badge || '');
     setEditImage(prod.image || '');
+    const initialImages = prod.images && prod.images.length > 0
+      ? [...prod.images]
+      : prod.image
+      ? [prod.image]
+      : [];
+    setEditImages(initialImages);
     setEditDescription(prod.description || '');
   };
 
@@ -152,6 +170,9 @@ export default function AdminProductsPage() {
         }
       }
 
+      const cleanImages = editImages.filter((img) => img && img.trim().length > 0);
+      const primaryImage = cleanImages[0] || editImage.trim() || undefined;
+
       const res = await fetch('/api/products', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -169,7 +190,8 @@ export default function AdminProductsPage() {
           stock: Number(editStock) || 0,
           sku: editSku.trim() || undefined,
           badge: editBadge.trim() || undefined,
-          image: editImage.trim() || undefined,
+          image: primaryImage,
+          images: cleanImages.length > 0 ? cleanImages : undefined,
           description: editDescription.trim(),
         }),
       });
@@ -244,6 +266,12 @@ export default function AdminProductsPage() {
         }
       }
 
+      const cleanImages = images.filter((img) => img && img.trim().length > 0);
+      const primaryImage =
+        cleanImages[0] ||
+        image ||
+        'https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop';
+
       const res = await fetch('/api/products', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -260,7 +288,8 @@ export default function AdminProductsPage() {
           stock: Number(stock) || 50,
           sku: sku || `SKU-${Date.now()}`,
           badge: badge || undefined,
-          image,
+          image: primaryImage,
+          images: cleanImages.length > 0 ? cleanImages : [primaryImage],
           description: description.trim(),
         }),
       });
@@ -274,6 +303,8 @@ export default function AdminProductsPage() {
       setPrice('');
       setOriginalPrice('');
       setDescription('');
+      setImage('https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop');
+      setImages(['https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop']);
       fetchProducts();
     } catch (err: any) {
       error(err.message);
@@ -635,11 +666,37 @@ export default function AdminProductsPage() {
                   <tr key={prod.id} className="hover:bg-[#F1F8E8]/40 transition-colors">
                     <td className="p-3 pl-4">
                       <div className="flex items-center gap-3">
-                        <img
-                          src={prod.image}
-                          alt=""
-                          className="w-11 h-11 rounded-lg object-cover bg-[#F8F7F5] border border-[#EDE5E1] shrink-0"
-                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const allImgs = prod.images && prod.images.length > 0
+                              ? prod.images
+                              : prod.image
+                              ? [prod.image]
+                              : [];
+                            if (allImgs.length > 0) {
+                              setTablePreviewImages(allImgs);
+                              setTablePreviewIndex(0);
+                              setTablePreviewTitle(prod.name);
+                            }
+                          }}
+                          className="relative group shrink-0 rounded-xl overflow-hidden border border-[#EDE5E1] hover:border-[#6CAE14] focus:outline-none focus:ring-2 focus:ring-[#6CAE14]/40 transition-all cursor-pointer"
+                          title="ছবি বড় করে দেখতে ক্লিক করুন (Click to view full HD)"
+                        >
+                          <img
+                            src={prod.image}
+                            alt={prod.name}
+                            className="w-12 h-12 rounded-xl object-cover bg-[#F8F7F5] transition-transform duration-200 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-white">
+                            <Maximize2 className="w-4 h-4" />
+                          </div>
+                          {prod.images && prod.images.length > 1 && (
+                            <span className="absolute bottom-0.5 right-0.5 bg-[#0d1f61] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-xs leading-none">
+                              +{prod.images.length}
+                            </span>
+                          )}
+                        </button>
                         <div className="min-w-0 max-w-xs sm:max-w-md">
                           <p className="font-semibold text-[#1A1512] line-clamp-1">{prod.name}</p>
                           <p className="text-[10px] text-[#9B8A86]">{prod.brand || 'General'}</p>
@@ -928,11 +985,14 @@ export default function AdminProductsPage() {
                 </div>
               </div>
 
-              {/* Image Input (Device & Link) */}
-              <ImageUploadPicker
-                label="Product Image (পণ্যের ছবি)"
-                value={editImage}
-                onChange={setEditImage}
+              {/* Image Input (Multiple Images & HD Zoom Preview) */}
+              <ProductImageGalleryPicker
+                label="Product Images (একাধিক ছবি যোগ ও বড় করে দেখার সুবিধা)"
+                images={editImages}
+                onChange={(imgs) => {
+                  setEditImages(imgs);
+                  setEditImage(imgs[0] || '');
+                }}
               />
 
               {/* Description */}
@@ -1116,12 +1176,14 @@ export default function AdminProductsPage() {
                 </div>
               </div>
 
-              {/* Image Input (Device & Link) */}
-              <ImageUploadPicker
-                label="Product Image (পণ্যের ছবি)"
-                value={image}
-                onChange={setImage}
-                required
+              {/* Image Input (Multiple Images & HD Zoom Preview) */}
+              <ProductImageGalleryPicker
+                label="Product Images (একাধিক ছবি যোগ ও বড় করে দেখার সুবিধা)"
+                images={images}
+                onChange={(imgs) => {
+                  setImages(imgs);
+                  setImage(imgs[0] || '');
+                }}
               />
 
               <div>
@@ -1153,6 +1215,116 @@ export default function AdminProductsPage() {
               </div>
             </form>
           </div>
+        </div>
+      )}
+
+      {/* Table Image Fullscreen Lightbox Modal */}
+      {tablePreviewImages && tablePreviewImages.length > 0 && (
+        <div
+          className="fixed inset-0 z-60 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-4 select-none animate-fade-in"
+          onClick={() => setTablePreviewImages(null)}
+        >
+          {/* Header Bar */}
+          <div
+            className="w-full max-w-4xl flex items-center justify-between text-white/90 pb-3 border-b border-white/10 mb-3"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-2.5 truncate max-w-[70%]">
+              <span className="font-bold text-sm truncate text-white">
+                {tablePreviewTitle || 'প্রোডাক্টের ছবি প্রিভিউ'}
+              </span>
+              <span className="text-xs text-white/70 bg-white/15 px-2.5 py-0.5 rounded-full shrink-0 font-medium">
+                ছবি {tablePreviewIndex + 1} / {tablePreviewImages.length}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <a
+                href={tablePreviewImages[tablePreviewIndex]}
+                target="_blank"
+                rel="noreferrer"
+                download
+                className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all text-xs font-semibold flex items-center gap-1.5"
+                title="আসল ছবি খুলুন বা ডাউনলোড করুন"
+              >
+                <span>আসল রেজোলিউশন</span>
+              </a>
+              <button
+                type="button"
+                onClick={() => setTablePreviewImages(null)}
+                className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer"
+                title="বন্ধ করুন (Esc)"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Main Stage Image */}
+          <div
+            className="relative flex items-center justify-center max-w-4xl max-h-[75vh] w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={tablePreviewImages[tablePreviewIndex]}
+              alt={`Product preview ${tablePreviewIndex + 1}`}
+              className="max-h-[72vh] max-w-full object-contain rounded-2xl shadow-2xl border border-white/10 bg-black/40"
+            />
+
+            {/* Left Prev Arrow */}
+            {tablePreviewImages.length > 1 && (
+              <button
+                type="button"
+                onClick={() =>
+                  setTablePreviewIndex((prev) =>
+                    prev === 0 ? tablePreviewImages.length - 1 : prev - 1
+                  )
+                }
+                className="absolute left-2 sm:-left-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/70 hover:bg-black/90 text-white border border-white/20 transition-all cursor-pointer"
+                title="আগের ছবি"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+            )}
+
+            {/* Right Next Arrow */}
+            {tablePreviewImages.length > 1 && (
+              <button
+                type="button"
+                onClick={() =>
+                  setTablePreviewIndex((prev) =>
+                    prev === tablePreviewImages.length - 1 ? 0 : prev + 1
+                  )
+                }
+                className="absolute right-2 sm:-right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/70 hover:bg-black/90 text-white border border-white/20 transition-all cursor-pointer"
+                title="পরের ছবি"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            )}
+          </div>
+
+          {/* Bottom Thumbnails */}
+          {tablePreviewImages.length > 1 && (
+            <div
+              className="flex items-center gap-2 mt-4 max-w-4xl overflow-x-auto p-1.5 rounded-2xl bg-black/50 border border-white/10"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {tablePreviewImages.map((img, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setTablePreviewIndex(idx)}
+                  className={`w-14 h-14 rounded-xl overflow-hidden border-2 transition-all shrink-0 cursor-pointer ${
+                    tablePreviewIndex === idx
+                      ? 'border-[#6CAE14] ring-2 ring-[#6CAE14]/40 scale-105'
+                      : 'border-transparent opacity-60 hover:opacity-100'
+                  }`}
+                >
+                  <img src={img} alt="" className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
