@@ -72,9 +72,13 @@ export default function ImageUploadPicker({
   );
   const [isProcessing, setIsProcessing] = useState(false);
   const [dragOver, setDragOver] = useState(false);
+  const [cachedDataUrl, setCachedDataUrl] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = async (file: File) => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
     if (!file.type.startsWith('image/')) {
       alert('অনুগ্রহ করে শুধুমাত্র ছবি ফাইল (JPG, PNG, WebP) সিলেক্ট করুন।');
       return;
@@ -84,6 +88,7 @@ export default function ImageUploadPicker({
     try {
       // 1. Client-side compress to high-performance lightweight WebP/JPEG
       const compressedDataUrl = await compressImageClient(file);
+      setCachedDataUrl(compressedDataUrl);
 
       // 2. Try JSON server upload first (avoids server 406 Not Acceptable on multipart)
       try {
@@ -253,8 +258,13 @@ export default function ImageUploadPicker({
         <div className="relative flex items-center gap-3 p-2.5 bg-white rounded-xl border border-[#EDE5E1] shadow-xs">
           <div className="w-14 h-14 rounded-lg overflow-hidden bg-[#F8F7F5] border border-[#EDE5E1] shrink-0">
             <img
-              src={value}
+              src={cachedDataUrl || value}
               alt="Selected Preview"
+              onError={(e) => {
+                if (cachedDataUrl && e.currentTarget.src !== cachedDataUrl) {
+                  e.currentTarget.src = cachedDataUrl;
+                }
+              }}
               className="w-full h-full object-cover"
             />
           </div>

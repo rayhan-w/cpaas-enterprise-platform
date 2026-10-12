@@ -44,18 +44,33 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Could not process image payload' }, { status: 400 });
     }
 
-    // Try saving to public/uploads directory
-    try {
-      const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
-      await mkdir(uploadsDir, { recursive: true });
-      const filepath = path.join(uploadsDir, fileName);
-      await writeFile(filepath, buffer);
-      return NextResponse.json({ url: `/uploads/${fileName}`, success: true });
-    } catch (fsErr) {
-      // Fallback: return compressed base64 data URI
-      const base64 = buffer.toString('base64');
-      return NextResponse.json({ url: `data:image/jpeg;base64,${base64}`, success: true });
+    // Save to all candidate public/uploads directories
+    const targetDirs = [
+      path.join(/*turbopackIgnore: true*/ process.cwd(), 'apps', 'web', 'public', 'uploads'),
+      path.join(/*turbopackIgnore: true*/ process.cwd(), 'public', 'uploads'),
+      '/home/jawatama/jawatamart/apps/web/public/uploads',
+      '/home/jawatama/jawatamart/public/uploads',
+    ];
+
+    let saved = false;
+    for (const dir of targetDirs) {
+      try {
+        await mkdir(dir, { recursive: true });
+        const filepath = path.join(/*turbopackIgnore: true*/ dir, fileName);
+        await writeFile(filepath, buffer);
+        saved = true;
+      } catch {
+        // ignore errors on directories that don't match host structure
+      }
     }
+
+    if (saved) {
+      return NextResponse.json({ url: `/uploads/${fileName}`, success: true });
+    }
+
+    // Fallback: return compressed base64 data URI
+    const base64 = buffer.toString('base64');
+    return NextResponse.json({ url: `data:image/jpeg;base64,${base64}`, success: true });
   } catch (err: any) {
     console.error('Upload error:', err);
     return NextResponse.json({ error: err.message || 'Upload failed' }, { status: 500 });

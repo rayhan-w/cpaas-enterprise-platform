@@ -88,29 +88,34 @@ export default function ProductImageGalleryPicker({
   
   // Full-size Large Preview Modal State
   const [previewIdx, setPreviewIdx] = useState<number | null>(null);
+  const [localFallbackMap, setLocalFallbackMap] = useState<Record<string, string>>({});
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Process multiple selected files
   const handleFilesSelect = async (fileList: FileList | File[]) => {
     const files = Array.from(fileList).filter((f) => f.type.startsWith('image/'));
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
     if (files.length === 0) {
       alert('অনুগ্রহ করে শুধুমাত্র ছবি ফাইল (JPG, PNG, WebP) সিলেক্ট করুন।');
       return;
     }
 
     setIsProcessing(true);
-    const newUrls: string[] = [];
+    const newItems: string[] = [];
+    const newFallbacks: Record<string, string> = {};
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      setProcessingProgress(`ছবি আপলোড হচ্ছে (${i + 1}/${files.length})...`);
+      setProcessingProgress(`ছবি আপলোড ও অপ্টিমাইজ হচ্ছে (${i + 1}/${files.length})...`);
       try {
-        // 1. Client-side compress
+        // 1. Client-side compress to crisp data URL
         const compressedDataUrl = await compressImageClient(file);
+        let finalUrl = compressedDataUrl;
 
         // 2. Try JSON server upload first (avoids server 406 Not Acceptable on multipart)
-        let uploadedUrl = compressedDataUrl;
         try {
           const jsonRes = await fetch('/api/upload', {
             method: 'POST',
@@ -125,21 +130,23 @@ export default function ProductImageGalleryPicker({
           });
           const jsonData = await jsonRes.json();
           if (jsonRes.ok && jsonData.url) {
-            uploadedUrl = jsonData.url;
+            finalUrl = jsonData.url;
           }
         } catch {
           // Fallback directly to compressed Data URL
-          uploadedUrl = compressedDataUrl;
+          finalUrl = compressedDataUrl;
         }
 
-        newUrls.push(uploadedUrl);
+        newItems.push(finalUrl);
+        newFallbacks[finalUrl] = compressedDataUrl;
       } catch (err) {
         console.error('Image upload error:', err);
       }
     }
 
-    if (newUrls.length > 0) {
-      onChange([...images, ...newUrls]);
+    if (newItems.length > 0) {
+      setLocalFallbackMap((prev) => ({ ...prev, ...newFallbacks }));
+      onChange([...images, ...newItems]);
     }
 
     setIsProcessing(false);
@@ -348,8 +355,14 @@ export default function ProductImageGalleryPicker({
                     title="বড় করে দেখতে ক্লিক করুন (Click to zoom)"
                   >
                     <img
-                      src={img}
+                      src={localFallbackMap[img] || img}
                       alt={`Product Photo ${idx + 1}`}
+                      onError={(e) => {
+                        const fallback = localFallbackMap[img];
+                        if (fallback && e.currentTarget.src !== fallback) {
+                          e.currentTarget.src = fallback;
+                        }
+                      }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
 
@@ -474,8 +487,15 @@ export default function ProductImageGalleryPicker({
             {/* The Big Crisp Image */}
             <div className="relative max-h-[75vh] max-w-full rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-neutral-900 flex items-center justify-center">
               <img
-                src={images[previewIdx]}
+                src={localFallbackMap[images[previewIdx]] || images[previewIdx]}
                 alt={`Large Preview ${previewIdx + 1}`}
+                onError={(e) => {
+                  const raw = images[previewIdx];
+                  const fallback = localFallbackMap[raw];
+                  if (fallback && e.currentTarget.src !== fallback) {
+                    e.currentTarget.src = fallback;
+                  }
+                }}
                 className="max-h-[75vh] w-auto max-w-full object-contain select-none"
               />
             </div>
