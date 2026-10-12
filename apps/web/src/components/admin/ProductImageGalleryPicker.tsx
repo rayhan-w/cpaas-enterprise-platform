@@ -109,21 +109,27 @@ export default function ProductImageGalleryPicker({
         // 1. Client-side compress
         const compressedDataUrl = await compressImageClient(file);
 
-        // 2. Try server upload
+        // 2. Try JSON server upload first (avoids server 406 Not Acceptable on multipart)
         let uploadedUrl = compressedDataUrl;
         try {
-          const formData = new FormData();
-          formData.append('file', file);
-          const res = await fetch('/api/upload', {
+          const jsonRes = await fetch('/api/upload', {
             method: 'POST',
-            body: formData,
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+              dataUrl: compressedDataUrl,
+              filename: file.name,
+            }),
           });
-          const data = await res.json();
-          if (res.ok && data.url) {
-            uploadedUrl = data.url;
+          const jsonData = await jsonRes.json();
+          if (jsonRes.ok && jsonData.url) {
+            uploadedUrl = jsonData.url;
           }
         } catch {
-          // fallback to compressed data URL
+          // Fallback directly to compressed Data URL
+          uploadedUrl = compressedDataUrl;
         }
 
         newUrls.push(uploadedUrl);
@@ -345,10 +351,6 @@ export default function ProductImageGalleryPicker({
                       src={img}
                       alt={`Product Photo ${idx + 1}`}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src =
-                          'https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop';
-                      }}
                     />
 
                     {/* Hover Overlay with Zoom Button */}

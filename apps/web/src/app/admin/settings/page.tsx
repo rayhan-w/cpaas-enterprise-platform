@@ -96,6 +96,15 @@ export default function AdminSettingsPage() {
   const handleTestCapiEvent = async () => {
     setTestLoading(true);
     setTestResult(null);
+    if (!formData.metaPixelId?.trim() || !formData.metaCapiToken?.trim()) {
+      setTestResult({
+        success: false,
+        message: 'Please enter your Meta Pixel ID and Meta Conversions API Access Token in the fields above first.',
+      });
+      setTestLoading(false);
+      return;
+    }
+
     try {
       const res = await fetch('/api/tracking/capi', {
         method: 'POST',
@@ -103,11 +112,14 @@ export default function AdminSettingsPage() {
         body: JSON.stringify({
           eventName: 'TestEvent',
           eventId: `test_${Date.now()}`,
+          pixelId: formData.metaPixelId.trim(),
+          capiToken: formData.metaCapiToken.trim(),
+          testEventCode: formData.metaTestEventCode?.trim() || undefined,
           value: 1250,
           currency: 'BDT',
-          customerPhone: '01915210799',
-          customerEmail: 'test@jawatamart.com',
-          customerName: 'Jawata Mart Test Customer',
+          customerPhone: formData.hotline || '01915210799',
+          customerEmail: formData.supportEmail || 'support@jawatamart.com',
+          customerName: formData.storeName || 'Jawata Mart',
           items: [{ id: 'test-1', name: 'Tracking Verification Sample Item', price: 1250, quantity: 1 }],
           eventSourceUrl: window.location.href,
         }),

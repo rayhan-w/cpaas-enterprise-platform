@@ -27,15 +27,15 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const settings = await dbService.getSettings();
 
-    const pixelId = settings.metaPixelId || process.env.NEXT_PUBLIC_META_PIXEL_ID || process.env.META_PIXEL_ID;
-    const capiToken = settings.metaCapiToken || process.env.META_CAPI_ACCESS_TOKEN;
-    const testCode = settings.metaTestEventCode || process.env.META_TEST_EVENT_CODE;
+    const pixelId = body.pixelId || settings.metaPixelId || process.env.NEXT_PUBLIC_META_PIXEL_ID || process.env.META_PIXEL_ID;
+    const capiToken = body.capiToken || settings.metaCapiToken || process.env.META_CAPI_ACCESS_TOKEN;
+    const testCode = body.testEventCode || settings.metaTestEventCode || process.env.META_TEST_EVENT_CODE;
 
     if (!pixelId || !capiToken) {
       // If CAPI not yet configured in admin, return informative response
       return NextResponse.json({
         success: false,
-        warning: 'Meta Pixel ID or CAPI Access Token is not configured yet in Admin Settings.',
+        warning: 'Meta Pixel ID and CAPI Access Token are required. Please enter them above.',
       });
     }
 

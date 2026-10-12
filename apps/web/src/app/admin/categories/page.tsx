@@ -89,7 +89,7 @@ export default function AdminCategoriesPage() {
         body: JSON.stringify({
           name: newCatName.trim(),
           slug: newCatSlug.trim() || undefined,
-          image: newCatImage.trim() || 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop',
+          image: newCatImage.trim() || undefined,
           description: newCatDescription.trim(),
         }),
       });

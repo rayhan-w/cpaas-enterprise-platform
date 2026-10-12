@@ -68,8 +68,8 @@ export default function AdminProductsPage() {
   const [stock, setStock] = useState('50');
   const [sku, setSku] = useState('');
   const [badge, setBadge] = useState('');
-  const [image, setImage] = useState('https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop');
-  const [images, setImages] = useState<string[]>(['https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop']);
+  const [image, setImage] = useState('');
+  const [images, setImages] = useState<string[]>([]);
   const [description, setDescription] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -267,10 +267,7 @@ export default function AdminProductsPage() {
       }
 
       const cleanImages = images.filter((img) => img && img.trim().length > 0);
-      const primaryImage =
-        cleanImages[0] ||
-        image ||
-        'https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop';
+      const primaryImage = cleanImages[0] || image || '';
 
       const res = await fetch('/api/products', {
         method: 'POST',
@@ -289,7 +286,7 @@ export default function AdminProductsPage() {
           sku: sku || `SKU-${Date.now()}`,
           badge: badge || undefined,
           image: primaryImage,
-          images: cleanImages.length > 0 ? cleanImages : [primaryImage],
+          images: cleanImages.length > 0 ? cleanImages : primaryImage ? [primaryImage] : [],
           description: description.trim(),
         }),
       });
@@ -303,8 +300,8 @@ export default function AdminProductsPage() {
       setPrice('');
       setOriginalPrice('');
       setDescription('');
-      setImage('https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop');
-      setImages(['https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop']);
+      setImage('');
+      setImages([]);
       fetchProducts();
     } catch (err: any) {
       error(err.message);

@@ -85,13 +85,18 @@ export default function ImageUploadPicker({
       // 1. Client-side compress to high-performance lightweight WebP/JPEG
       const compressedDataUrl = await compressImageClient(file);
 
-      // 2. Also try uploading via /api/upload
+      // 2. Try JSON server upload first (avoids server 406 Not Acceptable on multipart)
       try {
-        const formData = new FormData();
-        formData.append('file', file);
         const res = await fetch('/api/upload', {
           method: 'POST',
-          body: formData,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            dataUrl: compressedDataUrl,
+            filename: file.name,
+          }),
         });
         const data = await res.json();
         if (res.ok && data.url) {
@@ -100,7 +105,7 @@ export default function ImageUploadPicker({
           return;
         }
       } catch {
-        // If server upload fails (e.g. serverless read-only), fallback cleanly to compressed Data URL
+        // Fallback cleanly to compressed Data URL
       }
 
       onChange(compressedDataUrl);
@@ -251,11 +256,6 @@ export default function ImageUploadPicker({
               src={value}
               alt="Selected Preview"
               className="w-full h-full object-cover"
-              onError={(e) => {
-                // Image broken fallback
-                (e.target as HTMLImageElement).src =
-                  'https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop';
-              }}
             />
           </div>
 
