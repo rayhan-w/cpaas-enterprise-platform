@@ -70,13 +70,16 @@ export default function TrackingScripts() {
       {/* ========================================================================= */}
       {/* 1. META (FACEBOOK) PIXEL                                                  */}
       {/* ========================================================================= */}
+      {/* Meta Pixel is initialized in <head> via layout.tsx.
+          If for any reason window.fbq is not present, initialize it here without an untracked PageView,
+          as trackPageView() in useEffect fires PageView with the required unique eventID for CAPI deduplication. */}
       {activeMetaPixelId && (
-        <>
-          <Script
-            id="meta-pixel-script"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
+        <Script
+          id="meta-pixel-fallback"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (!window.fbq) {
                 !function(f,b,e,v,n,t,s)
                 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
                 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -86,20 +89,10 @@ export default function TrackingScripts() {
                 s.parentNode.insertBefore(t,s)}(window, document,'script',
                 'https://connect.facebook.net/en_US/fbevents.js');
                 fbq('init', '${activeMetaPixelId}');
-                fbq('track', 'PageView');
-              `,
-            }}
-          />
-          <noscript>
-            <img
-              height="1"
-              width="1"
-              style={{ display: 'none' }}
-              src={`https://www.facebook.com/tr?id=${activeMetaPixelId}&ev=PageView&noscript=1`}
-              alt=""
-            />
-          </noscript>
-        </>
+              }
+            `,
+          }}
+        />
       )}
 
       {/* ========================================================================= */}
