@@ -190,6 +190,13 @@ export interface StoreSettings {
   sslcommerzStoreId: string;
   sslcommerzIsLive: boolean;
 
+  // Bank Deposit Configuration
+  bankAccountName?: string;
+  bankAccountNumber?: string;
+  bankName?: string;
+  bankBranch?: string;
+  enableBankTransfer?: boolean;
+
   // Tracking & Analytics Configuration
   metaPixelId?: string;
   metaCapiToken?: string;

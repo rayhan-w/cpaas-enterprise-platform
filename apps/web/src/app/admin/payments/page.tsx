@@ -19,7 +19,7 @@ export default function AdminPaymentVerificationPage() {
   const { success, error } = useToast();
   const [orders, setOrders] = useState<OrderRecord[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filterMethod, setFilterMethod] = useState<'ALL' | 'BKASH' | 'NAGAD' | 'BANK_TRANSFER' | 'STRIPE'>('ALL');
+  const [filterMethod, setFilterMethod] = useState<'ALL' | 'BKASH' | 'NAGAD' | 'BANK_TRANSFER' | 'STRIPE' | 'COD'>('ALL');
   const [filterStatus, setFilterStatus] = useState<string>('PENDING_VERIFICATION');
   const [notes, setNotes] = useState<Record<string, string>>({});
   const [actionLoading, setActionLoading] = useState<string | null>(null);
@@ -39,6 +39,10 @@ export default function AdminPaymentVerificationPage() {
 
   useEffect(() => {
     fetchOrders();
+
+    const onFocus = () => fetchOrders();
+    window.addEventListener('focus', onFocus);
+    return () => window.removeEventListener('focus', onFocus);
   }, []);
 
   const handleVerifyOrReject = async (orderId: string, action: 'VERIFY' | 'REJECT') => {
@@ -65,14 +69,8 @@ export default function AdminPaymentVerificationPage() {
     }
   };
 
-  // Filter verification orders (bKash, Nagad, Bank Transfer, Stripe)
+  // Filter verification orders (all methods including COD)
   const paymentOrders = orders.filter((o) => {
-    const isPayable =
-      o.paymentMethod === 'BKASH' ||
-      o.paymentMethod === 'NAGAD' ||
-      o.paymentMethod === 'BANK_TRANSFER' ||
-      o.paymentMethod === 'STRIPE';
-    if (!isPayable) return false;
     if (filterMethod !== 'ALL' && o.paymentMethod !== filterMethod) return false;
     if (filterStatus && o.paymentStatus !== filterStatus) return false;
     return true;
@@ -87,22 +85,23 @@ export default function AdminPaymentVerificationPage() {
             Payment Verification & Transactions
           </h1>
           <p className="text-xs text-[#6B5B58] mt-1">
-            Review bKash, Nagad, UCB Bank Deposits, and Stripe transactions.
+            Review bKash, Nagad, UCB Bank Deposits, Stripe, and Cash on Delivery (COD) reconciliations.
           </p>
         </div>
 
         {/* Filter Controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <select
             value={filterMethod}
             onChange={(e) => setFilterMethod(e.target.value as any)}
             className="bg-white border border-[#EDE5E1] rounded-xl px-3 py-2 text-xs text-[#1A1512] font-semibold"
           >
-            <option value="ALL">All Methods</option>
-            <option value="BKASH">bKash Only</option>
-            <option value="NAGAD">Nagad Only</option>
-            <option value="BANK_TRANSFER">Bank (UCB) Only</option>
-            <option value="STRIPE">Stripe Only</option>
+            <option value="ALL">All Payment Methods</option>
+            <option value="BKASH">bKash</option>
+            <option value="NAGAD">Nagad</option>
+            <option value="BANK_TRANSFER">Bank (UCB)</option>
+            <option value="STRIPE">Stripe</option>
+            <option value="COD">Cash on Delivery (COD)</option>
           </select>
 
           <select

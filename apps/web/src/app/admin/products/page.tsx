@@ -48,6 +48,8 @@ export default function AdminProductsPage() {
 
   // Edit Product Modal State
   const [editingProduct, setEditingProduct] = useState<ProductItem | null>(null);
+  const [productToDelete, setProductToDelete] = useState<ProductItem | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [editName, setEditName] = useState('');
   const [editCategoryId, setEditCategoryId] = useState('');
   const [editSubCategoryId, setEditSubCategoryId] = useState('');
@@ -133,7 +135,19 @@ export default function AdminProductsPage() {
       }
     };
     window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
+
+    const onFocus = () => fetchProducts();
+    window.addEventListener('focus', onFocus);
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') fetchProducts();
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
+    return () => {
+      window.removeEventListener('storage', handleStorage);
+      window.removeEventListener('focus', onFocus);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
   }, []);
 
   const openEditModal = (prod: ProductItem) => {
@@ -260,13 +274,12 @@ export default function AdminProductsPage() {
     }
   };
 
-  const handleDeleteProduct = async (id: string, prodName: string) => {
-    if (!window.confirm(`Are you sure you want to delete "${prodName}"? This action cannot be undone.`)) {
-      return;
-    }
+  const confirmDeleteProduct = async () => {
+    if (!productToDelete) return;
+    setIsDeleting(true);
 
     try {
-      const res = await fetch(`/api/products?id=${id}`, {
+      const res = await fetch(`/api/products?id=${productToDelete.id}`, {
         method: 'DELETE',
       });
       const data = await res.json();
@@ -276,10 +289,13 @@ export default function AdminProductsPage() {
         localStorage.setItem('jawata_products_last_synced', Date.now().toString());
       } catch {}
 
-      success(`Product "${prodName.slice(0, 22)}..." deleted successfully`);
+      success(`Product "${productToDelete.name.slice(0, 22)}..." deleted successfully`);
+      setProductToDelete(null);
       fetchProducts();
     } catch (err: any) {
       error(err.message);
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -422,44 +438,43 @@ export default function AdminProductsPage() {
   };
 
   const categoryStats = useMemo(() => {
-    const map = new Map<string, {
-      id: string;
-      name: string;
-      slug?: string;
-      productCount: number;
-      totalUnits: number;
-      lowStockCount: number;
-      outOfStockCount: number;
-    }>();
+    return categories.map((c) => {
+      const cId = c.id;
+      const cName = c.name.toLowerCase();
+      const cSlug = c.slug.toLowerCase();
 
-    categories.forEach((c) => {
-      map.set(c.id, {
+      const matchingProducts = products.filter((p) => {
+        if (p.categoryId === cId || p.categorySlug === cSlug) return true;
+        if (p.categoryName && p.categoryName.toLowerCase() === cName) return true;
+        if (
+          Array.isArray(p.categories) &&
+          p.categories.some(
+            (tc) =>
+              tc.toLowerCase() === cName ||
+              tc.toLowerCase() === cSlug ||
+              tc.toLowerCase().replace(/[^a-z0-9]+/g, '-').includes(cSlug)
+          )
+        ) {
+          return true;
+        }
+        return false;
+      });
+
+      const productCount = matchingProducts.length;
+      const totalUnits = matchingProducts.reduce((sum, p) => sum + (p.stock || 0), 0);
+      const lowStockCount = matchingProducts.filter((p) => (p.stock || 0) > 0 && (p.stock || 0) <= 10).length;
+      const outOfStockCount = matchingProducts.filter((p) => (p.stock || 0) === 0).length;
+
+      return {
         id: c.id,
         name: c.name,
         slug: c.slug,
-        productCount: 0,
-        totalUnits: 0,
-        lowStockCount: 0,
-        outOfStockCount: 0,
-      });
+        productCount,
+        totalUnits,
+        lowStockCount,
+        outOfStockCount,
+      };
     });
-
-    products.forEach((p) => {
-      let catStat = p.categoryId ? map.get(p.categoryId) : undefined;
-      if (!catStat && p.categoryName) {
-        catStat = Array.from(map.values()).find(
-          (c) => c.name.toLowerCase() === p.categoryName?.toLowerCase()
-        );
-      }
-      if (catStat) {
-        catStat.productCount += 1;
-        catStat.totalUnits += (p.stock || 0);
-        if ((p.stock || 0) === 0) catStat.outOfStockCount += 1;
-        else if ((p.stock || 0) <= 10) catStat.lowStockCount += 1;
-      }
-    });
-
-    return Array.from(map.values());
   }, [products, categories]);
 
   const totalStockUnits = products.reduce((acc, p) => acc + (p.stock || 0), 0);
@@ -916,8 +931,8 @@ export default function AdminProductsPage() {
                         </button>
                         <button
                           type="button"
-                          onClick={() => handleDeleteProduct(prod.id, prod.name)}
-                          title="Delete Product"
+                          onClick={() => setProductToDelete(prod)}
+                          title={`Delete ${prod.name}`}
                           className="p-1.5 rounded-lg border border-red-200 bg-red-50/50 hover:bg-red-600 hover:text-white text-red-600 transition-all shadow-xs cursor-pointer"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -1546,6 +1561,67 @@ export default function AdminProductsPage() {
               ))}
             </div>
           )}
+        </div>
+      )}
+
+      {/* Delete Product Confirmation Modal */}
+      {productToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-red-200 shadow-2xl space-y-5 animate-modal-pop">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center shrink-0">
+                <Trash2 className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="section-title text-xl text-[#1A1512]">Delete Product</h3>
+                <p className="text-xs text-[#9B8A86]">This action cannot be undone.</p>
+              </div>
+            </div>
+
+            <div className="bg-[#F8F7F5] rounded-2xl p-4 border border-[#EDE5E1] space-y-1.5 text-xs">
+              <p className="text-[#1A1512] font-bold text-sm">{productToDelete.name}</p>
+              <div className="flex items-center gap-2 text-[#6B5B58]">
+                <span>SKU: <strong className="font-mono text-[#1A1512]">{productToDelete.sku || 'N/A'}</strong></span>
+                <span>•</span>
+                <span>Price: <strong className="text-[#6CAE14]">{formatPrice(productToDelete.price)}</strong></span>
+                <span>•</span>
+                <span>Stock: <strong>{productToDelete.stock}</strong></span>
+              </div>
+            </div>
+
+            <p className="text-xs text-[#6B5B58] leading-relaxed">
+              Are you sure you want to delete this product? It will be permanently removed from the catalog. Other products and orders will remain unaffected.
+            </p>
+
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                type="button"
+                disabled={isDeleting}
+                onClick={() => setProductToDelete(null)}
+                className="px-4 py-2.5 rounded-xl border border-[#EDE5E1] text-[#6B5B58] hover:bg-[#F8F7F5] font-bold text-xs transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                disabled={isDeleting}
+                onClick={confirmDeleteProduct}
+                className="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white font-bold text-xs shadow-md transition-all flex items-center gap-2 cursor-pointer"
+              >
+                {isDeleting ? (
+                  <>
+                    <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span>Deleting...</span>
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="w-4 h-4" />
+                    <span>Confirm Delete</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       )}
 

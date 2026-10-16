@@ -38,6 +38,8 @@ export async function GET() {
       (o) => o.paymentStatus === 'PENDING_VERIFICATION'
     ).length;
 
+    const activeProducts = products.filter((p) => p.isActive !== false).length;
+
     const lowStockProducts = products.filter(
       (p) => (p.stock || 0) > 0 && (p.stock || 0) <= 5
     ).length;
@@ -56,6 +58,8 @@ export async function GET() {
         totalOrders,
         pendingOrders,
         pendingPayments,
+        activeProducts,
+        totalProducts: activeProducts,
         lowStockProducts,
       },
       recentOrders,

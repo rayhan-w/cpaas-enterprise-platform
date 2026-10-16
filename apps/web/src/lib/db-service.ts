@@ -788,6 +788,23 @@ export const dbService = {
     const memItem = prods.find((p) => p.id === id || p.slug === id);
     if (memItem) productSlug = memItem.slug;
 
+    // Block deletion if product is referenced in any customer order
+    const orders = loadOrdersFromFile();
+    const refOrder = orders.find((o) =>
+      o.items &&
+      o.items.some(
+        (it) =>
+          it.productId === id ||
+          (memItem && it.productId === memItem.id) ||
+          (productSlug && (it as any).productSlug === productSlug)
+      )
+    );
+    if (refOrder) {
+      throw new Error(
+        `Cannot delete product "${memItem?.name || id}". It is referenced in order #${refOrder.orderNumber}. Products linked to customer orders cannot be deleted.`
+      );
+    }
+
     try {
       if (process.env.DATABASE_URL && prisma.product) {
         const existing = await prisma.product.findFirst({
@@ -1431,6 +1448,11 @@ export const dbService = {
           productCache.clear();
           singleProductCache.clear();
         }
+      }
+
+      // If COD order is DELIVERED, automatically mark paymentStatus as PAID
+      if (orderStatus === 'DELIVERED' && order.paymentMethod === 'COD' && order.paymentStatus === 'PENDING_VERIFICATION') {
+        order.paymentStatus = 'PAID';
       }
       saveOrdersToFile(orders);
     }

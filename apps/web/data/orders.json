@@ -13,7 +13,7 @@
     "discount": 0,
     "total": 450,
     "paymentMethod": "COD",
-    "paymentStatus": "PENDING_VERIFICATION",
+    "paymentStatus": "PAID",
     "orderStatus": "DELIVERED",
     "items": [
       {

@@ -310,15 +310,13 @@ export default function AdminSettingsPage() {
                 <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
                   bKash Account Number
                 </label>
-                <input
-                  type="text"
-                  name="bkashMerchantNumber"
-                  value={formData.bkashMerchantNumber}
-                  onChange={handleChange}
-                  placeholder="017XXXXXXXX"
-                  className="w-full px-3.5 py-2 rounded-lg border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#E2136E]/20 focus:border-[#E2136E]"
-                />
-                <p className="text-xs text-charcoal-500 mt-1">This number will be presented to buyers at checkout to copy</p>
+                <div className="p-2.5 bg-white border border-charcoal-200 rounded-lg text-xs text-charcoal-700 flex items-center justify-between">
+                  <span className="font-mono text-gray-500">•••• •••• ••••</span>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                    Protected Secret
+                  </span>
+                </div>
+                <p className="text-xs text-charcoal-500 mt-1">Stored securely on server. Presented to buyers at checkout to copy.</p>
               </div>
 
               <div>
@@ -363,15 +361,13 @@ export default function AdminSettingsPage() {
                 <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
                   Nagad Account Number
                 </label>
-                <input
-                  type="text"
-                  name="nagadMerchantNumber"
-                  value={formData.nagadMerchantNumber}
-                  onChange={handleChange}
-                  placeholder="018XXXXXXXX"
-                  className="w-full px-3.5 py-2 rounded-lg border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#F4821F]/20 focus:border-[#F4821F]"
-                />
-                <p className="text-xs text-charcoal-500 mt-1">This number will be displayed on the checkout page</p>
+                <div className="p-2.5 bg-white border border-charcoal-200 rounded-lg text-xs text-charcoal-700 flex items-center justify-between">
+                  <span className="font-mono text-gray-500">•••• •••• ••••</span>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                    Protected Secret
+                  </span>
+                </div>
+                <p className="text-xs text-charcoal-500 mt-1">Stored securely on server. Presented to buyers at checkout to copy.</p>
               </div>
 
               <div>
@@ -431,13 +427,13 @@ export default function AdminSettingsPage() {
                   <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
                     Bank Account Number
                   </label>
-                  <input
-                    type="text"
-                    name="bankAccountNumber"
-                    value={formData.bankAccountNumber}
-                    onChange={handleChange}
-                    className="w-full px-3.5 py-2 rounded-lg border border-charcoal-200 text-sm font-mono font-bold focus:outline-none focus:ring-2 focus:ring-[#00529B]/20"
-                  />
+                  <div className="p-2.5 bg-white border border-charcoal-200 rounded-lg text-xs text-charcoal-700 flex items-center justify-between">
+                    <span className="font-mono text-gray-500">•••• •••• ••••</span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                      Protected Secret
+                    </span>
+                  </div>
+                  <p className="text-xs text-charcoal-500 mt-1">Stored securely on server. Presented to buyers at checkout to copy.</p>
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
@@ -813,14 +809,12 @@ export default function AdminSettingsPage() {
                   <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
                     Meta Pixel ID
                   </label>
-                  <input
-                    type="text"
-                    name="metaPixelId"
-                    value={formData.metaPixelId || ''}
-                    onChange={handleChange}
-                    placeholder="e.g. 123456789012345"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#6CAE14]/20 focus:border-[#6CAE14]"
-                  />
+                  <div className="p-2.5 bg-white border border-charcoal-200 rounded-xl text-xs text-charcoal-700 flex items-center justify-between">
+                    <span className="font-mono text-gray-500">•••• •••• ••••</span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                      Protected Secret
+                    </span>
+                  </div>
                   <p className="text-[11px] text-charcoal-500 mt-1">
                     Find in Meta Events Manager &gt; Data Sources &gt; Settings
                   </p>
@@ -830,14 +824,12 @@ export default function AdminSettingsPage() {
                   <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
                     Meta Test Event Code (Optional for Testing)
                   </label>
-                  <input
-                    type="text"
-                    name="metaTestEventCode"
-                    value={formData.metaTestEventCode || ''}
-                    onChange={handleChange}
-                    placeholder="e.g. TEST12345"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#6CAE14]/20 focus:border-[#6CAE14]"
-                  />
+                  <div className="p-2.5 bg-white border border-charcoal-200 rounded-xl text-xs text-charcoal-700 flex items-center justify-between">
+                    <span className="font-mono text-gray-500">•••• •••• ••••</span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                      Protected Secret
+                    </span>
+                  </div>
                   <p className="text-[11px] text-charcoal-500 mt-1">
                     Meta Events Manager &gt; Test Events tab &gt; Test Server Events code
                   </p>

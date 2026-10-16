@@ -36,6 +36,10 @@ export default function AdminDashboardPage() {
       }
     }
     loadData();
+
+    const onFocus = () => loadData();
+    window.addEventListener('focus', onFocus);
+    return () => window.removeEventListener('focus', onFocus);
   }, []);
 
   if (loading) {
@@ -121,7 +125,7 @@ export default function AdminDashboardPage() {
               <Package className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-2xl font-bold text-[#1A1512]">{metrics?.totalProducts || 0}</p>
+          <p className="text-2xl font-bold text-[#1A1512]">{metrics?.activeProducts ?? metrics?.totalProducts ?? 0}</p>
           <p className="text-[11px] text-[#D94040]">
             Low stock alerts: {metrics?.lowStockProducts || 0}
           </p>

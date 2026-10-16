@@ -1,5 +1,39 @@
 [
   {
+    "id": "prod_1792132628956",
+    "name": "TEST Auth Audit - Delete Me",
+    "slug": "test-auth-audit-delete-me",
+    "categoryId": "cat-organic-food",
+    "categoryName": "Organic Food",
+    "categorySlug": "organic-food",
+    "categories": [
+      "Organic Food"
+    ],
+    "subCategoryId": "sub-natural-honey",
+    "subCategoryName": "Natural Honey (মধু)",
+    "subCategorySlug": "natural-honey",
+    "brand": "Brand",
+    "price": 222,
+    "discount": 0,
+    "stock": 3,
+    "sku": "TEST-AUTH-001",
+    "image": "",
+    "images": [],
+    "description": "",
+    "specifications": {
+      "_categories": [
+        "Organic Food"
+      ]
+    },
+    "badge": "",
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": false,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 0
+  },
+  {
     "id": "prod_1792127007183",
     "name": "Modhu",
     "slug": "modhu",

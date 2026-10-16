@@ -32,6 +32,10 @@ export default function AdminCustomersPage() {
       }
     }
     loadOrders();
+
+    const onFocus = () => loadOrders();
+    window.addEventListener('focus', onFocus);
+    return () => window.removeEventListener('focus', onFocus);
   }, []);
 
   // Aggregate customer records by phone number
@@ -52,8 +56,13 @@ export default function AdminCustomersPage() {
     }
 
     customersMap[key].totalOrders += 1;
-    if (o.paymentStatus === 'PAID' || o.orderStatus === 'DELIVERED') {
-      customersMap[key].totalSpent += o.total;
+    const isExcluded =
+      o.orderStatus === 'CANCELLED' ||
+      (o.orderStatus as any) === 'REJECTED' ||
+      o.paymentStatus === 'REJECTED';
+
+    if (!isExcluded) {
+      customersMap[key].totalSpent += (Number(o.total) || 0);
     }
     if (new Date(o.createdAt) > new Date(customersMap[key].lastOrderDate)) {
       customersMap[key].lastOrderDate = o.createdAt;

@@ -50,7 +50,7 @@ export default function CategoryPills({ categories }: CategoryPillsProps) {
               {cat.name}
             </h3>
             <span className="text-[9px] sm:text-[10px] text-[#526052] mt-0.5 font-medium leading-tight">
-              {cat.productCount || cat.itemCount || 10}+ Items
+              {(cat.productCount ?? cat.itemCount ?? 0) === 1 ? '1 Item' : `${cat.productCount ?? cat.itemCount ?? 0} Items`}
             </span>
           </Link>
         ))}
