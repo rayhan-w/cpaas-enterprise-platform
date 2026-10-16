@@ -66,12 +66,11 @@ export default function CartPage() {
         <div className="flex items-center gap-3">
           {items.length > 0 && (
             <button
+              type="button"
               onClick={() => {
-                if (confirm('Are you sure you want to clear your shopping bag?')) {
-                  clearCart();
-                }
+                clearCart();
               }}
-              className="text-xs font-semibold text-[#9B8A86] hover:text-[#D94040] transition-colors px-3 py-1.5 rounded-lg border border-[#EDE5E1] hover:bg-red-50"
+              className="text-xs font-semibold text-[#9B8A86] hover:text-[#D94040] transition-colors px-3 py-1.5 rounded-lg border border-[#EDE5E1] hover:bg-red-50 cursor-pointer"
             >
               Clear Bag
             </button>

@@ -145,6 +145,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const clearCart = () => {
     setItems([]);
     setAppliedCoupon(null);
+    try {
+      localStorage.removeItem('jawata_mart_cart');
+    } catch {}
   };
 
   const openCart = () => setIsCartOpen(true);

@@ -22,7 +22,10 @@
         "productId": "p-org-homemade-pickle",
         "price": 380,
         "quantity": 1,
-        "total": 380
+        "total": 380,
+        "productName": "Jawata Mart Traditional Homemade Raw Mango Pickle (টক-ঝাল-মিষ্টি ঘরোয়া আমের আচার - ৫০০ গ্রাম)",
+        "sku": "JM-ORG-PICKLE-500",
+        "productImage": "/images/organic-homemade-pickle.jpg"
       }
     ],
     "payments": [],
@@ -53,7 +56,10 @@
         "productId": "prod_1792077973312",
         "price": 799,
         "quantity": 1,
-        "total": 799
+        "total": 799,
+        "productName": "GPS Tracker/ Tracking Device",
+        "sku": "JM-GAD-GPS-01",
+        "productImage": "/uploads/1792077921362-Tracking_Device.jpeg.webp"
       }
     ],
     "payments": [],
@@ -85,7 +91,9 @@
         "productName": "Danadar Pure Cow Ghee",
         "price": 850,
         "quantity": 1,
-        "total": 850
+        "total": 850,
+        "sku": "JM-ORG-GHEE-500",
+        "productImage": "/images/organic-pure-ghee.jpg"
       }
     ],
     "payments": [],
@@ -117,7 +125,9 @@
         "productName": "Danadar Pure Cow Ghee",
         "price": 850,
         "quantity": 1,
-        "total": 850
+        "total": 850,
+        "sku": "JM-ORG-GHEE-500",
+        "productImage": "/images/organic-pure-ghee.jpg"
       }
     ],
     "payments": [],
@@ -153,7 +163,8 @@
         "productImage": "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=600&h=600&fit=crop",
         "price": 2450,
         "quantity": 1,
-        "total": 2450
+        "total": 2450,
+        "sku": "item-1"
       }
     ],
     "payments": [
@@ -200,7 +211,8 @@
         "productImage": "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=600&h=600&fit=crop",
         "price": 1750,
         "quantity": 1,
-        "total": 1750
+        "total": 1750,
+        "sku": "item-3"
       }
     ],
     "payments": []

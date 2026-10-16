@@ -75,6 +75,18 @@ function saveDeletedId(idOrSlug: string, additionalSlug?: string) {
   }
 }
 
+function removeFromDeletedIds(idOrSlug: string, additionalSlug?: string) {
+  ensureDataDir();
+  try {
+    const current = loadDeletedIds();
+    current.delete(idOrSlug);
+    if (additionalSlug) current.delete(additionalSlug);
+    fs.writeFileSync(DELETED_FILE, JSON.stringify(Array.from(current), null, 2), 'utf8');
+  } catch (err) {
+    console.error('Error removing from deleted products file:', err);
+  }
+}
+
 function isNotDeleted(p: any): boolean {
   if (!p) return false;
   const del = loadDeletedIds();
@@ -249,19 +261,91 @@ function saveSettingsToFile(settings: StoreSettings) {
   }
 }
 
+function normalizeOrders(orders: OrderRecord[]): OrderRecord[] {
+  let changed = false;
+  let prods: any[] = [];
+  try {
+    if (fs.existsSync(PRODUCTS_FILE)) {
+      prods = JSON.parse(fs.readFileSync(PRODUCTS_FILE, 'utf8'));
+    }
+  } catch {}
+
+  const normalized = orders.map((o) => {
+    if (!o.items || !Array.isArray(o.items)) return o;
+    const items = o.items.map((it: any) => {
+      let matched: any = undefined;
+      if (it.productId) {
+        matched = prods.find((p) => p.id === it.productId || p.slug === it.productId);
+      }
+      if (!matched && it.productName) {
+        matched = prods.find(
+          (p) =>
+            (p.name && p.name.toLowerCase() === it.productName.toLowerCase()) ||
+            (p.title && p.title.toLowerCase() === it.productName.toLowerCase())
+        );
+      }
+
+      let updatedIt = { ...it };
+      if (!updatedIt.productName || updatedIt.productName === 'Product Item' || updatedIt.productName.trim() === '') {
+        if (matched) {
+          updatedIt.productName = matched.name || matched.title;
+          changed = true;
+        } else if (updatedIt.productId) {
+          updatedIt.productName = `Product (${updatedIt.productId})`;
+          changed = true;
+        }
+      }
+
+      if (!updatedIt.sku || updatedIt.sku.trim() === '') {
+        if (matched?.sku) {
+          updatedIt.sku = matched.sku;
+          changed = true;
+        } else if (it.id) {
+          updatedIt.sku = it.id.startsWith('item-') ? it.id : (it.productId || it.id);
+          changed = true;
+        }
+      }
+
+      if (!updatedIt.productImage && matched?.image) {
+        updatedIt.productImage = matched.image;
+        changed = true;
+      }
+
+      if (!updatedIt.total || updatedIt.total === 0) {
+        updatedIt.total = Number(updatedIt.price || 0) * Number(updatedIt.quantity || 1);
+        changed = true;
+      }
+
+      return updatedIt;
+    });
+
+    return {
+      ...o,
+      items,
+    };
+  });
+
+  if (changed) {
+    try {
+      fs.writeFileSync(ORDERS_FILE, JSON.stringify(normalized, null, 2), 'utf8');
+    } catch {}
+  }
+  return normalized;
+}
+
 function loadOrdersFromFile(): OrderRecord[] {
   ensureDataDir();
   try {
     if (fs.existsSync(ORDERS_FILE)) {
       const data = JSON.parse(fs.readFileSync(ORDERS_FILE, 'utf8'));
       if (Array.isArray(data)) {
-        return data;
+        return normalizeOrders(data);
       }
     }
   } catch (err) {
     console.error('Error reading orders file:', err);
   }
-  const initial = [...INITIAL_SAMPLE_ORDERS];
+  const initial = normalizeOrders([...INITIAL_SAMPLE_ORDERS]);
   saveOrdersToFile(initial);
   return initial;
 }
@@ -329,9 +413,9 @@ function normalizeProduct(p: any): ProductItem {
   }
 
   // Remove invalid or zero originalPrice to prevent stray '0' display bug
-  if (p.originalPrice !== undefined) {
+  if (p.originalPrice !== undefined && p.originalPrice !== null) {
     const validOrig = parseRobustPrice(p.originalPrice);
-    if (validOrig === null || validOrig <= 0 || validOrig <= p.price) {
+    if (validOrig === null || validOrig <= 0) {
       delete p.originalPrice;
     } else {
       p.originalPrice = validOrig;
@@ -575,7 +659,7 @@ export const dbService = {
   },
 
   async addProduct(data: any): Promise<ProductItem> {
-    const slug =
+    let slug =
       data.slug ||
       data.name
         .toLowerCase()
@@ -588,6 +672,9 @@ export const dbService = {
     }
 
     const prods = loadProductsFromFile();
+    if (prods.some((p) => p.slug === slug)) {
+      slug = `${slug}-${Date.now().toString(36)}`;
+    }
 
     // SKU Resolution & Uniqueness Verification
     const resolvedSku =
@@ -675,6 +762,7 @@ export const dbService = {
       console.error('Error creating product in DB, saving to file fallback:', err);
     }
 
+    removeFromDeletedIds(newProduct.id, newProduct.slug);
     prods.unshift(newProduct);
     saveProductsToFile(prods);
 
@@ -689,7 +777,13 @@ export const dbService = {
       throw new Error('Valid positive product price is required');
     }
     const validPrice: number | undefined = parsed ?? undefined;
-    const validOriginalPrice: number | undefined = data.originalPrice !== undefined ? (parseRobustPrice(data.originalPrice) ?? undefined) : undefined;
+    let validOriginalPrice: number | null | undefined = undefined;
+    if (data.originalPrice === null) {
+      validOriginalPrice = null;
+    } else if (data.originalPrice !== undefined) {
+      const parsedOrig = parseRobustPrice(data.originalPrice);
+      validOriginalPrice = parsedOrig !== null ? parsedOrig : undefined;
+    }
 
     const prods = loadProductsFromFile();
     const idx = prods.findIndex((p) => p.id === id || p.slug === id);
@@ -757,7 +851,14 @@ export const dbService = {
     singleProductCache.clear();
 
     if (idx !== -1) {
-      prods[idx] = normalizeProduct({
+      const targetOriginalPrice =
+        validOriginalPrice === null
+          ? undefined
+          : validOriginalPrice !== undefined
+          ? validOriginalPrice
+          : prods[idx].originalPrice;
+
+      const updatedRaw: any = {
         ...prods[idx],
         ...data,
         sku: resolvedSku || prods[idx].sku,
@@ -765,9 +866,15 @@ export const dbService = {
         subCategoryName: data.subCategoryName !== undefined ? data.subCategoryName : prods[idx].subCategoryName,
         subCategorySlug: data.subCategorySlug !== undefined ? data.subCategorySlug : prods[idx].subCategorySlug,
         price: validPrice !== undefined ? validPrice : prods[idx].price,
-        originalPrice: validOriginalPrice !== undefined ? validOriginalPrice : prods[idx].originalPrice,
+        originalPrice: targetOriginalPrice,
         categories: cleanCategories || prods[idx].categories,
-      });
+      };
+
+      if (targetOriginalPrice === undefined) {
+        delete updatedRaw.originalPrice;
+      }
+
+      prods[idx] = normalizeProduct(updatedRaw);
       saveProductsToFile(prods);
       return prods[idx];
     } else if (updatedPrisma) {

@@ -206,6 +206,7 @@ export default function CheckoutForm() {
           productId: i.productId,
           productName: i.product.name,
           productImage: i.product.image,
+          sku: i.product.sku,
           price: i.unitPrice,
           quantity: i.quantity,
           variantName: i.selectedVariant ? `${i.selectedVariant.name}: ${i.selectedVariant.value}` : undefined,

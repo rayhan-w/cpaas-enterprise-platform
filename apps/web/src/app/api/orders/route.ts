@@ -80,6 +80,7 @@ export async function POST(request: Request) {
         productId: i.productId,
         productName: i.productName,
         productImage: i.productImage,
+        sku: i.sku,
         price: Number(i.price),
         quantity: Number(i.quantity),
         variantName: i.variantName,

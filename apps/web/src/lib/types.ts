@@ -105,6 +105,7 @@ export interface OrderItemRecord {
   productId?: string;
   productName: string;
   productImage: string;
+  sku?: string;
   price: number;
   quantity: number;
   variantName?: string;

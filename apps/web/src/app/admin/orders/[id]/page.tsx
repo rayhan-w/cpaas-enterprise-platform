@@ -256,23 +256,31 @@ export default function AdminOrderDetailPage() {
                   <div className="flex items-center gap-3 min-w-0">
                     <img
                       src={item.productImage || '/jawata-mart-logo.jpg'}
-                      alt={item.productName}
+                      alt={item.productName || 'Product'}
                       onError={(e) => {
                         (e.currentTarget as HTMLImageElement).src = '/jawata-mart-logo.jpg';
                       }}
                       className="w-12 h-12 rounded-lg object-cover bg-[#F8F7F5] border border-[#EDE5E1] shrink-0"
                     />
-                    <div className="min-w-0">
+                    <div className="min-w-0 space-y-1">
                       <p className="text-xs font-bold text-[#1A1512] truncate">
-                        {item.productName || 'Product Item'}
+                        {item.productName || (item as any).title || (item as any).name || `Item #${item.sku || item.id}`}
                       </p>
-                      <p className="text-[11px] text-[#9B8A86]">
-                        {formatPrice(item.price)} × {item.quantity}
-                      </p>
+                      <div className="flex items-center gap-2 flex-wrap text-[11px] text-[#6B5B58]">
+                        <span className="font-mono bg-[#F8F7F5] border border-[#EDE5E1] px-1.5 py-0.5 rounded text-[10px] text-[#1A1512] font-semibold">
+                          SKU: {item.sku || item.productId || item.id}
+                        </span>
+                        <span>
+                          {formatPrice(item.price)} × {item.quantity}
+                        </span>
+                        {item.variantName && (
+                          <span className="text-neutral-500">({item.variantName})</span>
+                        )}
+                      </div>
                     </div>
                   </div>
                   <span className="text-xs font-bold text-[#1A1512] shrink-0">
-                    {formatPrice(item.total)}
+                    {formatPrice(item.total || (item.price * item.quantity))}
                   </span>
                 </div>
               ))}

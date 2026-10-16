@@ -158,7 +158,7 @@ export default function AdminProductsPage() {
     setIsCustomSubEdit(false);
     setCustomSubNameEdit('');
     setEditPrice(String(prod.price));
-    setEditOriginalPrice(prod.originalPrice ? String(prod.originalPrice) : '');
+    setEditOriginalPrice(prod.originalPrice !== undefined && prod.originalPrice !== null ? String(prod.originalPrice) : '');
     setEditStock(String(prod.stock));
     setEditSku(prod.sku || '');
     setEditBadge(prod.badge || '');
@@ -233,6 +233,14 @@ export default function AdminProductsPage() {
       const cleanImages = editImages.filter((img) => img && img.trim().length > 0);
       const primaryImage = cleanImages[0] || editImage.trim() || undefined;
 
+      let targetOriginalPrice: number | null | undefined = undefined;
+      if (editOriginalPrice.trim() !== '') {
+        const parsedOrig = parseRobustPrice(editOriginalPrice);
+        targetOriginalPrice = parsedOrig !== null ? parsedOrig : undefined;
+      } else if (editingProduct.originalPrice !== undefined && editingProduct.originalPrice !== null) {
+        targetOriginalPrice = null;
+      }
+
       const res = await fetch('/api/products', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -247,7 +255,7 @@ export default function AdminProductsPage() {
           subCategoryName: targetSubName,
           subCategorySlug: targetSubSlug,
           price: parsedPrice,
-          originalPrice: editOriginalPrice ? (parseRobustPrice(editOriginalPrice) || undefined) : undefined,
+          originalPrice: targetOriginalPrice,
           stock: Number(editStock) || 0,
           sku: editSku.trim() || undefined,
           badge: editBadge.trim() || undefined,

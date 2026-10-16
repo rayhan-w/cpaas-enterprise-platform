@@ -73,12 +73,11 @@ export default function CartDrawer() {
           <div className="flex items-center gap-2">
             {items.length > 0 && (
               <button
+                type="button"
                 onClick={() => {
-                  if (confirm('Remove all items from your bag?')) {
-                    clearCart();
-                  }
+                  clearCart();
                 }}
-                className="text-[11px] text-[#9B8A86] hover:text-[#D94040] transition-colors font-medium px-2 py-1 rounded-lg hover:bg-red-50"
+                className="text-[11px] text-[#9B8A86] hover:text-[#D94040] transition-colors font-medium px-2 py-1 rounded-lg hover:bg-red-50 cursor-pointer"
               >
                 Clear
               </button>
