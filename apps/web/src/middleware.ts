@@ -18,16 +18,24 @@ async function verifyAdminJwt(token: string): Promise<boolean> {
     );
 
     const data = enc.encode(`${headerB64}.${payloadB64}`);
+    let sigBase64 = sigB64.replace(/-/g, '+').replace(/_/g, '/');
+    while (sigBase64.length % 4) {
+      sigBase64 += '=';
+    }
     const sigBinary = Uint8Array.from(
-      atob(sigB64.replace(/-/g, '+').replace(/_/g, '/')),
+      atob(sigBase64),
       (c) => c.charCodeAt(0)
     );
 
     const isValid = await crypto.subtle.verify('HMAC', key, sigBinary, data);
     if (!isValid) return false;
 
+    let payloadBase64 = payloadB64.replace(/-/g, '+').replace(/_/g, '/');
+    while (payloadBase64.length % 4) {
+      payloadBase64 += '=';
+    }
     const payload = JSON.parse(
-      atob(payloadB64.replace(/-/g, '+').replace(/_/g, '/'))
+      atob(payloadBase64)
     );
     if (payload.exp && Date.now() >= payload.exp * 1000) {
       return false;

@@ -34,12 +34,16 @@ export default function AdminLoginPage() {
         return;
       }
 
-      // Store in localStorage for client auth state
+      // Store in localStorage and document.cookie for client & server auth state
       localStorage.setItem('nurtura_admin_token', data.token);
       localStorage.setItem('nurtura_admin_user', JSON.stringify(data.admin));
+      document.cookie = `nurtura_admin_token=${data.token}; path=/; max-age=604800; SameSite=Lax`;
 
       toast('Welcome back, ' + (data.admin?.name || 'Admin') + '!', 'success');
-      router.push('/admin');
+      
+      const searchParams = new URLSearchParams(window.location.search);
+      const redirectUrl = searchParams.get('redirect') || '/admin';
+      window.location.href = redirectUrl;
     } catch (err: any) {
       setErrorMsg(err.message || 'Login failed');
       toast('Network error during login', 'error');

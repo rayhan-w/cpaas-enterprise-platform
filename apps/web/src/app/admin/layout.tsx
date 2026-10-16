@@ -23,26 +23,27 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const router = useRouter();
 
-  // If login page, render plain container
-  if (pathname === '/admin/login') {
-    return <div className="min-h-screen bg-[#F8F7F5]">{children}</div>;
-  }
-
-  // Client-side session guard
+  // Client-side session guard (always runs at top level)
   React.useEffect(() => {
+    if (pathname === '/admin/login') return;
     const token = localStorage.getItem('nurtura_admin_token');
     const hasCookie = document.cookie.includes('nurtura_admin_token=');
     if (!token && !hasCookie) {
-      router.replace('/admin/login?redirect=' + encodeURIComponent(pathname));
+      window.location.href = '/admin/login?redirect=' + encodeURIComponent(pathname);
     }
-  }, [pathname, router]);
+  }, [pathname]);
 
   const handleLogout = () => {
     localStorage.removeItem('nurtura_admin_token');
     localStorage.removeItem('nurtura_admin_user');
     document.cookie = 'nurtura_admin_token=; Max-Age=0; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
-    router.replace('/admin/login');
+    window.location.href = '/admin/login';
   };
+
+  // If login page, render plain container after all hooks have run
+  if (pathname === '/admin/login') {
+    return <div className="min-h-screen bg-[#F8F7F5]">{children}</div>;
+  }
 
   const navLinks = [
     { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
