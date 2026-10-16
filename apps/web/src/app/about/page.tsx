@@ -56,7 +56,7 @@ export default async function AboutPage() {
     {
       icon: Truck,
       title: 'Nationwide Swift Delivery',
-      desc: 'Rapid delivery across all 64 districts. Inside Dhaka within 24-48 hours (৳60) and all outer divisions within 3-5 days (৳120).',
+      desc: 'Rapid delivery across all 64 districts. Inside Dhaka within 24-48 hours (৳70) and all outer divisions within 3-5 days (৳120).',
       badge: 'All 64 Districts',
     },
     {

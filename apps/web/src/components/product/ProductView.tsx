@@ -96,8 +96,11 @@ export default function ProductView({
         <div className="lg:col-span-6 space-y-4">
           <div className="relative aspect-square bg-white rounded-3xl border border-[#EDE5E1] overflow-hidden shadow-elevation-1">
             <img
-              src={activeImage}
+              src={activeImage || '/jawata-mart-logo.jpg'}
               alt={product.name}
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).src = '/jawata-mart-logo.jpg';
+              }}
               className="w-full h-full object-cover"
             />
             {product.badge && (
@@ -185,13 +188,13 @@ export default function ProductView({
             <span className="text-3xl font-bold text-[#1A1512]">
               {formatPrice(currentPrice)}
             </span>
-            {product.originalPrice && (
+            {Boolean(product.originalPrice && product.originalPrice > currentPrice) && (
               <>
                 <span className="text-sm text-[#9B8A86] line-through">
-                  {formatPrice(product.originalPrice)}
+                  {formatPrice(product.originalPrice!)}
                 </span>
                 <span className="bg-orange-50 text-[#fd6b03] font-bold text-xs px-2 py-0.5 rounded-md">
-                  Save {formatPrice(product.originalPrice - currentPrice)} ({product.discount}%)
+                  Save {formatPrice(product.originalPrice! - currentPrice)} ({Math.round(((product.originalPrice! - currentPrice) / product.originalPrice!) * 100)}%)
                 </span>
               </>
             )}
@@ -279,7 +282,7 @@ export default function ProductView({
             <div className="flex items-center gap-2.5">
               <Truck className="w-4 h-4 text-[#fd6b03] shrink-0" />
               <span>
-                <strong>Inside Dhaka:</strong> ৳60 (Same/Next Day) • <strong>Outside Dhaka:</strong> ৳120
+                <strong>Inside Dhaka:</strong> ৳70 (Same/Next Day) • <strong>Outside Dhaka:</strong> ৳120
               </span>
             </div>
             <div className="flex items-center gap-2.5">

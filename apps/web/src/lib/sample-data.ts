@@ -2419,7 +2419,7 @@ export const INITIAL_REVIEWS = [
     location: 'Chittagong City',
     rating: 5,
     date: '28 Feb 2026',
-    comment: 'Ordered the Aarong Saree for my family. The zari work is gorgeous, exactly as displayed on the website. Very happy with the cash on delivery service.',
+    comment: 'Ordered Pure Organic Honey and Mustard Oil for my family. The aroma and purity are outstanding, exactly as displayed on the website. Very happy with the cash on delivery service.',
     verified: true,
     avatar: 'RB',
   },

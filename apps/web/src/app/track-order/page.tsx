@@ -261,7 +261,7 @@ function TrackOrderContent() {
                 {order.items.map((it) => (
                   <div key={it.id} className="pt-2 first:pt-0 flex justify-between gap-2">
                     <span className="text-[#1A1512] line-clamp-1">
-                      {it.quantity}x {it.productName}
+                      {it.quantity}x {it.productName || (it as any).name || (it as any).title || 'Product Item'}
                     </span>
                     <span className="font-bold text-[#1A1512] shrink-0">
                       {formatPrice(it.total)}

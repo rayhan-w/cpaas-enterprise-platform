@@ -181,7 +181,11 @@ export default function AdminCategoriesPage() {
 
   // --- Delete Category ---
   const handleDeleteCategory = async (id: string, name: string) => {
-    if (!window.confirm(`Are you sure you want to delete category "${name}"? All subcategories will also be removed.`)) {
+    if (
+      !window.confirm(
+        `Are you sure you want to delete category "${name}"?\n\nProducts in this category will NOT be deleted; they will remain visible and be safely reassigned to "General".`
+      )
+    ) {
       return;
     }
 

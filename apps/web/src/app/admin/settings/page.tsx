@@ -62,8 +62,6 @@ export default function AdminSettingsPage() {
     enableBankTransfer: true,
 
     // Stripe Gateway Configuration
-    stripePublishableKey: '',
-    stripeSecretKey: '',
     enableStripe: true,
     
     // Feature Toggles
@@ -75,7 +73,6 @@ export default function AdminSettingsPage() {
 
     // Tracking & Analytics Configuration
     metaPixelId: '',
-    metaCapiToken: '',
     metaTestEventCode: '',
     enableMetaPixel: true,
     enableMetaCapi: true,
@@ -96,10 +93,10 @@ export default function AdminSettingsPage() {
   const handleTestCapiEvent = async () => {
     setTestLoading(true);
     setTestResult(null);
-    if (!formData.metaPixelId?.trim() || !formData.metaCapiToken?.trim()) {
+    if (!formData.metaPixelId?.trim()) {
       setTestResult({
         success: false,
-        message: 'Please enter your Meta Pixel ID and Meta Conversions API Access Token in the fields above first.',
+        message: 'Please enter your Meta Pixel ID in the field above first.',
       });
       setTestLoading(false);
       return;
@@ -113,7 +110,6 @@ export default function AdminSettingsPage() {
           eventName: 'TestEvent',
           eventId: `test_${Date.now()}`,
           pixelId: formData.metaPixelId.trim(),
-          capiToken: formData.metaCapiToken.trim(),
           testEventCode: formData.metaTestEventCode?.trim() || undefined,
           value: 1250,
           currency: 'BDT',
@@ -512,27 +508,25 @@ export default function AdminSettingsPage() {
                   <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
                     Stripe Publishable Key
                   </label>
-                  <input
-                    type="text"
-                    name="stripePublishableKey"
-                    value={formData.stripePublishableKey}
-                    onChange={handleChange}
-                    placeholder="pk_live_... or pk_test_..."
-                    className="w-full px-3.5 py-2 rounded-lg border border-charcoal-200 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#635BFF]/20"
-                  />
+                  <div className="p-3 bg-gray-50 border border-charcoal-200 rounded-xl text-xs text-charcoal-700 flex items-center justify-between">
+                    <span>Server Environment (NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)</span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
+                      Server Configured
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-charcoal-500 mt-1">Managed via server environment variables.</p>
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
                     Stripe Secret Key
                   </label>
-                  <input
-                    type="password"
-                    name="stripeSecretKey"
-                    value={formData.stripeSecretKey}
-                    onChange={handleChange}
-                    placeholder="sk_live_... or sk_test_..."
-                    className="w-full px-3.5 py-2 rounded-lg border border-charcoal-200 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#635BFF]/20"
-                  />
+                  <div className="p-3 bg-gray-50 border border-charcoal-200 rounded-xl text-xs text-charcoal-700 flex items-center justify-between">
+                    <span>Server Secret (STRIPE_SECRET_KEY)</span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                      Protected Secret
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-charcoal-500 mt-1">Strictly isolated server-side. Never rendered in browser.</p>
                 </div>
               </div>
             </div>
@@ -853,16 +847,14 @@ export default function AdminSettingsPage() {
                   <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
                     Meta Conversions API (CAPI) Access Token
                   </label>
-                  <textarea
-                    rows={2}
-                    name="metaCapiToken"
-                    value={formData.metaCapiToken || ''}
-                    onChange={handleChange}
-                    placeholder="EAABw..."
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#6CAE14]/20 focus:border-[#6CAE14] resize-none"
-                  />
+                  <div className="p-3 bg-gray-50 border border-charcoal-200 rounded-xl text-xs text-charcoal-700 flex items-center justify-between">
+                    <span>Server Secret (META_CAPI_ACCESS_TOKEN)</span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                      Protected Secret
+                    </span>
+                  </div>
                   <p className="text-[11px] text-charcoal-500 mt-1">
-                    Generated in Meta Events Manager &gt; Settings &gt; Conversions API &gt; Generate access token
+                    Conversions API access token is stored safely in server environment variables and never exposed to the client browser.
                   </p>
                 </div>
               </div>

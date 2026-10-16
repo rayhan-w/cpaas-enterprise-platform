@@ -211,14 +211,20 @@ export default function AdminOrdersPage() {
                     {/* Date */}
                     <td className="p-3 text-[#6B5B58]">{formatDate(order.createdAt)}</td>
 
-                    {/* Track Link */}
-                    <td className="p-3 text-right">
+                    {/* Actions */}
+                    <td className="p-3 text-right whitespace-nowrap space-x-2">
+                      <Link
+                        href={`/admin/orders/${order.id}`}
+                        className="inline-block px-2.5 py-1 bg-[#6CAE14]/10 text-[#6CAE14] hover:bg-[#6CAE14]/20 rounded-md font-bold text-[11px] transition-colors"
+                      >
+                        Details
+                      </Link>
                       <Link
                         href={`/track-order?orderId=${order.orderNumber}&phone=${order.customerPhone}`}
                         target="_blank"
-                        className="text-[#6CAE14] hover:underline font-semibold text-[11px]"
+                        className="text-[#6B5B58] hover:text-[#1A1512] font-semibold text-[11px]"
                       >
-                        Track View →
+                        Track →
                       </Link>
                     </td>
                   </tr>

@@ -4,9 +4,8 @@ import { BkashLogo, NagadLogo, CardLogosGroup, CodBadge } from '@/components/com
 
 export default function DeliveryInfoSection() {
   const rates = [
-    { area: 'Dhaka City (Metro)', charge: '৳60', time: 'Same Day / Next Day Delivery' },
-    { area: 'Chittagong & Sylhet Sadar', charge: '৳100', time: '1–2 Business Days' },
-    { area: 'All Other 61 Districts', charge: '৳120', time: '2–3 Business Days' },
+    { area: 'Dhaka City (Metro)', charge: '৳70', time: 'Same Day / Next Day Delivery' },
+    { area: 'All Other 63 Districts (Outside Dhaka)', charge: '৳120', time: '2–3 Business Days' },
     { area: 'Orders above ৳2,000', charge: 'Free 🎉', time: 'Nationwide Standard Delivery' },
   ];
 

@@ -39,15 +39,19 @@ export default function ProductCard({ product }: { product: ProductItem }) {
     setIsWishlisted(!isWishlisted);
   };
 
+  const calculatedDiscount = Boolean(product.originalPrice && product.originalPrice > product.price)
+    ? Math.round(((product.originalPrice! - product.price) / product.originalPrice!) * 100)
+    : (product.discount && product.discount > 0 ? product.discount : 0);
+
   return (
     <>
       <div className="group bg-white rounded-2xl border border-[#DFECCE] hover:border-[#6CAE14] hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col relative h-full">
         {/* Top Badges & Wishlist */}
         <div className="absolute top-2.5 left-2.5 right-2.5 z-10 flex items-center justify-between pointer-events-none">
           <div className="flex flex-col gap-1 items-start">
-            {product.discount > 0 ? (
+            {calculatedDiscount > 0 ? (
               <span className="bg-[#6CAE14] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm pointer-events-auto">
-                -{product.discount}% OFF
+                -{calculatedDiscount}% OFF
               </span>
             ) : product.badge ? (
               <span className="bg-[#0E140E] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm pointer-events-auto">
@@ -75,8 +79,11 @@ export default function ProductCard({ product }: { product: ProductItem }) {
           className="block relative aspect-square bg-[#FAFCF7] overflow-hidden p-2"
         >
           <img
-            src={product.image}
+            src={product.image || '/jawata-mart-logo.jpg'}
             alt={product.name}
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).src = '/jawata-mart-logo.jpg';
+            }}
             className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500 ease-out"
             loading="lazy"
           />
@@ -111,7 +118,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
               <div className="flex items-center gap-0.5 sm:gap-1 text-[#F59E0B] font-bold text-[10px] sm:text-[11px] shrink-0">
                 <Star className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current" />
                 <span>{product.rating ? product.rating.toFixed(1) : '5.0'}</span>
-                <span className="text-[#879787] text-[9px] sm:text-[10px]">({product.reviewCount || 12})</span>
+                <span className="text-[#879787] text-[9px] sm:text-[10px]">({product.reviewCount || 0})</span>
               </div>
             </div>
 
@@ -129,9 +136,9 @@ export default function ProductCard({ product }: { product: ProductItem }) {
               <span className="text-sm xs:text-base sm:text-lg font-bold text-[#0E140E]">
                 {formatPrice(product.price)}
               </span>
-              {product.originalPrice && product.originalPrice > product.price && (
+              {Boolean(product.originalPrice && product.originalPrice > product.price) && (
                 <span className="text-[10px] sm:text-xs text-[#879787] line-through font-medium">
-                  {formatPrice(product.originalPrice)}
+                  {formatPrice(product.originalPrice!)}
                 </span>
               )}
             </div>

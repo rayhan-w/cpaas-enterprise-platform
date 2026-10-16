@@ -190,7 +190,7 @@ export default function CartPage() {
                       : 'border-[#EDE5E1] text-[#6B5B58]'
                   }`}
                 >
-                  Inside Dhaka (৳60)
+                  Inside Dhaka (৳70)
                 </button>
                 <button
                   onClick={() => setDeliveryZone('OUTSIDE_DHAKA')}

@@ -13,6 +13,7 @@ export async function GET(request: Request) {
   const isFeatured = searchParams.get('featured') === 'true' ? true : undefined;
   const isBestSeller = searchParams.get('bestseller') === 'true' ? true : undefined;
   const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : undefined;
+  const includeInactive = searchParams.get('includeInactive') === 'true';
 
   const products = await dbService.getProducts({
     categorySlug,
@@ -20,6 +21,7 @@ export async function GET(request: Request) {
     isFeatured,
     isBestSeller,
     limit,
+    includeInactive,
   });
 
   return NextResponse.json(

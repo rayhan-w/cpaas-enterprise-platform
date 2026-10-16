@@ -100,7 +100,7 @@ export default function AdminProductsPage() {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/products');
+      const res = await fetch('/api/products?includeInactive=true');
       const data = await res.json();
       setProducts(data.products || []);
     } catch {
@@ -469,13 +469,22 @@ export default function AdminProductsPage() {
 
   const filteredProducts = products.filter((p) => {
     if (search.trim()) {
-      const q = search.toLowerCase();
+      const q = search.toLowerCase().trim();
+      const isHoney = q === 'modhu' || q === 'madhu' || q === 'honey' || q.includes('মধু');
       const matchSearch =
         p.name.toLowerCase().includes(q) ||
         (p.brand && p.brand.toLowerCase().includes(q)) ||
         (p.sku && p.sku.toLowerCase().includes(q)) ||
         (p.categoryName && p.categoryName.toLowerCase().includes(q)) ||
-        (Array.isArray(p.categories) && p.categories.some((c) => c.toLowerCase().includes(q)));
+        (p.subCategoryName && p.subCategoryName.toLowerCase().includes(q)) ||
+        (Array.isArray(p.categories) && p.categories.some((c) => c.toLowerCase().includes(q))) ||
+        (isHoney && (
+          p.slug.includes('honey') ||
+          p.slug.includes('modhu') ||
+          p.name.includes('মধু') ||
+          p.name.toLowerCase().includes('honey') ||
+          p.name.toLowerCase().includes('modhu')
+        ));
       if (!matchSearch) return false;
     }
 
@@ -801,7 +810,7 @@ export default function AdminProductsPage() {
                     </td>
                     <td className="p-3 font-bold text-[#1A1512]">
                       <span>{formatPrice(prod.price)}</span>
-                      {prod.originalPrice && (
+                      {Boolean(prod.originalPrice && prod.originalPrice > prod.price) && (
                         <span className="text-[10px] text-[#9B8A86] line-through block">
                           {formatPrice(prod.originalPrice)}
                         </span>

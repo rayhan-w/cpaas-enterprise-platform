@@ -1,0 +1,715 @@
+[
+  {
+    "id": "cat-organic-food",
+    "name": "Organic Food",
+    "slug": "organic-food",
+    "image": "/images/organic-pure-ghee.jpg",
+    "description": "100% pure natural honey, wood-pressed mustard oil, homemade cow ghee, and traditional homemade pickles.",
+    "icon": "Leaf",
+    "isFeatured": true,
+    "order": 1,
+    "isActive": true,
+    "productCount": 4,
+    "subCategories": [
+      {
+        "id": "sub-pure-ghee",
+        "categoryId": "cat-organic-food",
+        "name": "Pure Cow Ghee (ঘি)",
+        "slug": "pure-ghee",
+        "order": 1
+      },
+      {
+        "id": "sub-mustard-oil",
+        "categoryId": "cat-organic-food",
+        "name": "Wood Pressed Mustard Oil (সরিষার তেল)",
+        "slug": "mustard-oil",
+        "order": 2
+      },
+      {
+        "id": "sub-natural-honey",
+        "categoryId": "cat-organic-food",
+        "name": "Natural Honey (মধু)",
+        "slug": "natural-honey",
+        "order": 3
+      },
+      {
+        "id": "sub-homemade-pickle",
+        "categoryId": "cat-organic-food",
+        "name": "Homemade Pickles & Achar (ঘরোয়া আচার)",
+        "slug": "homemade-pickle",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "id": "cat-fashion",
+    "name": "Fashion",
+    "slug": "fashion",
+    "image": "https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&h=600&fit=crop",
+    "description": "Trendy men's and women's apparel, premium Panjabi, casual shirts, elegant sarees, stylish kurtis, denim jeans, and fashion accessories.",
+    "icon": "Shirt",
+    "isFeatured": true,
+    "order": 2,
+    "isActive": true,
+    "productCount": 6,
+    "subCategories": [
+      {
+        "id": "sub-mens-fashion",
+        "categoryId": "cat-fashion",
+        "name": "Men's Fashion & Panjabi",
+        "slug": "mens-fashion",
+        "order": 1
+      },
+      {
+        "id": "sub-womens-fashion",
+        "categoryId": "cat-fashion",
+        "name": "Women's Fashion & Sarees",
+        "slug": "womens-fashion",
+        "order": 2
+      },
+      {
+        "id": "sub-casual-shirts-polo",
+        "categoryId": "cat-fashion",
+        "name": "Casual Shirts & Polo",
+        "slug": "casual-shirts-polo",
+        "order": 3
+      },
+      {
+        "id": "sub-kurtis-tops",
+        "categoryId": "cat-fashion",
+        "name": "Kurtis, Tops & Tunics",
+        "slug": "kurtis-tops",
+        "order": 4
+      },
+      {
+        "id": "sub-fashion-accessories",
+        "categoryId": "cat-fashion",
+        "name": "Fashion Accessories & Belts",
+        "slug": "fashion-accessories",
+        "order": 5
+      }
+    ]
+  },
+  {
+    "id": "cat-bag",
+    "name": "Bag",
+    "slug": "bag",
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop",
+    "description": "School bags, kids backpacks, elegant ladies handbags, and durable travelling bags.",
+    "icon": "Briefcase",
+    "isFeatured": true,
+    "order": 1,
+    "isActive": true,
+    "subCategories": [
+      {
+        "id": "sub-school-bag",
+        "categoryId": "cat-bag",
+        "name": "School Bag",
+        "slug": "school-bag",
+        "order": 1
+      },
+      {
+        "id": "sub-kids-bag",
+        "categoryId": "cat-bag",
+        "name": "Kids Bag",
+        "slug": "kids-bag",
+        "order": 2
+      },
+      {
+        "id": "sub-ladies-bag",
+        "categoryId": "cat-bag",
+        "name": "Ladies Bag",
+        "slug": "ladies-bag",
+        "order": 3
+      },
+      {
+        "id": "sub-travelling-bag",
+        "categoryId": "cat-bag",
+        "name": "Travelling Bag",
+        "slug": "travelling-bag",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "id": "cat-kids-toys",
+    "name": "Kids Toys",
+    "slug": "kids-toys",
+    "image": "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600&h=600&fit=crop",
+    "description": "Montessori educational toys, high-speed remote control cars, plush dolls, and outdoor games.",
+    "icon": "Gamepad2",
+    "isFeatured": true,
+    "order": 2,
+    "isActive": true,
+    "subCategories": [
+      {
+        "id": "sub-educational-toys",
+        "categoryId": "cat-kids-toys",
+        "name": "Educational Toys",
+        "slug": "educational-toys",
+        "order": 1
+      },
+      {
+        "id": "sub-rc-cars",
+        "categoryId": "cat-kids-toys",
+        "name": "Remote Control & Cars",
+        "slug": "rc-cars",
+        "order": 2
+      },
+      {
+        "id": "sub-dolls-soft-toys",
+        "categoryId": "cat-kids-toys",
+        "name": "Dolls & Soft Toys",
+        "slug": "dolls-soft-toys",
+        "order": 3
+      },
+      {
+        "id": "sub-outdoor-toys",
+        "categoryId": "cat-kids-toys",
+        "name": "Outdoor & Sports Toys",
+        "slug": "outdoor-toys",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "id": "cat-baby-dress",
+    "name": "Baby Dress",
+    "slug": "baby-dress",
+    "image": "https://images.unsplash.com/photo-1522771930-78848d9293e8?w=600&h=600&fit=crop",
+    "description": "100% organic cotton newborn clothes, stylish baby boys and girls party dresses, and comfortable rompers.",
+    "icon": "Baby",
+    "isFeatured": true,
+    "order": 3,
+    "isActive": true,
+    "subCategories": [
+      {
+        "id": "sub-newborn-clothes",
+        "categoryId": "cat-baby-dress",
+        "name": "Newborn Clothes",
+        "slug": "newborn-clothes",
+        "order": 1
+      },
+      {
+        "id": "sub-baby-boys-dress",
+        "categoryId": "cat-baby-dress",
+        "name": "Baby Boys Dress",
+        "slug": "baby-boys-dress",
+        "order": 2
+      },
+      {
+        "id": "sub-baby-girls-dress",
+        "categoryId": "cat-baby-dress",
+        "name": "Baby Girls Dress",
+        "slug": "baby-girls-dress",
+        "order": 3
+      },
+      {
+        "id": "sub-rompers-sets",
+        "categoryId": "cat-baby-dress",
+        "name": "Rompers & Sets",
+        "slug": "rompers-sets",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "id": "cat-baby-shoes",
+    "name": "Baby Shoes",
+    "slug": "baby-shoes",
+    "image": "https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=600&h=600&fit=crop",
+    "description": "Anti-slip soft sole infant booties, baby boy formal shoes, princess girl shoes, and toddler sneakers.",
+    "icon": "Footprints",
+    "isFeatured": true,
+    "order": 4,
+    "isActive": true,
+    "subCategories": [
+      {
+        "id": "sub-soft-sole-booties",
+        "categoryId": "cat-baby-shoes",
+        "name": "Soft Sole Booties",
+        "slug": "soft-sole-booties",
+        "order": 1
+      },
+      {
+        "id": "sub-baby-boy-shoes",
+        "categoryId": "cat-baby-shoes",
+        "name": "Baby Boy Shoes",
+        "slug": "baby-boy-shoes",
+        "order": 2
+      },
+      {
+        "id": "sub-baby-girl-shoes",
+        "categoryId": "cat-baby-shoes",
+        "name": "Baby Girl Shoes",
+        "slug": "baby-girl-shoes",
+        "order": 3
+      },
+      {
+        "id": "sub-toddler-sneakers",
+        "categoryId": "cat-baby-shoes",
+        "name": "Toddler Sneakers & Sandals",
+        "slug": "toddler-sneakers",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "id": "cat-cosmetics-items",
+    "name": "Cosmetics Items (Baby & Parents)",
+    "slug": "cosmetics-items",
+    "image": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&h=600&fit=crop",
+    "description": "Safe organic baby wash, tear-free shampoos, postpartum mother care essentials, and skincare.",
+    "icon": "Sparkles",
+    "isFeatured": true,
+    "order": 5,
+    "isActive": true,
+    "subCategories": [
+      {
+        "id": "sub-baby-skincare-wash",
+        "categoryId": "cat-cosmetics-items",
+        "name": "Baby Skincare & Wash",
+        "slug": "baby-skincare-wash",
+        "order": 1
+      },
+      {
+        "id": "sub-mother-care",
+        "categoryId": "cat-cosmetics-items",
+        "name": "Mother Care & Postpartum",
+        "slug": "mother-care",
+        "order": 2
+      },
+      {
+        "id": "sub-organic-hair-care",
+        "categoryId": "cat-cosmetics-items",
+        "name": "Organic Hair Care",
+        "slug": "organic-hair-care",
+        "order": 3
+      },
+      {
+        "id": "sub-fragrance-glow",
+        "categoryId": "cat-cosmetics-items",
+        "name": "Fragrance & Glow",
+        "slug": "fragrance-glow",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "id": "cat-gift-item",
+    "name": "Gift Item",
+    "slug": "gift-item",
+    "image": "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=600&h=600&fit=crop",
+    "description": "Thoughtful birthday surprise boxes, baby shower combo packs, Islamic gift boxes, and corporate tokens.",
+    "icon": "Gift",
+    "isFeatured": true,
+    "order": 6,
+    "isActive": true,
+    "subCategories": [
+      {
+        "id": "sub-birthday-gifts",
+        "categoryId": "cat-gift-item",
+        "name": "Birthday Gifts",
+        "slug": "birthday-gifts",
+        "order": 1
+      },
+      {
+        "id": "sub-baby-shower-combos",
+        "categoryId": "cat-gift-item",
+        "name": "Baby Shower Combos",
+        "slug": "baby-shower-combos",
+        "order": 2
+      },
+      {
+        "id": "sub-islamic-gift-sets",
+        "categoryId": "cat-gift-item",
+        "name": "Islamic Gift Sets",
+        "slug": "islamic-gift-sets",
+        "order": 3
+      },
+      {
+        "id": "sub-custom-gifts",
+        "categoryId": "cat-gift-item",
+        "name": "Corporate & Custom Gifts",
+        "slug": "custom-gifts",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "id": "cat-home-tex",
+    "name": "Home Tex",
+    "slug": "home-tex",
+    "image": "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=600&h=600&fit=crop",
+    "description": "Cotton bath towels, luxury living room curtains, decorative cushion covers, and dining table runners.",
+    "icon": "Home",
+    "isFeatured": true,
+    "order": 7,
+    "isActive": true,
+    "subCategories": [
+      {
+        "id": "sub-towels-bath-mats",
+        "categoryId": "cat-home-tex",
+        "name": "Towels & Bath Mats",
+        "slug": "towels-bath-mats",
+        "order": 1
+      },
+      {
+        "id": "sub-curtains-drapes",
+        "categoryId": "cat-home-tex",
+        "name": "Curtains & Drapes",
+        "slug": "curtains-drapes",
+        "order": 2
+      },
+      {
+        "id": "sub-cushion-covers",
+        "categoryId": "cat-home-tex",
+        "name": "Cushion & Pillow Covers",
+        "slug": "cushion-covers",
+        "order": 3
+      },
+      {
+        "id": "sub-table-linens",
+        "categoryId": "cat-home-tex",
+        "name": "Table Linens & Mats",
+        "slug": "table-linens",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "id": "cat-bed-sheet",
+    "name": "Bed Sheet",
+    "slug": "bed-sheet",
+    "image": "https://images.unsplash.com/photo-1629949009765-40fc74c95018?w=600&h=600&fit=crop",
+    "description": "100% pure cotton king and queen bedsheets, single bed sheets, floral prints, and cozy comforters.",
+    "icon": "Layers",
+    "isFeatured": true,
+    "order": 8,
+    "isActive": true,
+    "subCategories": [
+      {
+        "id": "sub-single-bed-sheets",
+        "categoryId": "cat-bed-sheet",
+        "name": "Single Bed Sheets",
+        "slug": "single-bed-sheets",
+        "order": 1
+      },
+      {
+        "id": "sub-double-king-bed-sheets",
+        "categoryId": "cat-bed-sheet",
+        "name": "Double & King Bed Sheets",
+        "slug": "double-king-bed-sheets",
+        "order": 2
+      },
+      {
+        "id": "sub-cotton-printed-bedsheets",
+        "categoryId": "cat-bed-sheet",
+        "name": "100% Cotton Printed",
+        "slug": "cotton-printed-bedsheets",
+        "order": 3
+      },
+      {
+        "id": "sub-comforters-blankets",
+        "categoryId": "cat-bed-sheet",
+        "name": "Comforters & Blankets",
+        "slug": "comforters-blankets",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "id": "cat-educational-items",
+    "name": "Educational Items",
+    "slug": "educational-items",
+    "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=600&fit=crop",
+    "description": "Child-friendly Islamic & moral storybooks, brain puzzle flashcards, art supplies, and Montessori gear.",
+    "icon": "BookOpen",
+    "isFeatured": true,
+    "order": 9,
+    "isActive": true,
+    "subCategories": [
+      {
+        "id": "sub-islamic-general-books",
+        "categoryId": "cat-educational-items",
+        "name": "Islamic & General Books",
+        "slug": "islamic-general-books",
+        "order": 1
+      },
+      {
+        "id": "sub-flashcards-puzzles",
+        "categoryId": "cat-educational-items",
+        "name": "Learning Flashcards & Puzzles",
+        "slug": "flashcards-puzzles",
+        "order": 2
+      },
+      {
+        "id": "sub-writing-art-supplies",
+        "categoryId": "cat-educational-items",
+        "name": "Writing & Art Supplies",
+        "slug": "writing-art-supplies",
+        "order": 3
+      },
+      {
+        "id": "sub-montessori-tools",
+        "categoryId": "cat-educational-items",
+        "name": "Montessori Tools",
+        "slug": "montessori-tools",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "id": "cat-kitchen-items",
+    "name": "Kitchen Items",
+    "slug": "kitchen-items",
+    "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600&h=600&fit=crop",
+    "description": "Granite non-stick cookware pots, airtight glass organizers, stainless cutlery, and baby food silicone bowls.",
+    "icon": "Utensils",
+    "isFeatured": true,
+    "order": 10,
+    "isActive": true,
+    "subCategories": [
+      {
+        "id": "sub-cookware-pots",
+        "categoryId": "cat-kitchen-items",
+        "name": "Cookware & Pots",
+        "slug": "cookware-pots",
+        "order": 1
+      },
+      {
+        "id": "sub-kitchen-storage",
+        "categoryId": "cat-kitchen-items",
+        "name": "Kitchen Storage & Organizers",
+        "slug": "kitchen-storage",
+        "order": 2
+      },
+      {
+        "id": "sub-cutlery-dinnerware",
+        "categoryId": "cat-kitchen-items",
+        "name": "Cutlery & Dinnerware",
+        "slug": "cutlery-dinnerware",
+        "order": 3
+      },
+      {
+        "id": "sub-baby-dining",
+        "categoryId": "cat-kitchen-items",
+        "name": "Silicone & Baby Dining",
+        "slug": "baby-dining",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "id": "cat-health-skin-care",
+    "name": "Health Care & Skin Care Items",
+    "slug": "health-skin-care",
+    "image": "https://images.unsplash.com/photo-1552819289-824d37ca69d2?w=600&h=600&fit=crop",
+    "description": "Herbal face wash, brightening serums, cold-pressed hair growth oils, sunscreen, and daily vitamins.",
+    "icon": "HeartPulse",
+    "isFeatured": true,
+    "order": 11,
+    "isActive": true,
+    "subCategories": [
+      {
+        "id": "sub-organic-face-care",
+        "categoryId": "cat-health-skin-care",
+        "name": "Organic Face Care",
+        "slug": "organic-face-care",
+        "order": 1
+      },
+      {
+        "id": "sub-natural-hair-oils",
+        "categoryId": "cat-health-skin-care",
+        "name": "Natural Hair Oils",
+        "slug": "natural-hair-oils",
+        "order": 2
+      },
+      {
+        "id": "sub-sunscreens-moisturizers",
+        "categoryId": "cat-health-skin-care",
+        "name": "Sunscreens & Moisturizers",
+        "slug": "sunscreens-moisturizers",
+        "order": 3
+      },
+      {
+        "id": "sub-wellness-supplements",
+        "categoryId": "cat-health-skin-care",
+        "name": "Wellness Supplements",
+        "slug": "wellness-supplements",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "id": "cat-islamic-items",
+    "name": "Islamic Items",
+    "slug": "islamic-items",
+    "image": "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600&h=600&fit=crop",
+    "description": "Tajweed Quran with wooden Rehal, luxury velvet prayer mats, alcohol-free Attar, and crystal Tasbeeh.",
+    "icon": "Moon",
+    "isFeatured": true,
+    "order": 12,
+    "isActive": true,
+    "subCategories": [
+      {
+        "id": "sub-quran-rehal",
+        "categoryId": "cat-islamic-items",
+        "name": "Quran & Rehal",
+        "slug": "quran-rehal",
+        "order": 1
+      },
+      {
+        "id": "sub-janamaz-prayer-mats",
+        "categoryId": "cat-islamic-items",
+        "name": "Premium Janamaz (Prayer Mats)",
+        "slug": "janamaz-prayer-mats",
+        "order": 2
+      },
+      {
+        "id": "sub-attar-tasbeeh",
+        "categoryId": "cat-islamic-items",
+        "name": "Attar & Tasbeeh",
+        "slug": "attar-tasbeeh",
+        "order": 3
+      },
+      {
+        "id": "sub-islamic-books-caps",
+        "categoryId": "cat-islamic-items",
+        "name": "Islamic Books & Caps",
+        "slug": "islamic-books-caps",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "id": "cat-winter-items",
+    "name": "Winter Items",
+    "slug": "winter-items",
+    "image": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&h=600&fit=crop",
+    "description": "Baby fleece hoodies, thermal inner wear, Kashmiri shawls, thick winter blankets, and wool caps.",
+    "icon": "Snowflake",
+    "isFeatured": true,
+    "order": 13,
+    "isActive": true,
+    "subCategories": [
+      {
+        "id": "sub-baby-winter-sweaters",
+        "categoryId": "cat-winter-items",
+        "name": "Baby Winter Sweaters & Hoodies",
+        "slug": "baby-winter-sweaters",
+        "order": 1
+      },
+      {
+        "id": "sub-shawls-wraps",
+        "categoryId": "cat-winter-items",
+        "name": "Shawls & Wraps",
+        "slug": "shawls-wraps",
+        "order": 2
+      },
+      {
+        "id": "sub-quilts-blankets",
+        "categoryId": "cat-winter-items",
+        "name": "Blankets & Quilts",
+        "slug": "quilts-blankets",
+        "order": 3
+      },
+      {
+        "id": "sub-winter-caps-socks",
+        "categoryId": "cat-winter-items",
+        "name": "Winter Caps & Socks",
+        "slug": "winter-caps-socks",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "id": "cat-weather-items",
+    "name": "Weather & Umbrella",
+    "slug": "weather-items",
+    "image": "/uploads/clean/1789051394753.jpg",
+    "description": "High quality windproof umbrellas, transparent dome umbrellas, UV sun protection gear, and waterproof raincoats.",
+    "icon": "CloudRain",
+    "isFeatured": true,
+    "order": 14,
+    "isActive": true,
+    "subCategories": [
+      {
+        "id": "sub-umbrellas",
+        "categoryId": "cat-weather-items",
+        "name": "Umbrellas & Parasols",
+        "slug": "umbrellas",
+        "order": 1
+      },
+      {
+        "id": "sub-kids-rainwear",
+        "categoryId": "cat-weather-items",
+        "name": "Kids Rainwear & Raincoats",
+        "slug": "raincoats",
+        "order": 2
+      },
+      {
+        "id": "sub-uv-sun-shield",
+        "categoryId": "cat-weather-items",
+        "name": "UV Sun Protection",
+        "slug": "sun-protection",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "id": "cat-general",
+    "name": "General",
+    "slug": "general",
+    "image": "",
+    "description": "General Category",
+    "isFeatured": false,
+    "order": 18,
+    "isActive": true,
+    "subCategories": []
+  },
+  {
+    "id": "cat-b",
+    "name": "Baby Items",
+    "slug": "baby-items",
+    "image": "/uploads/1792076880361-3.jpeg.webp",
+    "description": "Baby Winter Products for your babies safety from cold",
+    "icon": null,
+    "isFeatured": false,
+    "order": 19,
+    "isActive": true,
+    "subCategories": []
+  },
+  {
+    "id": "cat-Smart Device",
+    "name": "Gadget Items",
+    "slug": "gadget-items",
+    "image": "/uploads/1792077336503-GPS_Tracker.jpeg.webp",
+    "description": "All types of Gadget items",
+    "icon": null,
+    "isFeatured": false,
+    "order": 20,
+    "isActive": true,
+    "subCategories": [
+      {
+        "id": "sub-gps-tracker-tracking-device",
+        "categoryId": "cat-Smart Device",
+        "name": "GPS Tracker/Tracking Device",
+        "slug": "gps-tracker-tracking-device",
+        "order": 1
+      }
+    ]
+  },
+  {
+    "id": "cat-Milk Food",
+    "name": "Milk Powder (Imported)",
+    "slug": "milk-powder",
+    "image": "/uploads/1792123547745-Milk_Powder...jpeg.webp",
+    "description": "",
+    "icon": null,
+    "isFeatured": false,
+    "order": 21,
+    "isActive": true,
+    "subCategories": []
+  }
+]

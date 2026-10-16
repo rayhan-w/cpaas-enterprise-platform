@@ -1,0 +1,2406 @@
+[
+  {
+    "id": "prod_1792127007183",
+    "name": "Modhu",
+    "slug": "modhu",
+    "categoryId": "cat-organic-food",
+    "categoryName": "Organic Food",
+    "categorySlug": "organic-food",
+    "categories": [
+      "Organic Food"
+    ],
+    "brand": "Brand",
+    "price": 200,
+    "discount": 0,
+    "stock": 50,
+    "image": "/uploads/1792127000739-9676a1a4781c49bda15f9ebdb3a50c46-Honey-blog-banner.avif.webp",
+    "images": [
+      "/uploads/1792127000739-9676a1a4781c49bda15f9ebdb3a50c46-Honey-blog-banner.avif.webp"
+    ],
+    "description": "১০০% খাঁটি ও প্রাকৃতিক সুন্দরবন মধু (100% Pure Natural Raw Honey)। সরাসরি সংগ্রহ করা পুষ্টিকর, সুস্বাদু ও ভেজালমুক্ত খাঁটি মধু।",
+    "specifications": {
+      "Type": "Natural Honey (মধু)",
+      "Origin": "Sundarbans, Bangladesh",
+      "Purity": "100% Pure Raw Honey",
+      "_categories": [
+        "Organic Food"
+      ]
+    },
+    "badge": "100% Pure 🍯",
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": false,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 0,
+    "sku": "JM-ORG-HNY-02",
+    "subCategoryId": "sub-natural-honey",
+    "subCategoryName": "Natural Honey (মধু)",
+    "subCategorySlug": "natural-honey"
+  },
+  {
+    "id": "prod_1792124061978",
+    "name": "Milk Powder",
+    "slug": "milk-powder",
+    "categoryId": "cat-organic-food",
+    "categoryName": "Organic Food",
+    "categorySlug": "organic-food",
+    "categories": [
+      "Milk Powder (Imported)",
+      "Organic Food"
+    ],
+    "brand": "Brand",
+    "price": 3500,
+    "originalPrice": 4500,
+    "discount": 0,
+    "stock": 50,
+    "image": "/uploads/1792124043459-Milk_Powder...jpeg.webp",
+    "images": [
+      "/uploads/1792124043459-Milk_Powder...jpeg.webp",
+      "/uploads/1792124055002-Milk_Powder.jpeg.webp"
+    ],
+    "description": "",
+    "specifications": {
+      "_categories": [
+        "Milk Powder (Imported)",
+        "Organic Food"
+      ]
+    },
+    "badge": "",
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": false,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 0,
+    "sku": "JM-MLK-PWD-01"
+  },
+  {
+    "id": "prod_1792118334742",
+    "name": "Huney",
+    "slug": "huney",
+    "categoryId": "cat-organic-food",
+    "categoryName": "Organic Food",
+    "categorySlug": "organic-food",
+    "categories": [
+      "Organic Food"
+    ],
+    "brand": "Brand",
+    "price": 800,
+    "originalPrice": 900,
+    "discount": 0,
+    "stock": 50,
+    "image": "/uploads/1792118301872-Honey...jpeg.webp",
+    "images": [
+      "/uploads/1792118301872-Honey...jpeg.webp",
+      "/uploads/1792118308742-Honey.jpeg.webp"
+    ],
+    "description": "",
+    "specifications": {
+      "_categories": [
+        "Organic Food"
+      ]
+    },
+    "badge": "",
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": false,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 0,
+    "sku": "JM-ORG-HNY-03"
+  },
+  {
+    "id": "prod_1792111127048",
+    "name": "Huney",
+    "slug": "huney",
+    "categoryId": "cat-organic-food",
+    "categoryName": "Organic Food",
+    "categorySlug": "organic-food",
+    "categories": [
+      "Organic Food"
+    ],
+    "brand": "Brand",
+    "price": 800,
+    "originalPrice": 950,
+    "discount": 0,
+    "stock": 50,
+    "image": "/uploads/1792110934333-Honey...jpeg.webp",
+    "images": [
+      "/uploads/1792110934333-Honey...jpeg.webp",
+      "/uploads/1792110942348-Honey.jpeg.webp"
+    ],
+    "description": "",
+    "specifications": {
+      "_categories": [
+        "Organic Food"
+      ]
+    },
+    "badge": "",
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": false,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 0,
+    "sku": "JM-ORG-HNY-04"
+  },
+  {
+    "id": "prod_1792110734518",
+    "name": "Huney",
+    "slug": "huney",
+    "categoryId": "cat-organic-food",
+    "categoryName": "Organic Food",
+    "categorySlug": "organic-food",
+    "categories": [
+      "Organic Food"
+    ],
+    "brand": "Brand",
+    "price": 800,
+    "originalPrice": 950,
+    "discount": 0,
+    "stock": 50,
+    "image": "/uploads/1792110725495-Honey...jpeg.webp",
+    "images": [
+      "/uploads/1792110725495-Honey...jpeg.webp",
+      "/uploads/1792110731541-Honey.jpeg.webp"
+    ],
+    "description": "",
+    "specifications": {
+      "_categories": [
+        "Organic Food"
+      ]
+    },
+    "badge": "",
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": false,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 0,
+    "sku": "JM-ORG-HNY-05"
+  },
+  {
+    "id": "prod_1792084842680",
+    "name": "Digital LCD Writing Tablet/Baby Writing Tablet",
+    "slug": "digital-lcd-writing-tablet-baby-writing-tablet",
+    "categoryId": "cat-educational-items",
+    "categoryName": "Educational Items",
+    "categorySlug": "educational-items",
+    "categories": [
+      "Educational Items",
+      "Baby Items"
+    ],
+    "brand": "Brand",
+    "price": 380,
+    "originalPrice": 499,
+    "discount": 0,
+    "stock": 49,
+    "image": "/uploads/1792084804283-DIigital_LCD_Writing_Tab.jpeg.webp",
+    "images": [
+      "/uploads/1792084804283-DIigital_LCD_Writing_Tab.jpeg.webp",
+      "/uploads/1792084809727-Digital_Writing_Tab.jpeg.webp",
+      "/uploads/1792084816618-Digital_Writing_Tab1.jpeg.webp",
+      "/uploads/1792084821461-Digital_Writing_Tab2.jpeg.webp"
+    ],
+    "description": "",
+    "specifications": {
+      "_categories": [
+        "Educational Items",
+        "Baby Items"
+      ]
+    },
+    "badge": "",
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": false,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 0,
+    "sku": "JM-TOY-LCD-01"
+  },
+  {
+    "id": "prod_1792077973312",
+    "name": "GPS Tracker/ Tracking Device",
+    "slug": "gps-tracker",
+    "categoryId": "cat-Smart Device",
+    "categoryName": "Gadget Items",
+    "categorySlug": "gadget-items",
+    "categories": [
+      "Gadget Items"
+    ],
+    "brand": "Brand",
+    "price": 799,
+    "originalPrice": 1100,
+    "discount": 0,
+    "stock": 49,
+    "image": "/uploads/1792077921362-Tracking_Device.jpeg.webp",
+    "images": [
+      "/uploads/1792077921362-Tracking_Device.jpeg.webp",
+      "/uploads/1792077928458-GPS_Tracker.jpeg.webp",
+      "/uploads/1792077934579-WhatsApp_Image_2026-10-12_at_9.47.10_PM.jpeg.webp",
+      "/uploads/1792077947056-GPS_Tacker...jpeg.webp",
+      "/uploads/1792077952142-GPS_Tracker.jfif.webp"
+    ],
+    "description": "",
+    "specifications": {
+      "_categories": [
+        "Gadget Items"
+      ]
+    },
+    "badge": "",
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": false,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 0,
+    "sku": "JM-GAD-GPS-01"
+  },
+  {
+    "id": "prod_1792077728330",
+    "name": "GPS Tracker/Tracking Device",
+    "slug": "gps-tracker-tracking-device",
+    "categoryId": "cat-organic-food",
+    "categoryName": "Organic Food",
+    "categorySlug": "organic-food",
+    "categories": [
+      "Gadget Items"
+    ],
+    "brand": "Brand",
+    "price": 799,
+    "originalPrice": 1150,
+    "discount": 0,
+    "stock": 50,
+    "image": "/uploads/1792077654845-Tracking_Device.jpeg.webp",
+    "images": [
+      "/uploads/1792077654845-Tracking_Device.jpeg.webp",
+      "/uploads/1792077662491-GPS_Tracker.jpeg.webp",
+      "/uploads/1792077677319-GPS_Tracker_Or__Tracking_Device.jpeg.webp",
+      "/uploads/1792077682726-GPS_Tracker.jfif.webp",
+      "/uploads/1792077691240-GPS_Tracking_Device.jpeg.webp",
+      "/uploads/1792077715468-GPS_Tacker...jpeg.webp"
+    ],
+    "description": "",
+    "specifications": {
+      "_categories": [
+        "Gadget Items"
+      ]
+    },
+    "badge": "",
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": false,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 0,
+    "sku": "JM-GAD-GPS-02"
+  },
+  {
+    "id": "p-org-pure-cow-ghee",
+    "name": "Jawata Mart Special Offer Danadar Pure Cow Ghee (খাঁটি দানাদার গাওয়া ঘি - ৫০০ গ্রাম)",
+    "slug": "jawata-mart-special-offer-danadar-pure-cow-ghee-500g",
+    "categoryId": "cat-organic-food",
+    "categoryName": "Organic Food",
+    "categorySlug": "organic-food",
+    "subCategoryId": "sub-pure-ghee",
+    "subCategoryName": "Pure Cow Ghee (ঘি)",
+    "subCategorySlug": "pure-ghee",
+    "brand": "Jawata Mart",
+    "price": 800,
+    "originalPrice": 1050,
+    "discount": 19,
+    "stock": 48,
+    "sku": "JM-ORG-GHEE-500",
+    "image": "/images/organic-pure-ghee.jpg",
+    "images": [
+      "/images/organic-pure-ghee.jpg"
+    ],
+    "description": "জাওয়াটা মার্ট স্পেশাল অফার খাঁটি দানাদার গাওয়া ঘি। প্রাকৃতিক ঘাস খাওয়া দেশি গরুর দুধের ননী থেকে সম্পূর্ণ ঘরোয়া ও ঐতিহ্যবাহী পদ্ধতিতে তৈরি। সুস্বাদু ঘ্রাণ ও অতুলনীয় স্বাদ। ১০০% খাঁটি ও নির্ভেজাল।",
+    "specifications": {
+      "Milk Source": "Grass-fed Desi Cows (দেশি গাভী)",
+      "Method": "Traditional Bilona Slow Cooking (ঘরোয়া পদ্ধতি)",
+      "Weight": "500g Glass/Food-grade Container",
+      "Quality": "Granular Texture (খাঁটি দানাদার)"
+    },
+    "badge": "Special Offer 🔥",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": false,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 96,
+    "categories": [
+      "Organic Food",
+      "Kitchen Items"
+    ]
+  },
+  {
+    "id": "p-org-mustard-oil-1l",
+    "name": "Jawata Mart Special Offer Pure Wood Ghani Mustard Oil (জাওয়াটা মার্ট কাঠের ঘানি ভাঙা খাঁটি সরিষার তেল - ১ লিটার)",
+    "slug": "jawata-mart-special-offer-pure-wood-ghani-mustard-oil-1l",
+    "categoryId": "cat-organic-food",
+    "categoryName": "Organic Food",
+    "categorySlug": "organic-food",
+    "subCategoryId": "sub-mustard-oil",
+    "subCategoryName": "Wood Pressed Mustard Oil (সরিষার তেল)",
+    "subCategorySlug": "mustard-oil",
+    "brand": "Jawata Mart",
+    "price": 1500,
+    "originalPrice": 1750,
+    "discount": 19,
+    "stock": 80,
+    "sku": "JM-ORG-OIL-1L",
+    "image": "/images/organic-mustard-oil.jpg",
+    "images": [
+      "/images/organic-mustard-oil.jpg"
+    ],
+    "description": "জাওয়াটা মার্ট স্পেশাল অফার ১০০% খাঁটি কাঠের ঘানি ভাঙা সরিষার তেল। দেশি বাছাইকৃত সরিষার প্রথম কোল্ড-প্রেস থেকে সংগৃহীত। কোনো ক্ষতিকর কেমিক্যাল বা কৃত্রিম ঝাঁজ ছাড়া প্রাকৃতিক তীব্র ঝাঁজ ও অনন্য সুগন্ধ। 5 Liter Bottle.",
+    "specifications": {
+      "Seed": "Select Country Mustard Seeds (দেশি সরিষা)",
+      "Extraction": "Traditional Wood Ghani Cold Pressed (কাঠের ঘানি)",
+      "Volume": "1 Liter Bottle",
+      "Preservatives": "Zero Chemical Additives (১০০% খাঁটি)"
+    },
+    "badge": "Special Offer 🔥",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": false,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 88,
+    "categories": [
+      "Organic Food",
+      "Kitchen Items"
+    ]
+  },
+  {
+    "id": "p-org-homemade-pickle",
+    "name": "Jawata Mart Traditional Homemade Raw Mango Pickle (টক-ঝাল-মিষ্টি ঘরোয়া আমের আচার - ৫০০ গ্রাম)",
+    "slug": "jawata-mart-traditional-homemade-mango-pickle-500g",
+    "categoryId": "cat-organic-food",
+    "categoryName": "Organic Food",
+    "categorySlug": "organic-food",
+    "subCategoryId": "sub-homemade-pickle",
+    "subCategoryName": "Homemade Pickles & Achar (ঘরোয়া আচার)",
+    "subCategorySlug": "homemade-pickle",
+    "brand": "Jawata Mart",
+    "price": 380,
+    "originalPrice": 480,
+    "discount": 21,
+    "stock": 64,
+    "sku": "JM-ORG-PICKLE-500",
+    "image": "/images/organic-homemade-pickle.jpg",
+    "images": [
+      "/images/organic-homemade-pickle.jpg"
+    ],
+    "description": "১০০% খাঁটি সরিষার তেলে তৈরি ঐতিহ্যবাহী টক-ঝাল-মিষ্টি ঘরোয়া আমের আচার। বিশেষ পাঁচফোড়ন, রসুন ও খাঁটি মসলার দারুণ সংমিশ্রণে রোদে শুকিয়ে প্রস্তুতকৃত স্পেশাল স্বাদ। কোনো রাসায়নিক প্রিজারভেটিভ নেই।",
+    "specifications": {
+      "Ingredients": "Fresh Raw Mango, Pure Mustard Oil, Panch Phoron, Garlic & Spices",
+      "Taste Profile": "Sweet, Spicy & Tangy (টক-ঝাল-মিষ্টি)",
+      "Weight": "500g Glass Jar",
+      "Preservatives": "Zero Chemical Preservatives"
+    },
+    "badge": "Homemade Special 🌶️",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 52,
+    "categories": [
+      "Organic Food"
+    ]
+  },
+  {
+    "id": "p-drv-bag-hellokitty-school",
+    "name": "Hello Kitty Cute Velvet Toddler Backpack (Pink & White)",
+    "slug": "hello-kitty-cute-velvet-toddler-backpack",
+    "categoryId": "cat-bag",
+    "categoryName": "Bag",
+    "categorySlug": "bag",
+    "subCategoryId": "sub-kids-bag",
+    "subCategoryName": "Kids Bag",
+    "subCategorySlug": "kids-bag",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 50,
+    "sku": "JM-BAG-HK-01",
+    "image": "/uploads/clean/1789051394558.jpg",
+    "images": [
+      "/uploads/clean/1789051394558.jpg",
+      "/uploads/clean/1789051394470.jpg"
+    ],
+    "description": "Ultra-soft premium plush velvet Hello Kitty kids school and travel backpack with front zip pocket and soft padded straps.",
+    "specifications": {
+      "Material": "Soft Velvet Plush",
+      "Compartments": "Main Zipper + Front Pouch",
+      "Origin": "Imported"
+    },
+    "badge": "Popular",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 38,
+    "categories": [
+      "Bag"
+    ]
+  },
+  {
+    "id": "p-drv-bag-hellokitty-plush",
+    "name": "Preschool Hello Kitty Soft Plush Bag with Bow",
+    "slug": "preschool-hello-kitty-soft-plush-bag-with-bow",
+    "categoryId": "cat-bag",
+    "categoryName": "Bag",
+    "categorySlug": "bag",
+    "subCategoryId": "sub-kids-bag",
+    "subCategoryName": "Kids Bag",
+    "subCategorySlug": "kids-bag",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 45,
+    "sku": "JM-BAG-HK-02",
+    "image": "/uploads/clean/1789051394470.jpg",
+    "images": [
+      "/uploads/clean/1789051394470.jpg"
+    ],
+    "description": "Adorably designed Hello Kitty preschool bag for toddlers and young girls. Lightweight, durable, and comfortable for little shoulders.",
+    "specifications": {
+      "Material": "Plush Velvet",
+      "Color": "Pastel Pink",
+      "Type": "Toddler Backpack"
+    },
+    "badge": "New Arrival",
+    "isFeatured": true,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 24,
+    "categories": [
+      "Bag"
+    ]
+  },
+  {
+    "id": "p-drv-bag-primary-waterproof",
+    "name": "Multi-Compartment Waterproof Primary School Backpack with Doll (Pink)",
+    "slug": "multi-compartment-waterproof-primary-school-backpack",
+    "categoryId": "cat-bag",
+    "categoryName": "Bag",
+    "categorySlug": "bag",
+    "subCategoryId": "sub-school-bag",
+    "subCategoryName": "School Bag",
+    "subCategorySlug": "school-bag",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 60,
+    "sku": "JM-BAG-SCH-05",
+    "image": "/uploads/clean/1789051394438.jpg",
+    "images": [
+      "/uploads/clean/1789051394438.jpg"
+    ],
+    "description": "Spacious waterproof kids bookbag with cute animal badges, hanging pom-pom charm, and ergonomic spine protection back cushioning.",
+    "specifications": {
+      "Waterproof": "Yes (Oxford Nylon)",
+      "Closure": "Heavy Duty Zippers",
+      "Includes": "Cute Hanging Fur Ball"
+    },
+    "badge": "Best Seller",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 52,
+    "categories": [
+      "Bag"
+    ]
+  },
+  {
+    "id": "p-drv-bag-ortho-jincaizi",
+    "name": "Jincaizi Huang Orthopedic Ergonomic Student Backpack (Mint Green)",
+    "slug": "jincaizi-huang-orthopedic-student-backpack",
+    "categoryId": "cat-bag",
+    "categoryName": "Bag",
+    "categorySlug": "bag",
+    "subCategoryId": "sub-school-bag",
+    "subCategoryName": "School Bag",
+    "subCategorySlug": "school-bag",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 40,
+    "sku": "JM-BAG-SCH-02",
+    "image": "/uploads/clean/1789051394500.jpg",
+    "images": [
+      "/uploads/clean/1789051394500.jpg"
+    ],
+    "description": "High quality premium pastel school bag with multi-layer organizer pockets, safety reflective trims, and breathable mesh back pads.",
+    "specifications": {
+      "Design": "Ergonomic Weight Balancing",
+      "Fabric": "High Density Polyester",
+      "Color": "Mint Green / Pink"
+    },
+    "badge": "Editor Pick",
+    "isFeatured": true,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewCount": 19,
+    "categories": [
+      "Bag"
+    ]
+  },
+  {
+    "id": "p-drv-bag-korean-cute-school",
+    "name": "Korean Aesthetic College & School Backpack with Duck Plush Charm",
+    "slug": "korean-aesthetic-college-school-backpack",
+    "categoryId": "cat-bag",
+    "categoryName": "Bag",
+    "categorySlug": "bag",
+    "subCategoryId": "sub-school-bag",
+    "subCategoryName": "School Bag",
+    "subCategorySlug": "school-bag",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 55,
+    "sku": "JM-BAG-SCH-03",
+    "image": "/uploads/clean/1789051394588.jpg",
+    "images": [
+      "/uploads/clean/1789051394588.jpg"
+    ],
+    "description": "Trendy Korean style beige canvas backpack with cute duck plush pendant, large capacity for 15.6 inch laptop, and multiple utility pockets.",
+    "specifications": {
+      "Capacity": "Fits A4 Books & 15.6 Laptop",
+      "Pockets": "5 External + 1 Main",
+      "Accessories": "Includes Plush Duck"
+    },
+    "badge": "Trending",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 42,
+    "categories": [
+      "Bag"
+    ]
+  },
+  {
+    "id": "p-drv-bag-cuvea-travel-duffel",
+    "name": "Cuvea Korres Multi-Pocket Travel Duffel & Gym Bag with Shoe Compartment",
+    "slug": "cuvea-korres-travel-duffel-gym-bag",
+    "categoryId": "cat-bag",
+    "categoryName": "Bag",
+    "categorySlug": "bag",
+    "subCategoryId": "sub-travelling-bag",
+    "subCategoryName": "Travelling Bag",
+    "subCategorySlug": "travelling-bag",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 65,
+    "sku": "JM-BAG-TRV-01",
+    "image": "/uploads/clean/1789051394201.jpg",
+    "images": [
+      "/uploads/clean/1789051394201.jpg",
+      "/uploads/clean/1789051394236.jpg",
+      "/uploads/clean/1789051394270.jpg",
+      "/uploads/clean/1789051394302.jpg",
+      "/uploads/clean/1789051394330.jpg",
+      "/uploads/clean/1789051394357.jpg",
+      "/uploads/clean/1789051394383.jpg",
+      "/uploads/clean/1789051394408.jpg"
+    ],
+    "description": "Spacious waterproof travel cylinder duffel bag featuring independent ventilated shoe pouch, dry/wet separation pocket, and adjustable padded shoulder strap.",
+    "specifications": {
+      "Dimensions": "38cm x 22cm x 22cm",
+      "Weight": "0.42kg",
+      "Material": "Oxford Water-repellent Fabric",
+      "Colors": "Blue, Black, Lilac, Yellow, Mint"
+    },
+    "badge": "Must Have",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 67,
+    "categories": [
+      "Bag"
+    ]
+  },
+  {
+    "id": "p-drv-toy-diecast-cars-pack",
+    "name": "Diecast Alloy Pull-Back Mini Racing Cars Collection (Pack of 6)",
+    "slug": "diecast-alloy-mini-racing-cars-pack-of-6",
+    "categoryId": "cat-kids-toys",
+    "categoryName": "Kids Toys",
+    "categorySlug": "kids-toys",
+    "subCategoryId": "sub-rc-cars",
+    "subCategoryName": "Remote Control & Cars",
+    "subCategorySlug": "rc-cars",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 50,
+    "sku": "JM-TOY-CAR-01",
+    "image": "/uploads/clean/1789051394972.jpg",
+    "images": [
+      "/uploads/clean/1789051394972.jpg",
+      "/uploads/clean/1789051394824.jpg"
+    ],
+    "description": "High-speed metal alloy diecast miniature racing cars with authentic details and smooth pull-back mechanism. Perfect birthday gift for car lovers.",
+    "specifications": {
+      "Quantity": "6 Realistic Model Cars",
+      "Material": "Metal Alloy + ABS Body",
+      "Scale": "1:64"
+    },
+    "badge": "Kid Favorite",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 45,
+    "categories": [
+      "Kids Toys"
+    ]
+  },
+  {
+    "id": "p-drv-toy-scale-figures-city",
+    "name": "Miniature Architectural City Diorama People & Street Figures Set",
+    "slug": "miniature-diorama-people-street-figures-set",
+    "categoryId": "cat-kids-toys",
+    "categoryName": "Kids Toys",
+    "categorySlug": "kids-toys",
+    "subCategoryId": "sub-educational-toys",
+    "subCategoryName": "Educational Toys",
+    "subCategorySlug": "educational-toys",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 40,
+    "sku": "JM-TOY-FIG-01",
+    "image": "/uploads/clean/1789051395002.jpg",
+    "images": [
+      "/uploads/clean/1789051395002.jpg",
+      "/uploads/clean/1789051395033.jpg",
+      "/uploads/clean/1789051394824.jpg"
+    ],
+    "description": "Hand-painted miniature figurines for school science projects, scale models, train sets, and creative world-building play.",
+    "specifications": {
+      "Scale": "1:87 / HO Scale",
+      "Material": "Safe Non-Toxic Resin",
+      "Features": "30+ Hand Painted Mini People"
+    },
+    "badge": "Educational",
+    "isFeatured": true,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewCount": 22,
+    "categories": [
+      "Kids Toys"
+    ]
+  },
+  {
+    "id": "p-drv-toy-plush-bunny-trio",
+    "name": "Super Soft Plush Cuddly Bunny Rabbit Dolls (Pink, Cream & White)",
+    "slug": "super-soft-plush-cuddly-bunny-rabbit-dolls",
+    "categoryId": "cat-kids-toys",
+    "categoryName": "Kids Toys",
+    "categorySlug": "kids-toys",
+    "subCategoryId": "sub-dolls-soft-toys",
+    "subCategoryName": "Dolls & Soft Toys",
+    "subCategorySlug": "dolls-soft-toys",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 55,
+    "sku": "JM-TOY-BUN-01",
+    "image": "/uploads/clean/1789051394859.jpg",
+    "images": [
+      "/uploads/clean/1789051394859.jpg"
+    ],
+    "description": "Ultra-cuddly huggable bunny rabbits made from hypoallergenic microfleece. Safe for newborns, toddlers, and nursery room decor.",
+    "specifications": {
+      "Height": "25cm",
+      "Fabric": "Hypoallergenic Soft Plush",
+      "Washable": "Machine Washable"
+    },
+    "badge": "Ultra Soft",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 57,
+    "categories": [
+      "Kids Toys"
+    ]
+  },
+  {
+    "id": "p-drv-bdr-crochet-white-dress",
+    "name": "Handmade Crochet Baby Girl Layered White Dress with Straw Hat & Shoes",
+    "slug": "handmade-crochet-baby-girl-white-dress-set",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-baby-girls-dress",
+    "subCategoryName": "Baby Girls Dress",
+    "subCategorySlug": "baby-girls-dress",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 30,
+    "sku": "JM-BDR-CR-01",
+    "image": "/uploads/clean/1789051393254.jpg",
+    "images": [
+      "/uploads/clean/1789051393254.jpg",
+      "/uploads/clean/1789051393352.jpg"
+    ],
+    "description": "Exquisite 3-piece handmade crochet outfit featuring ruffle skirt frock, floral accent sunhat, and matching booties. Ideal for baby photography and celebrations.",
+    "specifications": {
+      "Pieces": "Dress + Sunhat + Booties",
+      "Yarn": "100% Breathable Soft Cotton Yarn",
+      "Care": "Hand Wash Cold"
+    },
+    "badge": "Handmade",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 64,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-drv-bdr-bunny-knit-romper",
+    "name": "Cozy Knitted Bunny Ear Hooded Romper Jumpsuit with Tail",
+    "slug": "cozy-knitted-bunny-hooded-romper-jumpsuit",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-rompers-sets",
+    "subCategoryName": "Rompers & Sets",
+    "subCategorySlug": "rompers-sets",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 45,
+    "sku": "JM-BDR-ROMP-01",
+    "image": "/uploads/clean/1789051393278.jpg",
+    "images": [
+      "/uploads/clean/1789051393278.jpg"
+    ],
+    "description": "Charming warm knitted winter romper jumpsuit with floppy 3D bunny ears, wooden front buttons, and adorable white pompom tail on the back.",
+    "specifications": {
+      "Material": "Knitted Wool Blend",
+      "Design": "3D Rabbit Ears Hood + Paws",
+      "Sizes": "0-6M, 6-12M, 12-18M"
+    },
+    "badge": "Cutest Pick",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 48,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-drv-bdr-crochet-pink-floral",
+    "name": "Pink & White Hand-Knit Floral Baby Frock with Bow Headband & Booties",
+    "slug": "pink-white-hand-knit-floral-baby-frock",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-baby-girls-dress",
+    "subCategoryName": "Baby Girls Dress",
+    "subCategorySlug": "baby-girls-dress",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 35,
+    "sku": "JM-BDR-CR-02",
+    "image": "/uploads/clean/1789051393299.jpg",
+    "images": [
+      "/uploads/clean/1789051393299.jpg"
+    ],
+    "description": "Delightful handcrafted crochet princess dress adorned with 3D handmade flowers at the waistline, coordinating bow headband, and matching baby socks.",
+    "specifications": {
+      "Items": "Frock + Headband + Baby Shoes",
+      "Yarn": "Pure Combed Cotton Yarn",
+      "Craft": "100% Artisanal Handmade"
+    },
+    "badge": "Artisanal",
+    "isFeatured": true,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 29,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-drv-bdr-peach-organza-dress",
+    "name": "Peach Blossom Fairy Organza Baby Dress with Rosette Headband",
+    "slug": "peach-blossom-fairy-organza-baby-dress",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-baby-girls-dress",
+    "subCategoryName": "Baby Girls Dress",
+    "subCategorySlug": "baby-girls-dress",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 25,
+    "sku": "JM-BDR-ORG-01",
+    "image": "/uploads/clean/1789051393323.jpg",
+    "images": [
+      "/uploads/clean/1789051393323.jpg"
+    ],
+    "description": "Dreamy off-shoulder layered tulle organza birthday dress with delicate floral fabric headband. Designed for delicate newborn and toddler skin.",
+    "specifications": {
+      "Lining": "100% Pure Soft Cotton",
+      "Outer": "Featherlight Organza",
+      "Occasion": "Birthday & Photo Sessions"
+    },
+    "badge": "Special Occasion",
+    "isFeatured": true,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 33,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-drv-bdr-pink-hearts-frock",
+    "name": "Crochet Baby Girl Collar Dress with Pink Embroidered Hearts",
+    "slug": "crochet-baby-girl-collar-dress-with-pink-hearts",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-baby-girls-dress",
+    "subCategoryName": "Baby Girls Dress",
+    "subCategorySlug": "baby-girls-dress",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 40,
+    "sku": "JM-BDR-CR-03",
+    "image": "/uploads/clean/1789051393383.jpg",
+    "images": [
+      "/uploads/clean/1789051393383.jpg"
+    ],
+    "description": "Lovely Peter Pan collar woolen crochet baby frock patterned with all-over pastel pink hearts and decorative button placket.",
+    "specifications": {
+      "Pattern": "Handmade Hearts Embroidery",
+      "Collar": "Ruffled Peter Pan Collar",
+      "Includes": "Mini Matching Heart Charm"
+    },
+    "badge": "Cute Hearts",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 47,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-drv-bdr-magenta-flower-frock",
+    "name": "Magenta & White Lace Trim Handcrafted Baby Frock with Pearl Headband",
+    "slug": "magenta-white-lace-trim-handcrafted-baby-frock",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-baby-girls-dress",
+    "subCategoryName": "Baby Girls Dress",
+    "subCategorySlug": "baby-girls-dress",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 30,
+    "sku": "JM-BDR-CR-04",
+    "image": "/uploads/clean/1789051393410.jpg",
+    "images": [
+      "/uploads/clean/1789051393410.jpg"
+    ],
+    "description": "Bright magenta floral lace design crochet frock featuring beaded flower brooch, hanging pompom tassel strings, and pearl floral shoes.",
+    "specifications": {
+      "Yarn": "Skin-friendly Milk Cotton",
+      "Details": "Tassel Pompoms & Pearl Center",
+      "Set Includes": "Frock, Headband, Booties"
+    },
+    "badge": "Artisan Choice",
+    "isFeatured": true,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewCount": 26,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-drv-bdr-purple-bloomer-suit",
+    "name": "Royal Purple & White 4-Piece Crochet Frock, Bloomers, Bag & Booties",
+    "slug": "royal-purple-crochet-frock-bloomers-bag-booties-set",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-rompers-sets",
+    "subCategoryName": "Rompers & Sets",
+    "subCategorySlug": "rompers-sets",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 35,
+    "sku": "JM-BDR-CR-05",
+    "image": "/uploads/clean/1789051393436.jpg",
+    "images": [
+      "/uploads/clean/1789051393436.jpg",
+      "/uploads/clean/1789051393469.jpg"
+    ],
+    "description": "Premium 4-piece luxury handmade crochet ensemble: floral bow dress, ruffled bloomer shorts, mini purse, and ribbon-tied baby shoes.",
+    "specifications": {
+      "Pieces Included": "Dress + Bloomers + Mini Bag + Shoes + Headband",
+      "Yarn": "Premium Soft Acrylic & Cotton",
+      "Color": "Royal Purple / White"
+    },
+    "badge": "Luxury 4-in-1",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 51,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-drv-bdr-sage-green-suit",
+    "name": "Pastel Sage Green & White 4-Piece Crochet Frock & Shorts Set",
+    "slug": "pastel-sage-green-crochet-frock-shorts-set",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-rompers-sets",
+    "subCategoryName": "Rompers & Sets",
+    "subCategorySlug": "rompers-sets",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 28,
+    "sku": "JM-BDR-CR-06",
+    "image": "/uploads/clean/1789051393469.jpg",
+    "images": [
+      "/uploads/clean/1789051393469.jpg"
+    ],
+    "description": "Fresh mint and sage green crochet frock set featuring hand-embroidered floral stem motifs, bow-accented bloomer shorts, and mini purse.",
+    "specifications": {
+      "Pieces": "Dress, Diaper Cover Shorts, Mini Bag, Booties, Headband",
+      "Color": "Pastel Green / White"
+    },
+    "badge": "Eco Gentle",
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewCount": 19,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-drv-bdr-red-cherry-romper",
+    "name": "Handmade Crochet Baby Romper with Hanging Cherries & Floral Shoes",
+    "slug": "handmade-crochet-baby-romper-hanging-cherries",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-rompers-sets",
+    "subCategoryName": "Rompers & Sets",
+    "subCategorySlug": "rompers-sets",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 35,
+    "sku": "JM-BDR-ROMP-02",
+    "image": "/uploads/clean/1789051393506.jpg",
+    "images": [
+      "/uploads/clean/1789051393506.jpg"
+    ],
+    "description": "Adorable white open-knit baby romper with red cherry tassels, ruffled cap sleeves, wooden diaper buttons, and bow-knot headband.",
+    "specifications": {
+      "Design": "Polka Dots & 3D Cherries",
+      "Fasteners": "Wooden Bottom Snap Buttons",
+      "Material": "Breathable Cotton Yarn"
+    },
+    "badge": "Best Seller",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 43,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-drv-bdr-pink-floral-romper",
+    "name": "Blush Pink Cherry Crochet Baby Onesie Romper with Floral Headband",
+    "slug": "blush-pink-cherry-crochet-baby-romper",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-rompers-sets",
+    "subCategoryName": "Rompers & Sets",
+    "subCategorySlug": "rompers-sets",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 32,
+    "sku": "JM-BDR-ROMP-03",
+    "image": "/uploads/clean/1789051393541.jpg",
+    "images": [
+      "/uploads/clean/1789051393541.jpg"
+    ],
+    "description": "Tender blush pink and ivory white crochet romper with waist drawstring, dangling crocheted cherries, and flower applique booties.",
+    "specifications": {
+      "Details": "Adjustable Waist String with Tassels",
+      "Yarn": "Anti-Allergy Baby Cotton"
+    },
+    "badge": "Sweet Pastel",
+    "isFeatured": true,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 27,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-drv-bdr-red-floral-frock",
+    "name": "Handcrafted Red Blossom Scallop Edge Baby Frock & Long Knit Booties",
+    "slug": "handcrafted-red-blossom-scallop-baby-frock",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-baby-girls-dress",
+    "subCategoryName": "Baby Girls Dress",
+    "subCategorySlug": "baby-girls-dress",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 30,
+    "sku": "JM-BDR-CR-07",
+    "image": "/uploads/clean/1789051393573.jpg",
+    "images": [
+      "/uploads/clean/1789051393573.jpg"
+    ],
+    "description": "Festive red and snow white crochet baby frock bordered with scalloped lace, big ribbon bow at chest, and matching high knit socks.",
+    "specifications": {
+      "Skirt Details": "Scalloped Floral Hem",
+      "Warmth": "High Knit Baby Bootie Socks Included"
+    },
+    "badge": "Festive",
+    "isFeatured": true,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 39,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-drv-bdr-lavender-tutu-dress",
+    "name": "Princess Lavender Organza Puffed Sleeve Tutu Dress with Ribbon Headband",
+    "slug": "princess-lavender-organza-tutu-baby-dress",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-baby-girls-dress",
+    "subCategoryName": "Baby Girls Dress",
+    "subCategorySlug": "baby-girls-dress",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 35,
+    "sku": "JM-BDR-TUTU-01",
+    "image": "/uploads/clean/1789051393607.jpg",
+    "images": [
+      "/uploads/clean/1789051393607.jpg"
+    ],
+    "description": "Gorgeous lilac puffed sleeves organza dress with oversized front bow and knit lace tights. Ideal for newborn milestones and naming ceremonies.",
+    "specifications": {
+      "Sleeves": "Puffed Fairy Cap Sleeves",
+      "Accessories": "Stretch Floral Knot Headband"
+    },
+    "badge": "Princess",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 55,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-drv-bdr-white-rosette-romper",
+    "name": "Pure White Spaghetti Strap Baby Romper with 3D Rosette Flower",
+    "slug": "pure-white-spaghetti-strap-baby-romper-with-rosette",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-rompers-sets",
+    "subCategoryName": "Rompers & Sets",
+    "subCategorySlug": "rompers-sets",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 25,
+    "sku": "JM-BDR-ROMP-04",
+    "image": "/uploads/clean/1789051393654.jpg",
+    "images": [
+      "/uploads/clean/1789051393654.jpg"
+    ],
+    "description": "Clean minimalist summer baby romper with large sculpted 3D center rose, adjustable shoulder straps, and soft pink crib shoes.",
+    "specifications": {
+      "Fabric": "Featherweight Soft Lycra Cotton",
+      "Origin": "Imported"
+    },
+    "badge": "Summer Special",
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewCount": 21,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-drv-bdr-corgi-winter-onesie",
+    "name": "Plush Fox & Corgi Hooded Winter Flannel Baby Onesie Jumpsuit",
+    "slug": "plush-corgi-hooded-winter-baby-onesie",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-rompers-sets",
+    "subCategoryName": "Rompers & Sets",
+    "subCategorySlug": "rompers-sets",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 40,
+    "sku": "JM-BDR-WIN-01",
+    "image": "/uploads/clean/1789051393684.jpg",
+    "images": [
+      "/uploads/clean/1789051393684.jpg"
+    ],
+    "description": "Thick sherpa fleece cartoon animal hooded baby jumpsuit with full zip front. Keeps your baby warm and cozy during chilly weather.",
+    "specifications": {
+      "Design": "Cute 3D Animal Hood with Ears",
+      "Closure": "Safety Neck Guard Zip Front",
+      "Material": "Warm Flannel Fleece"
+    },
+    "badge": "Warm & Cozy",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 62,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-drv-bdr-white-eyelet-romper",
+    "name": "Vintage White Eyelet Cotton Sun Romper with Tulle Flower Headband",
+    "slug": "vintage-white-eyelet-cotton-sun-romper",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-rompers-sets",
+    "subCategoryName": "Rompers & Sets",
+    "subCategorySlug": "rompers-sets",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 30,
+    "sku": "JM-BDR-VNT-01",
+    "image": "/uploads/clean/1789051393716.jpg",
+    "images": [
+      "/uploads/clean/1789051393716.jpg"
+    ],
+    "description": "Breathable embroidered eyelet lace sleeveless baby romper with elasticated smocked chest and matching chiffon hair accessory.",
+    "specifications": {
+      "Fabric": "100% Breathable Broderie Anglaise Cotton"
+    },
+    "badge": "Vintage Pick",
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewCount": 20,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-drv-bsh-white-heart-shoes",
+    "name": "Infant Soft Sole Embroidered Heart Crib Shoes with Bow (White)",
+    "slug": "infant-soft-sole-embroidered-heart-crib-shoes",
+    "categoryId": "cat-baby-shoes",
+    "categoryName": "Baby Shoes",
+    "categorySlug": "baby-shoes",
+    "subCategoryId": "sub-infant-booties",
+    "subCategoryName": "Soft Sole Booties",
+    "subCategorySlug": "infant-booties",
+    "brand": "Jawata Mart",
+    "price": 650,
+    "originalPrice": 950,
+    "discount": 0,
+    "stock": 60,
+    "sku": "JM-BSH-HT-01",
+    "image": "/uploads/clean/1789051394913.jpg",
+    "images": [
+      "/uploads/clean/1789051394913.jpg"
+    ],
+    "description": "Premium soft leather-feel pre-walker baby girl shoes with embroidered hearts, non-slip bottom grip, and easy velcro closure with big satin bow.",
+    "specifications": {
+      "Sole": "Anti-Slip Flexible Soft Sole",
+      "Upper": "Supple Breathable Leatherette",
+      "Closure": "Velcro Strap"
+    },
+    "badge": "First Walker",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 45,
+    "categories": [
+      "Baby Shoes"
+    ]
+  },
+  {
+    "id": "p-drv-bsh-fishnet-bow-socks",
+    "name": "Baby & Toddler Bowtie Fishnet Ruffle Knee-High Socks (Black & White)",
+    "slug": "baby-toddler-bowtie-fishnet-socks",
+    "categoryId": "cat-baby-shoes",
+    "categoryName": "Baby Shoes",
+    "categorySlug": "baby-shoes",
+    "subCategoryId": "sub-toddler-sneakers",
+    "subCategoryName": "Toddler Sneakers & Sandals",
+    "subCategorySlug": "toddler-sneakers",
+    "brand": "Jawata Mart",
+    "price": 420,
+    "originalPrice": 550,
+    "discount": 0,
+    "stock": 70,
+    "sku": "JM-BSH-SCK-01",
+    "image": "/uploads/clean/1789051394106.jpg",
+    "images": [
+      "/uploads/clean/1789051394106.jpg",
+      "/uploads/clean/1789051394076.jpg"
+    ],
+    "description": "Stylish breathable hollow fishnet mesh socks for girls decorated with large satin bow ties. Looks charming paired with frocks and party dresses.",
+    "specifications": {
+      "Style": "Ruffle Bow Hollow Mesh",
+      "Colors": "Black / White Pair",
+      "Elastic": "High Stretch Non-Pinch Band"
+    },
+    "badge": "Trending",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 37,
+    "categories": [
+      "Baby Items"
+    ]
+  },
+  {
+    "id": "p-drv-bsh-diamond-mesh-tights",
+    "name": "Girls Diamond Butterfly Lattice Pattern Tights & Party Stockings",
+    "slug": "girls-diamond-butterfly-lattice-tights",
+    "categoryId": "cat-baby-shoes",
+    "categoryName": "Baby Shoes",
+    "categorySlug": "baby-shoes",
+    "subCategoryId": "sub-toddler-sneakers",
+    "subCategoryName": "Toddler Sneakers & Sandals",
+    "subCategorySlug": "toddler-sneakers",
+    "brand": "Jawata Mart",
+    "price": 650,
+    "originalPrice": 850,
+    "discount": 0,
+    "stock": 50,
+    "sku": "JM-BSH-SCK-02",
+    "image": "/uploads/clean/1789051394076.jpg",
+    "images": [
+      "/uploads/clean/1789051394076.jpg"
+    ],
+    "description": "Elegant diamond mesh leggings with delicate woven butterfly motifs. Perfect match with Mary Jane shoes and party frocks.",
+    "specifications": {
+      "Material": "Nylon & Spandex High Stretch",
+      "Fit": "Toddlers & Young Girls"
+    },
+    "badge": "Fashion Pick",
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewCount": 22,
+    "categories": [
+      "Baby Items"
+    ]
+  },
+  {
+    "id": "p-drv-ktc-degreaser-spray",
+    "name": "Duer Heavy Duty Foam Kitchen Oil & Grease Cleaner Spray (500ml)",
+    "slug": "duer-heavy-duty-foam-kitchen-degreaser-spray-500ml",
+    "categoryId": "cat-kitchen-items",
+    "categoryName": "Kitchen Items",
+    "categorySlug": "kitchen-items",
+    "subCategoryId": "sub-cookware-sets",
+    "subCategoryName": "Cookware Sets & Cleaners",
+    "subCategorySlug": "cookware-sets",
+    "brand": "Duer",
+    "price": 500,
+    "discount": 0,
+    "stock": 120,
+    "sku": "JM-KTC-DGR-01",
+    "image": "/uploads/clean/1789051394139.jpg",
+    "images": [
+      "/uploads/clean/1789051394139.jpg",
+      "/uploads/clean/1789051394171.jpg"
+    ],
+    "description": "Instant powerful foaming cleaner that cuts through burnt stovetop oils, kitchen chimney grease, exhaust fans, and stainless steel cooktops with zero scrubbing.",
+    "specifications": {
+      "Volume": "500ml Can",
+      "Formula": "Lemon Citrus Fresh Foam",
+      "Application": "Gas Stoves, Range Hoods, Ovens, Tiles"
+    },
+    "badge": "Essential",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 88,
+    "categories": [
+      "Kitchen Items"
+    ]
+  },
+  {
+    "id": "p-drv-ktc-bottle-brush-set",
+    "name": "Multipurpose 360-Degree Sponge & Nipple Bottle Cleaning Brush Set",
+    "slug": "multipurpose-sponge-bottle-cleaning-brush-set",
+    "categoryId": "cat-kitchen-items",
+    "categoryName": "Kitchen Items",
+    "categorySlug": "kitchen-items",
+    "subCategoryId": "sub-kitchen-accessories",
+    "subCategoryName": "Kitchen Accessories & Tools",
+    "subCategorySlug": "kitchen-accessories",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 90,
+    "sku": "JM-KTC-BRS-01",
+    "image": "/uploads/clean/1789051394885.jpg",
+    "images": [
+      "/uploads/clean/1789051394885.jpg"
+    ],
+    "description": "Complete hygienic feeding bottle and kitchen glassware cleaning kit with long ergonomic handles, dense sponge heads, and straw cleaning wires.",
+    "specifications": {
+      "Pieces": "Set of 4+ Brushes",
+      "Head": "Dual High Density Sponge & Nylon Bristles",
+      "BPA Free": "100% Food Safe"
+    },
+    "badge": "Best Value",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 46,
+    "categories": [
+      "Kitchen Items"
+    ]
+  },
+  {
+    "id": "p-drv-wnt-rabbit-earmuffs-airbag",
+    "name": "Ear Muff",
+    "slug": "moving-airbag-rabbit-ears-plush-winter-earmuffs",
+    "categoryId": "cat-winter-items",
+    "categoryName": "Winter Items",
+    "categorySlug": "winter-items",
+    "subCategoryId": "sub-winter-caps-socks",
+    "subCategoryName": "Winter Caps & Socks",
+    "subCategorySlug": "winter-caps-socks",
+    "brand": "Jawata Mart",
+    "price": 499,
+    "originalPrice": 750,
+    "discount": 0,
+    "stock": 80,
+    "sku": "JM-WNT-EAR-01",
+    "image": "/uploads/clean/1789051393866.jpg",
+    "images": [
+      "/uploads/clean/1789051393866.jpg",
+      "/uploads/clean/1789051393898.jpg",
+      "/uploads/clean/1789051393932.jpg",
+      "/uploads/clean/1789051393994.jpg",
+      "/uploads/clean/1789051394025.jpg",
+      "/uploads/clean/1789051394051.jpg",
+      "/uploads/1792083501420-1.jpeg.webp",
+      "/uploads/1792083597031-4.jpeg.webp"
+    ],
+    "description": "Super cute rabbit ear moving earmuffs! Press the soft hanging paws and the ears flap happily up and down. Keeps ears comfortably warm and protected from cold winds.",
+    "specifications": {
+      "Feature": "Airbag Pump Flapping Ears",
+      "Material": "Super Soft Faux Fur Fluff",
+      "Colors": "Pink, Yellow, Lavender, White"
+    },
+    "badge": "Viral Hit",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 94,
+    "categories": [
+      "Winter Items",
+      "Baby Items"
+    ]
+  },
+  {
+    "id": "p-drv-wnt-plush-round-earmuffs",
+    "name": "Winter Ear Muff",
+    "slug": "ultra-warm-fluffy-faux-fur-ear-warmers",
+    "categoryId": "cat-winter-items",
+    "categoryName": "Winter Items",
+    "categorySlug": "winter-items",
+    "subCategoryId": "sub-winter-caps-socks",
+    "subCategoryName": "Winter Caps & Socks",
+    "subCategorySlug": "winter-caps-socks",
+    "brand": "Jawata Mart",
+    "price": 470,
+    "originalPrice": 750,
+    "discount": 0,
+    "stock": 75,
+    "sku": "JM-WNT-EAR-02",
+    "image": "/uploads/clean/1789051393804.jpg",
+    "images": [
+      "/uploads/clean/1789051393804.jpg",
+      "/uploads/clean/1789051393761.jpg",
+      "/uploads/1792083626662-4.jpeg.webp"
+    ],
+    "description": "Classic lightweight thermal ear muffs made of plush thick faux rabbit fur. Flexible headband suitable for teenagers, women, and kids.",
+    "specifications": {
+      "Fit": "Flexible Adjustable Band",
+      "Lining": "High Density Plush Fur",
+      "Colors": "Pink, Beige, Grey, Rose Red"
+    },
+    "badge": "Winter Must",
+    "isFeatured": true,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewCount": 35,
+    "categories": [
+      "Winter Items",
+      "Baby Items"
+    ]
+  },
+  {
+    "id": "p-drv-gft-sakura-umbrella",
+    "name": "Japanese Sakura Blossom Clear Transparent Automatic Umbrella",
+    "slug": "japanese-sakura-blossom-clear-transparent-umbrella",
+    "categoryId": "cat-weather-items",
+    "categoryName": "Weather & Umbrella",
+    "categorySlug": "weather-items",
+    "subCategoryId": "sub-umbrellas",
+    "subCategoryName": "Umbrellas & Parasols",
+    "subCategorySlug": "umbrellas",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 65,
+    "sku": "JM-GFT-UMB-01",
+    "image": "/uploads/clean/1789051394753.jpg",
+    "images": [
+      "/uploads/clean/1789051394753.jpg",
+      "/uploads/clean/1789051394617.jpg",
+      "/uploads/clean/1789051394675.jpg"
+    ],
+    "description": "Iconic transparent dome umbrella with beautiful pink cherry blossom floral prints. Windproof fiberglass ribs and crystal clear canopy for romantic rainy days.",
+    "specifications": {
+      "Canopy": "Clear POE Eco Film",
+      "Diameter": "96cm",
+      "Windproof": "8 Sturdy Fiberglass Ribs"
+    },
+    "badge": "Aesthetic Gift",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 78,
+    "categories": [
+      "Weather & Umbrella"
+    ]
+  },
+  {
+    "id": "p-drv-gft-capsule-mini-umbrella",
+    "name": "7-inch Pocket Mini Folding Capsule Umbrella with Case",
+    "slug": "7-inch-pocket-mini-folding-capsule-umbrella",
+    "categoryId": "cat-weather-items",
+    "categoryName": "Weather & Umbrella",
+    "categorySlug": "weather-items",
+    "subCategoryId": "sub-umbrellas",
+    "subCategoryName": "Umbrellas & Parasols",
+    "subCategorySlug": "umbrellas",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 70,
+    "sku": "JM-GFT-UMB-02",
+    "image": "/uploads/clean/1789051394709.jpg",
+    "images": [
+      "/uploads/clean/1789051394709.jpg"
+    ],
+    "description": "Ultra-compact lightweight pocket umbrella packed into a waterproof capsule case. Blocks 99% UV rays with vinyl sunscreen coating.",
+    "specifications": {
+      "Folded Size": "18cm (7 inches)",
+      "Weight": "210g Ultralight",
+      "UV Protection": "UPF 50+"
+    },
+    "badge": "Pocket Essential",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 52,
+    "categories": [
+      "Weather & Umbrella"
+    ]
+  },
+  {
+    "id": "p-drv-gft-hellokitty-clear-umbrella",
+    "name": "Hello Kitty Kids Transparent Dome Umbrella with Ice Cream Print",
+    "slug": "hello-kitty-kids-transparent-dome-umbrella",
+    "categoryId": "cat-weather-items",
+    "categoryName": "Weather & Umbrella",
+    "categorySlug": "weather-items",
+    "subCategoryId": "sub-umbrellas",
+    "subCategoryName": "Umbrellas & Parasols",
+    "subCategorySlug": "umbrellas",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 55,
+    "sku": "JM-GFT-UMB-03",
+    "image": "/uploads/clean/1789051394787.jpg",
+    "images": [
+      "/uploads/clean/1789051394787.jpg"
+    ],
+    "description": "Transparent safety view deep-dome umbrella featuring licensed Hello Kitty graphics. Rounded safety tips protect children during school walks.",
+    "specifications": {
+      "Safety": "Pinch-proof Runner & Round Tips",
+      "Canopy": "Clear View POE Plastic"
+    },
+    "badge": "Kids Love",
+    "isFeatured": true,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 36,
+    "categories": [
+      "Weather & Umbrella"
+    ]
+  },
+  {
+    "id": "p-drv-gft-fruit-folding-umbrella",
+    "name": "Colorful Summer Fruit Print Windproof Folding Umbrellas",
+    "slug": "colorful-summer-fruit-print-folding-umbrella",
+    "categoryId": "cat-weather-items",
+    "categoryName": "Weather & Umbrella",
+    "categorySlug": "weather-items",
+    "subCategoryId": "sub-umbrellas",
+    "subCategoryName": "Umbrellas & Parasols",
+    "subCategorySlug": "umbrellas",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 45,
+    "sku": "JM-GFT-UMB-04",
+    "image": "/uploads/clean/1789051394645.jpg",
+    "images": [
+      "/uploads/clean/1789051394645.jpg"
+    ],
+    "description": "Refreshing fruit prints (Peach, Watermelon, Lemon, Kiwi) 3-fold rain and sun umbrella with vinyl black thermal coating for UV protection.",
+    "specifications": {
+      "Themes": "Peach, Lemon, Orange, Watermelon",
+      "Ribs": "8 Black Steel Windproof Ribs"
+    },
+    "badge": "Summer Fresh",
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.7,
+    "reviewCount": 18,
+    "categories": [
+      "Weather & Umbrella"
+    ]
+  },
+  {
+    "id": "p-drv-gft-mermaid-kids-raincoat",
+    "name": "Kids Waterproof Hooded Raincoat with School Bag Back Gusset (Pink Mermaid)",
+    "slug": "kids-waterproof-hooded-raincoat-mermaid",
+    "categoryId": "cat-weather-items",
+    "categoryName": "Weather & Umbrella",
+    "categorySlug": "weather-items",
+    "subCategoryId": "sub-kids-rainwear",
+    "subCategoryName": "Kids Rainwear & Raincoats",
+    "subCategorySlug": "raincoats",
+    "brand": "Jawata Mart",
+    "price": 500,
+    "discount": 0,
+    "stock": 50,
+    "sku": "JM-GFT-RNC-01",
+    "image": "/uploads/clean/1789051394942.jpg",
+    "images": [
+      "/uploads/clean/1789051394942.jpg"
+    ],
+    "description": "Premium EVA waterproof breathable kids raincoat with expandable backpack pocket on the back and extended transparent hood brim.",
+    "specifications": {
+      "Design": "Expandable School Bag Space",
+      "Material": "Eco Friendly Odorless EVA",
+      "Visor": "Clear Rain Visor Hood"
+    },
+    "badge": "Monsoon Ready",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 41,
+    "categories": [
+      "Weather & Umbrella"
+    ]
+  },
+  {
+    "id": "p-bag-school-ortho",
+    "name": "Ergonomic Waterproof Orthopedic School Backpack (32L)",
+    "slug": "ergonomic-waterproof-school-backpack",
+    "categoryId": "cat-bag",
+    "categoryName": "Bag",
+    "categorySlug": "bag",
+    "subCategoryId": "sub-school-bag",
+    "subCategoryName": "School Bag",
+    "subCategorySlug": "school-bag",
+    "brand": "Jawata Mart",
+    "price": 1650,
+    "originalPrice": 2200,
+    "discount": 25,
+    "stock": 50,
+    "sku": "JM-BAG-SCH-01",
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop"
+    ],
+    "description": "Heavy duty waterproof Oxford cloth school bag with spine protection cushioning and multiple stationery compartments.",
+    "specifications": {
+      "Capacity": "32 Liters",
+      "Material": "Waterproof Oxford Polyester",
+      "Weight": "650g"
+    },
+    "badge": "Bestseller",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": false,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewCount": 154,
+    "categories": [
+      "Bag"
+    ]
+  },
+  {
+    "id": "p-bag-kids-dino",
+    "name": "Cute 3D Dinosaur Plush Kids Toddler Backpack",
+    "slug": "cute-3d-dinosaur-kids-backpack",
+    "categoryId": "cat-bag",
+    "categoryName": "Bag",
+    "categorySlug": "bag",
+    "subCategoryId": "sub-kids-bag",
+    "subCategoryName": "Kids Bag",
+    "subCategorySlug": "kids-bag",
+    "brand": "Jawata Mart",
+    "price": 850,
+    "originalPrice": 1150,
+    "discount": 26,
+    "stock": 65,
+    "sku": "JM-BAG-KID-02",
+    "image": "https://images.unsplash.com/photo-1577733966973-d680bffd2e80?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1577733966973-d680bffd2e80?w=600&h=600&fit=crop"
+    ],
+    "description": "Soft neoprene lightweight anti-lost backpack for preschool and nursery kids with adjustable safety harness.",
+    "specifications": {
+      "Age Range": "1-5 Years",
+      "Material": "Eco Neoprene",
+      "Feature": "Anti-Lost Harness"
+    },
+    "badge": "Popular",
+    "isFeatured": true,
+    "isBestSeller": false,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 98,
+    "categories": [
+      "Bag"
+    ]
+  },
+  {
+    "id": "p-bag-ladies-tote",
+    "name": "Premium Vegan Leather Ladies Shoulder Handbag & Crossbody Set",
+    "slug": "premium-leather-ladies-handbag-set",
+    "categoryId": "cat-bag",
+    "categoryName": "Bag",
+    "categorySlug": "bag",
+    "subCategoryId": "sub-ladies-bag",
+    "subCategoryName": "Ladies Bag",
+    "subCategorySlug": "ladies-bag",
+    "brand": "Jawata Mart",
+    "price": 2150,
+    "originalPrice": 2800,
+    "discount": 23,
+    "stock": 35,
+    "sku": "JM-BAG-LAD-03",
+    "image": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&h=600&fit=crop"
+    ],
+    "description": "Elegant dual-tone ladies tote handbag equipped with gold-plated metal zippers, inner organizer pouch, and detachable strap.",
+    "specifications": {
+      "Material": "High Grade Vegan Leather",
+      "Compartments": "3 Inner, 1 Zipper",
+      "Closure": "Magnetic & Zip"
+    },
+    "badge": "New Arrival",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 210,
+    "categories": [
+      "Bag"
+    ]
+  },
+  {
+    "id": "p-bag-travel-duffel",
+    "name": "Expandable Cabin Waterproof Travelling Duffel Bag (55L)",
+    "slug": "expandable-waterproof-travelling-duffel-bag",
+    "categoryId": "cat-bag",
+    "categoryName": "Bag",
+    "categorySlug": "bag",
+    "subCategoryId": "sub-travelling-bag",
+    "subCategoryName": "Travelling Bag",
+    "subCategorySlug": "travelling-bag",
+    "brand": "Jawata Mart",
+    "price": 1750,
+    "originalPrice": 2400,
+    "discount": 27,
+    "stock": 40,
+    "sku": "JM-BAG-TRV-04",
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop"
+    ],
+    "description": "Foldable large capacity duffle bag with wet/dry separation pocket and luggage sleeve.",
+    "specifications": {
+      "Capacity": "55 Liters",
+      "Feature": "Foldable & Luggage Compatible",
+      "Usage": "Weekend & Flight Travel"
+    },
+    "badge": "Trending",
+    "isFeatured": false,
+    "isBestSeller": true,
+    "isNew": false,
+    "isActive": true,
+    "rating": 4.7,
+    "reviewCount": 88,
+    "categories": [
+      "Bag"
+    ]
+  },
+  {
+    "id": "p-toy-rc-stunt-car",
+    "name": "4WD 360° Rotating High-Speed Gesture & Remote Control Stunt Car",
+    "slug": "4wd-gesture-rc-stunt-car",
+    "categoryId": "cat-kids-toys",
+    "categoryName": "Kids Toys",
+    "categorySlug": "kids-toys",
+    "subCategoryId": "sub-rc-cars",
+    "subCategoryName": "Remote Control & Cars",
+    "subCategorySlug": "rc-cars",
+    "brand": "Jawata Mart",
+    "price": 1950,
+    "originalPrice": 2600,
+    "discount": 25,
+    "stock": 45,
+    "sku": "JM-TOY-RC-01",
+    "image": "https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=600&h=600&fit=crop"
+    ],
+    "description": "Exciting gesture sensor control car with LED headlights, realistic engine audio, and all-terrain stunt tumbling wheels.",
+    "specifications": {
+      "Control Mode": "Hand Gesture + 2.4GHz Remote",
+      "Battery": "Rechargeable Li-ion",
+      "Play Time": "40 Mins"
+    },
+    "badge": "Top Rated",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 165,
+    "categories": [
+      "Kids Toys"
+    ]
+  },
+  {
+    "id": "p-toy-wooden-montessori",
+    "name": "10-in-1 Wooden Educational Geometry & Number Sorting Puzzle",
+    "slug": "10-in-1-wooden-montessori-puzzle",
+    "categoryId": "cat-kids-toys",
+    "categoryName": "Kids Toys",
+    "categorySlug": "kids-toys",
+    "subCategoryId": "sub-educational-toys",
+    "subCategoryName": "Educational Toys",
+    "subCategorySlug": "educational-toys",
+    "brand": "Jawata Mart",
+    "price": 1250,
+    "originalPrice": 1650,
+    "discount": 24,
+    "stock": 60,
+    "sku": "JM-TOY-EDU-02",
+    "image": "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&h=600&fit=crop"
+    ],
+    "description": "Eco-friendly non-toxic natural wood matching puzzle for motor skills, color identification, and basic math counting.",
+    "specifications": {
+      "Material": "Natural Beech Wood & Non-Toxic Paint",
+      "Age": "2-6 Years",
+      "Certifications": "CE Certified"
+    },
+    "badge": "Bestseller",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": false,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewCount": 220,
+    "categories": [
+      "Kids Toys"
+    ]
+  },
+  {
+    "id": "p-dress-organic-romper-3pk",
+    "name": "100% Organic Pure Cotton Baby Rompers & Bodysuits (Pack of 3)",
+    "slug": "organic-cotton-baby-rompers-3pk",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-rompers-sets",
+    "subCategoryName": "Rompers & Sets",
+    "subCategorySlug": "rompers-sets",
+    "brand": "Jawata Mart",
+    "price": 1350,
+    "originalPrice": 1800,
+    "discount": 25,
+    "stock": 80,
+    "sku": "JM-DRS-RMP-01",
+    "image": "https://images.unsplash.com/photo-1522771930-78848d9293e8?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1522771930-78848d9293e8?w=600&h=600&fit=crop"
+    ],
+    "description": "Hypoallergenic soft breathable cotton onesies with nickel-free crotch snap buttons for hassle-free diaper changing.",
+    "specifications": {
+      "Fabric": "100% Combed Cotton",
+      "Sizes": "0-3M, 3-6M, 6-12M",
+      "Wash": "Machine Washable"
+    },
+    "badge": "Hot Deal",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": false,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 310,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-dress-newborn-set",
+    "name": "Newborn Welcome Hospital Gift Set (8 Pcs Complete Cotton Clothing)",
+    "slug": "newborn-welcome-gift-set-8pcs",
+    "categoryId": "cat-baby-dress",
+    "categoryName": "Baby Dress",
+    "categorySlug": "baby-dress",
+    "subCategoryId": "sub-newborn-clothes",
+    "subCategoryName": "Newborn Clothes",
+    "subCategorySlug": "newborn-clothes",
+    "brand": "Jawata Mart",
+    "price": 1650,
+    "originalPrice": 2150,
+    "discount": 23,
+    "stock": 55,
+    "sku": "JM-DRS-NWB-02",
+    "image": "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600&h=600&fit=crop"
+    ],
+    "description": "Includes 2 tops, 2 pajamas, cap, mittens, booties, and bib in an elegant gift box presentation.",
+    "specifications": {
+      "Items": "8 Pieces Set",
+      "Material": "Interlock Baby Cotton",
+      "Target Age": "0-3 Months"
+    },
+    "badge": "Gift Choice",
+    "isFeatured": false,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 140,
+    "categories": [
+      "Baby Dress"
+    ]
+  },
+  {
+    "id": "p-shoe-soft-booties",
+    "name": "Anti-Slip Breathable Soft Sole Pre-Walker Infant Booties",
+    "slug": "anti-slip-soft-sole-infant-booties",
+    "categoryId": "cat-baby-shoes",
+    "categoryName": "Baby Shoes",
+    "categorySlug": "baby-shoes",
+    "subCategoryId": "sub-soft-sole-booties",
+    "subCategoryName": "Soft Sole Booties",
+    "subCategorySlug": "soft-sole-booties",
+    "brand": "Jawata Mart",
+    "price": 650,
+    "originalPrice": 850,
+    "discount": 23,
+    "stock": 70,
+    "sku": "JM-SHU-BOT-01",
+    "image": "https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=600&h=600&fit=crop"
+    ],
+    "description": "Elastic ankle cuff holds booties securely without restricting natural baby foot development. Non-slip silicone bottom.",
+    "specifications": {
+      "Sole": "Anti-skid Soft Rubber Grip",
+      "Sizes": "11cm, 12cm, 13cm",
+      "Seasons": "All Seasons"
+    },
+    "badge": "Popular",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": false,
+    "isActive": true,
+    "rating": 4.7,
+    "reviewCount": 115,
+    "categories": [
+      "Baby Shoes"
+    ]
+  },
+  {
+    "id": "p-cosm-aveeno-wash",
+    "name": "Aveeno Baby Daily Moisture Tear-Free Wash & Shampoo 354ml",
+    "slug": "aveeno-baby-daily-moisture-wash-shampoo",
+    "categoryId": "cat-cosmetics-items",
+    "categoryName": "Cosmetics Items (Baby & Parents)",
+    "categorySlug": "cosmetics-items",
+    "subCategoryId": "sub-baby-skincare-wash",
+    "subCategoryName": "Baby Skincare & Wash",
+    "subCategorySlug": "baby-skincare-wash",
+    "brand": "Aveeno",
+    "price": 1350,
+    "originalPrice": 1650,
+    "discount": 18,
+    "stock": 65,
+    "sku": "JM-CSM-AVN-01",
+    "image": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&h=600&fit=crop"
+    ],
+    "description": "Tear-free hypoallergenic wash formulated with natural oat extract to gently nourish delicate infant skin.",
+    "specifications": {
+      "Volume": "354 ml",
+      "Origin": "USA / EU",
+      "Hypoallergenic": "Yes, Dermatologist Tested"
+    },
+    "badge": "Authentic",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": false,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 320,
+    "categories": [
+      "Cosmetics Items (Baby & Parents)"
+    ]
+  },
+  {
+    "id": "p-htex-curtain-luxury",
+    "name": "Modern Eyelet Thermal Blackout Room Curtains (Set of 2 Panels)",
+    "slug": "modern-eyelet-thermal-blackout-curtains",
+    "categoryId": "cat-home-tex",
+    "categoryName": "Home Tex",
+    "categorySlug": "home-tex",
+    "subCategoryId": "sub-curtains-drapes",
+    "subCategoryName": "Curtains & Drapes",
+    "subCategorySlug": "curtains-drapes",
+    "brand": "Jawata Mart",
+    "price": 1850,
+    "originalPrice": 2500,
+    "discount": 26,
+    "stock": 40,
+    "sku": "JM-HTX-CRT-01",
+    "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&h=600&fit=crop"
+    ],
+    "description": "Blocks 90% sunlight and UV rays, reduces outside noise, and provides temperature insulation.",
+    "specifications": {
+      "Dimensions": "7 Ft x 4 Ft each (Pack of 2)",
+      "Fabric": "Heavy Triple-Weave Polyester",
+      "Hanging": "Rust-Proof Eyelets"
+    },
+    "badge": "Top Rated",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": false,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewCount": 94,
+    "categories": [
+      "Home Tex"
+    ]
+  },
+  {
+    "id": "p-bed-king-cotton",
+    "name": "100% Pure Combed Cotton King Size Printed Bedsheet Set (with 2 Pillowcases)",
+    "slug": "pure-combed-cotton-king-size-bedsheet",
+    "categoryId": "cat-bed-sheet",
+    "categoryName": "Bed Sheet",
+    "categorySlug": "bed-sheet",
+    "subCategoryId": "sub-double-king-bed-sheets",
+    "subCategoryName": "Double & King Bed Sheets",
+    "subCategorySlug": "double-king-bed-sheets",
+    "brand": "Jawata Mart",
+    "price": 1650,
+    "originalPrice": 2200,
+    "discount": 25,
+    "stock": 50,
+    "sku": "JM-BED-KNG-01",
+    "image": "https://images.unsplash.com/photo-1629949009765-40fc74c95018?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1629949009765-40fc74c95018?w=600&h=600&fit=crop"
+    ],
+    "description": "Ultra-soft 300 Thread Count breathable cotton with anti-fade reactive floral printing. Does not shrink or pill.",
+    "specifications": {
+      "Size": "King (7.5 Ft x 8.5 Ft)",
+      "Thread Count": "300 TC",
+      "Includes": "1 Bedsheet + 2 Matching Pillow Covers"
+    },
+    "badge": "Bestseller",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": false,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 188,
+    "categories": [
+      "Bed Sheet"
+    ]
+  },
+  {
+    "id": "p-edu-quran-series",
+    "name": "Illustrated Islamic History & Stories of 25 Prophets for Children (4 Volumes)",
+    "slug": "stories-of-prophets-children-series",
+    "categoryId": "cat-educational-items",
+    "categoryName": "Educational Items",
+    "categorySlug": "educational-items",
+    "subCategoryId": "sub-islamic-general-books",
+    "subCategoryName": "Islamic & General Books",
+    "subCategorySlug": "islamic-general-books",
+    "brand": "Jawata Mart",
+    "price": 1150,
+    "originalPrice": 1550,
+    "discount": 25,
+    "stock": 55,
+    "sku": "JM-EDU-BOK-01",
+    "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=600&fit=crop"
+    ],
+    "description": "Full-color illustrated hardbound book series written in engaging Bangla and English for young curious minds.",
+    "specifications": {
+      "Binding": "Hardcover 4 Volumes",
+      "Language": "Bangla with Arabic Reference",
+      "Target Age": "5-14 Years"
+    },
+    "badge": "Recommended",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": false,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 145,
+    "categories": [
+      "Educational Items"
+    ]
+  },
+  {
+    "id": "p-kitch-granite-set",
+    "name": "Die-Cast Non-Stick Granite Cookware Set (7 Pcs with Tempered Glass Lids)",
+    "slug": "die-cast-granite-cookware-set-7pcs",
+    "categoryId": "cat-kitchen-items",
+    "categoryName": "Kitchen Items",
+    "categorySlug": "kitchen-items",
+    "subCategoryId": "sub-cookware-pots",
+    "subCategoryName": "Cookware & Pots",
+    "subCategorySlug": "cookware-pots",
+    "brand": "Jawata Mart",
+    "price": 4650,
+    "originalPrice": 5900,
+    "discount": 21,
+    "stock": 25,
+    "sku": "JM-KIT-CW-01",
+    "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600&h=600&fit=crop"
+    ],
+    "description": "Multi-layer durable German granite coating. Induction and gas stove compatible with heat-resistant silicone handles.",
+    "specifications": {
+      "Set Count": "7 Pieces (Casseroles, Pan, Kadai, Lids)",
+      "Coating": "PFOA-Free Granite Non-Stick",
+      "Base": "Induction Bottom"
+    },
+    "badge": "Chef Choice",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 75,
+    "categories": [
+      "Kitchen Items"
+    ]
+  },
+  {
+    "id": "p-ktc-waterpot-floral-tumbler",
+    "name": "Stainless Steel Water Tumbler/Stanley",
+    "slug": "luxury-insulated-floral-water-tumbler-flask-1200ml",
+    "categoryId": "cat-kitchen-items",
+    "categoryName": "Kitchen Items",
+    "categorySlug": "kitchen-items",
+    "subCategoryId": "sub-kitchen-storage",
+    "subCategoryName": "Kitchen Storage & Organizers",
+    "subCategorySlug": "kitchen-storage",
+    "brand": "Jawata Mart",
+    "price": 1950,
+    "originalPrice": 2450,
+    "discount": 22,
+    "stock": 50,
+    "sku": "JM-KTC-TMB-01",
+    "image": "/images/banner-tumbler-collection.jpg",
+    "images": [
+      "/images/banner-tumbler-collection.jpg",
+      "/images/banner-tumbler-pink-giftbox.jpg",
+      "/images/banner-tumbler-wide.jpg"
+    ],
+    "description": "প্রিমিয়াম ফুড-গ্রেড স্টেইনলেস স্টিল ডাবল-ওয়াল ভ্যাকুয়াম ইনসুলেটেড ফ্লোরাল ওয়াটার পট ও টাম্বলার। দীর্ঘ সময় পানীয় ঠান্ডা বা গরম রাখে। সাথে পাচ্ছেন ম্যাচিং স্ট্র, শক্ত হ্যান্ডেল এবং প্রিমিয়াম গিফট বক্স।",
+    "specifications": {
+      "ধারণক্ষমতা (Capacity)": "1200 ml / 40 oz",
+      "উপাদান (Material)": "Food Grade 304 Stainless Steel (BPA Free)",
+      "তাপ ধরে রাখার ক্ষমতা": "১২+ ঘন্টা গরম এবং ২৪+ ঘন্টা ঠান্ডা",
+      "এক্সেসরিজ": "প্রিমিয়াম স্ট্র ও কমফোর্টেবল হ্যান্ডেল সহ",
+      "প্যাকেজিং": "এক্সক্লুসিভ ফ্লোরাল গিফট বক্স"
+    },
+    "badge": "Trending",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 38,
+    "categories": [
+      "Kitchen Items",
+      "Baby Items"
+    ]
+  },
+  {
+    "id": "p-hlth-vitc-serum",
+    "name": "Pure Organic Vitamin C Brightening & Anti-Aging Serum 30ml",
+    "slug": "pure-organic-vitamin-c-serum",
+    "categoryId": "cat-health-skin-care",
+    "categoryName": "Health Care & Skin Care Items",
+    "categorySlug": "health-skin-care",
+    "subCategoryId": "sub-organic-face-care",
+    "subCategoryName": "Organic Face Care",
+    "subCategorySlug": "organic-face-care",
+    "brand": "Jawata Mart",
+    "price": 950,
+    "originalPrice": 1350,
+    "discount": 29,
+    "stock": 75,
+    "sku": "JM-SKN-SER-01",
+    "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&h=600&fit=crop"
+    ],
+    "description": "Infused with 20% Vitamin C, Hyaluronic acid and Vitamin E. Fades dark spots and boosts natural collagen.",
+    "specifications": {
+      "Volume": "30 ml Dropper Bottle",
+      "Key Actives": "20% L-Ascorbic Acid, Hyaluronic Acid",
+      "Skin Type": "All Skin Types"
+    },
+    "badge": "Popular",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": false,
+    "isActive": true,
+    "rating": 4.8,
+    "reviewCount": 230,
+    "categories": [
+      "Health Care & Skin Care Items"
+    ]
+  },
+  {
+    "id": "p-isl-prayer-mat-velvet",
+    "name": "Turkish Embossed Memory Foam Luxury Velvet Janamaz (Prayer Mat)",
+    "slug": "turkish-embossed-memory-foam-janamaz",
+    "categoryId": "cat-islamic-items",
+    "categoryName": "Islamic Items",
+    "categorySlug": "islamic-items",
+    "subCategoryId": "sub-janamaz-prayer-mats",
+    "subCategoryName": "Premium Janamaz (Prayer Mats)",
+    "subCategorySlug": "janamaz-prayer-mats",
+    "brand": "Jawata Mart",
+    "price": 1850,
+    "originalPrice": 2400,
+    "discount": 23,
+    "stock": 45,
+    "sku": "JM-ISL-JNM-01",
+    "image": "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600&h=600&fit=crop"
+    ],
+    "description": "Extra thick orthopedic memory foam cushioning eases knee and joint pressure during Sajdah. Anti-slip bottom.",
+    "specifications": {
+      "Cushioning": "20mm High Density Memory Foam",
+      "Surface": "Plush Turkish Velvet",
+      "Dimensions": "120cm x 80cm"
+    },
+    "badge": "Comfort Pick",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": false,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 312,
+    "categories": [
+      "Islamic Items"
+    ]
+  },
+  {
+    "id": "p-wnt-fleece-hoodie",
+    "name": "Thermal Fleece Lined Baby Winter Zipper Hoodie Jacket",
+    "slug": "thermal-fleece-baby-winter-hoodie",
+    "categoryId": "cat-winter-items",
+    "categoryName": "Winter Items",
+    "categorySlug": "winter-items",
+    "subCategoryId": "sub-baby-winter-sweaters",
+    "subCategoryName": "Baby Winter Sweaters & Hoodies",
+    "subCategorySlug": "baby-winter-sweaters",
+    "brand": "Jawata Mart",
+    "price": 1150,
+    "originalPrice": 1550,
+    "discount": 25,
+    "stock": 65,
+    "sku": "JM-WNT-HOD-01",
+    "image": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&h=600&fit=crop"
+    ],
+    "description": "Ultra-warm windproof sherpa fleece interior with cute animal ear hood design. Protects babies from cold breeze.",
+    "specifications": {
+      "Lining": "Warm Sherpa Fleece",
+      "Closure": "Smooth Zip Front",
+      "Sizes": "6M-12M, 1-2Y, 2-3Y"
+    },
+    "badge": "Winter Special",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 160,
+    "categories": [
+      "Winter Items"
+    ]
+  }
+]

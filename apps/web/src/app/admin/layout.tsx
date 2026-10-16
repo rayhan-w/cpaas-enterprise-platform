@@ -28,11 +28,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     return <div className="min-h-screen bg-[#F8F7F5]">{children}</div>;
   }
 
+  // Client-side session guard
+  React.useEffect(() => {
+    const token = localStorage.getItem('nurtura_admin_token');
+    const hasCookie = document.cookie.includes('nurtura_admin_token=');
+    if (!token && !hasCookie) {
+      router.replace('/admin/login?redirect=' + encodeURIComponent(pathname));
+    }
+  }, [pathname, router]);
+
   const handleLogout = () => {
     localStorage.removeItem('nurtura_admin_token');
     localStorage.removeItem('nurtura_admin_user');
-    document.cookie = 'nurtura_admin_token=; Max-Age=0; path=/;';
-    router.push('/admin/login');
+    document.cookie = 'nurtura_admin_token=; Max-Age=0; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+    router.replace('/admin/login');
   };
 
   const navLinks = [

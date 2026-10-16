@@ -282,18 +282,9 @@ const ALLOWED_ORGANIC_IDS = new Set([
   'p-org-homemade-pickle',
 ]);
 
-function isAllowedOrganicProduct(p: any): boolean {
-  if (p.categorySlug !== 'organic-food' && p.categoryId !== 'cat-organic-food') {
-    return true;
-  }
-  const id = p.id || '';
-  const slug = p.slug || '';
-  if (ALLOWED_ORGANIC_IDS.has(id)) return true;
-  if (slug.includes('cow-milk-ghee') || slug.includes('danadar-pure-cow-ghee')) return true;
-  if (slug.includes('mustard-oil') || slug.includes('wood-ghani')) return true;
-  if (slug.includes('sundarbans-wild-flower-honey') || slug.includes('pure-natural-raw-honey')) return true;
-  if (slug.includes('homemade-mango-pickle')) return true;
-  return false;
+function isAllowedOrganicProduct(_p: any): boolean {
+  // All active organic and catalogue products are allowed to be displayed
+  return true;
 }
 
 function patchOrganicProduct(p: any): ProductItem {
@@ -337,6 +328,16 @@ function normalizeProduct(p: any): ProductItem {
     p.price = validPrice;
   }
 
+  // Remove invalid or zero originalPrice to prevent stray '0' display bug
+  if (p.originalPrice !== undefined) {
+    const validOrig = parseRobustPrice(p.originalPrice);
+    if (validOrig === null || validOrig <= 0 || validOrig <= p.price) {
+      delete p.originalPrice;
+    } else {
+      p.originalPrice = validOrig;
+    }
+  }
+
   // Multi-Category Migration & Normalization
   let cats: string[] = [];
   if (Array.isArray(p.categories) && p.categories.length > 0) {
@@ -376,6 +377,7 @@ export const dbService = {
     isBestSeller?: boolean;
     isNew?: boolean;
     limit?: number;
+    includeInactive?: boolean;
   }): Promise<ProductItem[]> {
     const cacheKey = JSON.stringify(params || {});
     const hit = productCache.get(cacheKey);
@@ -385,7 +387,10 @@ export const dbService = {
 
     try {
       if (process.env.DATABASE_URL && prisma.product) {
-        const where: any = { isActive: true };
+        const where: any = {};
+        if (!params?.includeInactive) {
+          where.isActive = true;
+        }
         if (params?.isFeatured !== undefined) where.isFeatured = params.isFeatured;
         if (params?.isBestSeller !== undefined) where.isBestSeller = params.isBestSeller;
         if (params?.isNew !== undefined) where.isNew = params.isNew;
@@ -408,6 +413,7 @@ export const dbService = {
           const searchFilters = [
             { name: { contains: params.search, mode: 'insensitive' } },
             { description: { contains: params.search, mode: 'insensitive' } },
+            { sku: { contains: params.search, mode: 'insensitive' } },
             { brand: { contains: params.search, mode: 'insensitive' } },
             { specifications: { contains: params.search, mode: 'insensitive' } },
             { category: { name: { contains: params.search, mode: 'insensitive' } } },
@@ -425,7 +431,7 @@ export const dbService = {
           prisma.product.findMany({
             where,
             include: { category: true, subCategory: true, variants: true },
-            take: params?.limit || 50,
+            take: params?.limit || 100,
             orderBy: { createdAt: 'desc' },
           }),
           800
@@ -445,18 +451,11 @@ export const dbService = {
               categoryName: p.category.name,
               categorySlug: p.category.slug,
               subCategoryName: p.subCategory?.name,
+              subCategorySlug: p.subCategory?.slug,
             });
           });
 
-          // If querying organic-food or all products, ensure homemade pickle is present
-          if (!params?.categorySlug || params.categorySlug === 'organic-food') {
-            if (!mapped.some((p) => p.id === 'p-org-homemade-pickle' || p.slug.includes('homemade-mango-pickle'))) {
-              const fileProds = loadProductsFromFile();
-              const pickle = fileProds.find((p) => p.id === 'p-org-homemade-pickle');
-              if (pickle) mapped.push(normalizeProduct(pickle));
-            }
-          }
-          const result = mapped.filter(isAllowedOrganicProduct).filter(isNotDeleted);
+          const result = mapped.filter(isNotDeleted);
           productCache.set(cacheKey, { data: result, time: Date.now() });
           return result;
         }
@@ -466,7 +465,10 @@ export const dbService = {
     }
 
     // Disk File Store Filtering
-    let list = loadProductsFromFile().map(normalizeProduct).filter((p) => p.isActive).filter(isAllowedOrganicProduct).filter(isNotDeleted);
+    let list = loadProductsFromFile().map(normalizeProduct).filter(isNotDeleted);
+    if (!params?.includeInactive) {
+      list = list.filter((p) => p.isActive !== false);
+    }
     if (params?.categorySlug) {
       const targetCat = params.categorySlug.toLowerCase();
       list = list.filter((p) =>
@@ -499,15 +501,25 @@ export const dbService = {
       list = list.filter((p) => p.isNew === params.isNew);
     }
     if (params?.search) {
-      const q = params.search.toLowerCase();
+      const q = params.search.toLowerCase().trim();
+      const isHoneySearch = q === 'modhu' || q === 'madhu' || q === 'honey' || q.includes('মধু');
       list = list.filter(
         (p) =>
           p.name.toLowerCase().includes(q) ||
           p.description.toLowerCase().includes(q) ||
+          (p.sku && p.sku.toLowerCase().includes(q)) ||
           (p.brand && p.brand.toLowerCase().includes(q)) ||
           (p.categoryName && p.categoryName.toLowerCase().includes(q)) ||
           (p.subCategoryName && p.subCategoryName.toLowerCase().includes(q)) ||
-          (Array.isArray(p.categories) && p.categories.some((c) => c.toLowerCase().includes(q)))
+          (Array.isArray(p.categories) && p.categories.some((c) => c.toLowerCase().includes(q))) ||
+          (isHoneySearch && (
+            p.slug.includes('honey') ||
+            p.slug.includes('modhu') ||
+            p.name.toLowerCase().includes('honey') ||
+            p.name.toLowerCase().includes('modhu') ||
+            p.name.includes('মধু') ||
+            (p.subCategoryName && p.subCategoryName.includes('মধু'))
+          ))
       );
     }
     if (params?.limit) {
@@ -564,8 +576,25 @@ export const dbService = {
         .replace(/(^-|-$)+/g, '');
 
     const validPrice = parseRobustPrice(data.price);
-    if (validPrice === null) {
+    if (validPrice === null || validPrice <= 0) {
       throw new Error('Valid positive product price is required');
+    }
+
+    const prods = loadProductsFromFile();
+
+    // SKU Resolution & Uniqueness Verification
+    const resolvedSku =
+      typeof data.sku === 'string' && data.sku.trim()
+        ? data.sku.trim().toUpperCase()
+        : `JM-${Date.now().toString(36).toUpperCase()}`;
+
+    const existingSkuProd = prods.find(
+      (p) => p.sku && p.sku.trim().toUpperCase() === resolvedSku
+    );
+    if (existingSkuProd) {
+      throw new Error(
+        `SKU "${resolvedSku}" is already in use by product "${existingSkuProd.name}". SKUs must be unique.`
+      );
     }
 
     const cleanCategories = Array.isArray(data.categories) && data.categories.length > 0
@@ -580,15 +609,19 @@ export const dbService = {
       id: `prod_${Date.now()}`,
       name: data.name,
       slug,
-      categoryId: data.categoryId || 'cat-baby-kids',
-      categoryName: data.categoryName || 'Baby & Kids',
-      categorySlug: data.categorySlug || 'baby-kids',
+      categoryId: data.categoryId || 'cat-general',
+      categoryName: data.categoryName || 'General',
+      categorySlug: data.categorySlug || 'general',
       categories: cleanCategories,
+      subCategoryId: data.subCategoryId || undefined,
+      subCategoryName: data.subCategoryName || undefined,
+      subCategorySlug: data.subCategorySlug || undefined,
       brand: data.brand || 'Brand',
       price: validPrice,
       originalPrice: data.originalPrice ? parseRobustPrice(data.originalPrice) || undefined : undefined,
       discount: data.discount ? Number(data.discount) : 0,
       stock: Number(data.stock) || 50,
+      sku: resolvedSku,
       image: data.image || (Array.isArray(data.images) && data.images[0]) || '',
       images: Array.isArray(data.images) && data.images.length > 0 ? data.images : data.image ? [data.image] : [],
       description: data.description || '',
@@ -610,6 +643,7 @@ export const dbService = {
               name: newProduct.name,
               slug: newProduct.slug,
               categoryId: newProduct.categoryId,
+              subCategoryId: newProduct.subCategoryId,
               brand: newProduct.brand,
               price: newProduct.price,
               originalPrice: newProduct.originalPrice,
@@ -634,7 +668,6 @@ export const dbService = {
       console.error('Error creating product in DB, saving to file fallback:', err);
     }
 
-    const prods = loadProductsFromFile();
     prods.unshift(newProduct);
     saveProductsToFile(prods);
 
@@ -650,6 +683,27 @@ export const dbService = {
     }
     const validPrice: number | undefined = parsed ?? undefined;
     const validOriginalPrice: number | undefined = data.originalPrice !== undefined ? (parseRobustPrice(data.originalPrice) ?? undefined) : undefined;
+
+    const prods = loadProductsFromFile();
+    const idx = prods.findIndex((p) => p.id === id || p.slug === id);
+
+    // Validate SKU uniqueness on edit
+    let resolvedSku = prods[idx]?.sku;
+    if (typeof data.sku === 'string' && data.sku.trim()) {
+      const candidateSku = data.sku.trim().toUpperCase();
+      const duplicateSku = prods.find(
+        (p) =>
+          (p.id !== id && p.slug !== id) &&
+          p.sku &&
+          p.sku.trim().toUpperCase() === candidateSku
+      );
+      if (duplicateSku) {
+        throw new Error(
+          `SKU "${candidateSku}" is already in use by product "${duplicateSku.name}". SKUs must be unique.`
+        );
+      }
+      resolvedSku = candidateSku;
+    }
 
     const cleanCategories = Array.isArray(data.categories) && data.categories.length > 0
       ? Array.from(new Set(data.categories.map((c: any) => String(c).trim()).filter(Boolean)))
@@ -680,6 +734,7 @@ export const dbService = {
               description: data.description,
               categoryId: data.categoryId,
               subCategoryId: data.subCategoryId,
+              sku: resolvedSku,
               specifications: Object.keys(currentSpecs).length > 0 ? JSON.stringify(currentSpecs) : undefined,
             },
             include: { category: true, subCategory: true, variants: true }
@@ -694,13 +749,16 @@ export const dbService = {
     productCache.clear();
     singleProductCache.clear();
 
-    const prods = loadProductsFromFile();
-    const idx = prods.findIndex((p) => p.id === id || p.slug === id);
     if (idx !== -1) {
       prods[idx] = normalizeProduct({
         ...prods[idx],
         ...data,
+        sku: resolvedSku || prods[idx].sku,
+        subCategoryId: data.subCategoryId !== undefined ? data.subCategoryId : prods[idx].subCategoryId,
+        subCategoryName: data.subCategoryName !== undefined ? data.subCategoryName : prods[idx].subCategoryName,
+        subCategorySlug: data.subCategorySlug !== undefined ? data.subCategorySlug : prods[idx].subCategorySlug,
         price: validPrice !== undefined ? validPrice : prods[idx].price,
+        originalPrice: validOriginalPrice !== undefined ? validOriginalPrice : prods[idx].originalPrice,
         categories: cleanCategories || prods[idx].categories,
       });
       saveProductsToFile(prods);
@@ -713,6 +771,9 @@ export const dbService = {
         categories: cleanCategories || (updatedPrisma.category?.name ? [updatedPrisma.category.name] : ['General']),
         categoryName: updatedPrisma.category?.name,
         categorySlug: updatedPrisma.category?.slug,
+        subCategoryName: updatedPrisma.subCategory?.name,
+        subCategorySlug: updatedPrisma.subCategory?.slug,
+        sku: resolvedSku,
       });
       prods.unshift(normalized);
       saveProductsToFile(prods);
@@ -762,6 +823,26 @@ export const dbService = {
     if (categoryCache && Date.now() - categoryCache.time < CACHE_TTL) {
       return categoryCache.data;
     }
+
+    const prods = loadProductsFromFile().map(normalizeProduct).filter(isNotDeleted).filter((p) => p.isActive !== false);
+
+    const countProductsForCategory = (cat: { id: string; name: string; slug: string }) => {
+      const catNameLower = cat.name.toLowerCase();
+      const catSlugLower = cat.slug.toLowerCase();
+      return prods.filter(
+        (p) =>
+          p.categoryId === cat.id ||
+          p.categorySlug === cat.slug ||
+          (Array.isArray(p.categories) &&
+            p.categories.some(
+              (c) =>
+                c.toLowerCase() === catNameLower ||
+                c.toLowerCase() === catSlugLower ||
+                c.toLowerCase().replace(/[^a-z0-9]+/g, '-').includes(catSlugLower)
+            ))
+      ).length;
+    };
+
     try {
       if (process.env.DATABASE_URL && prisma.category) {
         const cats = await withTimeout(
@@ -773,18 +854,10 @@ export const dbService = {
           800
         );
         if (cats && cats.length > 0) {
-          const res = cats.map((c) => {
-            if (c.id === 'cat-organic-food' || c.slug === 'organic-food') {
-              const allowedSubs = new Set(['pure-ghee', 'mustard-oil', 'natural-honey', 'homemade-pickle']);
-              return {
-                ...c,
-                image: '/images/organic-pure-ghee.jpg',
-                productCount: 4,
-                subCategories: (c.subCategories || []).filter((s) => allowedSubs.has(s.slug)),
-              };
-            }
-            return c;
-          });
+          const res = cats.map((c) => ({
+            ...c,
+            productCount: countProductsForCategory(c),
+          }));
           categoryCache = { data: res, time: Date.now() };
           return res;
         }
@@ -792,9 +865,14 @@ export const dbService = {
     } catch {
       // Fall through to disk file
     }
+
     const fileCats = loadCategoriesFromFile();
-    categoryCache = { data: fileCats, time: Date.now() };
-    return fileCats;
+    const enriched = fileCats.map((c) => ({
+      ...c,
+      productCount: countProductsForCategory(c),
+    }));
+    categoryCache = { data: enriched, time: Date.now() };
+    return enriched;
   },
 
   async addCategory(data: any): Promise<CategoryItem> {
@@ -967,23 +1045,9 @@ export const dbService = {
       } catch {}
     }
 
-    // 1. Subcategories become top-level categories
-    const subCats = targetCat.subCategories || [];
-    subCats.forEach((sub) => {
-      if (!fileCats.some((c) => c.id === sub.id || c.name.toLowerCase() === sub.name.toLowerCase())) {
-        fileCats.push({
-          id: sub.id,
-          name: sub.name,
-          slug: sub.slug,
-          image: '',
-          description: '',
-          isFeatured: false,
-          order: fileCats.length + 1,
-          isActive: true,
-          subCategories: [],
-        });
-      }
-    });
+    // 1. Remove category from categories list
+    fileCats = fileCats.filter((c) => c.id !== targetCat.id);
+    saveCategoriesToFile(fileCats);
 
     // 2. Move products from deleted category to General (NEVER DELETE PRODUCTS!)
     const prods = loadProductsFromFile();
