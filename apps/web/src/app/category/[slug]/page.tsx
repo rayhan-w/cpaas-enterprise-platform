@@ -12,12 +12,16 @@ interface CategoryPageProps {
   searchParams: Promise<{ search?: string; sort?: string; sub?: string; offer?: string }>;
 }
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 export async function generateMetadata({ params }: CategoryPageProps) {
   const { slug } = await params;
   if (slug === 'all') {
     return { title: 'All Products | Jawata Mart' };
   }
-  const cat = INITIAL_CATEGORIES.find((c) => c.slug === slug);
+  const categories = await dbService.getCategories();
+  const cat = categories.find((c) => c.slug === slug || c.id === slug) || INITIAL_CATEGORIES.find((c) => c.slug === slug);
   return {
     title: cat ? `${cat.name} | Jawata Mart` : 'Category | Jawata Mart',
     description: cat?.description || 'Browse products on Jawata Mart',
@@ -30,8 +34,9 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 
   const isAll = slug === 'all';
   const isOffer = offer === '1' || offer === 'true';
-  const category = INITIAL_CATEGORIES.find((c) => c.slug === slug);
-  const activeSub = category?.subCategories?.find((s) => s.slug === sub || s.id === sub);
+  const categories = await dbService.getCategories();
+  const category = categories.find((c) => c.slug === slug || c.id === slug) || INITIAL_CATEGORIES.find((c) => c.slug === slug);
+  const activeSub = category?.subCategories?.find((s) => s.slug === sub || s.id === sub || s.name.toLowerCase() === sub?.toLowerCase());
 
   let products = await dbService.getProducts({
     categorySlug: isAll ? undefined : slug,

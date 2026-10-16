@@ -157,7 +157,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   // Free delivery above ৳2,000
   const isFreeDelivery = subtotal >= 2000 && subtotal > 0;
   const deliveryCharge =
-    subtotal === 0 ? 0 : isFreeDelivery ? 0 : deliveryZone === 'INSIDE_DHAKA' ? 60 : 120;
+    subtotal === 0 ? 0 : isFreeDelivery ? 0 : deliveryZone === 'INSIDE_DHAKA' ? 70 : 120;
 
   const discount = appliedCoupon ? appliedCoupon.discount : 0;
   const total = Math.max(0, subtotal + deliveryCharge - discount);

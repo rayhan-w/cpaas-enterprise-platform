@@ -8,7 +8,7 @@ export const INITIAL_SETTINGS: StoreSettings = {
   address: 'Uttara, Dhaka, Bangladesh',
   bkashMerchantNumber: '01915210799',
   nagadMerchantNumber: '01915210799',
-  insideDhakaFee: 60,
+  insideDhakaFee: 70,
   outsideDhakaFee: 120,
   freeDeliveryThreshold: 2000,
   sslcommerzStoreId: process.env.SSLCOMMERZ_STORE_ID || 'testbox',

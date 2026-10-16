@@ -10,11 +10,16 @@ import CuratedCategoryShowcase from '@/components/home/CuratedCategoryShowcase';
 import DeliveryInfoSection from '@/components/home/DeliveryInfoSection';
 import ReviewsSection from '@/components/home/ReviewsSection';
 import ProductGrid from '@/components/product/ProductGrid';
+import StorefrontCategoryFilter from '@/components/home/StorefrontCategoryFilter';
 
-export const revalidate = 60; // ISR revalidation
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 
 export default async function HomePage() {
-  const products = await dbService.getProducts({ limit: 150 });
+  const [products, categories] = await Promise.all([
+    dbService.getProducts({ limit: 150 }),
+    dbService.getCategories(),
+  ]);
   const bestSellers = products.filter((p) => p.isBestSeller).slice(0, 8);
   const newArrivals = products.filter((p) => p.isNew).slice(0, 4);
 
@@ -27,9 +32,12 @@ export default async function HomePage() {
       <TrustBadgesStrip />
 
       {/* 3. Category Department Pills */}
-      <CategoryPills />
+      <CategoryPills categories={categories} />
 
-      {/* 4. Flash Sale Deals */}
+      {/* 4. Interactive All Category Filter with Grouped Subcategories */}
+      <StorefrontCategoryFilter categories={categories} products={products} />
+
+      {/* 5. Flash Sale Deals */}
       <FlashSaleSection products={products} />
 
       {/* 5. Best Sellers Across Bangladesh */}

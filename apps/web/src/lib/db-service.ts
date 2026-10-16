@@ -18,8 +18,24 @@ import {
   BannerItem,
   PaymentStatus,
 } from './types';
+import { parseRobustPrice } from './formatters';
 
-const DELETED_FILE = path.join(process.cwd(), 'data', 'deleted-products.json');
+const DATA_DIR = path.join(process.cwd(), 'data');
+const DELETED_FILE = path.join(DATA_DIR, 'deleted-products.json');
+const CATEGORIES_FILE = path.join(DATA_DIR, 'categories.json');
+const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
+const SETTINGS_FILE = path.join(DATA_DIR, 'settings.json');
+const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
+
+function ensureDataDir() {
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+  } catch (err) {
+    // Ignore error
+  }
+}
 
 const DEFAULT_BLOCKED_IDS = [
   'p-fas-mens-panjabi',
@@ -35,6 +51,7 @@ const DEFAULT_BLOCKED_IDS = [
 ];
 
 function loadDeletedIds(): Set<string> {
+  ensureDataDir();
   try {
     if (fs.existsSync(DELETED_FILE)) {
       const data = JSON.parse(fs.readFileSync(DELETED_FILE, 'utf8'));
@@ -47,9 +64,8 @@ function loadDeletedIds(): Set<string> {
 }
 
 function saveDeletedId(idOrSlug: string, additionalSlug?: string) {
+  ensureDataDir();
   try {
-    const dir = path.dirname(DELETED_FILE);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     const current = loadDeletedIds();
     current.add(idOrSlug);
     if (additionalSlug) current.add(additionalSlug);
@@ -65,10 +81,7 @@ function isNotDeleted(p: any): boolean {
   return !del.has(p.id) && !del.has(p.slug);
 }
 
-// In-memory runtime cache for development/fallback
-let memoryProducts: ProductItem[] = [...INITIAL_PRODUCTS].filter(isNotDeleted);
-let memoryCategories: CategoryItem[] = [...INITIAL_CATEGORIES];
-let memoryOrders: OrderRecord[] = [
+const INITIAL_SAMPLE_ORDERS: OrderRecord[] = [
   {
     id: 'ord-1',
     orderNumber: 'JM-1001',
@@ -80,10 +93,10 @@ let memoryOrders: OrderRecord[] = [
     area: 'Dhanmondi',
     address: 'House 12, Road 4, Dhanmondi, Dhaka',
     deliveryZone: 'INSIDE_DHAKA',
-    deliveryCharge: 60,
+    deliveryCharge: 70,
     subtotal: 3100,
     discount: 0,
-    total: 3160,
+    total: 3170,
     paymentMethod: 'BKASH',
     paymentStatus: 'PENDING_VERIFICATION',
     orderStatus: 'PENDING',
@@ -148,9 +161,119 @@ let memoryOrders: OrderRecord[] = [
     payments: [],
   },
 ];
-let memorySettings: StoreSettings = { ...INITIAL_SETTINGS };
+
 let memoryCoupons: CouponItem[] = [...INITIAL_COUPONS];
 let memoryBanners: BannerItem[] = [...INITIAL_BANNERS];
+
+function loadCategoriesFromFile(): CategoryItem[] {
+  ensureDataDir();
+  try {
+    if (fs.existsSync(CATEGORIES_FILE)) {
+      const data = JSON.parse(fs.readFileSync(CATEGORIES_FILE, 'utf8'));
+      if (Array.isArray(data) && data.length > 0) {
+        return data;
+      }
+    }
+  } catch (err) {
+    console.error('Error reading categories file:', err);
+  }
+  const initial = [...INITIAL_CATEGORIES];
+  saveCategoriesToFile(initial);
+  return initial;
+}
+
+function saveCategoriesToFile(cats: CategoryItem[]) {
+  ensureDataDir();
+  try {
+    fs.writeFileSync(CATEGORIES_FILE, JSON.stringify(cats, null, 2), 'utf8');
+  } catch (err) {
+    console.error('Error saving categories file:', err);
+  }
+}
+
+function loadProductsFromFile(): ProductItem[] {
+  ensureDataDir();
+  try {
+    if (fs.existsSync(PRODUCTS_FILE)) {
+      const data = JSON.parse(fs.readFileSync(PRODUCTS_FILE, 'utf8'));
+      if (Array.isArray(data) && data.length > 0) {
+        return data.map(normalizeProduct).filter(isNotDeleted);
+      }
+    }
+  } catch (err) {
+    console.error('Error reading products file:', err);
+  }
+  const initial = INITIAL_PRODUCTS.map(normalizeProduct).filter(isNotDeleted);
+  saveProductsToFile(initial);
+  return initial;
+}
+
+function saveProductsToFile(prods: ProductItem[]) {
+  ensureDataDir();
+  try {
+    fs.writeFileSync(PRODUCTS_FILE, JSON.stringify(prods, null, 2), 'utf8');
+  } catch (err) {
+    console.error('Error saving products file:', err);
+  }
+}
+
+function loadSettingsFromFile(): StoreSettings {
+  ensureDataDir();
+  try {
+    if (fs.existsSync(SETTINGS_FILE)) {
+      const data = JSON.parse(fs.readFileSync(SETTINGS_FILE, 'utf8'));
+      if (data && typeof data === 'object') {
+        if (data.deliveryInsideDhaka === 60) {
+          data.deliveryInsideDhaka = 70;
+        }
+        if (!data.deliveryOutsideDhaka) {
+          data.deliveryOutsideDhaka = 120;
+        }
+        return data;
+      }
+    }
+  } catch (err) {
+    console.error('Error reading settings file:', err);
+  }
+  const initial = { ...INITIAL_SETTINGS };
+  saveSettingsToFile(initial);
+  return initial;
+}
+
+function saveSettingsToFile(settings: StoreSettings) {
+  ensureDataDir();
+  try {
+    fs.writeFileSync(SETTINGS_FILE, JSON.stringify(settings, null, 2), 'utf8');
+  } catch (err) {
+    console.error('Error saving settings file:', err);
+  }
+}
+
+function loadOrdersFromFile(): OrderRecord[] {
+  ensureDataDir();
+  try {
+    if (fs.existsSync(ORDERS_FILE)) {
+      const data = JSON.parse(fs.readFileSync(ORDERS_FILE, 'utf8'));
+      if (Array.isArray(data)) {
+        return data;
+      }
+    }
+  } catch (err) {
+    console.error('Error reading orders file:', err);
+  }
+  const initial = [...INITIAL_SAMPLE_ORDERS];
+  saveOrdersToFile(initial);
+  return initial;
+}
+
+function saveOrdersToFile(orders: OrderRecord[]) {
+  ensureDataDir();
+  try {
+    fs.writeFileSync(ORDERS_FILE, JSON.stringify(orders, null, 2), 'utf8');
+  } catch (err) {
+    console.error('Error saving orders file:', err);
+  }
+}
 
 const ALLOWED_ORGANIC_IDS = new Set([
   'p-org-pure-cow-ghee',
@@ -202,6 +325,36 @@ function patchOrganicProduct(p: any): ProductItem {
   return p;
 }
 
+function normalizeProduct(p: any): ProductItem {
+  if (!p) return p;
+  p = patchOrganicProduct(p);
+
+  // Fallback price protection (never silently show ৳0)
+  const validPrice = parseRobustPrice(p.price);
+  if (validPrice === null) {
+    p.price = p.originalPrice ? (parseRobustPrice(p.originalPrice) || 500) : 500;
+  } else {
+    p.price = validPrice;
+  }
+
+  // Multi-Category Migration & Normalization
+  let cats: string[] = [];
+  if (Array.isArray(p.categories) && p.categories.length > 0) {
+    cats = p.categories;
+  } else if (p.specifications && typeof p.specifications === 'object' && Array.isArray(p.specifications._categories)) {
+    cats = p.specifications._categories;
+  } else if (typeof p.categoryName === 'string' && p.categoryName.trim()) {
+    cats = [p.categoryName.trim()];
+  } else if (p.category && typeof p.category.name === 'string') {
+    cats = [p.category.name.trim()];
+  } else {
+    cats = ['General'];
+  }
+  p.categories = Array.from(new Set(cats.map((c) => String(c).trim()).filter(Boolean)));
+
+  return p;
+}
+
 const withTimeout = <T>(promise: Promise<T>, ms = 1200): Promise<T> =>
   Promise.race([
     promise,
@@ -211,7 +364,7 @@ const withTimeout = <T>(promise: Promise<T>, ms = 1200): Promise<T> =>
 const productCache = new Map<string, { data: ProductItem[]; time: number }>();
 const singleProductCache = new Map<string, { data: ProductItem | null; time: number }>();
 let categoryCache: { data: CategoryItem[]; time: number } | null = null;
-const CACHE_TTL = 60 * 1000; // 60 seconds
+const CACHE_TTL = 1000; // 1 second
 
 export const dbService = {
   // PRODUCTS
@@ -237,17 +390,35 @@ export const dbService = {
         if (params?.isBestSeller !== undefined) where.isBestSeller = params.isBestSeller;
         if (params?.isNew !== undefined) where.isNew = params.isNew;
         if (params?.categorySlug) {
-          where.category = { slug: params.categorySlug };
+          const loadedCats = loadCategoriesFromFile();
+          const matchedCat = loadedCats.find((c) => c.slug === params.categorySlug || c.id === params.categorySlug) ||
+            INITIAL_CATEGORIES.find((c) => c.slug === params.categorySlug);
+          const catNameOrSlug = matchedCat ? matchedCat.name : params.categorySlug;
+          where.OR = [
+            { category: { slug: params.categorySlug } },
+            { category: { name: { equals: catNameOrSlug, mode: 'insensitive' } } },
+            { specifications: { contains: params.categorySlug, mode: 'insensitive' } },
+            { specifications: { contains: catNameOrSlug, mode: 'insensitive' } },
+          ];
         }
         if (params?.subCategorySlug) {
           where.subCategory = { slug: params.subCategorySlug };
         }
         if (params?.search) {
-          where.OR = [
+          const searchFilters = [
             { name: { contains: params.search, mode: 'insensitive' } },
             { description: { contains: params.search, mode: 'insensitive' } },
             { brand: { contains: params.search, mode: 'insensitive' } },
+            { specifications: { contains: params.search, mode: 'insensitive' } },
+            { category: { name: { contains: params.search, mode: 'insensitive' } } },
+            { subCategory: { name: { contains: params.search, mode: 'insensitive' } } },
           ];
+          if (where.OR) {
+            where.AND = [{ OR: where.OR }, { OR: searchFilters }];
+            delete where.OR;
+          } else {
+            where.OR = searchFilters;
+          }
         }
 
         const items = await withTimeout(
@@ -257,26 +428,32 @@ export const dbService = {
             take: params?.limit || 50,
             orderBy: { createdAt: 'desc' },
           }),
-          1200
+          800
         );
 
         if (items.length > 0) {
-          const mapped = items.map((p) =>
-            patchOrganicProduct({
+          const mapped = items.map((p) => {
+            let specs: any = {};
+            try {
+              specs = p.specifications ? JSON.parse(p.specifications) : {};
+            } catch {}
+            return normalizeProduct({
               ...p,
               images: p.images ? JSON.parse(p.images) : [p.image],
-              specifications: p.specifications ? JSON.parse(p.specifications) : {},
+              specifications: specs,
+              categories: (specs && Array.isArray(specs._categories)) ? specs._categories : undefined,
               categoryName: p.category.name,
               categorySlug: p.category.slug,
               subCategoryName: p.subCategory?.name,
-            })
-          );
+            });
+          });
 
           // If querying organic-food or all products, ensure homemade pickle is present
           if (!params?.categorySlug || params.categorySlug === 'organic-food') {
             if (!mapped.some((p) => p.id === 'p-org-homemade-pickle' || p.slug.includes('homemade-mango-pickle'))) {
-              const pickle = memoryProducts.find((p) => p.id === 'p-org-homemade-pickle');
-              if (pickle) mapped.push(pickle);
+              const fileProds = loadProductsFromFile();
+              const pickle = fileProds.find((p) => p.id === 'p-org-homemade-pickle');
+              if (pickle) mapped.push(normalizeProduct(pickle));
             }
           }
           const result = mapped.filter(isAllowedOrganicProduct).filter(isNotDeleted);
@@ -285,13 +462,23 @@ export const dbService = {
         }
       }
     } catch {
-      // Fall through to memory store
+      // Fall through to file store
     }
 
-    // Memory Store Filtering
-    let list = memoryProducts.filter((p) => p.isActive).filter(isAllowedOrganicProduct).filter(isNotDeleted);
+    // Disk File Store Filtering
+    let list = loadProductsFromFile().map(normalizeProduct).filter((p) => p.isActive).filter(isAllowedOrganicProduct).filter(isNotDeleted);
     if (params?.categorySlug) {
-      list = list.filter((p) => p.categorySlug === params.categorySlug);
+      const targetCat = params.categorySlug.toLowerCase();
+      list = list.filter((p) =>
+        p.categorySlug?.toLowerCase() === targetCat ||
+        p.categoryId?.toLowerCase() === targetCat ||
+        (Array.isArray(p.categories) &&
+          p.categories.some(
+            (c) =>
+              c.toLowerCase() === targetCat ||
+              c.toLowerCase().replace(/[^a-z0-9]+/g, '-').includes(targetCat)
+          ))
+      );
     }
     if (params?.subCategorySlug) {
       const targetSub = params.subCategorySlug.toLowerCase();
@@ -317,7 +504,10 @@ export const dbService = {
         (p) =>
           p.name.toLowerCase().includes(q) ||
           p.description.toLowerCase().includes(q) ||
-          (p.brand && p.brand.toLowerCase().includes(q))
+          (p.brand && p.brand.toLowerCase().includes(q)) ||
+          (p.categoryName && p.categoryName.toLowerCase().includes(q)) ||
+          (p.subCategoryName && p.subCategoryName.toLowerCase().includes(q)) ||
+          (Array.isArray(p.categories) && p.categories.some((c) => c.toLowerCase().includes(q)))
       );
     }
     if (params?.limit) {
@@ -341,7 +531,7 @@ export const dbService = {
             where: { slug },
             include: { category: true, subCategory: true, variants: true, reviews: true },
           }),
-          1200
+          800
         );
         if (item) {
           const res = patchOrganicProduct({
@@ -359,7 +549,7 @@ export const dbService = {
     } catch {
       // Fall through
     }
-    const mem = memoryProducts.find((p) => p.slug === slug);
+    const mem = loadProductsFromFile().find((p) => p.slug === slug);
     const fallbackRes = mem ? patchOrganicProduct(mem) : null;
     singleProductCache.set(slug, { data: fallbackRes, time: Date.now() });
     return fallbackRes;
@@ -373,22 +563,36 @@ export const dbService = {
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)+/g, '');
 
-    const newProduct: ProductItem = {
+    const validPrice = parseRobustPrice(data.price);
+    if (validPrice === null) {
+      throw new Error('Valid positive product price is required');
+    }
+
+    const cleanCategories = Array.isArray(data.categories) && data.categories.length > 0
+      ? Array.from(new Set(data.categories.map((c: any) => String(c).trim()).filter(Boolean)))
+      : (data.categoryName ? [data.categoryName] : ['General']);
+
+    const specs = data.specifications && typeof data.specifications === 'object'
+      ? { ...data.specifications, _categories: cleanCategories }
+      : { _categories: cleanCategories };
+
+    const newProduct: ProductItem = normalizeProduct({
       id: `prod_${Date.now()}`,
       name: data.name,
       slug,
       categoryId: data.categoryId || 'cat-baby-kids',
       categoryName: data.categoryName || 'Baby & Kids',
       categorySlug: data.categorySlug || 'baby-kids',
+      categories: cleanCategories,
       brand: data.brand || 'Brand',
-      price: Number(data.price),
-      originalPrice: data.originalPrice ? Number(data.originalPrice) : undefined,
+      price: validPrice,
+      originalPrice: data.originalPrice ? parseRobustPrice(data.originalPrice) || undefined : undefined,
       discount: data.discount ? Number(data.discount) : 0,
       stock: Number(data.stock) || 50,
       image: data.image || (Array.isArray(data.images) && data.images[0]) || '',
       images: Array.isArray(data.images) && data.images.length > 0 ? data.images : data.image ? [data.image] : [],
       description: data.description || '',
-      specifications: data.specifications || {},
+      specifications: specs,
       badge: data.badge || '',
       isFeatured: !!data.isFeatured,
       isBestSeller: !!data.isBestSeller,
@@ -396,79 +600,131 @@ export const dbService = {
       isActive: data.isActive !== false,
       rating: 5.0,
       reviewCount: 0,
-    };
+    });
 
     try {
       if (process.env.DATABASE_URL && prisma.product) {
-        await prisma.product.create({
-          data: {
-            name: newProduct.name,
-            slug: newProduct.slug,
-            categoryId: newProduct.categoryId,
-            brand: newProduct.brand,
-            price: newProduct.price,
-            originalPrice: newProduct.originalPrice,
-            discount: newProduct.discount,
-            stock: newProduct.stock,
-            sku: newProduct.sku,
-            image: newProduct.image,
-            images: JSON.stringify(newProduct.images),
-            description: newProduct.description,
-            specifications: JSON.stringify(newProduct.specifications),
-            badge: newProduct.badge,
-            isFeatured: newProduct.isFeatured,
-            isBestSeller: newProduct.isBestSeller,
-            isNew: newProduct.isNew,
-            isActive: newProduct.isActive,
-          },
-        });
+        await withTimeout(
+          prisma.product.create({
+            data: {
+              name: newProduct.name,
+              slug: newProduct.slug,
+              categoryId: newProduct.categoryId,
+              brand: newProduct.brand,
+              price: newProduct.price,
+              originalPrice: newProduct.originalPrice,
+              discount: newProduct.discount,
+              stock: newProduct.stock,
+              sku: newProduct.sku,
+              image: newProduct.image,
+              images: JSON.stringify(newProduct.images),
+              description: newProduct.description,
+              specifications: JSON.stringify(specs),
+              badge: newProduct.badge,
+              isFeatured: newProduct.isFeatured,
+              isBestSeller: newProduct.isBestSeller,
+              isNew: newProduct.isNew,
+              isActive: newProduct.isActive,
+            },
+          }),
+          800
+        );
       }
-    } catch {
-      // Memory fallback
+    } catch (err) {
+      console.error('Error creating product in DB, saving to file fallback:', err);
     }
 
-    memoryProducts.unshift(newProduct);
+    const prods = loadProductsFromFile();
+    prods.unshift(newProduct);
+    saveProductsToFile(prods);
+
     productCache.clear();
     singleProductCache.clear();
     return newProduct;
   },
 
   async updateProduct(id: string, data: Partial<ProductItem>): Promise<ProductItem | null> {
+    const parsed = data.price !== undefined ? parseRobustPrice(data.price) : undefined;
+    if (data.price !== undefined && (parsed === null || parsed === undefined || parsed <= 0)) {
+      throw new Error('Valid positive product price is required');
+    }
+    const validPrice: number | undefined = parsed ?? undefined;
+    const validOriginalPrice: number | undefined = data.originalPrice !== undefined ? (parseRobustPrice(data.originalPrice) ?? undefined) : undefined;
+
+    const cleanCategories = Array.isArray(data.categories) && data.categories.length > 0
+      ? Array.from(new Set(data.categories.map((c: any) => String(c).trim()).filter(Boolean)))
+      : undefined;
+
+    let updatedPrisma: any = null;
     try {
       if (process.env.DATABASE_URL && prisma.product) {
-        await prisma.product.update({
-          where: { id },
-          data: {
-            name: data.name,
-            price: data.price !== undefined ? Number(data.price) : undefined,
-            originalPrice: data.originalPrice !== undefined ? Number(data.originalPrice) : undefined,
-            stock: data.stock !== undefined ? Number(data.stock) : undefined,
-            badge: data.badge,
-            image: data.image,
-            images: data.images ? JSON.stringify(data.images) : undefined,
-            description: data.description,
-            categoryId: data.categoryId,
-            subCategoryId: data.subCategoryId,
-          },
-        });
+        let currentSpecs: Record<string, any> = {};
+        if (data.specifications && typeof data.specifications === 'object') {
+          currentSpecs = { ...data.specifications };
+        }
+        if (cleanCategories) {
+          currentSpecs._categories = cleanCategories;
+        }
+
+        updatedPrisma = await withTimeout(
+          prisma.product.update({
+            where: { id },
+            data: {
+              name: data.name,
+              price: validPrice,
+              originalPrice: validOriginalPrice,
+              stock: data.stock !== undefined ? Number(data.stock) : undefined,
+              badge: data.badge,
+              image: data.image,
+              images: data.images ? JSON.stringify(data.images) : undefined,
+              description: data.description,
+              categoryId: data.categoryId,
+              subCategoryId: data.subCategoryId,
+              specifications: Object.keys(currentSpecs).length > 0 ? JSON.stringify(currentSpecs) : undefined,
+            },
+            include: { category: true, subCategory: true, variants: true }
+          }),
+          800
+        );
       }
-    } catch {
-      // Fall through to memory
+    } catch (err) {
+      console.error('Error updating product in Prisma:', err);
     }
 
-    const idx = memoryProducts.findIndex((p) => p.id === id);
+    productCache.clear();
+    singleProductCache.clear();
+
+    const prods = loadProductsFromFile();
+    const idx = prods.findIndex((p) => p.id === id || p.slug === id);
     if (idx !== -1) {
-      memoryProducts[idx] = { ...memoryProducts[idx], ...data };
-      productCache.clear();
-      singleProductCache.clear();
-      return memoryProducts[idx];
+      prods[idx] = normalizeProduct({
+        ...prods[idx],
+        ...data,
+        price: validPrice !== undefined ? validPrice : prods[idx].price,
+        categories: cleanCategories || prods[idx].categories,
+      });
+      saveProductsToFile(prods);
+      return prods[idx];
+    } else if (updatedPrisma) {
+      const normalized = normalizeProduct({
+        ...updatedPrisma,
+        images: updatedPrisma.images ? JSON.parse(updatedPrisma.images) : [updatedPrisma.image],
+        specifications: updatedPrisma.specifications ? JSON.parse(updatedPrisma.specifications) : {},
+        categories: cleanCategories || (updatedPrisma.category?.name ? [updatedPrisma.category.name] : ['General']),
+        categoryName: updatedPrisma.category?.name,
+        categorySlug: updatedPrisma.category?.slug,
+      });
+      prods.unshift(normalized);
+      saveProductsToFile(prods);
+      return normalized;
     }
     return null;
   },
 
   async deleteProduct(id: string): Promise<boolean> {
     let productSlug = '';
-    const memItem = memoryProducts.find((p) => p.id === id || p.slug === id);
+    const prods = loadProductsFromFile();
+    const memItem = prods.find((p) => p.id === id || p.slug === id);
     if (memItem) productSlug = memItem.slug;
 
     try {
@@ -492,9 +748,10 @@ export const dbService = {
     }
 
     saveDeletedId(id, productSlug);
-    memoryProducts = memoryProducts.filter(
+    const updatedProds = prods.filter(
       (p) => p.id !== id && p.slug !== id && (productSlug ? p.slug !== productSlug : true)
     );
+    saveProductsToFile(updatedProds);
     productCache.clear();
     singleProductCache.clear();
     return true;
@@ -513,9 +770,9 @@ export const dbService = {
             include: { subCategories: true },
             orderBy: { order: 'asc' },
           }),
-          1200
+          800
         );
-        if (cats.length > 0) {
+        if (cats && cats.length > 0) {
           const res = cats.map((c) => {
             if (c.id === 'cat-organic-food' || c.slug === 'organic-food') {
               const allowedSubs = new Set(['pure-ghee', 'mustard-oil', 'natural-honey', 'homemade-pickle']);
@@ -533,186 +790,369 @@ export const dbService = {
         }
       }
     } catch {
-      // Fall through
+      // Fall through to disk file
     }
-    categoryCache = { data: memoryCategories, time: Date.now() };
-    return memoryCategories;
+    const fileCats = loadCategoriesFromFile();
+    categoryCache = { data: fileCats, time: Date.now() };
+    return fileCats;
   },
 
   async addCategory(data: any): Promise<CategoryItem> {
+    const fileCats = loadCategoriesFromFile();
+    const trimmedName = (data.name || '').trim();
+    if (!trimmedName) {
+      throw new Error('Category name is required.');
+    }
+
+    const nameLower = trimmedName.toLowerCase();
+    const existing = fileCats.find((c) => c.name.trim().toLowerCase() === nameLower);
+    if (existing) {
+      throw new Error(`Category "${trimmedName}" already exists.`);
+    }
+
     const slug =
       data.slug ||
-      data.name
+      trimmedName
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)+/g, '');
     const id = data.id || `cat-${slug || Date.now()}`;
     const newCat: CategoryItem = {
       id,
-      name: data.name,
+      name: trimmedName,
       slug,
       image: data.image || '',
       description: data.description || '',
       icon: data.icon || null,
       isFeatured: !!data.isFeatured,
-      order: memoryCategories.length + 1,
+      order: fileCats.length + 1,
       isActive: true,
       subCategories: [],
     };
 
     try {
       if (process.env.DATABASE_URL && prisma.category) {
-        await prisma.category.create({
-          data: {
-            id: newCat.id,
-            name: newCat.name,
-            slug: newCat.slug,
-            image: newCat.image,
-            description: newCat.description,
-            isFeatured: newCat.isFeatured,
-            order: newCat.order,
-            isActive: newCat.isActive,
-          },
-        });
+        await withTimeout(
+          prisma.category.create({
+            data: {
+              id: newCat.id,
+              name: newCat.name,
+              slug: newCat.slug,
+              image: newCat.image,
+              description: newCat.description,
+              isFeatured: newCat.isFeatured,
+              order: newCat.order,
+              isActive: newCat.isActive,
+            },
+          }),
+          800
+        );
       }
     } catch {
       // Fallback
     }
 
-    memoryCategories.push(newCat);
+    fileCats.push(newCat);
+    saveCategoriesToFile(fileCats);
+    categoryCache = null;
     return newCat;
   },
 
   async updateCategory(id: string, data: Partial<CategoryItem>): Promise<CategoryItem | null> {
+    const fileCats = loadCategoriesFromFile();
+    const existingCat = fileCats.find((c) => c.id === id || c.slug === id);
+    const newName = data.name ? data.name.trim() : undefined;
+
+    if (newName && existingCat && newName.toLowerCase() !== existingCat.name.trim().toLowerCase()) {
+      const duplicate = fileCats.find(
+        (c) => c.id !== existingCat.id && c.name.trim().toLowerCase() === newName.toLowerCase()
+      );
+      if (duplicate) {
+        throw new Error(`Category "${newName}" already exists.`);
+      }
+    }
+
+    const oldName = existingCat ? existingCat.name : null;
+
     try {
       if (process.env.DATABASE_URL && prisma.category) {
-        await prisma.category.update({
-          where: { id },
-          data: {
-            name: data.name,
-            slug: data.slug,
-            image: data.image,
-            description: data.description,
-            isActive: data.isActive,
-          },
-        });
+        await withTimeout(
+          prisma.category.update({
+            where: { id: existingCat ? existingCat.id : id },
+            data: {
+              name: newName || data.name,
+              slug: data.slug,
+              image: data.image,
+              description: data.description,
+              isActive: data.isActive,
+            },
+          }),
+          800
+        );
       }
     } catch {
       // Fallback
     }
 
-    const idx = memoryCategories.findIndex((c) => c.id === id);
+    const idx = fileCats.findIndex((c) => c.id === id || c.slug === id);
     if (idx !== -1) {
-      memoryCategories[idx] = { ...memoryCategories[idx], ...data };
-      return memoryCategories[idx];
+      fileCats[idx] = {
+        ...fileCats[idx],
+        ...data,
+        name: newName || fileCats[idx].name,
+      };
+      saveCategoriesToFile(fileCats);
+
+      // Rename category on all products referencing oldName
+      if (oldName && newName && oldName !== newName) {
+        const prods = loadProductsFromFile();
+        let prodsChanged = false;
+        prods.forEach((p) => {
+          if (p.categories && p.categories.includes(oldName)) {
+            p.categories = p.categories.map((c) => (c === oldName ? newName : c));
+            prodsChanged = true;
+          }
+          if (p.categoryName === oldName) {
+            p.categoryName = newName;
+            prodsChanged = true;
+          }
+        });
+        if (prodsChanged) {
+          saveProductsToFile(prods);
+          productCache.clear();
+          singleProductCache.clear();
+        }
+      }
+
+      categoryCache = null;
+      return fileCats[idx];
     }
     return null;
   },
 
   async deleteCategory(id: string): Promise<boolean> {
-    try {
-      if (process.env.DATABASE_URL && prisma.category) {
-        const cat = await prisma.category.findFirst({
-          where: { OR: [{ id }, { slug: id }] },
-        });
-        if (cat) {
-          const prods = await prisma.product.findMany({ where: { categoryId: cat.id } });
-          for (const prod of prods) {
-            await prisma.productVariant.deleteMany({ where: { productId: prod.id } }).catch(() => {});
-            await prisma.review.deleteMany({ where: { productId: prod.id } }).catch(() => {});
-            await prisma.orderItem.updateMany({
-              where: { productId: prod.id },
-              data: { productId: null },
-            }).catch(() => {});
-          }
-          await prisma.product.deleteMany({ where: { categoryId: cat.id } }).catch(() => {});
-          await prisma.subCategory.deleteMany({ where: { categoryId: cat.id } }).catch(() => {});
-          await prisma.category.delete({ where: { id: cat.id } });
+    let fileCats = loadCategoriesFromFile();
+    const targetCat = fileCats.find((c) => c.id === id || c.slug === id);
+    if (!targetCat) return false;
+
+    // Ensure "General" category exists
+    let generalCat = fileCats.find((c) => c.name.toLowerCase() === 'general' || c.id === 'cat-general');
+    if (!generalCat) {
+      generalCat = {
+        id: 'cat-general',
+        name: 'General',
+        slug: 'general',
+        image: '',
+        description: 'General Category',
+        isFeatured: false,
+        order: fileCats.length + 1,
+        isActive: true,
+        subCategories: [],
+      };
+      fileCats.push(generalCat);
+      try {
+        if (process.env.DATABASE_URL && prisma.category) {
+          await prisma.category.upsert({
+            where: { id: 'cat-general' },
+            create: {
+              id: 'cat-general',
+              name: 'General',
+              slug: 'general',
+              order: 99,
+              isActive: true,
+            },
+            update: {},
+          });
         }
-      }
-    } catch (e) {
-      console.error('Error permanently deleting category:', e);
+      } catch {}
     }
 
-    memoryCategories = memoryCategories.filter((c) => c.id !== id && c.slug !== id);
+    // 1. Subcategories become top-level categories
+    const subCats = targetCat.subCategories || [];
+    subCats.forEach((sub) => {
+      if (!fileCats.some((c) => c.id === sub.id || c.name.toLowerCase() === sub.name.toLowerCase())) {
+        fileCats.push({
+          id: sub.id,
+          name: sub.name,
+          slug: sub.slug,
+          image: '',
+          description: '',
+          isFeatured: false,
+          order: fileCats.length + 1,
+          isActive: true,
+          subCategories: [],
+        });
+      }
+    });
+
+    // 2. Move products from deleted category to General (NEVER DELETE PRODUCTS!)
+    const prods = loadProductsFromFile();
+    let prodsChanged = false;
+    prods.forEach((p) => {
+      if (p.categoryId === targetCat.id || p.categorySlug === targetCat.slug) {
+        p.categoryId = generalCat!.id;
+        p.categorySlug = generalCat!.slug;
+        p.categoryName = generalCat!.name;
+        prodsChanged = true;
+      }
+      if (Array.isArray(p.categories)) {
+        if (p.categories.includes(targetCat.name)) {
+          p.categories = p.categories.map((c) => (c === targetCat.name ? 'General' : c));
+          p.categories = Array.from(new Set(p.categories.filter(Boolean)));
+          if (p.categories.length === 0) {
+            p.categories = ['General'];
+          }
+          prodsChanged = true;
+        }
+      }
+    });
+    if (prodsChanged) {
+      saveProductsToFile(prods);
+      productCache.clear();
+      singleProductCache.clear();
+    }
+
+    try {
+      if (process.env.DATABASE_URL && prisma.category) {
+        await prisma.product.updateMany({
+          where: { categoryId: targetCat.id },
+          data: { categoryId: generalCat.id },
+        }).catch(() => {});
+
+        await prisma.subCategory.deleteMany({ where: { categoryId: targetCat.id } }).catch(() => {});
+        await prisma.category.delete({ where: { id: targetCat.id } }).catch(() => {});
+      }
+    } catch (e) {
+      console.error('Error deleting category safely:', e);
+    }
+
+    fileCats = fileCats.filter((c) => c.id !== targetCat.id && c.slug !== targetCat.slug);
+    saveCategoriesToFile(fileCats);
     categoryCache = null;
     productCache.clear();
+    singleProductCache.clear();
     return true;
   },
 
   async addSubCategory(categoryId: string, data: { name: string; slug?: string }): Promise<SubCategoryItem | null> {
+    const trimmedName = (data.name || '').trim();
+    if (!trimmedName) {
+      throw new Error('Subcategory name is required.');
+    }
+
+    const fileCats = loadCategoriesFromFile();
+    const cat = fileCats.find((c) => c.id === categoryId || c.slug === categoryId);
+    if (!cat) {
+      throw new Error('Parent category not found.');
+    }
+
+    const nameLower = trimmedName.toLowerCase();
+    if (cat.subCategories && cat.subCategories.some((s) => s.name.trim().toLowerCase() === nameLower)) {
+      throw new Error(`Subcategory "${trimmedName}" already exists under ${cat.name}.`);
+    }
+
     const slug =
       data.slug ||
-      data.name
+      trimmedName
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)+/g, '');
     const id = `sub-${slug || Date.now()}`;
     const newSub: SubCategoryItem = {
       id,
-      categoryId,
-      name: data.name,
+      categoryId: cat.id,
+      name: trimmedName,
       slug,
-      order: 1,
+      order: (cat.subCategories?.length || 0) + 1,
     };
 
     try {
       if (process.env.DATABASE_URL && prisma.subCategory) {
-        await prisma.subCategory.create({
-          data: {
-            id: newSub.id,
-            categoryId: newSub.categoryId,
-            name: newSub.name,
-            slug: newSub.slug,
-            order: newSub.order,
-          },
-        });
+        await withTimeout(
+          prisma.subCategory.create({
+            data: {
+              id: newSub.id,
+              categoryId: newSub.categoryId,
+              name: newSub.name,
+              slug: newSub.slug,
+              order: newSub.order,
+            },
+          }),
+          800
+        );
       }
     } catch {
       // Fallback
     }
 
-    const cat = memoryCategories.find((c) => c.id === categoryId);
-    if (cat) {
-      if (!cat.subCategories) cat.subCategories = [];
-      cat.subCategories.push(newSub);
-      categoryCache = null;
-      return newSub;
-    }
-    return null;
+    if (!cat.subCategories) cat.subCategories = [];
+    cat.subCategories.push(newSub);
+    saveCategoriesToFile(fileCats);
+    categoryCache = null;
+    return newSub;
   },
 
   async deleteSubCategory(categoryId: string, subCategoryId: string): Promise<boolean> {
+    const fileCats = loadCategoriesFromFile();
+    const cat = fileCats.find((c) => c.id === categoryId || c.slug === categoryId);
+    if (!cat) return false;
+
+    const sub = cat.subCategories?.find((s) => s.id === subCategoryId || s.slug === subCategoryId);
+    const subName = sub ? sub.name : null;
+
+    // Move products referencing this subcategory to the parent category (NEVER DELETE PRODUCTS!)
+    const prods = loadProductsFromFile();
+    let prodsChanged = false;
+    prods.forEach((p) => {
+      if (p.subCategoryId === subCategoryId) {
+        p.subCategoryId = undefined;
+        prodsChanged = true;
+      }
+      if (subName && Array.isArray(p.categories) && p.categories.includes(subName)) {
+        p.categories = p.categories.map((c) => (c === subName ? cat.name : c));
+        p.categories = Array.from(new Set(p.categories.filter(Boolean)));
+        if (p.categories.length === 0) {
+          p.categories = [cat.name];
+        }
+        prodsChanged = true;
+      }
+    });
+    if (prodsChanged) {
+      saveProductsToFile(prods);
+      productCache.clear();
+      singleProductCache.clear();
+    }
+
     try {
       if (process.env.DATABASE_URL && prisma.subCategory) {
         await prisma.product.updateMany({
           where: { subCategoryId },
           data: { subCategoryId: null },
         }).catch(() => {});
-        await prisma.subCategory.delete({ where: { id: subCategoryId } });
+        await prisma.subCategory.delete({ where: { id: subCategoryId } }).catch(() => {});
       }
     } catch (e) {
-      console.error('Error permanently deleting subcategory:', e);
+      console.error('Error safely deleting subcategory:', e);
     }
 
-    const cat = memoryCategories.find((c) => c.id === categoryId);
-    if (cat && cat.subCategories) {
-      cat.subCategories = cat.subCategories.filter((s) => s.id !== subCategoryId);
+    if (cat.subCategories) {
+      cat.subCategories = cat.subCategories.filter((s) => s.id !== subCategoryId && s.slug !== subCategoryId);
     }
+    saveCategoriesToFile(fileCats);
     categoryCache = null;
     productCache.clear();
+    singleProductCache.clear();
     return true;
   },
 
   // ORDERS
   async createOrder(orderData: Omit<OrderRecord, 'id' | 'createdAt' | 'updatedAt'>): Promise<OrderRecord> {
-    let orderSeq = Math.floor(1001 + Math.random() * 9000);
+    const orders = loadOrdersFromFile();
+    let orderSeq = 1001 + orders.length;
     try {
       if (process.env.DATABASE_URL && prisma.order) {
         const orderCount = await prisma.order.count().catch(() => 0);
-        orderSeq = 1001 + orderCount;
-      } else {
-        orderSeq = 1001 + memoryOrders.length;
+        if (orderCount > 0) orderSeq = 1001 + orderCount;
       }
     } catch {}
     const orderNumber = `JM-${orderSeq}`;
@@ -796,20 +1236,29 @@ export const dbService = {
       // Memory fallback
     }
 
-    // Also deduct in memory cache
+    // Deduct in products file
+    const prods = loadProductsFromFile();
+    let prodsChanged = false;
     for (const item of newOrder.items) {
-      const m = memoryProducts.find((p) => p.id === item.productId || p.name === item.productName);
-      if (m) {
-        m.stock = Math.max(0, m.stock - item.quantity);
+      const p = prods.find((prod) => prod.id === item.productId || prod.name === item.productName);
+      if (p) {
+        p.stock = Math.max(0, p.stock - item.quantity);
+        prodsChanged = true;
       }
     }
+    if (prodsChanged) {
+      saveProductsToFile(prods);
+      productCache.clear();
+      singleProductCache.clear();
+    }
 
-    memoryOrders.unshift(newOrder);
+    orders.unshift(newOrder);
+    saveOrdersToFile(orders);
     return newOrder;
   },
 
   async getOrders(params?: { status?: string; paymentStatus?: string }): Promise<OrderRecord[]> {
-    let list = [...memoryOrders];
+    let list = loadOrdersFromFile();
     if (params?.status) {
       list = list.filter((o) => o.orderStatus === params.status);
     }
@@ -845,8 +1294,9 @@ export const dbService = {
       }
     } catch {}
 
+    const orders = loadOrdersFromFile();
     return (
-      memoryOrders.find(
+      orders.find(
         (o) => o.orderNumber.toUpperCase() === cleanNum
       ) || null
     );
@@ -883,8 +1333,9 @@ export const dbService = {
       }
     } catch {}
 
+    const orders = loadOrdersFromFile();
     return (
-      memoryOrders.find(
+      orders.find(
         (o) =>
           o.orderNumber.toUpperCase() === cleanNum &&
           (!cleanedPhone || o.customerPhone.replace(/[\s\-\+]/g, '').includes(cleanedPhone.slice(-10)))
@@ -893,35 +1344,31 @@ export const dbService = {
   },
 
   async updateOrderStatus(id: string, orderStatus: string): Promise<OrderRecord | null> {
-    const order = memoryOrders.find((o) => o.id === id || o.orderNumber === id);
+    const orders = loadOrdersFromFile();
+    const order = orders.find((o) => o.id === id || o.orderNumber === id);
     const prevStatus = order?.orderStatus;
     if (order) {
       order.orderStatus = orderStatus as any;
       order.updatedAt = new Date().toISOString();
 
-      // If order was cancelled, restore stock in database and memory
+      // If order was cancelled, restore stock
       if (orderStatus === 'CANCELLED' && prevStatus !== 'CANCELLED') {
+        const prods = loadProductsFromFile();
+        let prodsChanged = false;
         for (const item of order.items) {
-          try {
-            if (item.productId) {
-              await prisma.product.update({
-                where: { id: item.productId },
-                data: { stock: { increment: item.quantity } },
-              });
-            } else if (item.productName) {
-              const p = await prisma.product.findFirst({ where: { name: item.productName } });
-              if (p) {
-                await prisma.product.update({
-                  where: { id: p.id },
-                  data: { stock: { increment: item.quantity } },
-                });
-              }
-            }
-          } catch {}
-          const m = memoryProducts.find((p) => p.id === item.productId || p.name === item.productName);
-          if (m) m.stock += item.quantity;
+          const p = prods.find((prod) => prod.id === item.productId || prod.name === item.productName);
+          if (p) {
+            p.stock += item.quantity;
+            prodsChanged = true;
+          }
+        }
+        if (prodsChanged) {
+          saveProductsToFile(prods);
+          productCache.clear();
+          singleProductCache.clear();
         }
       }
+      saveOrdersToFile(orders);
     }
 
     try {
@@ -939,7 +1386,8 @@ export const dbService = {
   },
 
   async verifyPayment(orderId: string, status: PaymentStatus, note?: string): Promise<OrderRecord | null> {
-    const order = memoryOrders.find((o) => o.id === orderId || o.orderNumber === orderId);
+    const orders = loadOrdersFromFile();
+    const order = orders.find((o) => o.id === orderId || o.orderNumber === orderId);
     if (order) {
       order.paymentStatus = status;
       if (status === 'PAID' && order.orderStatus === 'PENDING') {
@@ -951,6 +1399,7 @@ export const dbService = {
         order.payments[0].verifiedAt = new Date().toISOString();
       }
       order.updatedAt = new Date().toISOString();
+      saveOrdersToFile(orders);
     }
 
     try {
@@ -993,7 +1442,8 @@ export const dbService = {
     try {
       const dbSettings = await prisma.setting.findMany();
       if (dbSettings && dbSettings.length > 0) {
-        const mapped: any = { ...memorySettings };
+        const fileSettings = loadSettingsFromFile();
+        const mapped: any = { ...fileSettings };
         for (const s of dbSettings) {
           try {
             mapped[s.key] = JSON.parse(s.value);
@@ -1001,17 +1451,19 @@ export const dbService = {
             mapped[s.key] = s.value;
           }
         }
-        memorySettings = mapped as StoreSettings;
-        return memorySettings;
+        return mapped as StoreSettings;
       }
     } catch {
-      // Fallback to memorySettings
+      // Fallback to disk file
     }
-    return memorySettings;
+    return loadSettingsFromFile();
   },
 
   async updateSettings(data: Partial<StoreSettings>): Promise<StoreSettings> {
-    memorySettings = { ...memorySettings, ...data };
+    const current = loadSettingsFromFile();
+    const updated = { ...current, ...data };
+    saveSettingsToFile(updated);
+
     try {
       for (const [key, value] of Object.entries(data)) {
         if (value !== undefined) {
@@ -1026,7 +1478,7 @@ export const dbService = {
     } catch (e) {
       console.error('Failed to persist settings to DB:', e);
     }
-    return memorySettings;
+    return updated;
   },
 
   // COUPONS

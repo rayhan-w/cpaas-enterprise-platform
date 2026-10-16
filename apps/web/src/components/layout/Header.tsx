@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 import { useCart } from '@/context/cart-context';
 import { formatPrice } from '@/lib/formatters';
-import { ProductItem } from '@/lib/types';
+import { ProductItem, CategoryItem } from '@/lib/types';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
 import CategoryNavbar from './CategoryNavbar';
 
@@ -33,7 +33,29 @@ export default function Header() {
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [expandedMobileCat, setExpandedMobileCat] = useState<string | null>(null);
+  const [categories, setCategories] = useState<CategoryItem[]>(INITIAL_CATEGORIES);
   const searchRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    async function loadCats() {
+      try {
+        const res = await fetch('/api/categories');
+        const data = await res.json();
+        if (data.categories && data.categories.length > 0) {
+          setCategories(data.categories);
+        }
+      } catch {}
+    }
+    loadCats();
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'jawata_categories_tree' || e.key === 'jawata_products_last_synced') {
+        loadCats();
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
 
   // Debounced search
   useEffect(() => {
@@ -316,7 +338,7 @@ export default function Header() {
                 Product Categories
               </div>
 
-              {INITIAL_CATEGORIES.map((cat) => (
+              {categories.map((cat) => (
                 <div key={cat.id}>
                   <Link
                     href={`/category/${cat.slug}`}

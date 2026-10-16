@@ -1,11 +1,16 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
+import { CategoryItem } from '@/lib/types';
 import { Sparkles, ArrowRight, Umbrella } from 'lucide-react';
 
-export default function CategoryPills() {
+interface CategoryPillsProps {
+  categories?: CategoryItem[];
+}
+
+export default function CategoryPills({ categories }: CategoryPillsProps) {
+  const displayCategories = categories && categories.length > 0 ? categories : INITIAL_CATEGORIES;
+
   return (
     <section className="max-w-7xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
@@ -27,7 +32,7 @@ export default function CategoryPills() {
       </div>
 
       <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-2 sm:gap-4">
-        {INITIAL_CATEGORIES.map((cat) => (
+        {displayCategories.map((cat) => (
           <Link
             key={cat.id}
             href={`/category/${cat.slug}`}

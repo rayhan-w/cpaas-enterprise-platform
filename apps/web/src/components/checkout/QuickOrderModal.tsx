@@ -34,7 +34,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
 
   const itemPrice = product.price;
   const subtotal = itemPrice * quantity;
-  const deliveryCharge = subtotal >= 2000 ? 0 : deliveryZone === 'INSIDE_DHAKA' ? 60 : 120;
+  const deliveryCharge = subtotal >= 2000 ? 0 : deliveryZone === 'INSIDE_DHAKA' ? 70 : 120;
   const total = subtotal + deliveryCharge;
 
   const handleSubmitOrder = async (e: React.FormEvent) => {
@@ -254,7 +254,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
                   }`}
                 >
                   <span className="font-bold text-xs">Inside Dhaka</span>
-                  <span className="text-xs font-bold text-[#fd6b03]">৳60</span>
+                  <span className="text-xs font-bold text-[#fd6b03]">৳70</span>
                 </button>
 
                 <button

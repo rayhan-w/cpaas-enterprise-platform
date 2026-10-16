@@ -144,6 +144,18 @@ export default function ProductView({
                 {product.brand}
               </span>
             )}
+            {Array.isArray(product.categories) && product.categories.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mb-2">
+                {product.categories.map((cat, idx) => (
+                  <span
+                    key={idx}
+                    className="bg-orange-50 text-[#fd6b03] border border-orange-200 text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                  >
+                    {cat}
+                  </span>
+                ))}
+              </div>
+            )}
             <h1 className="section-title text-2xl sm:text-3xl lg:text-4xl text-[#1A1512] leading-tight mb-3">
               {product.name}
             </h1>

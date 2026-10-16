@@ -1,5 +1,10 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { dbService } from '@/lib/db-service';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const fetchCache = 'force-no-store';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -17,7 +22,14 @@ export async function GET(request: Request) {
     limit,
   });
 
-  return NextResponse.json({ products });
+  return NextResponse.json(
+    { products },
+    {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+      },
+    }
+  );
 }
 
 export async function POST(request: Request) {
@@ -27,6 +39,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Name and price are required' }, { status: 400 });
     }
     const product = await dbService.addProduct(body);
+    try {
+      revalidatePath('/', 'layout');
+      revalidatePath('/category/[slug]', 'page');
+      revalidatePath('/products/[slug]', 'page');
+    } catch {}
     return NextResponse.json({ product }, { status: 201 });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Failed to create product' }, { status: 500 });
@@ -43,6 +60,11 @@ export async function PUT(request: Request) {
     if (!updated) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
+    try {
+      revalidatePath('/', 'layout');
+      revalidatePath('/category/[slug]', 'page');
+      revalidatePath('/products/[slug]', 'page');
+    } catch {}
     return NextResponse.json({ success: true, product: updated });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Failed to update product' }, { status: 500 });
@@ -57,6 +79,11 @@ export async function PATCH(request: Request) {
     }
     const newStock = Math.max(0, parseInt(body.stock, 10));
     const updated = await dbService.updateProduct(body.id, { stock: newStock });
+    try {
+      revalidatePath('/', 'layout');
+      revalidatePath('/category/[slug]', 'page');
+      revalidatePath('/products/[slug]', 'page');
+    } catch {}
     return NextResponse.json({ success: true, product: updated });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Failed to update stock' }, { status: 500 });
@@ -71,6 +98,11 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: 'Product ID is required' }, { status: 400 });
     }
     const deleted = await dbService.deleteProduct(id);
+    try {
+      revalidatePath('/', 'layout');
+      revalidatePath('/category/[slug]', 'page');
+      revalidatePath('/products/[slug]', 'page');
+    } catch {}
     return NextResponse.json({ success: deleted });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Failed to delete product' }, { status: 500 });

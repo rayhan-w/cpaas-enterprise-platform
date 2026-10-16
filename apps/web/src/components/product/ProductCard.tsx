@@ -90,11 +90,24 @@ export default function ProductCard({ product }: { product: ProductItem }) {
         {/* Product Information */}
         <div className="p-2.5 sm:p-4 flex-1 flex flex-col justify-between">
           <div>
-            {/* Category & Rating */}
+            {/* Category Badges & Rating */}
             <div className="flex items-center justify-between gap-1 sm:gap-2 text-xs mb-1 sm:mb-1.5">
-              <span className="text-[#526052] text-[10px] sm:text-[11px] font-semibold truncate tracking-wide">
-                {product.brand || product.categoryName || 'Jawata Mart'}
-              </span>
+              <div className="flex flex-wrap gap-1 items-center min-w-0">
+                {Array.isArray(product.categories) && product.categories.length > 0 ? (
+                  product.categories.map((cat, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-orange-50 text-[#fd6b03] border border-orange-200 text-[9px] font-semibold px-1.5 py-0.2 rounded"
+                    >
+                      {cat}
+                    </span>
+                  ))
+                ) : (
+                  <span className="text-[#526052] text-[10px] sm:text-[11px] font-semibold truncate tracking-wide">
+                    {product.brand || product.categoryName || 'Jawata Mart'}
+                  </span>
+                )}
+              </div>
               <div className="flex items-center gap-0.5 sm:gap-1 text-[#F59E0B] font-bold text-[10px] sm:text-[11px] shrink-0">
                 <Star className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current" />
                 <span>{product.rating ? product.rating.toFixed(1) : '5.0'}</span>

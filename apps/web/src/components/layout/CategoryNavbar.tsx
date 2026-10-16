@@ -5,15 +5,38 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, ChevronRight, Flame, Layers, Menu, Grid, Sparkles, Umbrella, Leaf, Shirt, Info } from 'lucide-react';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
+import { CategoryItem } from '@/lib/types';
 
 export default function CategoryNavbar() {
   const pathname = usePathname();
+  const [categories, setCategories] = useState<CategoryItem[]>(INITIAL_CATEGORIES);
   const [allCategoriesOpen, setAllCategoriesOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [dropdownCoords, setDropdownCoords] = useState<{ top: number; left: number } | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const buttonRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const allCategoriesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    async function loadCategories() {
+      try {
+        const res = await fetch('/api/categories');
+        const data = await res.json();
+        if (data.categories && data.categories.length > 0) {
+          setCategories(data.categories);
+        }
+      } catch {}
+    }
+    loadCategories();
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'jawata_categories_tree' || e.key === 'jawata_products_last_synced') {
+        loadCategories();
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
 
   // Close dropdown on route change
   useEffect(() => {
@@ -56,7 +79,7 @@ export default function CategoryNavbar() {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
   };
 
-  const activeCategory = INITIAL_CATEGORIES.find((c) => c.id === activeDropdown);
+  const activeCategory = categories.find((c) => c.id === activeDropdown || c.slug === activeDropdown);
 
   return (
     <nav
@@ -91,7 +114,7 @@ export default function CategoryNavbar() {
                 Product Categories
               </div>
               <div className="divide-y divide-[#F2EDEA] max-h-[380px] overflow-y-auto">
-                {INITIAL_CATEGORIES.map((cat) => (
+                {categories.map((cat) => (
                   <Link
                     key={cat.id}
                     href={`/category/${cat.slug}`}
@@ -144,7 +167,7 @@ export default function CategoryNavbar() {
           </Link>
 
           {/* Customer Defined Categories with Dropdown */}
-          {INITIAL_CATEGORIES.slice(0, 8).map((cat) => {
+          {categories.slice(0, 10).map((cat) => {
             const hasSub = !!cat.subCategories && cat.subCategories.length > 0;
             const isOpen = activeDropdown === cat.id;
             const isActive = pathname === `/category/${cat.slug}`;

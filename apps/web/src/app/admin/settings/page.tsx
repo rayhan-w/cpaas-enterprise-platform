@@ -41,7 +41,7 @@ export default function AdminSettingsPage() {
     address: 'House #42, Road #18, Sector #12, Uttara, Dhaka-1230',
     
     // Delivery fees
-    insideDhakaDeliveryFee: 60,
+    insideDhakaDeliveryFee: 70,
     outsideDhakaDeliveryFee: 120,
     freeDeliveryThreshold: 2000,
     estimatedDhakaDeliveryDays: '1-2 Days',
@@ -147,11 +147,40 @@ export default function AdminSettingsPage() {
   useEffect(() => {
     async function fetchSettings() {
       try {
+        // Migrate stored settings in localStorage if present
+        try {
+          const stored = localStorage.getItem('store_settings');
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            let changed = false;
+            if (parsed.insideDhakaDeliveryFee === 60 || parsed.insideDhakaFee === 60 || parsed.deliveryInside === 60) {
+              parsed.insideDhakaDeliveryFee = 70;
+              parsed.deliveryInside = 70;
+              changed = true;
+            }
+            if (!parsed.outsideDhakaDeliveryFee && !parsed.outsideDhakaFee && !parsed.deliveryOutside) {
+              parsed.outsideDhakaDeliveryFee = 120;
+              parsed.deliveryOutside = 120;
+              changed = true;
+            }
+            if (changed) {
+              localStorage.setItem('store_settings', JSON.stringify(parsed));
+            }
+          }
+        } catch {}
+
         const res = await fetch('/api/admin/settings');
         if (res.ok) {
           const data = await res.json();
           if (data.settings) {
-            setFormData(prev => ({ ...prev, ...data.settings }));
+            const loaded: any = { ...data.settings };
+            if (loaded.insideDhakaDeliveryFee === 60 || loaded.insideDhakaFee === 60 || loaded.deliveryInside === 60) {
+              loaded.insideDhakaDeliveryFee = 70;
+            }
+            if (loaded.outsideDhakaDeliveryFee === undefined && loaded.outsideDhakaFee === undefined && loaded.deliveryOutside === undefined) {
+              loaded.outsideDhakaDeliveryFee = 120;
+            }
+            setFormData(prev => ({ ...prev, ...loaded }));
           }
         }
       } catch (err) {
@@ -180,14 +209,23 @@ export default function AdminSettingsPage() {
     setSaving(true);
     setSavedSuccess(false);
 
+    const payload = {
+      ...formData,
+      insideDhakaDeliveryFee: formData.insideDhakaDeliveryFee || 70,
+      outsideDhakaDeliveryFee: formData.outsideDhakaDeliveryFee || 120,
+    };
+
     try {
       const res = await fetch('/api/admin/settings', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
 
       if (res.ok) {
+        try {
+          localStorage.setItem('store_settings', JSON.stringify(payload));
+        } catch {}
         setSavedSuccess(true);
         toast('Settings updated successfully!', 'success');
         setTimeout(() => setSavedSuccess(false), 4000);
@@ -552,6 +590,23 @@ export default function AdminSettingsPage() {
                 className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
               />
               <p className="text-xs text-charcoal-500 mt-1">Orders above this amount get free shipping</p>
+            </div>
+
+            <div className="md:col-span-3 pt-1">
+              <button
+                type="button"
+                onClick={() => {
+                  setFormData(prev => ({
+                    ...prev,
+                    insideDhakaDeliveryFee: 70,
+                    outsideDhakaDeliveryFee: 120,
+                  }));
+                  toast('ডেলিভারি চার্জ ৭০/১২০ টাকায় রিসেট করা হয়েছে (Save Settings বাটনে ক্লিক করুন)', 'info');
+                }}
+                className="px-4 py-2 bg-charcoal-100 hover:bg-charcoal-200 text-charcoal-800 text-xs font-semibold rounded-xl border border-charcoal-300 transition-all cursor-pointer"
+              >
+                Reset delivery charges to 70/120
+              </button>
             </div>
           </div>
         </div>

@@ -24,7 +24,7 @@ import {
   Eye,
 } from 'lucide-react';
 import { ProductItem, CategoryItem } from '@/lib/types';
-import { formatPrice } from '@/lib/formatters';
+import { formatPrice, parseRobustPrice } from '@/lib/formatters';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
 import { useToast } from '@/context/toast-context';
 import ImageUploadPicker from '@/components/admin/ImageUploadPicker';
@@ -39,6 +39,12 @@ export default function AdminProductsPage() {
   const [search, setSearch] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
+
+  // Multi-Category states
+  const [editSelectedCategories, setEditSelectedCategories] = useState<string[]>([]);
+  const [customNewCategoryEdit, setCustomNewCategoryEdit] = useState('');
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [customNewCategoryAdd, setCustomNewCategoryAdd] = useState('');
 
   // Edit Product Modal State
   const [editingProduct, setEditingProduct] = useState<ProductItem | null>(null);
@@ -104,9 +110,30 @@ export default function AdminProductsPage() {
     }
   };
 
+  const allCategoryNames = useMemo(() => {
+    const set = new Set<string>();
+    categories.forEach((c) => set.add(c.name));
+    products.forEach((p) => {
+      if (Array.isArray(p.categories)) {
+        p.categories.forEach((cat) => set.add(cat));
+      } else if (p.categoryName) {
+        set.add(p.categoryName);
+      }
+    });
+    return Array.from(set);
+  }, [categories, products]);
+
   useEffect(() => {
     fetchProducts();
     fetchCategories();
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'jawata_products_last_synced') {
+        fetchProducts();
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
   }, []);
 
   const openEditModal = (prod: ProductItem) => {
@@ -129,13 +156,32 @@ export default function AdminProductsPage() {
       : [];
     setEditImages(initialImages);
     setEditDescription(prod.description || '');
+
+    const initialCats = Array.isArray(prod.categories) && prod.categories.length > 0
+      ? [...prod.categories]
+      : prod.categoryName
+      ? [prod.categoryName]
+      : [categories[0]?.name || 'General'];
+    setEditSelectedCategories(initialCats);
+    setCustomNewCategoryEdit('');
   };
 
   const handleUpdateProduct = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingProduct) return;
-    if (!editName.trim() || !editPrice) {
-      error('Product title and selling price are required');
+    if (!editName.trim()) {
+      error('Product title is required');
+      return;
+    }
+
+    const parsedPrice = parseRobustPrice(editPrice);
+    if (parsedPrice === null || parsedPrice <= 0) {
+      error('দয়া করে একটি সঠিক ও ইতিবাচক মূল্য লিখুন (যেমন: 1200 বা ১২০০)। মূল্য ০ বা খালি রাখা যাবে না।');
+      return;
+    }
+
+    if (editSelectedCategories.length === 0) {
+      error('অন্তত একটি ক্যাটাগরি অবশ্যই নির্বাচন করতে হবে (At least one category is required)');
       return;
     }
 
@@ -182,11 +228,12 @@ export default function AdminProductsPage() {
           categoryId: editCategoryId,
           categoryName: selectedCat?.name,
           categorySlug: selectedCat?.slug,
+          categories: editSelectedCategories,
           subCategoryId: targetSubId,
           subCategoryName: targetSubName,
           subCategorySlug: targetSubSlug,
-          price: Number(editPrice) || 0,
-          originalPrice: editOriginalPrice ? Number(editOriginalPrice) : undefined,
+          price: parsedPrice,
+          originalPrice: editOriginalPrice ? (parseRobustPrice(editOriginalPrice) || undefined) : undefined,
           stock: Number(editStock) || 0,
           sku: editSku.trim() || undefined,
           badge: editBadge.trim() || undefined,
@@ -198,6 +245,10 @@ export default function AdminProductsPage() {
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to update product');
+
+      try {
+        localStorage.setItem('jawata_products_last_synced', Date.now().toString());
+      } catch {}
 
       success('Updated product: ' + editName.slice(0, 25) + '...');
       setEditingProduct(null);
@@ -221,6 +272,10 @@ export default function AdminProductsPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to delete product');
 
+      try {
+        localStorage.setItem('jawata_products_last_synced', Date.now().toString());
+      } catch {}
+
       success(`Product "${prodName.slice(0, 22)}..." deleted successfully`);
       fetchProducts();
     } catch (err: any) {
@@ -230,14 +285,27 @@ export default function AdminProductsPage() {
 
   const handleAddProduct = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !price) {
-      error('Product name and price are required');
+    if (!name.trim()) {
+      error('Product name is required');
       return;
     }
 
+    const parsedPrice = parseRobustPrice(price);
+    if (parsedPrice === null || parsedPrice <= 0) {
+      error('দয়া করে একটি সঠিক ও ইতিবাচক মূল্য লিখুন (যেমন: 1200 বা ১২০০)। মূল্য ০ বা খালি রাখা যাবে না।');
+      return;
+    }
+
+    if (selectedCategories.length === 0) {
+      error('অন্তত একটি ক্যাটাগরি অবশ্যই নির্বাচন করতে হবে (At least one category is required)');
+      return;
+    }
+
+    const cat = categories.find((c) => c.id === categoryId);
+    const catsToSave = selectedCategories;
+
     setIsSubmitting(true);
     try {
-      const cat = categories.find((c) => c.id === categoryId);
       let targetSubId = subCategoryId || undefined;
       let targetSubName = cat?.subCategories?.find((s) => s.id === subCategoryId)?.name;
       let targetSubSlug = cat?.subCategories?.find((s) => s.id === subCategoryId)?.slug;
@@ -277,11 +345,12 @@ export default function AdminProductsPage() {
           categoryId,
           categoryName: cat?.name,
           categorySlug: cat?.slug,
+          categories: catsToSave,
           subCategoryId: targetSubId,
           subCategoryName: targetSubName,
           subCategorySlug: targetSubSlug,
-          price: Number(price),
-          originalPrice: originalPrice ? Number(originalPrice) : undefined,
+          price: parsedPrice,
+          originalPrice: originalPrice ? (parseRobustPrice(originalPrice) || undefined) : undefined,
           stock: Number(stock) || 50,
           sku: sku || `SKU-${Date.now()}`,
           badge: badge || undefined,
@@ -293,6 +362,10 @@ export default function AdminProductsPage() {
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to add product');
+
+      try {
+        localStorage.setItem('jawata_products_last_synced', Date.now().toString());
+      } catch {}
 
       success('New product added to catalog successfully!');
       setShowAddModal(false);
@@ -401,17 +474,22 @@ export default function AdminProductsPage() {
         p.name.toLowerCase().includes(q) ||
         (p.brand && p.brand.toLowerCase().includes(q)) ||
         (p.sku && p.sku.toLowerCase().includes(q)) ||
-        (p.categoryName && p.categoryName.toLowerCase().includes(q));
+        (p.categoryName && p.categoryName.toLowerCase().includes(q)) ||
+        (Array.isArray(p.categories) && p.categories.some((c) => c.toLowerCase().includes(q)));
       if (!matchSearch) return false;
     }
 
     if (selectedCategoryFilter !== 'all') {
+      const selectedCatObj = categories.find((c) => c.id === selectedCategoryFilter);
+      const selectedCatName = selectedCatObj?.name.toLowerCase();
       const matchCat =
         p.categoryId === selectedCategoryFilter ||
         p.categorySlug === selectedCategoryFilter ||
         (p.categoryName &&
-          categories.find((c) => c.id === selectedCategoryFilter)?.name.toLowerCase() ===
-            p.categoryName.toLowerCase());
+          selectedCatName === p.categoryName.toLowerCase()) ||
+        (Array.isArray(p.categories) &&
+          selectedCatName &&
+          p.categories.some((c) => c.toLowerCase() === selectedCatName));
       if (!matchCat) return false;
     }
 
@@ -451,7 +529,12 @@ export default function AdminProductsPage() {
             <span>Export Products Excel</span>
           </button>
           <button
-            onClick={() => setShowAddModal(true)}
+            onClick={() => {
+              const defaultCat = categories.find((c) => c.id === categoryId)?.name || categories[0]?.name || 'General';
+              setSelectedCategories([defaultCat]);
+              setCustomNewCategoryAdd('');
+              setShowAddModal(true);
+            }}
             className="flex items-center justify-center gap-2 bg-[#6CAE14] hover:bg-[#5B960E] text-white px-5 py-2.5 rounded-xl font-bold text-xs shadow-sm transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" />
@@ -701,9 +784,19 @@ export default function AdminProductsPage() {
                       </div>
                     </td>
                     <td className="p-3 text-[#6B5B58]">
-                      <span className="font-medium text-[#1A1512] block">{prod.categoryName || 'General'}</span>
+                      <div className="flex flex-wrap gap-1">
+                        {Array.isArray(prod.categories) && prod.categories.length > 0 ? (
+                          prod.categories.map((c, i) => (
+                            <span key={i} className="bg-orange-50 text-[#fd6b03] border border-orange-200 text-[10px] font-semibold px-1.5 py-0.5 rounded-md">
+                              {c}
+                            </span>
+                          ))
+                        ) : (
+                          <span className="font-medium text-[#1A1512] block">{prod.categoryName || 'General'}</span>
+                        )}
+                      </div>
                       {prod.subCategoryName && (
-                        <span className="text-[10px] text-[#9B8A86] block">↳ {prod.subCategoryName}</span>
+                        <span className="text-[10px] text-[#9B8A86] block mt-0.5">↳ {prod.subCategoryName}</span>
                       )}
                     </td>
                     <td className="p-3 font-bold text-[#1A1512]">
@@ -861,10 +954,10 @@ export default function AdminProductsPage() {
                 />
               </div>
 
-              {/* Category & Subcategory */}
+              {/* Primary Department & Subcategory */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-semibold text-[#1A1512] mb-1">Department / Category</label>
+                  <label className="block font-semibold text-[#1A1512] mb-1">Primary Department</label>
                   <select
                     value={editCategoryId}
                     onChange={(e) => {
@@ -920,28 +1013,89 @@ export default function AdminProductsPage() {
                 </div>
               </div>
 
+              {/* Multi-Category Checkbox Selector */}
+              <div>
+                <label className="block font-semibold text-[#1A1512] mb-1">
+                  Product Categories (একাধিক নির্বাচন করুন) *
+                </label>
+                <div className="max-h-32 overflow-y-auto border border-[#EDE5E1] rounded-xl p-2.5 bg-[#F8F7F5] grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {allCategoryNames.map((catName) => (
+                    <label key={catName} className="flex items-center gap-1.5 text-xs font-medium cursor-pointer text-[#1A1512]">
+                      <input
+                        type="checkbox"
+                        checked={editSelectedCategories.includes(catName)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setEditSelectedCategories([...editSelectedCategories, catName]);
+                          } else {
+                            setEditSelectedCategories(editSelectedCategories.filter((c) => c !== catName));
+                          }
+                        }}
+                        className="rounded border-[#EDE5E1] text-[#6CAE14] focus:ring-[#6CAE14]"
+                      />
+                      <span className="truncate">{catName}</span>
+                    </label>
+                  ))}
+                </div>
+                <div className="flex gap-2 mt-2">
+                  <input
+                    type="text"
+                    value={customNewCategoryEdit}
+                    onChange={(e) => setCustomNewCategoryEdit(e.target.value)}
+                    placeholder="+ নতুন ক্যাটাগরি তৈরি করুন..."
+                    className="flex-1 bg-white border border-[#EDE5E1] rounded-lg px-2.5 py-1 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        if (customNewCategoryEdit.trim()) {
+                          const newCat = customNewCategoryEdit.trim();
+                          if (!editSelectedCategories.includes(newCat)) {
+                            setEditSelectedCategories([...editSelectedCategories, newCat]);
+                          }
+                          setCustomNewCategoryEdit('');
+                        }
+                      }
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (customNewCategoryEdit.trim()) {
+                        const newCat = customNewCategoryEdit.trim();
+                        if (!editSelectedCategories.includes(newCat)) {
+                          setEditSelectedCategories([...editSelectedCategories, newCat]);
+                        }
+                        setCustomNewCategoryEdit('');
+                      }
+                    }}
+                    className="px-2.5 py-1 bg-white border border-[#EDE5E1] hover:border-[#6CAE14] text-xs font-semibold rounded-lg text-[#1A1512] cursor-pointer"
+                  >
+                    + Add
+                  </button>
+                </div>
+              </div>
+
               {/* Price, Regular Price, Stock */}
               <div className="grid grid-cols-3 gap-3">
                 <div>
                   <label className="block font-semibold text-[#1A1512] mb-1">Selling Price (৳) *</label>
                   <input
-                    type="number"
+                    type="text"
                     required
-                    min="0"
                     value={editPrice}
                     onChange={(e) => setEditPrice(e.target.value)}
-                    placeholder="850"
+                    placeholder="1200 বা ১২০০"
                     className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 font-bold text-[#6CAE14] focus:outline-none focus:border-[#6CAE14]"
                   />
+                  <span className="text-[10px] text-[#9B8A86] block mt-0.5">বাংলা/ইংরেজি ও কমা গ্রহণযোগ্য</span>
                 </div>
                 <div>
                   <label className="block font-semibold text-[#1A1512] mb-1">Regular Price (৳)</label>
                   <input
-                    type="number"
-                    min="0"
+                    type="text"
                     value={editOriginalPrice}
                     onChange={(e) => setEditOriginalPrice(e.target.value)}
-                    placeholder="1200"
+                    placeholder="1500"
                     className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#6B5B58] focus:outline-none focus:border-[#6CAE14]"
                   />
                 </div>
@@ -1111,29 +1265,90 @@ export default function AdminProductsPage() {
                 </div>
               </div>
 
+              {/* Multi-Category Checkbox Selector */}
+              <div>
+                <label className="block font-semibold text-[#1A1512] mb-1">
+                  Product Categories (একাধিক নির্বাচন করুন) *
+                </label>
+                <div className="max-h-32 overflow-y-auto border border-[#EDE5E1] rounded-xl p-2.5 bg-[#F8F7F5] grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {allCategoryNames.map((catName) => (
+                    <label key={catName} className="flex items-center gap-1.5 text-xs font-medium cursor-pointer text-[#1A1512]">
+                      <input
+                        type="checkbox"
+                        checked={selectedCategories.includes(catName)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedCategories([...selectedCategories, catName]);
+                          } else {
+                            setSelectedCategories(selectedCategories.filter((c) => c !== catName));
+                          }
+                        }}
+                        className="rounded border-[#EDE5E1] text-[#6CAE14] focus:ring-[#6CAE14]"
+                      />
+                      <span className="truncate">{catName}</span>
+                    </label>
+                  ))}
+                </div>
+                <div className="flex gap-2 mt-2">
+                  <input
+                    type="text"
+                    value={customNewCategoryAdd}
+                    onChange={(e) => setCustomNewCategoryAdd(e.target.value)}
+                    placeholder="+ নতুন ক্যাটাগরি তৈরি করুন..."
+                    className="flex-1 bg-white border border-[#EDE5E1] rounded-lg px-2.5 py-1 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        if (customNewCategoryAdd.trim()) {
+                          const newCat = customNewCategoryAdd.trim();
+                          if (!selectedCategories.includes(newCat)) {
+                            setSelectedCategories([...selectedCategories, newCat]);
+                          }
+                          setCustomNewCategoryAdd('');
+                        }
+                      }
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (customNewCategoryAdd.trim()) {
+                        const newCat = customNewCategoryAdd.trim();
+                        if (!selectedCategories.includes(newCat)) {
+                          setSelectedCategories([...selectedCategories, newCat]);
+                        }
+                        setCustomNewCategoryAdd('');
+                      }
+                    }}
+                    className="px-2.5 py-1 bg-white border border-[#EDE5E1] hover:border-[#6CAE14] text-xs font-semibold rounded-lg text-[#1A1512] cursor-pointer"
+                  >
+                    + Add
+                  </button>
+                </div>
+              </div>
+
               <div className="grid grid-cols-3 gap-3">
                 <div>
                   <label className="block font-semibold text-[#1A1512] mb-1">Selling Price (৳) *</label>
                   <input
-                    type="number"
+                    type="text"
                     required
-                    min="0"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
-                    placeholder="1850"
-                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
+                    placeholder="1200 বা ১২০০"
+                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 font-bold text-[#6CAE14] focus:outline-none focus:border-[#6CAE14]"
                   />
+                  <span className="text-[10px] text-[#9B8A86] block mt-0.5">বাংলা/ইংরেজি ও কমা গ্রহণযোগ্য</span>
                 </div>
 
                 <div>
                   <label className="block font-semibold text-[#1A1512] mb-1">Regular Price (৳)</label>
                   <input
-                    type="number"
-                    min="0"
+                    type="text"
                     value={originalPrice}
                     onChange={(e) => setOriginalPrice(e.target.value)}
-                    placeholder="2200"
-                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
+                    placeholder="1500"
+                    className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#6B5B58] focus:outline-none focus:border-[#6CAE14]"
                   />
                 </div>
 

@@ -1,9 +1,21 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { dbService } from '@/lib/db-service';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const fetchCache = 'force-no-store';
 
 export async function GET() {
   const categories = await dbService.getCategories();
-  return NextResponse.json({ categories });
+  return NextResponse.json(
+    { categories },
+    {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+      },
+    }
+  );
 }
 
 export async function POST(request: Request) {
@@ -24,6 +36,10 @@ export async function POST(request: Request) {
       if (!subCategory) {
         return NextResponse.json({ error: 'Category not found to add subcategory' }, { status: 404 });
       }
+      try {
+        revalidatePath('/', 'layout');
+        revalidatePath('/category/[slug]', 'page');
+      } catch {}
       return NextResponse.json({ success: true, subCategory }, { status: 201 });
     }
 
@@ -33,6 +49,10 @@ export async function POST(request: Request) {
     }
 
     const category = await dbService.addCategory(body);
+    try {
+      revalidatePath('/', 'layout');
+      revalidatePath('/category/[slug]', 'page');
+    } catch {}
     return NextResponse.json({ success: true, category }, { status: 201 });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Failed to create category' }, { status: 500 });
@@ -51,6 +71,10 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'Category not found' }, { status: 404 });
     }
 
+    try {
+      revalidatePath('/', 'layout');
+      revalidatePath('/category/[slug]', 'page');
+    } catch {}
     return NextResponse.json({ success: true, category: updated });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Failed to update category' }, { status: 500 });
@@ -66,11 +90,19 @@ export async function DELETE(request: Request) {
 
     if (categoryId && subCategoryId) {
       const success = await dbService.deleteSubCategory(categoryId, subCategoryId);
+      try {
+        revalidatePath('/', 'layout');
+        revalidatePath('/category/[slug]', 'page');
+      } catch {}
       return NextResponse.json({ success });
     }
 
     if (id) {
       const success = await dbService.deleteCategory(id);
+      try {
+        revalidatePath('/', 'layout');
+        revalidatePath('/category/[slug]', 'page');
+      } catch {}
       return NextResponse.json({ success });
     }
 

@@ -32,10 +32,13 @@ export async function POST(request: Request) {
     );
 
     const isFreeDelivery = calculatedSubtotal >= 2000;
+    const isInsideDhaka =
+      body.deliveryZone === 'INSIDE_DHAKA' ||
+      (typeof body.district === 'string' && body.district.trim().toLowerCase() === 'dhaka');
     const calculatedDeliveryCharge = isFreeDelivery
       ? 0
-      : body.deliveryZone === 'INSIDE_DHAKA'
-      ? 60
+      : isInsideDhaka
+      ? 70
       : 120;
 
     let calculatedDiscount = 0;

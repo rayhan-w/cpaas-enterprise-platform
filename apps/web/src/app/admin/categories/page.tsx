@@ -51,6 +51,22 @@ export default function AdminCategoriesPage() {
   const [inlineSubNames, setInlineSubNames] = useState<Record<string, string>>({});
   const [addingSubId, setAddingSubId] = useState<string | null>(null);
 
+  const syncToLocalStorage = (cats: CategoryItem[]) => {
+    try {
+      const flat: Array<{ id: string; name: string; parentId: string | null }> = [];
+      cats.forEach((c) => {
+        flat.push({ id: c.id, name: c.name, parentId: null });
+        if (c.subCategories) {
+          c.subCategories.forEach((s) => {
+            flat.push({ id: s.id, name: s.name, parentId: c.id });
+          });
+        }
+      });
+      localStorage.setItem('categories', JSON.stringify(flat));
+      localStorage.setItem('jawata_categories_tree', Date.now().toString());
+    } catch {}
+  };
+
   const fetchCategories = async () => {
     setLoading(true);
     try {
@@ -58,6 +74,7 @@ export default function AdminCategoriesPage() {
       const data = await res.json();
       if (data.categories && data.categories.length > 0) {
         setCategories(data.categories);
+        syncToLocalStorage(data.categories);
         if (!selectedCatIdForSub) {
           setSelectedCatIdForSub(data.categories[0].id);
         }
@@ -71,6 +88,14 @@ export default function AdminCategoriesPage() {
 
   useEffect(() => {
     fetchCategories();
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'jawata_categories_tree' || e.key === 'categories') {
+        fetchCategories();
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
   }, []);
 
   // --- Add Category ---

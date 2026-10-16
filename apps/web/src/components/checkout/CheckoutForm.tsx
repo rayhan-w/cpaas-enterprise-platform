@@ -107,13 +107,21 @@ export default function CheckoutForm() {
     }
   };
 
+  const handleDistrictChange = (dstName: string) => {
+    setDistrict(dstName);
+    if (dstName.trim().toLowerCase() === 'dhaka') {
+      setDeliveryZone('INSIDE_DHAKA');
+    } else {
+      setDeliveryZone('OUTSIDE_DHAKA');
+    }
+  };
+
   const handleDivisionChange = (divName: string) => {
     setDivision(divName);
     const found = BD_DIVISIONS.find((d) => d.name === divName);
-    if (found && found.districts.length > 0) {
-      setDistrict(found.districts[0]);
-    }
-    if (divName === 'Dhaka') {
+    const firstDistrict = found?.districts?.[0] || 'Dhaka';
+    setDistrict(firstDistrict);
+    if (firstDistrict.trim().toLowerCase() === 'dhaka') {
       setDeliveryZone('INSIDE_DHAKA');
     } else {
       setDeliveryZone('OUTSIDE_DHAKA');
@@ -345,7 +353,7 @@ export default function CheckoutForm() {
               <label className="block text-xs font-semibold text-[#1A1512] mb-1.5">District</label>
               <select
                 value={district}
-                onChange={(e) => setDistrict(e.target.value)}
+                onChange={(e) => handleDistrictChange(e.target.value)}
                 className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2.5 text-xs text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
               >
                 {selectedDiv.districts.map((dst) => (
@@ -434,7 +442,7 @@ export default function CheckoutForm() {
                     <p className="text-[10px] text-[#6B5B58]">Same-day / Next-day</p>
                   </div>
                 </div>
-                <span className="text-xs font-bold text-[#6CAE14]">৳60</span>
+                <span className="text-xs font-bold text-[#6CAE14]">৳70</span>
               </label>
 
               <label
