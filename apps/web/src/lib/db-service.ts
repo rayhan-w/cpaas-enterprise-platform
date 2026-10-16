@@ -377,25 +377,25 @@ function patchOrganicProduct(p: any): ProductItem {
   const slug = p.slug || '';
 
   if (id === 'p-org-pure-cow-ghee' || slug.includes('cow-milk-ghee') || slug.includes('danadar-pure-cow-ghee')) {
-    p.image = '/images/organic-pure-ghee.jpg';
-    p.images = ['/images/organic-pure-ghee.jpg'];
-    p.name = 'Jawata Mart Special Offer Danadar Pure Cow Ghee (খাঁটি দানাদার গাওয়া ঘি - ৫০০ গ্রাম)';
-    p.badge = 'Special Offer 🔥';
+    if (!p.image) p.image = '/images/organic-pure-ghee.jpg';
+    if (!p.images || p.images.length === 0) p.images = ['/images/organic-pure-ghee.jpg'];
+    if (!p.name) p.name = 'Jawata Mart Special Offer Danadar Pure Cow Ghee (খাঁটি দানাদার গাওয়া ঘি - ৫০০ গ্রাম)';
+    if (!p.badge) p.badge = 'Special Offer 🔥';
   } else if (id === 'p-org-mustard-oil-1l' || slug.includes('mustard-oil') || slug.includes('wood-ghani')) {
-    p.image = '/images/organic-mustard-oil.jpg';
-    p.images = ['/images/organic-mustard-oil.jpg'];
-    p.name = 'Jawata Mart Special Offer Pure Wood Ghani Mustard Oil (জাওয়াটা মার্ট কাঠের ঘানি ভাঙা খাঁটি সরিষার তেল - ১ লিটার)';
-    p.badge = 'Special Offer 🔥';
+    if (!p.image) p.image = '/images/organic-mustard-oil.jpg';
+    if (!p.images || p.images.length === 0) p.images = ['/images/organic-mustard-oil.jpg'];
+    if (!p.name) p.name = 'Jawata Mart Special Offer Pure Wood Ghani Mustard Oil (জাওয়াটা মার্ট কাঠের ঘানি ভাঙা খাঁটি সরিষার তেল - ১ লিটার)';
+    if (!p.badge) p.badge = 'Special Offer 🔥';
   } else if (id === 'p-org-sundarbans-honey' || slug.includes('sundarbans-wild-flower-honey') || slug.includes('pure-natural-raw-honey')) {
-    p.image = '/images/organic-natural-honey.png';
-    p.images = ['/images/organic-natural-honey.png'];
-    p.name = 'Jawata Mart 100% Pure Natural Raw Honey (খাঁটি প্রাকৃতিক সুন্দরবন মধু - ৫০০ গ্রাম)';
-    p.badge = '100% Pure Raw 🍯';
+    if (!p.image) p.image = '/images/organic-natural-honey.png';
+    if (!p.images || p.images.length === 0) p.images = ['/images/organic-natural-honey.png'];
+    if (!p.name) p.name = 'Jawata Mart 100% Pure Natural Raw Honey (খাঁটি প্রাকৃতিক সুন্দরবন মধু - ৫০০ গ্রাম)';
+    if (!p.badge) p.badge = '100% Pure Raw 🍯';
   } else if (id === 'p-org-homemade-pickle' || slug.includes('homemade-mango-pickle')) {
-    p.image = '/images/organic-homemade-pickle.jpg';
-    p.images = ['/images/organic-homemade-pickle.jpg'];
-    p.name = 'Jawata Mart Traditional Homemade Raw Mango Pickle (টক-ঝাল-মিষ্টি ঘরোয়া আমের আচার - ৫০০ গ্রাম)';
-    p.badge = 'Homemade Special 🌶️';
+    if (!p.image) p.image = '/images/organic-homemade-pickle.jpg';
+    if (!p.images || p.images.length === 0) p.images = ['/images/organic-homemade-pickle.jpg'];
+    if (!p.name) p.name = 'Jawata Mart Traditional Homemade Raw Mango Pickle (টক-ঝাল-মিষ্টি ঘরোয়া আমের আচার - ৫০০ গ্রাম)';
+    if (!p.badge) p.badge = 'Homemade Special 🌶️';
   }
   return p;
 }
@@ -858,9 +858,17 @@ export const dbService = {
           ? validOriginalPrice
           : prods[idx].originalPrice;
 
+      const candidateName =
+        typeof data.name === 'string' && data.name.trim()
+          ? data.name.trim()
+          : typeof (data as any)?.title === 'string' && (data as any).title.trim()
+          ? (data as any).title.trim()
+          : prods[idx].name;
+
       const updatedRaw: any = {
         ...prods[idx],
         ...data,
+        name: candidateName,
         sku: resolvedSku || prods[idx].sku,
         subCategoryId: data.subCategoryId !== undefined ? data.subCategoryId : prods[idx].subCategoryId,
         subCategoryName: data.subCategoryName !== undefined ? data.subCategoryName : prods[idx].subCategoryName,

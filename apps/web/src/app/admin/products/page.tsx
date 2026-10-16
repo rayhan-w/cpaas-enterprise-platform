@@ -102,7 +102,9 @@ export default function AdminProductsPage() {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/products?includeInactive=true');
+      const res = await fetch(`/api/products?includeInactive=true&_t=${Date.now()}`, {
+        cache: 'no-store',
+      });
       const data = await res.json();
       setProducts(data.products || []);
     } catch {
@@ -267,6 +269,10 @@ export default function AdminProductsPage() {
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to update product');
+
+      if (data.product) {
+        setProducts((prev) => prev.map((p) => (p.id === data.product.id ? data.product : p)));
+      }
 
       try {
         localStorage.setItem('jawata_products_last_synced', Date.now().toString());
