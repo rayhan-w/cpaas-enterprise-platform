@@ -76,9 +76,9 @@
     "id": "prod_1792124061978",
     "name": "Milk Powder",
     "slug": "milk-powder",
-    "categoryId": "cat-organic-food",
-    "categoryName": "Organic Food",
-    "categorySlug": "organic-food",
+    "categoryId": "cat-Milk Food",
+    "categoryName": "Milk Powder (Imported)",
+    "categorySlug": "milk-powder",
     "categories": [
       "Milk Powder (Imported)",
       "Organic Food"
@@ -261,7 +261,8 @@
     "categoryName": "Gadget Items",
     "categorySlug": "gadget-items",
     "categories": [
-      "Gadget Items"
+      "Gadget Items",
+      "GPS Tracker/Tracking Device"
     ],
     "brand": "Brand",
     "price": 799,
@@ -289,17 +290,21 @@
     "isActive": true,
     "rating": 5,
     "reviewCount": 0,
-    "sku": "JM-GAD-GPS-01"
+    "sku": "JM-GAD-GPS-01",
+    "subCategoryId": "sub-gps-tracker-tracking-device",
+    "subCategoryName": "GPS Tracker/Tracking Device",
+    "subCategorySlug": "gps-tracker-tracking-device"
   },
   {
     "id": "prod_1792077728330",
     "name": "GPS Tracker/Tracking Device",
     "slug": "gps-tracker-tracking-device",
-    "categoryId": "cat-organic-food",
-    "categoryName": "Organic Food",
-    "categorySlug": "organic-food",
+    "categoryId": "cat-Smart Device",
+    "categoryName": "Gadget Items",
+    "categorySlug": "gadget-items",
     "categories": [
-      "Gadget Items"
+      "Gadget Items",
+      "GPS Tracker/Tracking Device"
     ],
     "brand": "Brand",
     "price": 799,
@@ -328,7 +333,10 @@
     "isActive": true,
     "rating": 5,
     "reviewCount": 0,
-    "sku": "JM-GAD-GPS-02"
+    "sku": "JM-GAD-GPS-02",
+    "subCategoryId": "sub-gps-tracker-tracking-device",
+    "subCategoryName": "GPS Tracker/Tracking Device",
+    "subCategorySlug": "gps-tracker-tracking-device"
   },
   {
     "id": "p-org-pure-cow-ghee",

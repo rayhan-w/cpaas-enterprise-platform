@@ -62,6 +62,20 @@ export async function POST(request: Request) {
 export async function PUT(request: Request) {
   try {
     const body = await request.json();
+
+    if (body.type === 'subcategory' || (body.categoryId && body.subCategoryId)) {
+      const { categoryId, subCategoryId, name, slug } = body;
+      if (!categoryId || !subCategoryId || !name) {
+        return NextResponse.json({ error: 'Category ID, Subcategory ID and Name are required' }, { status: 400 });
+      }
+      const updatedSub = await dbService.updateSubCategory(categoryId, subCategoryId, { name, slug });
+      try {
+        revalidatePath('/', 'layout');
+        revalidatePath('/category/[slug]', 'page');
+      } catch {}
+      return NextResponse.json({ success: true, subCategory: updatedSub });
+    }
+
     if (!body.id) {
       return NextResponse.json({ error: 'Category ID is required' }, { status: 400 });
     }

@@ -9,6 +9,7 @@ export const fetchCache = 'force-no-store';
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const categorySlug = searchParams.get('category') || undefined;
+  const subCategorySlug = searchParams.get('sub') || searchParams.get('subCategory') || searchParams.get('subCategorySlug') || undefined;
   const search = searchParams.get('search') || undefined;
   const isFeatured = searchParams.get('featured') === 'true' ? true : undefined;
   const isBestSeller = searchParams.get('bestseller') === 'true' ? true : undefined;
@@ -17,6 +18,7 @@ export async function GET(request: Request) {
 
   const products = await dbService.getProducts({
     categorySlug,
+    subCategorySlug,
     search,
     isFeatured,
     isBestSeller,

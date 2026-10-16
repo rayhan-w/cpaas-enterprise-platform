@@ -194,14 +194,14 @@ export default function AdminProductsPage() {
       return;
     }
 
-    if (editSelectedCategories.length === 0) {
-      error('অন্তত একটি ক্যাটাগরি অবশ্যই নির্বাচন করতে হবে (At least one category is required)');
-      return;
+    const selectedCat = categories.find((c) => c.id === editCategoryId);
+    let catsToSave = editSelectedCategories;
+    if (catsToSave.length === 0 && selectedCat?.name) {
+      catsToSave = [selectedCat.name];
     }
 
     setIsUpdating(true);
     try {
-      const selectedCat = categories.find((c) => c.id === editCategoryId);
       let targetSubId = editSubCategoryId || undefined;
       let targetSubName = selectedCat?.subCategories?.find((s) => s.id === editSubCategoryId)?.name;
       let targetSubSlug = selectedCat?.subCategories?.find((s) => s.id === editSubCategoryId)?.slug;
@@ -242,7 +242,7 @@ export default function AdminProductsPage() {
           categoryId: editCategoryId,
           categoryName: selectedCat?.name,
           categorySlug: selectedCat?.slug,
-          categories: editSelectedCategories,
+          categories: catsToSave,
           subCategoryId: targetSubId,
           subCategoryName: targetSubName,
           subCategorySlug: targetSubSlug,
@@ -312,13 +312,11 @@ export default function AdminProductsPage() {
       return;
     }
 
-    if (selectedCategories.length === 0) {
-      error('অন্তত একটি ক্যাটাগরি অবশ্যই নির্বাচন করতে হবে (At least one category is required)');
-      return;
-    }
-
     const cat = categories.find((c) => c.id === categoryId);
-    const catsToSave = selectedCategories;
+    let catsToSave = selectedCategories;
+    if (catsToSave.length === 0 && cat?.name) {
+      catsToSave = [cat.name];
+    }
 
     setIsSubmitting(true);
     try {

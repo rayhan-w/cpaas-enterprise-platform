@@ -47,6 +47,13 @@ export default function AdminCategoriesPage() {
   const [subCatName, setSubCatName] = useState('');
   const [isAddingSub, setIsAddingSub] = useState(false);
 
+  // Edit Subcategory Modal State
+  const [editingSubParentId, setEditingSubParentId] = useState('');
+  const [editingSub, setEditingSub] = useState<SubCategoryItem | null>(null);
+  const [editSubName, setEditSubName] = useState('');
+  const [editSubSlug, setEditSubSlug] = useState('');
+  const [isUpdatingSub, setIsUpdatingSub] = useState(false);
+
   // Quick inline add state on category cards
   const [inlineSubNames, setInlineSubNames] = useState<Record<string, string>>({});
   const [addingSubId, setAddingSubId] = useState<string | null>(null);
@@ -267,6 +274,45 @@ export default function AdminCategoriesPage() {
     }
   };
 
+  // --- Edit Subcategory ---
+  const openEditSubModal = (catId: string, sub: SubCategoryItem) => {
+    setEditingSubParentId(catId);
+    setEditingSub(sub);
+    setEditSubName(sub.name);
+    setEditSubSlug(sub.slug || '');
+  };
+
+  const handleUpdateSubCategory = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editSubName.trim() || !editingSub || !editingSubParentId) return;
+
+    setIsUpdatingSub(true);
+    try {
+      const res = await fetch('/api/categories', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'subcategory',
+          categoryId: editingSubParentId,
+          subCategoryId: editingSub.id,
+          name: editSubName.trim(),
+          slug: editSubSlug.trim() || undefined,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to update subcategory');
+
+      success(`Subcategory "${editSubName.trim()}" updated successfully!`);
+      setEditingSub(null);
+      fetchCategories();
+    } catch (err: any) {
+      error(err.message);
+    } finally {
+      setIsUpdatingSub(false);
+    }
+  };
+
   // --- Delete Subcategory ---
   const handleDeleteSubCategory = async (categoryId: string, subCategoryId: string, subName: string) => {
     if (!window.confirm(`Are you sure you want to delete subcategory "${subName}"?`)) {
@@ -401,6 +447,14 @@ export default function AdminCategoriesPage() {
                           className="inline-flex items-center gap-1.5 bg-[#F8F7F5] text-[#1A1512] text-[10px] font-semibold pl-2 pr-1.5 py-0.5 rounded-md border border-[#EDE5E1] hover:border-[#6CAE14] transition-colors"
                         >
                           <span>{sub.name}</span>
+                          <button
+                            type="button"
+                            onClick={() => openEditSubModal(cat.id, sub)}
+                            title={`Edit subcategory "${sub.name}"`}
+                            className="text-[#9B8A86] hover:text-[#6CAE14] p-0.5 transition-colors cursor-pointer"
+                          >
+                            <Edit className="w-2.5 h-2.5" />
+                          </button>
                           <button
                             type="button"
                             onClick={() => handleDeleteSubCategory(cat.id, sub.id, sub.name)}
@@ -681,6 +735,72 @@ export default function AdminCategoriesPage() {
                   className="bg-[#6CAE14] hover:bg-[#5B960E] disabled:opacity-50 text-white font-bold text-xs px-5 py-2 rounded-xl transition-all shadow-sm cursor-pointer"
                 >
                   {isUpdatingCat ? 'Saving...' : 'Save Changes'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* --- Modal: Edit Subcategory --- */}
+      {editingSub && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full border border-[#EDE5E1] shadow-2xl space-y-4 animate-modal-pop">
+            <div className="flex items-center justify-between border-b border-[#EDE5E1] pb-3">
+              <div>
+                <h3 className="section-title text-xl text-[#1A1512]">Edit Subcategory</h3>
+                <p className="text-[11px] text-[#6B5B58] mt-0.5">Rename or adjust subcategory</p>
+              </div>
+              <button
+                onClick={() => setEditingSub(null)}
+                className="p-1.5 text-[#6B5B58] hover:text-[#1A1512] cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleUpdateSubCategory} noValidate className="space-y-3.5 text-xs">
+              <div>
+                <label className="block font-semibold text-[#1A1512] mb-1">Subcategory Name *</label>
+                <input
+                  type="text"
+                  required
+                  autoFocus
+                  value={editSubName}
+                  onChange={(e) => {
+                    setEditSubName(e.target.value);
+                    if (!editSubSlug) {
+                      setEditSubSlug(e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, ''));
+                    }
+                  }}
+                  className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
+                />
+              </div>
+
+              <div>
+                <label className="block font-semibold text-[#1A1512] mb-1">Slug URL</label>
+                <input
+                  type="text"
+                  value={editSubSlug}
+                  onChange={(e) => setEditSubSlug(e.target.value)}
+                  className="w-full bg-[#F8F7F5] border border-[#EDE5E1] rounded-xl px-3 py-2 font-mono text-[#1A1512] focus:outline-none focus:border-[#6CAE14]"
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#EDE5E1]">
+                <button
+                  type="button"
+                  onClick={() => setEditingSub(null)}
+                  className="px-4 py-2 rounded-xl text-xs font-semibold border border-[#EDE5E1] text-[#6B5B58] hover:bg-[#F8F7F5] cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isUpdatingSub}
+                  className="bg-[#6CAE14] hover:bg-[#5B960E] disabled:opacity-50 text-white font-bold text-xs px-5 py-2 rounded-xl transition-all shadow-sm cursor-pointer"
+                >
+                  {isUpdatingSub ? 'Saving...' : 'Save Subcategory'}
                 </button>
               </div>
             </form>

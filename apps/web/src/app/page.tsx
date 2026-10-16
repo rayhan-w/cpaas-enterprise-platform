@@ -64,6 +64,30 @@ export default async function HomePage() {
         <ProductGrid products={bestSellers} />
       </section>
 
+      {/* New Arrivals / সদ্য যুক্ত প্রোডাক্ট */}
+      <section className="max-w-7xl mx-auto px-4 py-6">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#6CAE14] flex items-center gap-1">
+              <Sparkles className="w-3.5 h-3.5" />
+              Fresh Additions
+            </span>
+            <h2 className="section-title text-2xl sm:text-3xl text-[#0E140E]">
+              New Arrivals (নতুন প্রোডাক্ট)
+            </h2>
+          </div>
+          <Link
+            href="/category/all"
+            className="text-xs font-bold text-[#0d1f61] hover:text-[#fd6b03] flex items-center gap-1 transition-colors"
+          >
+            <span>Explore Store</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <ProductGrid products={products.slice(0, 8)} />
+      </section>
+
       {/* 6. Organic Food Showcase */}
       <CuratedCategoryShowcase
         title="100% Pure Organic Food & Delicacies"
@@ -152,6 +176,35 @@ export default async function HomePage() {
         categorySlug="weather-items"
         products={products}
       />
+
+      {/* 15. Dynamic Category Showcases (For all additional categories added by Admin) */}
+      {categories
+        .filter((c) => {
+          const standardSlugs = [
+            'organic-food',
+            'bag',
+            'kids-toys',
+            'baby-dress',
+            'baby-shoes',
+            'bed-sheet',
+            'islamic-items',
+            'kitchen-items',
+            'health-skin-care',
+            'winter-items',
+            'weather-items',
+            'general',
+          ];
+          return !standardSlugs.includes(c.slug) && (c.productCount ?? 0) > 0;
+        })
+        .map((cat) => (
+          <CuratedCategoryShowcase
+            key={cat.id}
+            title={cat.name}
+            subtitle={cat.description || `Browse quality items in ${cat.name}`}
+            categorySlug={cat.slug}
+            products={products}
+          />
+        ))}
 
       {/* 10. Bangladesh Nationwide Delivery & Payment Info */}
       <DeliveryInfoSection />

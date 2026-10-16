@@ -488,7 +488,14 @@ export const dbService = {
         (p) =>
           p.subCategorySlug?.toLowerCase() === targetSub ||
           p.subCategoryId?.toLowerCase() === targetSub ||
-          (p.subCategoryName && p.subCategoryName.toLowerCase().replace(/[^a-z0-9]/g, '-').includes(targetSub))
+          (p.subCategoryName && p.subCategoryName.toLowerCase() === targetSub) ||
+          (p.subCategoryName && p.subCategoryName.toLowerCase().replace(/[^a-z0-9]+/g, '-').includes(targetSub)) ||
+          (Array.isArray(p.categories) &&
+            p.categories.some(
+              (c) =>
+                c.toLowerCase() === targetSub ||
+                c.toLowerCase().replace(/[^a-z0-9]+/g, '-').includes(targetSub)
+            ))
       );
     }
     if (params?.isFeatured !== undefined) {
@@ -1171,6 +1178,64 @@ export const dbService = {
     saveCategoriesToFile(fileCats);
     categoryCache = null;
     return newSub;
+  },
+
+  async updateSubCategory(categoryId: string, subCategoryId: string, data: { name: string; slug?: string }): Promise<SubCategoryItem | null> {
+    const trimmedName = (data.name || '').trim();
+    if (!trimmedName) {
+      throw new Error('Subcategory name is required.');
+    }
+
+    const fileCats = loadCategoriesFromFile();
+    const cat = fileCats.find((c) => c.id === categoryId || c.slug === categoryId);
+    if (!cat || !cat.subCategories) {
+      throw new Error('Parent category or subcategories not found.');
+    }
+
+    const sub = cat.subCategories.find((s) => s.id === subCategoryId || s.slug === subCategoryId);
+    if (!sub) {
+      throw new Error('Subcategory not found.');
+    }
+
+    const oldName = sub.name;
+    sub.name = trimmedName;
+    if (data.slug) sub.slug = data.slug.trim();
+
+    // Rename subcategory across all products referencing oldName
+    if (oldName !== trimmedName) {
+      const prods = loadProductsFromFile();
+      let prodsChanged = false;
+      prods.forEach((p) => {
+        if (p.subCategoryId === sub.id) {
+          p.subCategoryName = trimmedName;
+          prodsChanged = true;
+        }
+        if (Array.isArray(p.categories) && p.categories.includes(oldName)) {
+          p.categories = p.categories.map((c) => (c === oldName ? trimmedName : c));
+          prodsChanged = true;
+        }
+      });
+      if (prodsChanged) {
+        saveProductsToFile(prods);
+        productCache.clear();
+        singleProductCache.clear();
+      }
+    }
+
+    try {
+      if (process.env.DATABASE_URL && prisma.subCategory) {
+        await prisma.subCategory.update({
+          where: { id: sub.id },
+          data: { name: sub.name, slug: sub.slug },
+        }).catch(() => {});
+      }
+    } catch (e) {
+      console.error('Error updating subcategory in DB:', e);
+    }
+
+    saveCategoriesToFile(fileCats);
+    categoryCache = null;
+    return sub;
   },
 
   async deleteSubCategory(categoryId: string, subCategoryId: string): Promise<boolean> {

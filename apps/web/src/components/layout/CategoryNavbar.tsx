@@ -167,7 +167,7 @@ export default function CategoryNavbar() {
           </Link>
 
           {/* Customer Defined Categories with Dropdown */}
-          {categories.slice(0, 10).map((cat) => {
+          {categories.filter((c) => c.isActive !== false).map((cat) => {
             const hasSub = !!cat.subCategories && cat.subCategories.length > 0;
             const isOpen = activeDropdown === cat.id;
             const isActive = pathname === `/category/${cat.slug}`;

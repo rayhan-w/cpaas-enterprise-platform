@@ -19,7 +19,21 @@ export default function CuratedCategoryShowcase({
   categorySlug,
   products,
 }: CuratedCategoryShowcaseProps) {
-  const categoryProducts = products.filter((p) => p.categorySlug === categorySlug).slice(0, 4);
+  const categoryProducts = products.filter((p) => {
+    const targetSlug = categorySlug.toLowerCase();
+    const targetTitle = title.toLowerCase();
+    if (p.categorySlug?.toLowerCase() === targetSlug || p.categoryId?.toLowerCase() === targetSlug) return true;
+    if (p.categoryName && p.categoryName.toLowerCase() === targetTitle) return true;
+    if (Array.isArray(p.categories)) {
+      return p.categories.some(
+        (c) =>
+          c.toLowerCase() === targetSlug ||
+          c.toLowerCase() === targetTitle ||
+          c.toLowerCase().replace(/[^a-z0-9]+/g, '-').includes(targetSlug)
+      );
+    }
+    return false;
+  }).slice(0, 4);
 
   if (categoryProducts.length === 0) return null;
 
