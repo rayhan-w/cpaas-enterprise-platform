@@ -83,7 +83,7 @@ export interface CartItem {
   totalPrice: number;
 }
 
-export type DeliveryZone = 'INSIDE_DHAKA' | 'OUTSIDE_DHAKA';
+export type DeliveryZone = 'INSIDE_DHAKA' | 'DHAKA_SUBURBS' | 'OUTSIDE_DHAKA';
 
 export type PaymentMethod = 'COD' | 'BKASH' | 'NAGAD' | 'SSLCOMMERZ' | 'STRIPE' | 'BANK_TRANSFER';
 
@@ -186,6 +186,7 @@ export interface StoreSettings {
   bkashMerchantNumber: string;
   nagadMerchantNumber: string;
   insideDhakaFee: number;
+  suburbsDhakaFee?: number;
   outsideDhakaFee: number;
   freeDeliveryThreshold: number;
   sslcommerzStoreId: string;

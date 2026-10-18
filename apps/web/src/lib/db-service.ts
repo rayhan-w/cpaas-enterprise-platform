@@ -235,11 +235,14 @@ function loadSettingsFromFile(): StoreSettings {
     if (fs.existsSync(SETTINGS_FILE)) {
       const data = JSON.parse(fs.readFileSync(SETTINGS_FILE, 'utf8'));
       if (data && typeof data === 'object') {
-        if (data.deliveryInsideDhaka === 60) {
-          data.deliveryInsideDhaka = 70;
+        if (data.deliveryInsideDhaka === 60 || data.insideDhakaFee === 60) {
+          data.insideDhakaFee = 70;
         }
-        if (!data.deliveryOutsideDhaka) {
-          data.deliveryOutsideDhaka = 120;
+        if (!data.suburbsDhakaFee) {
+          data.suburbsDhakaFee = 100;
+        }
+        if (!data.outsideDhakaFee || data.outsideDhakaFee === 120 || data.deliveryOutsideDhaka === 120) {
+          data.outsideDhakaFee = 130;
         }
         return data;
       }

@@ -282,7 +282,7 @@ export default function ProductView({
             <div className="flex items-center gap-2.5">
               <Truck className="w-4 h-4 text-[#fd6b03] shrink-0" />
               <span>
-                <strong>Inside Dhaka:</strong> ৳70 (Same/Next Day) • <strong>Outside Dhaka:</strong> ৳120
+                <strong>Inside Dhaka:</strong> ৳70 (Same/Next Day) • <strong>Dhaka Suburbs:</strong> ৳100 • <strong>Outside Dhaka:</strong> ৳130
               </span>
             </div>
             <div className="flex items-center gap-2.5">

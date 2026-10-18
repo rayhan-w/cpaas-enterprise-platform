@@ -175,31 +175,44 @@ export default function CartPage() {
             </div>
 
             {/* Delivery Destination quick toggle */}
-            <div className="bg-white rounded-2xl border border-[#EDE5E1] p-4 flex items-center justify-between text-xs">
+            <div className="bg-white rounded-2xl border border-[#EDE5E1] p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 text-xs">
               <div className="flex items-center gap-2 text-[#1A1512] font-semibold">
                 <Truck className="w-4 h-4 text-[#6CAE14]" />
                 <span>Delivery Location:</span>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <button
+                  type="button"
                   onClick={() => setDeliveryZone('INSIDE_DHAKA')}
-                  className={`px-3 py-1.5 rounded-lg border font-semibold transition-all ${
+                  className={`px-3 py-1.5 rounded-lg border font-semibold transition-all cursor-pointer ${
                     deliveryZone === 'INSIDE_DHAKA'
                       ? 'bg-[#F1F8E8] border-[#6CAE14] text-[#6CAE14]'
-                      : 'border-[#EDE5E1] text-[#6B5B58]'
+                      : 'border-[#EDE5E1] text-[#6B5B58] hover:bg-[#F8F7F5]'
                   }`}
                 >
                   Inside Dhaka (৳70)
                 </button>
                 <button
-                  onClick={() => setDeliveryZone('OUTSIDE_DHAKA')}
-                  className={`px-3 py-1.5 rounded-lg border font-semibold transition-all ${
-                    deliveryZone === 'OUTSIDE_DHAKA'
+                  type="button"
+                  onClick={() => setDeliveryZone('DHAKA_SUBURBS')}
+                  className={`px-3 py-1.5 rounded-lg border font-semibold transition-all cursor-pointer ${
+                    deliveryZone === 'DHAKA_SUBURBS'
                       ? 'bg-[#F1F8E8] border-[#6CAE14] text-[#6CAE14]'
-                      : 'border-[#EDE5E1] text-[#6B5B58]'
+                      : 'border-[#EDE5E1] text-[#6B5B58] hover:bg-[#F8F7F5]'
                   }`}
                 >
-                  Outside Dhaka (৳120)
+                  ঢাকার আশেপাশে - সাভার/না.গঞ্জ (৳100)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDeliveryZone('OUTSIDE_DHAKA')}
+                  className={`px-3 py-1.5 rounded-lg border font-semibold transition-all cursor-pointer ${
+                    deliveryZone === 'OUTSIDE_DHAKA'
+                      ? 'bg-[#F1F8E8] border-[#6CAE14] text-[#6CAE14]'
+                      : 'border-[#EDE5E1] text-[#6B5B58] hover:bg-[#F8F7F5]'
+                  }`}
+                >
+                  Outside Dhaka (৳130)
                 </button>
               </div>
             </div>

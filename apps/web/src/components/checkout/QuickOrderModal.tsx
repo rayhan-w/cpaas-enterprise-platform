@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { X, Plus, Minus, ShieldCheck, Truck, CheckCircle2, ShoppingBag } from 'lucide-react';
-import { ProductItem } from '@/lib/types';
+import { ProductItem, DeliveryZone } from '@/lib/types';
 import { formatPrice } from '@/lib/formatters';
 import { useToast } from '@/context/toast-context';
 
@@ -23,7 +23,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [address, setAddress] = useState('');
-  const [deliveryZone, setDeliveryZone] = useState<'INSIDE_DHAKA' | 'OUTSIDE_DHAKA'>('INSIDE_DHAKA');
+  const [deliveryZone, setDeliveryZone] = useState<DeliveryZone>('INSIDE_DHAKA');
   const [paymentMethod, setPaymentMethod] = useState<'COD' | 'BKASH' | 'NAGAD'>('COD');
   const [transactionId, setTransactionId] = useState('');
   const [senderNumber, setSenderNumber] = useState('');
@@ -34,7 +34,14 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
 
   const itemPrice = product.price;
   const subtotal = itemPrice * quantity;
-  const deliveryCharge = subtotal >= 2000 ? 0 : deliveryZone === 'INSIDE_DHAKA' ? 70 : 120;
+  const deliveryCharge =
+    subtotal >= 2000
+      ? 0
+      : deliveryZone === 'INSIDE_DHAKA'
+      ? 70
+      : deliveryZone === 'DHAKA_SUBURBS'
+      ? 100
+      : 130;
   const total = subtotal + deliveryCharge;
 
   const handleSubmitOrder = async (e: React.FormEvent) => {
@@ -57,7 +64,12 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
         customerName: customerName.trim(),
         customerPhone: customerPhone.trim(),
         address: address.trim(),
-        city: deliveryZone === 'INSIDE_DHAKA' ? 'Dhaka' : 'Outside Dhaka',
+        city:
+          deliveryZone === 'INSIDE_DHAKA'
+            ? 'Dhaka'
+            : deliveryZone === 'DHAKA_SUBURBS'
+            ? 'Dhaka Suburbs (Savar/Narayanganj)'
+            : 'Outside Dhaka',
         deliveryZone,
         paymentMethod,
         transactionId: transactionId.trim() || undefined,
@@ -243,31 +255,44 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
               <label className="block text-xs font-bold uppercase tracking-wider text-[#fd6b03]">
                 Delivery Zone
               </label>
-              <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
                 <button
                   type="button"
                   onClick={() => setDeliveryZone('INSIDE_DHAKA')}
-                  className={`p-2.5 rounded-xl border text-left flex items-center justify-between transition-all ${
+                  className={`p-2 rounded-xl border text-left flex items-center justify-between transition-all ${
                     deliveryZone === 'INSIDE_DHAKA'
                       ? 'border-[#fd6b03] bg-orange-50 text-[#0d1f61] ring-1 ring-[#fd6b03]'
                       : 'border-[#DFECCE] bg-white text-[#526052]'
                   }`}
                 >
-                  <span className="font-bold text-xs">Inside Dhaka</span>
+                  <span className="font-bold text-[11px]">Inside Dhaka</span>
                   <span className="text-xs font-bold text-[#fd6b03]">৳70</span>
                 </button>
 
                 <button
                   type="button"
+                  onClick={() => setDeliveryZone('DHAKA_SUBURBS')}
+                  className={`p-2 rounded-xl border text-left flex items-center justify-between transition-all ${
+                    deliveryZone === 'DHAKA_SUBURBS'
+                      ? 'border-[#fd6b03] bg-orange-50 text-[#0d1f61] ring-1 ring-[#fd6b03]'
+                      : 'border-[#DFECCE] bg-white text-[#526052]'
+                  }`}
+                >
+                  <span className="font-bold text-[11px]">ঢাকার আশেপাশে</span>
+                  <span className="text-xs font-bold text-[#fd6b03]">৳100</span>
+                </button>
+
+                <button
+                  type="button"
                   onClick={() => setDeliveryZone('OUTSIDE_DHAKA')}
-                  className={`p-2.5 rounded-xl border text-left flex items-center justify-between transition-all ${
+                  className={`p-2 rounded-xl border text-left flex items-center justify-between transition-all ${
                     deliveryZone === 'OUTSIDE_DHAKA'
                       ? 'border-[#fd6b03] bg-orange-50 text-[#0d1f61] ring-1 ring-[#fd6b03]'
                       : 'border-[#DFECCE] bg-white text-[#526052]'
                   }`}
                 >
-                  <span className="font-bold text-xs">Outside Dhaka</span>
-                  <span className="text-xs font-bold text-[#fd6b03]">৳120</span>
+                  <span className="font-bold text-[11px]">Outside Dhaka</span>
+                  <span className="text-xs font-bold text-[#fd6b03]">৳130</span>
                 </button>
               </div>
             </div>

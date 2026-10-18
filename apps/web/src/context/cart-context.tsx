@@ -48,8 +48,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         setItems([]);
       }
       const storedZone = localStorage.getItem('jawata_mart_delivery_zone');
-      if (storedZone === 'OUTSIDE_DHAKA' || storedZone === 'INSIDE_DHAKA') {
-        setDeliveryZone(storedZone);
+      if (storedZone === 'OUTSIDE_DHAKA' || storedZone === 'INSIDE_DHAKA' || storedZone === 'DHAKA_SUBURBS') {
+        setDeliveryZone(storedZone as DeliveryZone);
       }
     } catch {
       // Ignore storage errors
@@ -160,7 +160,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   // Free delivery above ৳2,000
   const isFreeDelivery = subtotal >= 2000 && subtotal > 0;
   const deliveryCharge =
-    subtotal === 0 ? 0 : isFreeDelivery ? 0 : deliveryZone === 'INSIDE_DHAKA' ? 70 : 120;
+    subtotal === 0
+      ? 0
+      : isFreeDelivery
+      ? 0
+      : deliveryZone === 'INSIDE_DHAKA'
+      ? 70
+      : deliveryZone === 'DHAKA_SUBURBS'
+      ? 100
+      : 130;
 
   const discount = appliedCoupon ? appliedCoupon.discount : 0;
   const total = Math.max(0, subtotal + deliveryCharge - discount);

@@ -42,7 +42,8 @@ export default function AdminSettingsPage() {
     
     // Delivery fees
     insideDhakaDeliveryFee: 70,
-    outsideDhakaDeliveryFee: 120,
+    suburbsDhakaDeliveryFee: 100,
+    outsideDhakaDeliveryFee: 130,
     freeDeliveryThreshold: 2000,
     estimatedDhakaDeliveryDays: '1-2 Days',
     estimatedOutsideDeliveryDays: '3-5 Days',
@@ -208,7 +209,8 @@ export default function AdminSettingsPage() {
     const payload = {
       ...formData,
       insideDhakaDeliveryFee: formData.insideDhakaDeliveryFee || 70,
-      outsideDhakaDeliveryFee: formData.outsideDhakaDeliveryFee || 120,
+      suburbsDhakaDeliveryFee: formData.suburbsDhakaDeliveryFee || 100,
+      outsideDhakaDeliveryFee: formData.outsideDhakaDeliveryFee || 130,
     };
 
     try {
@@ -539,7 +541,7 @@ export default function AdminSettingsPage() {
             </div>
           </div>
 
-          <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             <div>
               <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
                 Inside Dhaka Fee (৳)
@@ -551,7 +553,21 @@ export default function AdminSettingsPage() {
                 onChange={handleChange}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
               />
-              <p className="text-xs text-charcoal-500 mt-1">Applied to Dhaka city addresses</p>
+              <p className="text-xs text-charcoal-500 mt-1">Applied to Dhaka city addresses (৳70)</p>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-charcoal-700 uppercase tracking-wider mb-1.5">
+                Dhaka Suburbs Fee (৳)
+              </label>
+              <input
+                type="number"
+                name="suburbsDhakaDeliveryFee"
+                value={formData.suburbsDhakaDeliveryFee ?? 100}
+                onChange={handleChange}
+                className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+              />
+              <p className="text-xs text-charcoal-500 mt-1">সাভার, নারায়ণগঞ্জ ইত্যাদি (৳100)</p>
             </div>
 
             <div>
@@ -565,7 +581,7 @@ export default function AdminSettingsPage() {
                 onChange={handleChange}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
               />
-              <p className="text-xs text-charcoal-500 mt-1">Applied to all other 7 divisions</p>
+              <p className="text-xs text-charcoal-500 mt-1">দেশের বাকি সকল জেলা (৳130)</p>
             </div>
 
             <div>
@@ -582,20 +598,21 @@ export default function AdminSettingsPage() {
               <p className="text-xs text-charcoal-500 mt-1">Orders above this amount get free shipping</p>
             </div>
 
-            <div className="md:col-span-3 pt-1">
+            <div className="sm:col-span-2 md:col-span-4 pt-1">
               <button
                 type="button"
                 onClick={() => {
                   setFormData(prev => ({
                     ...prev,
                     insideDhakaDeliveryFee: 70,
-                    outsideDhakaDeliveryFee: 120,
+                    suburbsDhakaDeliveryFee: 100,
+                    outsideDhakaDeliveryFee: 130,
                   }));
-                  toast('ডেলিভারি চার্জ ৭০/১২০ টাকায় রিসেট করা হয়েছে (Save Settings বাটনে ক্লিক করুন)', 'info');
+                  toast('ডেলিভারি চার্জ ৭০/১০০/১৩০ টাকায় রিসেট করা হয়েছে (Save Settings বাটনে ক্লিক করুন)', 'info');
                 }}
                 className="px-4 py-2 bg-charcoal-100 hover:bg-charcoal-200 text-charcoal-800 text-xs font-semibold rounded-xl border border-charcoal-300 transition-all cursor-pointer"
               >
-                Reset delivery charges to 70/120
+                Reset delivery charges to 70/100/130
               </button>
             </div>
           </div>

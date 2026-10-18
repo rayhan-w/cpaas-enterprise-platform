@@ -109,8 +109,11 @@ export default function CheckoutForm() {
 
   const handleDistrictChange = (dstName: string) => {
     setDistrict(dstName);
-    if (dstName.trim().toLowerCase() === 'dhaka') {
+    const lower = dstName.trim().toLowerCase();
+    if (lower === 'dhaka') {
       setDeliveryZone('INSIDE_DHAKA');
+    } else if (lower === 'narayanganj' || lower === 'gazipur') {
+      setDeliveryZone('DHAKA_SUBURBS');
     } else {
       setDeliveryZone('OUTSIDE_DHAKA');
     }
@@ -121,8 +124,11 @@ export default function CheckoutForm() {
     const found = BD_DIVISIONS.find((d) => d.name === divName);
     const firstDistrict = found?.districts?.[0] || 'Dhaka';
     setDistrict(firstDistrict);
-    if (firstDistrict.trim().toLowerCase() === 'dhaka') {
+    const lower = firstDistrict.trim().toLowerCase();
+    if (lower === 'dhaka') {
       setDeliveryZone('INSIDE_DHAKA');
+    } else if (lower === 'narayanganj' || lower === 'gazipur') {
+      setDeliveryZone('DHAKA_SUBURBS');
     } else {
       setDeliveryZone('OUTSIDE_DHAKA');
     }
@@ -421,13 +427,13 @@ export default function CheckoutForm() {
           {/* Delivery Zone Selector */}
           <div className="pt-2">
             <label className="block text-xs font-semibold text-[#1A1512] mb-2">Delivery Destination</label>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <label
                 onClick={() => setDeliveryZone('INSIDE_DHAKA')}
                 className={`cursor-pointer border rounded-2xl p-3.5 flex items-center justify-between transition-all ${
                   deliveryZone === 'INSIDE_DHAKA'
-                    ? 'border-[#6CAE14] bg-[#F1F8E8]'
-                    : 'border-[#EDE5E1] bg-[#F8F7F5]'
+                    ? 'border-[#6CAE14] bg-[#F1F8E8] shadow-sm'
+                    : 'border-[#EDE5E1] bg-[#F8F7F5] hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2">
@@ -440,18 +446,42 @@ export default function CheckoutForm() {
                   />
                   <div>
                     <p className="text-xs font-bold text-[#1A1512]">Inside Dhaka</p>
-                    <p className="text-[10px] text-[#6B5B58]">Same-day / Next-day</p>
+                    <p className="text-[10px] text-[#6B5B58]">ঢাকা সিটি (Same/Next Day)</p>
                   </div>
                 </div>
                 <span className="text-xs font-bold text-[#6CAE14]">৳70</span>
               </label>
 
               <label
+                onClick={() => setDeliveryZone('DHAKA_SUBURBS')}
+                className={`cursor-pointer border rounded-2xl p-3.5 flex items-center justify-between transition-all ${
+                  deliveryZone === 'DHAKA_SUBURBS'
+                    ? 'border-[#6CAE14] bg-[#F1F8E8] shadow-sm'
+                    : 'border-[#EDE5E1] bg-[#F8F7F5] hover:bg-white'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="deliveryZone"
+                    checked={deliveryZone === 'DHAKA_SUBURBS'}
+                    onChange={() => setDeliveryZone('DHAKA_SUBURBS')}
+                    className="accent-[#6CAE14]"
+                  />
+                  <div>
+                    <p className="text-xs font-bold text-[#1A1512]">ঢাকার আশেপাশে</p>
+                    <p className="text-[10px] text-[#6B5B58]">সাভার, নারায়ণগঞ্জ ইত্যাদি</p>
+                  </div>
+                </div>
+                <span className="text-xs font-bold text-[#6CAE14]">৳100</span>
+              </label>
+
+              <label
                 onClick={() => setDeliveryZone('OUTSIDE_DHAKA')}
                 className={`cursor-pointer border rounded-2xl p-3.5 flex items-center justify-between transition-all ${
                   deliveryZone === 'OUTSIDE_DHAKA'
-                    ? 'border-[#6CAE14] bg-[#F1F8E8]'
-                    : 'border-[#EDE5E1] bg-[#F8F7F5]'
+                    ? 'border-[#6CAE14] bg-[#F1F8E8] shadow-sm'
+                    : 'border-[#EDE5E1] bg-[#F8F7F5] hover:bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2">
@@ -464,10 +494,10 @@ export default function CheckoutForm() {
                   />
                   <div>
                     <p className="text-xs font-bold text-[#1A1512]">Outside Dhaka</p>
-                    <p className="text-[10px] text-[#6B5B58]">1-3 business days</p>
+                    <p className="text-[10px] text-[#6B5B58]">দেশের বাকি সকল জেলা</p>
                   </div>
                 </div>
-                <span className="text-xs font-bold text-[#6CAE14]">৳120</span>
+                <span className="text-xs font-bold text-[#6CAE14]">৳130</span>
               </label>
             </div>
           </div>
@@ -1012,7 +1042,9 @@ export default function CheckoutForm() {
             )}
 
             <div className="flex justify-between">
-              <span>Delivery Charge ({deliveryZone === 'INSIDE_DHAKA' ? 'Inside Dhaka' : 'Outside Dhaka'}):</span>
+              <span>
+                Delivery Charge ({deliveryZone === 'INSIDE_DHAKA' ? 'Inside Dhaka' : deliveryZone === 'DHAKA_SUBURBS' ? 'ঢাকার আশেপাশে (সাভার/না.গঞ্জ)' : 'Outside Dhaka'}):
+              </span>
               <span className="font-semibold text-[#1A1512]">
                 {deliveryCharge === 0 ? (
                   <span className="text-[#7A9C78] font-bold">FREE</span>

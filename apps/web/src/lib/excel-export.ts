@@ -216,7 +216,11 @@ export function exportOrders({
       o.district || '',
       o.area || '',
       o.address || '',
-      o.deliveryZone === 'INSIDE_DHAKA' ? 'Inside Dhaka' : 'Outside Dhaka',
+      o.deliveryZone === 'INSIDE_DHAKA'
+        ? 'Inside Dhaka'
+        : o.deliveryZone === 'DHAKA_SUBURBS'
+        ? 'Dhaka Suburbs (Savar/Narayanganj)'
+        : 'Outside Dhaka',
       o.deliveryCharge || 0,
       o.subtotal || 0,
       o.discount || 0,

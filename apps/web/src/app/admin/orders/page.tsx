@@ -164,7 +164,7 @@ export default function AdminOrdersPage() {
                     <td className="p-3">
                       <p className="font-semibold text-[#1A1512]">{order.customerName}</p>
                       <p className="text-[10px] text-[#9B8A86]">
-                        {order.customerPhone} • {order.district} ({order.deliveryZone === 'INSIDE_DHAKA' ? 'Dhaka' : 'Outside'})
+                        {order.customerPhone} • {order.district} ({order.deliveryZone === 'INSIDE_DHAKA' ? 'Dhaka' : order.deliveryZone === 'DHAKA_SUBURBS' ? 'Suburbs' : 'Outside'})
                       </p>
                     </td>
 

@@ -32,14 +32,21 @@ export async function POST(request: Request) {
     );
 
     const isFreeDelivery = calculatedSubtotal >= 2000;
+    const districtLower = typeof body.district === 'string' ? body.district.trim().toLowerCase() : '';
     const isInsideDhaka =
       body.deliveryZone === 'INSIDE_DHAKA' ||
-      (typeof body.district === 'string' && body.district.trim().toLowerCase() === 'dhaka');
+      (!body.deliveryZone && districtLower === 'dhaka');
+    const isDhakaSuburbs =
+      body.deliveryZone === 'DHAKA_SUBURBS' ||
+      (!body.deliveryZone && (districtLower === 'narayanganj' || districtLower === 'gazipur'));
+
     const calculatedDeliveryCharge = isFreeDelivery
       ? 0
       : isInsideDhaka
       ? 70
-      : 120;
+      : isDhakaSuburbs
+      ? 100
+      : 130;
 
     let calculatedDiscount = 0;
     if (body.couponCode) {
