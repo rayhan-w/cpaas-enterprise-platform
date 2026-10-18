@@ -18,7 +18,7 @@
   "enableMetaCapi": true,
   "ga4MeasurementId": "",
   "enableGA4": true,
-  "gtmId": "",
+  "gtmId": "GTM-NJSPLXFH",
   "enableGTM": true,
   "ga4ViaGtm": true,
   "ownerName": "Jawata Mart",
