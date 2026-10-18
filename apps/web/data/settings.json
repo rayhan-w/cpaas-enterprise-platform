@@ -20,6 +20,7 @@
   "enableGA4": true,
   "gtmId": "",
   "enableGTM": true,
+  "ga4ViaGtm": true,
   "ownerName": "Jawata Mart",
   "ownerTitle": "Management & Customer Care",
   "ownerBio": "Dedicated to providing 100% authentic, high quality products delivered right to your doorstep across all 64 districts.",

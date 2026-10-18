@@ -80,7 +80,7 @@ with zipfile.ZipFile('deploy-update.zip', 'w', zipfile.ZIP_DEFLATED) as zipf:
     if os.path.exists(data_dir):
         for root, dirs, files in os.walk(data_dir):
             for f in files:
-                if f == 'products.json':
+                if f in ['products.json', 'orders.json', 'categories.json', 'deleted-products.json']:
                     continue
                 full_path = os.path.join(root, f)
                 rel_path = os.path.relpath(full_path, standalone_web)

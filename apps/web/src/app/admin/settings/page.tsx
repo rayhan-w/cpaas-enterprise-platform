@@ -23,9 +23,11 @@ import {
   Award,
   FileText,
   Sparkles,
-  ExternalLink
+  ExternalLink,
+  AlertTriangle
 } from 'lucide-react';
 import { useToast } from '@/context/toast-context';
+import { validateGtmInput, validateGa4Input, isValidGtmId, isValidGa4Id } from '@/lib/tracking-validator';
 
 export default function AdminSettingsPage() {
   const { toast } = useToast();
@@ -81,12 +83,16 @@ export default function AdminSettingsPage() {
     enableGA4: true,
     gtmId: '',
     enableGTM: true,
+    ga4ViaGtm: true,
 
     // About Us & Brand Story (About Page)
     aboutStory: 'Jawata Mart is committed to delivering 100% authentic and premium products directly to families across Bangladesh.',
     aboutMission: 'To make trusted, high-quality, and ethical online shopping accessible to every doorstep in Bangladesh.',
     aboutVision: 'To become Bangladesh’s most reliable, customer-centric family shopping platform.',
   });
+
+  const [gtmError, setGtmError] = useState<string | null>(null);
+  const [ga4Error, setGa4Error] = useState<string | null>(null);
 
   const [testLoading, setTestLoading] = useState(false);
   const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null);
@@ -197,6 +203,14 @@ export default function AdminSettingsPage() {
     } else if (type === 'number') {
       setFormData(prev => ({ ...prev, [name]: Number(value) }));
     } else {
+      if (name === 'gtmId') {
+        const val = validateGtmInput(value);
+        setGtmError(val.valid ? null : (val.error || null));
+      }
+      if (name === 'ga4MeasurementId') {
+        const val = validateGa4Input(value);
+        setGa4Error(val.valid ? null : (val.error || null));
+      }
       setFormData(prev => ({ ...prev, [name]: value }));
     }
   };
@@ -205,6 +219,24 @@ export default function AdminSettingsPage() {
     e.preventDefault();
     setSaving(true);
     setSavedSuccess(false);
+
+    // Validate GTM Container ID
+    const gtmCheck = validateGtmInput(formData.gtmId);
+    if (!gtmCheck.valid) {
+      setGtmError(gtmCheck.error || null);
+      toast(gtmCheck.error || 'অবৈধ GTM Container ID', 'error');
+      setSaving(false);
+      return;
+    }
+
+    // Validate GA4 Measurement ID
+    const ga4Check = validateGa4Input(formData.ga4MeasurementId);
+    if (!ga4Check.valid) {
+      setGa4Error(ga4Check.error || null);
+      toast(ga4Check.error || 'অবৈধ GA4 Measurement ID', 'error');
+      setSaving(false);
+      return;
+    }
 
     const payload = {
       ...formData,
@@ -228,7 +260,8 @@ export default function AdminSettingsPage() {
         toast('Settings updated successfully!', 'success');
         setTimeout(() => setSavedSuccess(false), 4000);
       } else {
-        toast('Failed to save settings', 'error');
+        const errData = await res.json().catch(() => ({}));
+        toast(errData.error || 'Failed to save settings', 'error');
       }
     } catch (err) {
       toast('An error occurred while saving', 'error');
@@ -962,11 +995,25 @@ export default function AdminSettingsPage() {
                     value={formData.ga4MeasurementId || ''}
                     onChange={handleChange}
                     placeholder="e.g. G-XXXXXXXXXX"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#6CAE14]/20 focus:border-[#6CAE14]"
+                    className={`w-full px-3.5 py-2.5 rounded-xl border text-sm font-mono focus:outline-none focus:ring-2 ${
+                      ga4Error
+                        ? 'border-red-400 focus:ring-red-200 focus:border-red-500'
+                        : 'border-charcoal-200 focus:ring-[#6CAE14]/20 focus:border-[#6CAE14]'
+                    }`}
                   />
-                  <p className="text-[11px] text-charcoal-500 mt-1">
-                    Google Analytics &gt; Admin &gt; Data Streams &gt; Measurement ID
-                  </p>
+                  {ga4Error ? (
+                    <p className="text-[11px] text-red-600 font-semibold mt-1">{ga4Error}</p>
+                  ) : (
+                    <p className="text-[11px] text-charcoal-500 mt-1">
+                      Google Analytics &gt; Admin &gt; Data Streams &gt; Measurement ID
+                    </p>
+                  )}
+                  {formData.enableGA4 && !formData.ga4MeasurementId?.trim() && (
+                    <div className="mt-2 p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-[11px] flex items-center gap-1.5">
+                      <AlertTriangle className="w-3.5 h-3.5 shrink-0 text-amber-600" />
+                      <span>⚠️ সতর্কতা: GA4 চালু রয়েছে কিন্তু Measurement ID খালি! ওয়েবসাইটে ট্র্যাকিং চলবে না।</span>
+                    </div>
+                  )}
                 </div>
 
                 <div>
@@ -979,11 +1026,87 @@ export default function AdminSettingsPage() {
                     value={formData.gtmId || ''}
                     onChange={handleChange}
                     placeholder="e.g. GTM-XXXXXXX"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-charcoal-200 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#6CAE14]/20 focus:border-[#6CAE14]"
+                    className={`w-full px-3.5 py-2.5 rounded-xl border text-sm font-mono focus:outline-none focus:ring-2 ${
+                      gtmError
+                        ? 'border-red-400 focus:ring-red-200 focus:border-red-500'
+                        : 'border-charcoal-200 focus:ring-[#6CAE14]/20 focus:border-[#6CAE14]'
+                    }`}
                   />
-                  <p className="text-[11px] text-charcoal-500 mt-1">
-                    Google Tag Manager &gt; Workspace Container ID (top right)
-                  </p>
+                  {gtmError ? (
+                    <p className="text-[11px] text-red-600 font-semibold mt-1">{gtmError}</p>
+                  ) : (
+                    <p className="text-[11px] text-charcoal-500 mt-1">
+                      Google Tag Manager &gt; Workspace Container ID (top right)
+                    </p>
+                  )}
+                  {formData.enableGTM && !formData.gtmId?.trim() && (
+                    <div className="mt-2 p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-[11px] flex items-center gap-1.5">
+                      <AlertTriangle className="w-3.5 h-3.5 shrink-0 text-amber-600" />
+                      <span>⚠️ সতর্কতা: GTM চালু রয়েছে কিন্তু Container ID খালি! ওয়েবসাইটে ট্র্যাকিং চলবে না।</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* GA4 Route Selector & Double-Counting Prevention */}
+              <div className="p-4 rounded-xl bg-[#F8F7F5] border border-[#EDE5E1] space-y-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div className="text-xs font-bold text-[#1A1512]">
+                    GA4 Implementation Route (Double-Counting Prevention):
+                  </div>
+                  <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full w-fit ${
+                    Boolean(formData.enableGTM && isValidGtmId(formData.gtmId)) && (formData.ga4ViaGtm ?? true)
+                      ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                      : Boolean(formData.enableGA4 && isValidGa4Id(formData.ga4MeasurementId))
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                        : 'bg-charcoal-100 text-charcoal-600'
+                  }`}>
+                    {Boolean(formData.enableGTM && isValidGtmId(formData.gtmId)) && (formData.ga4ViaGtm ?? true)
+                      ? '✓ Active Route: Google Tag Manager (Direct gtag.js suppressed to prevent double-counting)'
+                      : Boolean(formData.enableGA4 && isValidGa4Id(formData.ga4MeasurementId))
+                        ? '✓ Active Route: Direct gtag.js script'
+                        : 'Inactive (No valid ID)'}
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <label className={`flex items-start gap-2.5 p-3 rounded-xl border cursor-pointer transition-all ${
+                    formData.ga4ViaGtm ?? true
+                      ? 'bg-white border-[#6CAE14] shadow-xs'
+                      : 'bg-white/50 border-charcoal-200 hover:border-charcoal-300'
+                  }`}>
+                    <input
+                      type="radio"
+                      name="ga4ViaGtm"
+                      checked={formData.ga4ViaGtm ?? true}
+                      onChange={() => setFormData(prev => ({ ...prev, ga4ViaGtm: true }))}
+                      className="mt-0.5 text-[#6CAE14] focus:ring-[#6CAE14]"
+                    />
+                    <div>
+                      <div className="font-semibold text-charcoal-900">GTM Container-এর মাধ্যমে GA4 (Recommended)</div>
+                      <p className="text-[11px] text-charcoal-500 mt-0.5">
+                        GTM-এ Google Tag (GA4) সেটআপ করা থাকলে এটি নির্বাচন করুন। এটি একই ইভেন্ট দুইবার কাউন্ট হওয়া বন্ধ রাখে।
+                      </p>
+                    </div>
+                  </label>
+                  <label className={`flex items-start gap-2.5 p-3 rounded-xl border cursor-pointer transition-all ${
+                    !(formData.ga4ViaGtm ?? true)
+                      ? 'bg-white border-[#6CAE14] shadow-xs'
+                      : 'bg-white/50 border-charcoal-200 hover:border-charcoal-300'
+                  }`}>
+                    <input
+                      type="radio"
+                      name="ga4ViaGtm"
+                      checked={!(formData.ga4ViaGtm ?? true)}
+                      onChange={() => setFormData(prev => ({ ...prev, ga4ViaGtm: false }))}
+                      className="mt-0.5 text-[#6CAE14] focus:ring-[#6CAE14]"
+                    />
+                    <div>
+                      <div className="font-semibold text-charcoal-900">সরাসরি gtag.js লোড করুন</div>
+                      <p className="text-[11px] text-charcoal-500 mt-0.5">
+                        GTM ব্যবহার না করলে বা GTM-এ GA4 কনফিগার না থাকলে সরাসরি gtag.js স্ক্রিপ্ট লোড করতে এটি ব্যবহার করুন।
+                      </p>
+                    </div>
+                  </label>
                 </div>
               </div>
             </div>

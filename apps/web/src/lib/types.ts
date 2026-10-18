@@ -211,6 +211,7 @@ export interface StoreSettings {
   
   gtmId?: string;
   enableGTM?: boolean;
+  ga4ViaGtm?: boolean;
 
   // Owner Profile & About Page Configuration
   ownerName?: string;

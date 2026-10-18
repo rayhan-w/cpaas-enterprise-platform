@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { dbService } from '@/lib/db-service';
+import { validateGtmInput, validateGa4Input } from '@/lib/tracking-validator';
 
 export const dynamic = 'force-dynamic';
 
@@ -40,26 +41,55 @@ export async function PUT(request: Request) {
     delete body.stripeSecretKey;
     delete body.metaCapiToken;
 
+    // 1. Validate GTM Container ID if provided
+    if (body.gtmId !== undefined) {
+      const gtmValidation = validateGtmInput(body.gtmId);
+      if (!gtmValidation.valid) {
+        return NextResponse.json({ error: gtmValidation.error }, { status: 400 });
+      }
+      body.gtmId = body.gtmId ? body.gtmId.trim().toUpperCase() : '';
+    }
+
+    // 2. Validate GA4 Measurement ID if provided
+    if (body.ga4MeasurementId !== undefined) {
+      const ga4Validation = validateGa4Input(body.ga4MeasurementId);
+      if (!ga4Validation.valid) {
+        return NextResponse.json({ error: ga4Validation.error }, { status: 400 });
+      }
+      body.ga4MeasurementId = body.ga4MeasurementId ? body.ga4MeasurementId.trim().toUpperCase() : '';
+    }
+
+    // 3. Re-read fresh data before saving to prevent any overwrite or data loss
     const current = await dbService.getSettings();
 
-    // Preserve existing credentials if masked or omitted
-    if (!body.bkashMerchantNumber || String(body.bkashMerchantNumber).includes('•')) {
-      body.bkashMerchantNumber = current.bkashMerchantNumber;
-    }
-    if (!body.nagadMerchantNumber || String(body.nagadMerchantNumber).includes('•')) {
-      body.nagadMerchantNumber = current.nagadMerchantNumber;
-    }
-    if (!body.bankAccountNumber || String(body.bankAccountNumber).includes('•')) {
-      body.bankAccountNumber = current.bankAccountNumber;
-    }
-    if (!body.metaPixelId || String(body.metaPixelId).includes('•')) {
-      body.metaPixelId = current.metaPixelId;
-    }
-    if (!body.metaTestEventCode || String(body.metaTestEventCode).includes('•')) {
-      body.metaTestEventCode = current.metaTestEventCode;
-    }
+    // 4. Merge fresh settings with incoming changes
+    const merged: any = {
+      ...current,
+      ...body,
+      // Preserve existing credentials if masked or omitted
+      bkashMerchantNumber: (!body.bkashMerchantNumber || String(body.bkashMerchantNumber).includes('•'))
+        ? current.bkashMerchantNumber
+        : body.bkashMerchantNumber,
+      nagadMerchantNumber: (!body.nagadMerchantNumber || String(body.nagadMerchantNumber).includes('•'))
+        ? current.nagadMerchantNumber
+        : body.nagadMerchantNumber,
+      bankAccountNumber: (!body.bankAccountNumber || String(body.bankAccountNumber).includes('•'))
+        ? current.bankAccountNumber
+        : body.bankAccountNumber,
+      metaPixelId: (!body.metaPixelId || String(body.metaPixelId).includes('•'))
+        ? current.metaPixelId
+        : body.metaPixelId,
+      metaTestEventCode: (!body.metaTestEventCode || String(body.metaTestEventCode).includes('•'))
+        ? current.metaTestEventCode
+        : body.metaTestEventCode,
+      // Ensure critical store delivery numbers remain rock solid
+      insideDhakaFee: body.insideDhakaFee ?? body.insideDhakaDeliveryFee ?? current.insideDhakaFee ?? 70,
+      suburbsDhakaFee: body.suburbsDhakaFee ?? body.suburbsDhakaDeliveryFee ?? current.suburbsDhakaFee ?? 100,
+      outsideDhakaFee: body.outsideDhakaFee ?? body.outsideDhakaDeliveryFee ?? current.outsideDhakaFee ?? 130,
+      freeDeliveryThreshold: body.freeDeliveryThreshold ?? current.freeDeliveryThreshold ?? 2000,
+    };
 
-    const updated = await dbService.updateSettings(body);
+    const updated = await dbService.updateSettings(merged);
     const safeUpdated = { ...updated };
     delete (safeUpdated as any).stripeSecretKey;
     delete (safeUpdated as any).metaCapiToken;

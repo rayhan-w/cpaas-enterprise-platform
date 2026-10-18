@@ -23,6 +23,7 @@ export const INITIAL_SETTINGS: StoreSettings = {
   enableGA4: true,
   gtmId: process.env.NEXT_PUBLIC_GTM_ID || '',
   enableGTM: true,
+  ga4ViaGtm: true,
 
   // About Details
   ownerName: 'Jawata Mart',
