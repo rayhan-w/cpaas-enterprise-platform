@@ -161,10 +161,11 @@ export default function AdminOrdersPage() {
                     </td>
 
                     {/* Customer */}
-                    <td className="p-3">
+                    <td className="p-3 max-w-[260px]">
                       <p className="font-semibold text-[#1A1512]">{order.customerName}</p>
-                      <p className="text-[10px] text-[#9B8A86]">
-                        {order.customerPhone} • {order.district} ({order.deliveryZone === 'INSIDE_DHAKA' ? 'Dhaka' : order.deliveryZone === 'DHAKA_SUBURBS' ? 'Suburbs' : 'Outside'})
+                      <p className="text-[11px] text-[#6CAE14] font-medium">{order.customerPhone}</p>
+                      <p className="text-[11px] text-[#4A3E3D] line-clamp-2 mt-0.5 break-words" title={order.address}>
+                        📍 {order.address}
                       </p>
                     </td>
 

@@ -86,6 +86,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
             }}
             className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500 ease-out"
             loading="lazy"
+            decoding="async"
           />
           {product.stock <= 10 && product.stock > 0 && (
             <span className="absolute bottom-3 left-3 bg-[#fd6b03] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
@@ -182,11 +183,13 @@ export default function ProductCard({ product }: { product: ProductItem }) {
       </div>
 
       {/* 1-Click Quick Order Modal */}
-      <QuickOrderModal
-        product={product}
-        isOpen={showQuickOrder}
-        onClose={() => setShowQuickOrder(false)}
-      />
+      {showQuickOrder && (
+        <QuickOrderModal
+          product={product}
+          isOpen={showQuickOrder}
+          onClose={() => setShowQuickOrder(false)}
+        />
+      )}
     </>
   );
 }

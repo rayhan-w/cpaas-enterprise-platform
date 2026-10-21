@@ -19,6 +19,7 @@ export default function StorefrontCategoryFilter({
   const [selectedCatId, setSelectedCatId] = useState<string>('all');
   const [selectedSubId, setSelectedSubId] = useState<string | null>(null);
   const [filterSearch, setFilterSearch] = useState('');
+  const [displayCount, setDisplayCount] = useState(16);
 
   // Update on prop changes
   useEffect(() => {
@@ -304,7 +305,21 @@ export default function StorefrontCategoryFilter({
 
       {/* Products Grid */}
       {filteredProducts.length > 0 ? (
-        <ProductGrid products={filteredProducts} />
+        <>
+          <ProductGrid products={filteredProducts.slice(0, displayCount)} />
+          {filteredProducts.length > displayCount && (
+            <div className="text-center pt-6">
+              <button
+                type="button"
+                onClick={() => setDisplayCount((prev) => prev + 16)}
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-white border border-[#DFECCE] hover:border-[#6CAE14] text-[#0E140E] hover:text-[#6CAE14] text-xs font-bold rounded-xl shadow-xs hover:shadow transition-all cursor-pointer"
+              >
+                <span>আরও প্রোডাক্ট দেখুন ({filteredProducts.length - displayCount} টি বাকি)</span>
+                <ChevronRight className="w-4 h-4 text-[#fd6b03]" />
+              </button>
+            </div>
+          )}
+        </>
       ) : (
         <div className="text-center py-16 bg-[#FAFCF7] rounded-3xl border border-dashed border-[#DFECCE]">
           <Package className="w-12 h-12 text-[#879787] mx-auto mb-3 opacity-60" />

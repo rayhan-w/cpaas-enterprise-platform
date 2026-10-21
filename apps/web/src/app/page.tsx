@@ -12,8 +12,8 @@ import ReviewsSection from '@/components/home/ReviewsSection';
 import ProductGrid from '@/components/product/ProductGrid';
 import StorefrontCategoryFilter from '@/components/home/StorefrontCategoryFilter';
 
-export const dynamic = 'force-dynamic';
-export const fetchCache = 'force-no-store';
+export const revalidate = 60;
+
 
 export default async function HomePage() {
   const [products, categories] = await Promise.all([

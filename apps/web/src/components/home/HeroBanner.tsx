@@ -35,11 +35,13 @@ export default function HeroBanner() {
         {isGraphicCover ? (
           /* Pure Graphic Cover Banner (Full high-fidelity view) */
           <Link href={current.ctaLink || '/category/all'} className="block relative w-full h-full">
-            <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
               <img
                 src={current.image}
                 alt=""
                 className="w-full h-full object-cover blur-xl opacity-35 scale-110"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-black/10" />
             </div>
@@ -47,6 +49,8 @@ export default function HeroBanner() {
               src={current.image}
               alt="Jawata Mart Official Cover"
               className="relative z-10 w-full h-full object-cover sm:object-contain object-center group-hover:scale-[1.01] transition-transform duration-700"
+              loading="eager"
+              decoding="async"
             />
             
             {/* Interactive Floating CTA Button on Bottom Right */}

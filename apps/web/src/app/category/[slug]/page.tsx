@@ -12,8 +12,8 @@ interface CategoryPageProps {
   searchParams: Promise<{ search?: string; sort?: string; sub?: string; offer?: string }>;
 }
 
-export const dynamic = 'force-dynamic';
-export const fetchCache = 'force-no-store';
+export const revalidate = 60;
+
 
 export async function generateMetadata({ params }: CategoryPageProps) {
   const { slug } = await params;

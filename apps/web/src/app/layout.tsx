@@ -7,7 +7,7 @@ import AppShell from '@/components/layout/AppShell';
 import { dbService } from '@/lib/db-service';
 import { isValidGtmId, isValidGa4Id } from '@/lib/tracking-validator';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export const viewport: Viewport = {
   width: 'device-width',
