@@ -1,28 +1,30 @@
 [
   {
-    "id": "prod_1792132628956",
-    "name": "TEST Auth Audit - Delete Me",
-    "slug": "test-auth-audit-delete-me",
+    "id": "prod_1792143103812",
+    "name": "Hilsha Fish",
+    "slug": "sea-fish",
     "categoryId": "cat-organic-food",
     "categoryName": "Organic Food",
     "categorySlug": "organic-food",
     "categories": [
-      "Organic Food"
+      "Organic Food",
+      "Sea Fish"
     ],
-    "subCategoryId": "sub-natural-honey",
-    "subCategoryName": "Natural Honey (মধু)",
-    "subCategorySlug": "natural-honey",
     "brand": "Brand",
-    "price": 222,
+    "price": 2200,
+    "originalPrice": 2700,
     "discount": 0,
-    "stock": 3,
-    "sku": "TEST-AUTH-001",
-    "image": "",
-    "images": [],
+    "stock": 50,
+    "sku": "SKU-1792143090973",
+    "image": "/uploads/1792143084782-Hilsha_Fish.jpeg.webp",
+    "images": [
+      "/uploads/1792143084782-Hilsha_Fish.jpeg.webp"
+    ],
     "description": "",
     "specifications": {
       "_categories": [
-        "Organic Food"
+        "Organic Food",
+        "Sea Fish"
       ]
     },
     "badge": "",
@@ -32,45 +34,6 @@
     "isActive": true,
     "rating": 5,
     "reviewCount": 0
-  },
-  {
-    "id": "prod_1792127007183",
-    "name": "Modhu",
-    "slug": "modhu",
-    "categoryId": "cat-organic-food",
-    "categoryName": "Organic Food",
-    "categorySlug": "organic-food",
-    "categories": [
-      "Organic Food"
-    ],
-    "brand": "Brand",
-    "price": 200,
-    "discount": 0,
-    "stock": 50,
-    "image": "/uploads/1792127000739-9676a1a4781c49bda15f9ebdb3a50c46-Honey-blog-banner.avif.webp",
-    "images": [
-      "/uploads/1792127000739-9676a1a4781c49bda15f9ebdb3a50c46-Honey-blog-banner.avif.webp"
-    ],
-    "description": "১০০% খাঁটি ও প্রাকৃতিক সুন্দরবন মধু (100% Pure Natural Raw Honey)। সরাসরি সংগ্রহ করা পুষ্টিকর, সুস্বাদু ও ভেজালমুক্ত খাঁটি মধু।",
-    "specifications": {
-      "Type": "Natural Honey (মধু)",
-      "Origin": "Sundarbans, Bangladesh",
-      "Purity": "100% Pure Raw Honey",
-      "_categories": [
-        "Organic Food"
-      ]
-    },
-    "badge": "100% Pure 🍯",
-    "isFeatured": false,
-    "isBestSeller": false,
-    "isNew": false,
-    "isActive": true,
-    "rating": 5,
-    "reviewCount": 0,
-    "sku": "JM-ORG-HNY-02",
-    "subCategoryId": "sub-natural-honey",
-    "subCategoryName": "Natural Honey (মধু)",
-    "subCategorySlug": "natural-honey"
   },
   {
     "id": "prod_1792124061978",
@@ -108,111 +71,6 @@
     "rating": 5,
     "reviewCount": 0,
     "sku": "JM-MLK-PWD-01"
-  },
-  {
-    "id": "prod_1792118334742",
-    "name": "Huney",
-    "slug": "huney",
-    "categoryId": "cat-organic-food",
-    "categoryName": "Organic Food",
-    "categorySlug": "organic-food",
-    "categories": [
-      "Organic Food"
-    ],
-    "brand": "Brand",
-    "price": 800,
-    "originalPrice": 900,
-    "discount": 0,
-    "stock": 50,
-    "image": "/uploads/1792118301872-Honey...jpeg.webp",
-    "images": [
-      "/uploads/1792118301872-Honey...jpeg.webp",
-      "/uploads/1792118308742-Honey.jpeg.webp"
-    ],
-    "description": "",
-    "specifications": {
-      "_categories": [
-        "Organic Food"
-      ]
-    },
-    "badge": "",
-    "isFeatured": false,
-    "isBestSeller": false,
-    "isNew": false,
-    "isActive": true,
-    "rating": 5,
-    "reviewCount": 0,
-    "sku": "JM-ORG-HNY-03"
-  },
-  {
-    "id": "prod_1792111127048",
-    "name": "Huney",
-    "slug": "huney",
-    "categoryId": "cat-organic-food",
-    "categoryName": "Organic Food",
-    "categorySlug": "organic-food",
-    "categories": [
-      "Organic Food"
-    ],
-    "brand": "Brand",
-    "price": 800,
-    "originalPrice": 950,
-    "discount": 0,
-    "stock": 50,
-    "image": "/uploads/1792110934333-Honey...jpeg.webp",
-    "images": [
-      "/uploads/1792110934333-Honey...jpeg.webp",
-      "/uploads/1792110942348-Honey.jpeg.webp"
-    ],
-    "description": "",
-    "specifications": {
-      "_categories": [
-        "Organic Food"
-      ]
-    },
-    "badge": "",
-    "isFeatured": false,
-    "isBestSeller": false,
-    "isNew": false,
-    "isActive": true,
-    "rating": 5,
-    "reviewCount": 0,
-    "sku": "JM-ORG-HNY-04"
-  },
-  {
-    "id": "prod_1792110734518",
-    "name": "Huney",
-    "slug": "huney",
-    "categoryId": "cat-organic-food",
-    "categoryName": "Organic Food",
-    "categorySlug": "organic-food",
-    "categories": [
-      "Organic Food"
-    ],
-    "brand": "Brand",
-    "price": 800,
-    "originalPrice": 950,
-    "discount": 0,
-    "stock": 50,
-    "image": "/uploads/1792110725495-Honey...jpeg.webp",
-    "images": [
-      "/uploads/1792110725495-Honey...jpeg.webp",
-      "/uploads/1792110731541-Honey.jpeg.webp"
-    ],
-    "description": "",
-    "specifications": {
-      "_categories": [
-        "Organic Food"
-      ]
-    },
-    "badge": "",
-    "isFeatured": false,
-    "isBestSeller": false,
-    "isNew": false,
-    "isActive": true,
-    "rating": 5,
-    "reviewCount": 0,
-    "sku": "JM-ORG-HNY-05"
   },
   {
     "id": "prod_1792084842680",
@@ -255,7 +113,7 @@
   },
   {
     "id": "prod_1792077973312",
-    "name": "GPS Tracker/ Tracking Device",
+    "name": "GPS Smart Tracker/ Smart Tracking Device",
     "slug": "gps-tracker",
     "categoryId": "cat-Smart Device",
     "categoryName": "Gadget Items",
@@ -268,7 +126,7 @@
     "price": 799,
     "originalPrice": 1100,
     "discount": 0,
-    "stock": 49,
+    "stock": 34,
     "image": "/uploads/1792077921362-Tracking_Device.jpeg.webp",
     "images": [
       "/uploads/1792077921362-Tracking_Device.jpeg.webp",
@@ -296,51 +154,8 @@
     "subCategorySlug": "gps-tracker-tracking-device"
   },
   {
-    "id": "prod_1792077728330",
-    "name": "GPS Tracker/Tracking Device",
-    "slug": "gps-tracker-tracking-device",
-    "categoryId": "cat-Smart Device",
-    "categoryName": "Gadget Items",
-    "categorySlug": "gadget-items",
-    "categories": [
-      "Gadget Items",
-      "GPS Tracker/Tracking Device"
-    ],
-    "brand": "Brand",
-    "price": 799,
-    "originalPrice": 1150,
-    "discount": 0,
-    "stock": 50,
-    "image": "/uploads/1792077654845-Tracking_Device.jpeg.webp",
-    "images": [
-      "/uploads/1792077654845-Tracking_Device.jpeg.webp",
-      "/uploads/1792077662491-GPS_Tracker.jpeg.webp",
-      "/uploads/1792077677319-GPS_Tracker_Or__Tracking_Device.jpeg.webp",
-      "/uploads/1792077682726-GPS_Tracker.jfif.webp",
-      "/uploads/1792077691240-GPS_Tracking_Device.jpeg.webp",
-      "/uploads/1792077715468-GPS_Tacker...jpeg.webp"
-    ],
-    "description": "",
-    "specifications": {
-      "_categories": [
-        "Gadget Items"
-      ]
-    },
-    "badge": "",
-    "isFeatured": false,
-    "isBestSeller": false,
-    "isNew": false,
-    "isActive": true,
-    "rating": 5,
-    "reviewCount": 0,
-    "sku": "JM-GAD-GPS-02",
-    "subCategoryId": "sub-gps-tracker-tracking-device",
-    "subCategoryName": "GPS Tracker/Tracking Device",
-    "subCategorySlug": "gps-tracker-tracking-device"
-  },
-  {
     "id": "p-org-pure-cow-ghee",
-    "name": "Jawata Mart Special Offer Danadar Pure Cow Ghee (খাঁটি দানাদার গাওয়া ঘি - ৫০০ গ্রাম)",
+    "name": "Danadar Pure Ghee (খাঁটি দানাদার গাওয়া ঘি - ৫০০ গ্রাম)",
     "slug": "jawata-mart-special-offer-danadar-pure-cow-ghee-500g",
     "categoryId": "cat-organic-food",
     "categoryName": "Organic Food",
@@ -379,7 +194,7 @@
   },
   {
     "id": "p-org-mustard-oil-1l",
-    "name": "Jawata Mart Special Offer Pure Wood Ghani Mustard Oil (জাওয়াটা মার্ট কাঠের ঘানি ভাঙা খাঁটি সরিষার তেল - ১ লিটার)",
+    "name": "Pure Wooden Ghani Mustard Oil (ঘানি ভাঙা খাঁটি সরিষার তেল - 5 লিটার)",
     "slug": "jawata-mart-special-offer-pure-wood-ghani-mustard-oil-1l",
     "categoryId": "cat-organic-food",
     "categoryName": "Organic Food",
@@ -502,7 +317,7 @@
     "subCategoryName": "Kids Bag",
     "subCategorySlug": "kids-bag",
     "brand": "Jawata Mart",
-    "price": 500,
+    "price": 599,
     "discount": 0,
     "stock": 45,
     "sku": "JM-BAG-HK-02",
@@ -525,7 +340,8 @@
     "reviewCount": 24,
     "categories": [
       "Bag"
-    ]
+    ],
+    "originalPrice": 750
   },
   {
     "id": "p-drv-bag-primary-waterproof",
@@ -840,7 +656,7 @@
     "brand": "Jawata Mart",
     "price": 500,
     "discount": 0,
-    "stock": 45,
+    "stock": 44,
     "sku": "JM-BDR-ROMP-01",
     "image": "/uploads/clean/1789051393278.jpg",
     "images": [
@@ -1336,7 +1152,7 @@
     "subCategoryName": "Soft Sole Booties",
     "subCategorySlug": "infant-booties",
     "brand": "Jawata Mart",
-    "price": 650,
+    "price": 599,
     "originalPrice": 950,
     "discount": 0,
     "stock": 60,
@@ -1438,7 +1254,7 @@
   },
   {
     "id": "p-drv-ktc-degreaser-spray",
-    "name": "Duer Heavy Duty Foam Kitchen Oil & Grease Cleaner Spray (500ml)",
+    "name": "Kitchen Oil & Grease Cleaner Spray (500ml)",
     "slug": "duer-heavy-duty-foam-kitchen-degreaser-spray-500ml",
     "categoryId": "cat-kitchen-items",
     "categoryName": "Kitchen Items",
@@ -1447,7 +1263,7 @@
     "subCategoryName": "Cookware Sets & Cleaners",
     "subCategorySlug": "cookware-sets",
     "brand": "Duer",
-    "price": 500,
+    "price": 360,
     "discount": 0,
     "stock": 120,
     "sku": "JM-KTC-DGR-01",
@@ -1471,7 +1287,8 @@
     "reviewCount": 88,
     "categories": [
       "Kitchen Items"
-    ]
+    ],
+    "originalPrice": 550
   },
   {
     "id": "p-drv-ktc-bottle-brush-set",
@@ -1520,21 +1337,21 @@
     "subCategoryName": "Winter Caps & Socks",
     "subCategorySlug": "winter-caps-socks",
     "brand": "Jawata Mart",
-    "price": 499,
+    "price": 599,
     "originalPrice": 750,
     "discount": 0,
-    "stock": 80,
+    "stock": 73,
     "sku": "JM-WNT-EAR-01",
-    "image": "/uploads/clean/1789051393866.jpg",
+    "image": "/uploads/clean/1789051393898.jpg",
     "images": [
-      "/uploads/clean/1789051393866.jpg",
       "/uploads/clean/1789051393898.jpg",
       "/uploads/clean/1789051393932.jpg",
-      "/uploads/clean/1789051393994.jpg",
-      "/uploads/clean/1789051394025.jpg",
-      "/uploads/clean/1789051394051.jpg",
-      "/uploads/1792083501420-1.jpeg.webp",
-      "/uploads/1792083597031-4.jpeg.webp"
+      "/uploads/1792347301071-Hello_Kitty...jpeg.webp",
+      "/uploads/1792347322242-Hello_Kitty.jpeg.webp",
+      "/uploads/1792347354966-Kids_Ear_Muff...jpeg.webp",
+      "/uploads/1792347491922-1.jpeg.webp",
+      "/uploads/1792347501086-4.jpeg.webp",
+      "/uploads/1792347508347-Ear_Muff.jfif.webp"
     ],
     "description": "Super cute rabbit ear moving earmuffs! Press the soft hanging paws and the ears flap happily up and down. Keeps ears comfortably warm and protected from cold winds.",
     "specifications": {
@@ -1565,16 +1382,16 @@
     "subCategoryName": "Winter Caps & Socks",
     "subCategorySlug": "winter-caps-socks",
     "brand": "Jawata Mart",
-    "price": 470,
+    "price": 480,
     "originalPrice": 750,
     "discount": 0,
-    "stock": 75,
+    "stock": 73,
     "sku": "JM-WNT-EAR-02",
     "image": "/uploads/clean/1789051393804.jpg",
     "images": [
       "/uploads/clean/1789051393804.jpg",
-      "/uploads/clean/1789051393761.jpg",
-      "/uploads/1792083626662-4.jpeg.webp"
+      "/uploads/1792083626662-4.jpeg.webp",
+      "/uploads/1792348447824-Ear_Muff.jfif.webp"
     ],
     "description": "Classic lightweight thermal ear muffs made of plush thick faux rabbit fur. Flexible headband suitable for teenagers, women, and kids.",
     "specifications": {
@@ -2192,14 +2009,15 @@
     "subCategoryName": "Double & King Bed Sheets",
     "subCategorySlug": "double-king-bed-sheets",
     "brand": "Jawata Mart",
-    "price": 1650,
+    "price": 1450,
     "originalPrice": 2200,
     "discount": 25,
     "stock": 50,
     "sku": "JM-BED-KNG-01",
-    "image": "https://images.unsplash.com/photo-1629949009765-40fc74c95018?w=600&h=600&fit=crop",
+    "image": "/uploads/1792349175248-Premium_Quality__Bed_Sheet.jpeg.webp",
     "images": [
-      "https://images.unsplash.com/photo-1629949009765-40fc74c95018?w=600&h=600&fit=crop"
+      "/uploads/1792349175248-Premium_Quality__Bed_Sheet.jpeg.webp",
+      "/uploads/1792349198450-Premium_Quality_Bed_Sheet.jpeg.webp"
     ],
     "description": "Ultra-soft 300 Thread Count breathable cotton with anti-fade reactive floral printing. Does not shrink or pill.",
     "specifications": {
@@ -2406,43 +2224,6 @@
     "reviewCount": 312,
     "categories": [
       "Islamic Items"
-    ]
-  },
-  {
-    "id": "p-wnt-fleece-hoodie",
-    "name": "Thermal Fleece Lined Baby Winter Zipper Hoodie Jacket",
-    "slug": "thermal-fleece-baby-winter-hoodie",
-    "categoryId": "cat-winter-items",
-    "categoryName": "Winter Items",
-    "categorySlug": "winter-items",
-    "subCategoryId": "sub-baby-winter-sweaters",
-    "subCategoryName": "Baby Winter Sweaters & Hoodies",
-    "subCategorySlug": "baby-winter-sweaters",
-    "brand": "Jawata Mart",
-    "price": 1150,
-    "originalPrice": 1550,
-    "discount": 25,
-    "stock": 65,
-    "sku": "JM-WNT-HOD-01",
-    "image": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&h=600&fit=crop",
-    "images": [
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&h=600&fit=crop"
-    ],
-    "description": "Ultra-warm windproof sherpa fleece interior with cute animal ear hood design. Protects babies from cold breeze.",
-    "specifications": {
-      "Lining": "Warm Sherpa Fleece",
-      "Closure": "Smooth Zip Front",
-      "Sizes": "6M-12M, 1-2Y, 2-3Y"
-    },
-    "badge": "Winter Special",
-    "isFeatured": true,
-    "isBestSeller": true,
-    "isNew": true,
-    "isActive": true,
-    "rating": 4.9,
-    "reviewCount": 160,
-    "categories": [
-      "Winter Items"
     ]
   }
 ]

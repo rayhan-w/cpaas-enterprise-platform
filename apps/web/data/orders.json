@@ -1,5 +1,294 @@
 [
   {
+    "orderNumber": "JM-1023",
+    "customerName": "তাসলিমা",
+    "customerPhone": "01935551739",
+    "division": "Dhaka",
+    "district": "Dhaka",
+    "area": "Dhanmondi",
+    "address": "নেত্রকোনা জেলা পূর্বধলা থানা জামতলা বাজার মডেল মসজিদ",
+    "deliveryNote": "কবে পাব হাতে",
+    "deliveryZone": "OUTSIDE_DHAKA",
+    "deliveryCharge": 130,
+    "subtotal": 599,
+    "discount": 0,
+    "total": 729,
+    "paymentMethod": "COD",
+    "paymentStatus": "PENDING_VERIFICATION",
+    "orderStatus": "PENDING",
+    "items": [
+      {
+        "id": "it_1792518075344_0.8074870539513836",
+        "orderId": "",
+        "productId": "p-drv-wnt-rabbit-earmuffs-airbag",
+        "productName": "Ear Muff",
+        "productImage": "/uploads/clean/1789051393898.jpg",
+        "sku": "JM-WNT-EAR-01",
+        "price": 599,
+        "quantity": 1,
+        "total": 599
+      }
+    ],
+    "payments": [],
+    "id": "ord_1792518075358",
+    "createdAt": "2026-10-20T17:41:15.358Z",
+    "updatedAt": "2026-10-20T17:41:15.358Z"
+  },
+  {
+    "orderNumber": "JM-1022",
+    "customerName": "Kamruz Zaman",
+    "customerPhone": "01614429148",
+    "division": "Dhaka",
+    "district": "Dhaka",
+    "area": "Dhanmondi",
+    "address": "Satkhira kalaroa kazirhat",
+    "deliveryZone": "OUTSIDE_DHAKA",
+    "deliveryCharge": 130,
+    "subtotal": 799,
+    "discount": 0,
+    "total": 929,
+    "paymentMethod": "COD",
+    "paymentStatus": "PENDING_VERIFICATION",
+    "orderStatus": "PENDING",
+    "items": [
+      {
+        "id": "it_1792517247918_0.445799838039207",
+        "orderId": "",
+        "productId": "prod_1792077973312",
+        "productName": "GPS Smart Tracker/ Smart Tracking Device",
+        "productImage": "/uploads/1792077921362-Tracking_Device.jpeg.webp",
+        "sku": "JM-GAD-GPS-01",
+        "price": 799,
+        "quantity": 1,
+        "total": 799
+      }
+    ],
+    "payments": [],
+    "id": "ord_1792517247933",
+    "createdAt": "2026-10-20T17:27:27.933Z",
+    "updatedAt": "2026-10-20T17:27:27.933Z"
+  },
+  {
+    "orderNumber": "JM-1021",
+    "customerName": "মোহাম্মদ আনিছুর রহমান",
+    "customerPhone": "01714981156",
+    "customerEmail": "anisurbabu111@gmail.com",
+    "division": "Mymensingh",
+    "district": "Jamalpur",
+    "area": "Melandah",
+    "address": "গ্রাম ও ডাকঘর সাদিপাটি",
+    "deliveryZone": "OUTSIDE_DHAKA",
+    "deliveryCharge": 130,
+    "subtotal": 599,
+    "discount": 0,
+    "total": 729,
+    "paymentMethod": "COD",
+    "paymentStatus": "PENDING_VERIFICATION",
+    "orderStatus": "PENDING",
+    "items": [
+      {
+        "id": "it_1792500440229_0.8788729327732006",
+        "orderId": "",
+        "productId": "p-drv-wnt-rabbit-earmuffs-airbag",
+        "productName": "Ear Muff",
+        "productImage": "/uploads/clean/1789051393898.jpg",
+        "sku": "JM-WNT-EAR-01",
+        "price": 599,
+        "quantity": 1,
+        "total": 599
+      }
+    ],
+    "payments": [],
+    "id": "ord_1792500440242",
+    "createdAt": "2026-10-20T12:47:20.242Z",
+    "updatedAt": "2026-10-20T12:47:20.242Z"
+  },
+  {
+    "orderNumber": "JM-1020",
+    "customerName": "Anika Sunbeam",
+    "customerPhone": "01760637300",
+    "customerEmail": "angelanamika26650@gmail.com",
+    "division": "Mymensingh",
+    "district": "Mymensingh",
+    "area": "Bhaluka ",
+    "address": "Bhaluka bus stand Bhaluka Mymensingh",
+    "deliveryZone": "OUTSIDE_DHAKA",
+    "deliveryCharge": 130,
+    "subtotal": 1099,
+    "discount": 0,
+    "total": 1229,
+    "paymentMethod": "COD",
+    "paymentStatus": "PENDING_VERIFICATION",
+    "orderStatus": "PENDING",
+    "items": [
+      {
+        "id": "it_1792495120336_0.9049575822142482",
+        "orderId": "",
+        "productId": "p-drv-bdr-bunny-knit-romper",
+        "productName": "Cozy Knitted Bunny Ear Hooded Romper Jumpsuit with Tail",
+        "productImage": "/uploads/clean/1789051393278.jpg",
+        "sku": "JM-BDR-ROMP-01",
+        "price": 500,
+        "quantity": 1,
+        "total": 500
+      },
+      {
+        "id": "it_1792495120336_0.517981597472152",
+        "orderId": "",
+        "productId": "p-drv-wnt-rabbit-earmuffs-airbag",
+        "productName": "Ear Muff",
+        "productImage": "/uploads/clean/1789051393898.jpg",
+        "sku": "JM-WNT-EAR-01",
+        "price": 599,
+        "quantity": 1,
+        "total": 599
+      }
+    ],
+    "payments": [],
+    "id": "ord_1792495120366",
+    "createdAt": "2026-10-20T11:18:40.366Z",
+    "updatedAt": "2026-10-20T11:18:40.366Z"
+  },
+  {
+    "orderNumber": "JM-1019",
+    "customerName": "জাহাঈীর",
+    "customerPhone": "01872814323",
+    "division": "Dhaka",
+    "district": "Dhaka",
+    "area": "Dhanmondi",
+    "address": "সিদিরগনজ  SO মনডল পারা",
+    "deliveryZone": "INSIDE_DHAKA",
+    "deliveryCharge": 70,
+    "subtotal": 599,
+    "discount": 0,
+    "total": 669,
+    "paymentMethod": "COD",
+    "paymentStatus": "PENDING_VERIFICATION",
+    "orderStatus": "PENDING",
+    "items": [
+      {
+        "id": "it_1792485846783_0.9442211362505535",
+        "orderId": "",
+        "productId": "p-drv-wnt-rabbit-earmuffs-airbag",
+        "productName": "Ear Muff",
+        "productImage": "/uploads/clean/1789051393898.jpg",
+        "sku": "JM-WNT-EAR-01",
+        "price": 599,
+        "quantity": 1,
+        "total": 599
+      }
+    ],
+    "payments": [],
+    "id": "ord_1792485846821",
+    "createdAt": "2026-10-20T08:44:06.821Z",
+    "updatedAt": "2026-10-20T08:44:06.821Z"
+  },
+  {
+    "orderNumber": "JM-1018",
+    "customerName": "Abu Raihan",
+    "customerPhone": "01711332242",
+    "division": "Chattogram",
+    "district": "Cumilla",
+    "area": "Dhanmondi",
+    "address": "2nd murad pur,nomosudro para(housing State Road), Cumilla adorsho sodor,thana: kotowali,Cumilla.",
+    "deliveryZone": "OUTSIDE_DHAKA",
+    "deliveryCharge": 130,
+    "subtotal": 1198,
+    "discount": 0,
+    "total": 1328,
+    "paymentMethod": "COD",
+    "paymentStatus": "PENDING_VERIFICATION",
+    "orderStatus": "PENDING",
+    "items": [
+      {
+        "id": "it_1792481954399_0.49956117484494267",
+        "orderId": "",
+        "productId": "p-drv-wnt-rabbit-earmuffs-airbag",
+        "productName": "Ear Muff",
+        "productImage": "/uploads/clean/1789051393898.jpg",
+        "sku": "JM-WNT-EAR-01",
+        "price": 599,
+        "quantity": 2,
+        "total": 1198
+      }
+    ],
+    "payments": [],
+    "id": "ord_1792481954419",
+    "createdAt": "2026-10-20T07:39:14.419Z",
+    "updatedAt": "2026-10-20T07:39:14.419Z"
+  },
+  {
+    "orderNumber": "JM-1017",
+    "customerName": "Raj Ahmed Sani",
+    "customerPhone": "01718061359",
+    "customerEmail": "rajahmed42206@gmail.com",
+    "division": "Sylhet",
+    "district": "Sylhet",
+    "area": "Osmani nogor ",
+    "address": "Passpara,gram",
+    "deliveryNote": "ভালো না হলে দেবেন না,অনুরুধ",
+    "deliveryZone": "OUTSIDE_DHAKA",
+    "deliveryCharge": 130,
+    "subtotal": 799,
+    "discount": 0,
+    "total": 929,
+    "paymentMethod": "COD",
+    "paymentStatus": "PENDING_VERIFICATION",
+    "orderStatus": "PENDING",
+    "items": [
+      {
+        "id": "it_1792463057037_0.45475657563880834",
+        "orderId": "",
+        "productId": "prod_1792077973312",
+        "productName": "GPS Smart Tracker/ Smart Tracking Device",
+        "productImage": "/uploads/1792077921362-Tracking_Device.jpeg.webp",
+        "sku": "JM-GAD-GPS-01",
+        "price": 799,
+        "quantity": 1,
+        "total": 799
+      }
+    ],
+    "payments": [],
+    "id": "ord_1792463057047",
+    "createdAt": "2026-10-20T02:24:17.047Z",
+    "updatedAt": "2026-10-20T02:24:17.047Z"
+  },
+  {
+    "orderNumber": "JM-1016",
+    "customerName": "Nadim Hosain",
+    "customerPhone": "01799024059",
+    "customerEmail": "nahiedhosin9567@gmail.com",
+    "division": "Dhaka",
+    "district": "Dhaka",
+    "area": "Bashundhara R/A",
+    "address": "K-88, Kuril Biswa Road",
+    "deliveryZone": "INSIDE_DHAKA",
+    "deliveryCharge": 70,
+    "subtotal": 799,
+    "discount": 0,
+    "total": 869,
+    "paymentMethod": "COD",
+    "paymentStatus": "PENDING_VERIFICATION",
+    "orderStatus": "PENDING",
+    "items": [
+      {
+        "id": "it_1792352078160_0.21445224933479556",
+        "orderId": "",
+        "productId": "prod_1792077973312",
+        "productName": "GPS Smart Tracker/ Smart Tracking Device",
+        "productImage": "/uploads/1792077921362-Tracking_Device.jpeg.webp",
+        "sku": "JM-GAD-GPS-01",
+        "price": 799,
+        "quantity": 1,
+        "total": 799
+      }
+    ],
+    "payments": [],
+    "id": "ord_1792352078173",
+    "createdAt": "2026-10-18T19:34:38.173Z",
+    "updatedAt": "2026-10-18T19:34:38.173Z"
+  },
+  {
     "id": "ord_1792304093000",
     "orderNumber": "JM-1015",
     "customerName": "Customer (01726301672)",
@@ -49,7 +338,7 @@
     "total": 919,
     "paymentMethod": "COD",
     "paymentStatus": "PENDING_VERIFICATION",
-    "orderStatus": "PENDING",
+    "orderStatus": "CONFIRMED",
     "items": [
       {
         "id": "it_1792245451000_1",
@@ -65,7 +354,7 @@
     ],
     "payments": [],
     "createdAt": "2026-10-17T19:57:31.000Z",
-    "updatedAt": "2026-10-17T19:57:31.000Z"
+    "updatedAt": "2026-10-18T12:14:41.290Z"
   },
   {
     "id": "ord_1792241501000",
@@ -83,7 +372,7 @@
     "total": 919,
     "paymentMethod": "COD",
     "paymentStatus": "PENDING_VERIFICATION",
-    "orderStatus": "PENDING",
+    "orderStatus": "CANCELLED",
     "items": [
       {
         "id": "it_1792241501000_1",
@@ -99,7 +388,7 @@
     ],
     "payments": [],
     "createdAt": "2026-10-17T18:51:41.000Z",
-    "updatedAt": "2026-10-17T18:51:41.000Z"
+    "updatedAt": "2026-10-18T12:13:56.638Z"
   },
   {
     "id": "ord_1792238566000",
@@ -117,7 +406,7 @@
     "total": 919,
     "paymentMethod": "COD",
     "paymentStatus": "PENDING_VERIFICATION",
-    "orderStatus": "PENDING",
+    "orderStatus": "CANCELLED",
     "items": [
       {
         "id": "it_1792238566000_1",
@@ -133,7 +422,7 @@
     ],
     "payments": [],
     "createdAt": "2026-10-17T18:02:46.000Z",
-    "updatedAt": "2026-10-17T18:02:46.000Z"
+    "updatedAt": "2026-10-18T12:17:22.286Z"
   },
   {
     "id": "ord_1792232446000",
@@ -219,7 +508,7 @@
     "total": 919,
     "paymentMethod": "COD",
     "paymentStatus": "PENDING_VERIFICATION",
-    "orderStatus": "PENDING",
+    "orderStatus": "CANCELLED",
     "items": [
       {
         "id": "it_1792227302000_1",
@@ -235,7 +524,7 @@
     ],
     "payments": [],
     "createdAt": "2026-10-17T14:55:02.000Z",
-    "updatedAt": "2026-10-17T14:55:02.000Z"
+    "updatedAt": "2026-10-18T12:26:11.793Z"
   },
   {
     "id": "ord_1792220758000",
@@ -287,7 +576,7 @@
     "total": 919,
     "paymentMethod": "COD",
     "paymentStatus": "PENDING_VERIFICATION",
-    "orderStatus": "PENDING",
+    "orderStatus": "CONFIRMED",
     "items": [
       {
         "id": "it_1792211631000_1",
@@ -303,7 +592,7 @@
     ],
     "payments": [],
     "createdAt": "2026-10-17T10:33:51.000Z",
-    "updatedAt": "2026-10-17T10:33:51.000Z"
+    "updatedAt": "2026-10-18T12:31:50.807Z"
   },
   {
     "orderNumber": "JM-1006",
