@@ -54,6 +54,17 @@ function cleanTestEntities() {
       fs.writeFileSync(productsFile, JSON.stringify(cleanedProds, null, 2), 'utf8');
     }
   } catch {}
+
+  try {
+    const deletedFile = path.join(process.cwd(), 'data', 'deleted-products.json');
+    if (fs.existsSync(deletedFile)) {
+      const rawDeleted: string[] = JSON.parse(fs.readFileSync(deletedFile, 'utf8'));
+      const cleanedDeleted = rawDeleted.filter(
+        (id: string) => !id.toLowerCase().startsWith('test-') && !id.startsWith('prod_1792762')
+      );
+      fs.writeFileSync(deletedFile, JSON.stringify(cleanedDeleted, null, 2), 'utf8');
+    }
+  } catch {}
 }
 
 async function runAcceptanceSuite() {
