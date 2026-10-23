@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { X, Plus, Minus, ShieldCheck, Truck, CheckCircle2, ShoppingBag } from 'lucide-react';
-import { ProductItem, DeliveryZone } from '@/lib/types';
+import { ProductItem, ProductVariant, DeliveryZone } from '@/lib/types';
 import { formatPrice } from '@/lib/formatters';
 import { useToast } from '@/context/toast-context';
 
@@ -20,6 +20,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
   const { toast } = useToast();
 
   const [quantity, setQuantity] = useState(1);
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | undefined>(undefined);
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [address, setAddress] = useState('');
@@ -30,9 +31,21 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState<any | null>(null);
 
+  useEffect(() => {
+    if (product) {
+      if (product.variants && product.variants.length > 0) {
+        setSelectedVariant(product.variants.find((v) => v.isActive !== false) || product.variants[0]);
+      } else {
+        setSelectedVariant(undefined);
+      }
+    }
+  }, [product]);
+
   if (!isOpen || !product) return null;
 
-  const itemPrice = product.price;
+  const itemPrice = selectedVariant?.price || product.price;
+  const currentStock = selectedVariant ? selectedVariant.stock : product.stock;
+  const isOutOfStock = currentStock <= 0;
   const subtotal = itemPrice * quantity;
   const deliveryCharge =
     subtotal >= 2000
@@ -46,6 +59,11 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
 
   const handleSubmitOrder = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (isOutOfStock) {
+      toast('এই আইটেম/ভ্যারিয়েন্টটি বর্তমানে আউট অব স্টক।', 'error');
+      return;
+    }
 
     if (!customerName.trim() || !customerPhone.trim() || !address.trim()) {
       toast('অনুগ্রহ করে আপনার নাম, মোবাইল নম্বর এবং ঠিকানা দিন', 'error');
@@ -77,10 +95,13 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
         items: [
           {
             productId: product.id,
+            productName: product.name,
             name: product.name,
-            price: product.price,
+            variantName: selectedVariant?.name,
+            sku: selectedVariant?.sku || product.sku,
+            price: itemPrice,
             quantity: quantity,
-            image: product.image,
+            image: selectedVariant?.image || product.image,
           },
         ],
         notes: `Ghorer Bazar Style 1-Click Fast Order (${paymentMethod})`,
@@ -174,13 +195,20 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
             {/* Product Summary Card */}
             <div className="flex items-center gap-3 p-3 bg-[#FAFCF7] rounded-2xl border border-[#DFECCE]">
               <img
-                src={product.image}
+                src={selectedVariant?.image || product.image}
                 alt={product.name}
                 className="w-16 h-16 object-cover rounded-xl border border-[#DFECCE] shrink-0 bg-white"
               />
               <div className="flex-1 min-w-0">
                 <h4 className="text-xs sm:text-sm font-bold text-[#0E140E] line-clamp-1">{product.name}</h4>
-                <p className="text-xs font-bold text-[#6CAE14] mt-0.5">{formatPrice(product.price)}</p>
+                <div className="flex items-center gap-2 mt-0.5">
+                  <p className="text-xs font-bold text-[#6CAE14]">{formatPrice(itemPrice)}</p>
+                  {selectedVariant && (
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-orange-100 text-[#fd6b03] font-semibold">
+                      {selectedVariant.name}
+                    </span>
+                  )}
+                </div>
                 <div className="flex items-center gap-2 mt-1.5">
                   <span className="text-[11px] text-[#526052]">Quantity:</span>
                   <div className="flex items-center border border-[#DFECCE] bg-white rounded-lg">
@@ -203,6 +231,50 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
                 </div>
               </div>
             </div>
+
+            {/* Variant Selector (if product has variants) */}
+            {product.variants && product.variants.length > 0 && (
+              <div className="bg-[#FAFCF7] p-3 rounded-2xl border border-[#DFECCE] space-y-2">
+                <span className="text-xs font-bold text-[#0E140E] block">
+                  Select Variant (ভ্যারিয়েন্ট বেছে নিন):
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {product.variants.map((v) => {
+                    const isSelected = selectedVariant?.id === v.id;
+                    const isVOutOfStock = v.stock <= 0;
+                    return (
+                      <button
+                        key={v.id}
+                        type="button"
+                        onClick={() => setSelectedVariant(v)}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-semibold border flex items-center gap-1.5 transition-all cursor-pointer ${
+                          isSelected
+                            ? 'border-[#fd6b03] bg-orange-50 text-[#fd6b03] ring-1 ring-[#fd6b03]'
+                            : 'border-[#DFECCE] bg-white text-[#0E140E] hover:border-[#fd6b03]/40'
+                        } ${isVOutOfStock ? 'opacity-60' : ''}`}
+                      >
+                        {v.image && (
+                          <img
+                            src={v.image}
+                            alt=""
+                            className="w-5 h-5 rounded-md object-cover"
+                          />
+                        )}
+                        <span>{v.name}</span>
+                        <span className="text-[11px] font-bold text-[#6CAE14]">
+                          {formatPrice(v.price)}
+                        </span>
+                        {isVOutOfStock && (
+                          <span className="text-[10px] text-red-500 font-bold ml-1">
+                            (Stock Out)
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* Customer Information */}
             <div className="space-y-3 bg-white p-4 rounded-2xl border border-[#DFECCE]">
@@ -421,11 +493,13 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
             {/* Submit Button */}
             <button
               type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-[#0d1f61] hover:bg-[#162d85] disabled:opacity-50 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition-all shadow-md active:scale-98 flex items-center justify-center gap-2"
+              disabled={isSubmitting || isOutOfStock}
+              className="w-full bg-[#0d1f61] hover:bg-[#162d85] disabled:opacity-50 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition-all shadow-md active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
             >
               {isSubmitting ? (
                 <span>Placing order...</span>
+              ) : isOutOfStock ? (
+                <span>Currently Out of Stock (স্টক শেষ)</span>
               ) : (
                 <>
                   <ShoppingBag className="w-4 h-4 text-[#fd6b03]" />

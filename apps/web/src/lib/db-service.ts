@@ -12,6 +12,7 @@ import {
   CategoryItem,
   SubCategoryItem,
   ProductItem,
+  ProductVariant,
   OrderRecord,
   StoreSettings,
   CouponItem,
@@ -19,6 +20,13 @@ import {
   PaymentStatus,
 } from './types';
 import { parseRobustPrice } from './formatters';
+import {
+  normalizeVariants,
+  validateVariantSkus,
+  getActiveVariants,
+  getProductTotalStock,
+  findProductBySlugOrMergedSlug,
+} from './variant-helpers';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const DELETED_FILE = path.join(DATA_DIR, 'deleted-products.json');
@@ -440,6 +448,24 @@ function normalizeProduct(p: any): ProductItem {
   }
   p.categories = Array.from(new Set(cats.map((c) => String(c).trim()).filter(Boolean)));
 
+  // Variant normalization
+  if (Array.isArray(p.variants) && p.variants.length > 0) {
+    try {
+      p.variants = normalizeVariants(p.variants, p.image, p.price);
+      p.stock = p.variants.reduce((sum: number, v: ProductVariant) => sum + (Number(v.stock) || 0), 0);
+    } catch {
+      // Keep existing variants if normalization threw
+    }
+  } else {
+    p.variants = [];
+  }
+
+  if (Array.isArray(p.mergedFromSlugs)) {
+    p.mergedFromSlugs = Array.from(new Set(p.mergedFromSlugs.map((s: any) => String(s).trim()).filter(Boolean)));
+  } else {
+    p.mergedFromSlugs = [];
+  }
+
   return p;
 }
 
@@ -505,6 +531,7 @@ export const dbService = {
             { specifications: { contains: params.search, mode: 'insensitive' } },
             { category: { name: { contains: params.search, mode: 'insensitive' } } },
             { subCategory: { name: { contains: params.search, mode: 'insensitive' } } },
+            { variants: { some: { OR: [{ name: { contains: params.search, mode: 'insensitive' } }, { sku: { contains: params.search, mode: 'insensitive' } }] } } },
           ];
           if (where.OR) {
             where.AND = [{ OR: where.OR }, { OR: searchFilters }];
@@ -606,6 +633,10 @@ export const dbService = {
           (p.categoryName && p.categoryName.toLowerCase().includes(q)) ||
           (p.subCategoryName && p.subCategoryName.toLowerCase().includes(q)) ||
           (Array.isArray(p.categories) && p.categories.some((c) => c.toLowerCase().includes(q))) ||
+          (Array.isArray(p.variants) && p.variants.some((v) =>
+            v.name.toLowerCase().includes(q) ||
+            v.sku.toLowerCase().includes(q)
+          )) ||
           (isHoneySearch && (
             p.slug.includes('honey') ||
             p.slug.includes('modhu') ||
@@ -624,7 +655,6 @@ export const dbService = {
   },
 
   async getProductBySlug(slug: string): Promise<ProductItem | null> {
-    if (!isNotDeleted({ slug })) return null;
     const hit = singleProductCache.get(slug);
     if (hit && Date.now() - hit.time < CACHE_TTL) {
       return hit.data;
@@ -639,7 +669,7 @@ export const dbService = {
           }),
           800
         );
-        if (item) {
+        if (item && isNotDeleted(item)) {
           const res = patchOrganicProduct({
             ...item,
             images: item.images ? JSON.parse(item.images) : [item.image],
@@ -655,7 +685,14 @@ export const dbService = {
     } catch {
       // Fall through
     }
-    const mem = loadProductsFromFile().find((p) => p.slug === slug);
+    const allProds = loadProductsFromFile();
+    let mem = allProds.find((p) => p.slug === slug && isNotDeleted(p));
+    if (!mem) {
+      const match = findProductBySlugOrMergedSlug(slug, allProds);
+      if (match && isNotDeleted(match.product)) {
+        mem = match.product;
+      }
+    }
     const fallbackRes = mem ? patchOrganicProduct(mem) : null;
     singleProductCache.set(slug, { data: fallbackRes, time: Date.now() });
     return fallbackRes;
@@ -685,12 +722,14 @@ export const dbService = {
         ? data.sku.trim().toUpperCase()
         : `JM-${Date.now().toString(36).toUpperCase()}`;
 
-    const existingSkuProd = prods.find(
-      (p) => p.sku && p.sku.trim().toUpperCase() === resolvedSku
-    );
-    if (existingSkuProd) {
+    const existingSkuOwner = prods.find((p) => {
+      if (p.sku && p.sku.trim().toUpperCase() === resolvedSku) return true;
+      if (Array.isArray(p.variants) && p.variants.some((v) => v.sku && v.sku.trim().toUpperCase() === resolvedSku)) return true;
+      return false;
+    });
+    if (existingSkuOwner) {
       throw new Error(
-        `SKU "${resolvedSku}" is already in use by product "${existingSkuProd.name}". SKUs must be unique.`
+        `SKU "${resolvedSku}" is already in use by product or variant in "${existingSkuOwner.name}". SKUs must be unique.`
       );
     }
 
@@ -701,6 +740,19 @@ export const dbService = {
     const specs = data.specifications && typeof data.specifications === 'object'
       ? { ...data.specifications, _categories: cleanCategories }
       : { _categories: cleanCategories };
+
+    let normalizedVariants: ProductVariant[] = [];
+    if (Array.isArray(data.variants) && data.variants.length > 0) {
+      normalizedVariants = normalizeVariants(data.variants, data.image, validPrice);
+      const skuCheck = validateVariantSkus(normalizedVariants, 'new_product', prods, resolvedSku);
+      if (!skuCheck.valid) {
+        throw new Error(skuCheck.error);
+      }
+    }
+
+    const calculatedStock = normalizedVariants.length > 0
+      ? normalizedVariants.reduce((sum, v) => sum + (Number(v.stock) || 0), 0)
+      : (Number(data.stock) || 50);
 
     const newProduct: ProductItem = normalizeProduct({
       id: `prod_${Date.now()}`,
@@ -717,7 +769,7 @@ export const dbService = {
       price: validPrice,
       originalPrice: data.originalPrice ? parseRobustPrice(data.originalPrice) || undefined : undefined,
       discount: data.discount ? Number(data.discount) : 0,
-      stock: Number(data.stock) || 50,
+      stock: calculatedStock,
       sku: resolvedSku,
       image: data.image || (Array.isArray(data.images) && data.images[0]) || '',
       images: Array.isArray(data.images) && data.images.length > 0 ? data.images : data.image ? [data.image] : [],
@@ -730,6 +782,7 @@ export const dbService = {
       isActive: data.isActive !== false,
       rating: 5.0,
       reviewCount: 0,
+      variants: normalizedVariants,
     });
 
     try {
@@ -798,15 +851,34 @@ export const dbService = {
       const duplicateSku = prods.find(
         (p) =>
           (p.id !== id && p.slug !== id) &&
-          p.sku &&
-          p.sku.trim().toUpperCase() === candidateSku
+          ((p.sku && p.sku.trim().toUpperCase() === candidateSku) ||
+           (Array.isArray(p.variants) && p.variants.some((v) => v.sku && v.sku.trim().toUpperCase() === candidateSku)))
       );
       if (duplicateSku) {
         throw new Error(
-          `SKU "${candidateSku}" is already in use by product "${duplicateSku.name}". SKUs must be unique.`
+          `SKU "${candidateSku}" is already in use by product or variant in "${duplicateSku.name}". SKUs must be unique.`
         );
       }
       resolvedSku = candidateSku;
+    }
+
+    // Validate and normalize variants if passed
+    let normalizedVariants: ProductVariant[] | undefined = undefined;
+    if (Array.isArray(data.variants)) {
+      normalizedVariants = normalizeVariants(
+        data.variants,
+        data.image || prods[idx]?.image || '',
+        validPrice !== undefined ? validPrice : (prods[idx]?.price || 0)
+      );
+      const skuCheck = validateVariantSkus(
+        normalizedVariants,
+        prods[idx]?.id || id,
+        prods,
+        resolvedSku || prods[idx]?.sku
+      );
+      if (!skuCheck.valid) {
+        throw new Error(skuCheck.error);
+      }
     }
 
     const cleanCategories = Array.isArray(data.categories) && data.categories.length > 0
@@ -868,11 +940,18 @@ export const dbService = {
           ? (data as any).title.trim()
           : prods[idx].name;
 
+      const candidateVariants = normalizedVariants !== undefined ? normalizedVariants : prods[idx].variants;
+      const calculatedStock = Array.isArray(candidateVariants) && candidateVariants.length > 0
+        ? candidateVariants.reduce((sum: number, v: ProductVariant) => sum + (Number(v.stock) || 0), 0)
+        : (data.stock !== undefined ? Number(data.stock) : prods[idx].stock);
+
       const updatedRaw: any = {
         ...prods[idx],
         ...data,
         name: candidateName,
         sku: resolvedSku || prods[idx].sku,
+        stock: calculatedStock,
+        variants: candidateVariants,
         subCategoryId: data.subCategoryId !== undefined ? data.subCategoryId : prods[idx].subCategoryId,
         subCategoryName: data.subCategoryName !== undefined ? data.subCategoryName : prods[idx].subCategoryName,
         subCategorySlug: data.subCategorySlug !== undefined ? data.subCategorySlug : prods[idx].subCategorySlug,
@@ -905,6 +984,105 @@ export const dbService = {
       return normalized;
     }
     return null;
+  },
+
+  async mergeProducts(mainProductId: string, productIdsToMerge: string[]): Promise<ProductItem> {
+    const prods = loadProductsFromFile();
+    const mainIdx = prods.findIndex((p) => p.id === mainProductId || p.slug === mainProductId);
+    if (mainIdx === -1) {
+      throw new Error(`Main product with ID/slug "${mainProductId}" not found.`);
+    }
+
+    const mainProduct = prods[mainIdx];
+    let currentVariants: ProductVariant[] = Array.isArray(mainProduct.variants) ? [...mainProduct.variants] : [];
+    const mergedFromSlugs: string[] = Array.isArray(mainProduct.mergedFromSlugs) ? [...mainProduct.mergedFromSlugs] : [];
+
+    // If mainProduct had no variants before, create the first variant representing itself
+    if (currentVariants.length === 0) {
+      currentVariants.push({
+        id: `var_${Date.now()}_main`,
+        productId: mainProduct.id,
+        name: mainProduct.name || 'Default',
+        sku: mainProduct.sku || `JM-${Date.now().toString(36).toUpperCase()}`,
+        price: mainProduct.price,
+        regularPrice: mainProduct.originalPrice || null,
+        stock: mainProduct.stock,
+        image: mainProduct.image,
+        images: mainProduct.images || (mainProduct.image ? [mainProduct.image] : []),
+        isActive: mainProduct.isActive !== false,
+        order: 0,
+      });
+    }
+
+    const seenSkus = new Set(currentVariants.map((v) => v.sku?.trim().toUpperCase()).filter(Boolean));
+
+    for (const mergeId of productIdsToMerge) {
+      if (mergeId === mainProductId || mergeId === mainProduct.id || mergeId === mainProduct.slug) continue;
+      const sIdx = prods.findIndex((p) => p.id === mergeId || p.slug === mergeId);
+      if (sIdx === -1) continue;
+      const source = prods[sIdx];
+
+      // Record old slug for redirect
+      if (source.slug && !mergedFromSlugs.includes(source.slug)) {
+        mergedFromSlugs.push(source.slug);
+      }
+
+      if (Array.isArray(source.variants) && source.variants.length > 0) {
+        for (const sv of source.variants) {
+          let varSku = sv.sku ? sv.sku.trim().toUpperCase() : `JM-${Date.now().toString(36).toUpperCase()}`;
+          if (seenSkus.has(varSku)) {
+            varSku = `${varSku}-M`;
+          }
+          seenSkus.add(varSku);
+          currentVariants.push({
+            id: `var_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+            productId: mainProduct.id,
+            name: sv.name,
+            sku: varSku,
+            price: sv.price,
+            regularPrice: sv.regularPrice || null,
+            stock: sv.stock,
+            image: sv.image || source.image,
+            images: sv.images || source.images || [source.image],
+            isActive: sv.isActive !== false,
+            order: currentVariants.length,
+          });
+        }
+      } else {
+        let varSku = source.sku ? source.sku.trim().toUpperCase() : `JM-${Date.now().toString(36).toUpperCase()}`;
+        if (seenSkus.has(varSku)) {
+          varSku = `${varSku}-M`;
+        }
+        seenSkus.add(varSku);
+        currentVariants.push({
+          id: `var_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+          productId: mainProduct.id,
+          name: source.name,
+          sku: varSku,
+          price: source.price,
+          regularPrice: source.originalPrice || null,
+          stock: source.stock,
+          image: source.image,
+          images: source.images || (source.image ? [source.image] : []),
+          isActive: source.isActive !== false,
+          order: currentVariants.length,
+        });
+      }
+
+      // Mark source product as deleted/merged so it no longer appears in storefront
+      saveDeletedId(source.id, source.slug);
+      prods.splice(sIdx, 1);
+    }
+
+    mainProduct.variants = currentVariants;
+    mainProduct.mergedFromSlugs = mergedFromSlugs;
+    mainProduct.stock = currentVariants.reduce((sum, v) => sum + (Number(v.stock) || 0), 0);
+
+    saveProductsToFile(prods);
+    productCache.clear();
+    singleProductCache.clear();
+
+    return mainProduct;
   },
 
   async deleteProduct(id: string): Promise<boolean> {
@@ -1506,8 +1684,29 @@ export const dbService = {
     for (const item of newOrder.items) {
       const p = prods.find((prod) => prod.id === item.productId || prod.name === item.productName);
       if (p) {
-        p.stock = Math.max(0, p.stock - item.quantity);
-        prodsChanged = true;
+        if (Array.isArray(p.variants) && p.variants.length > 0) {
+          const itemSkuUpper = item.sku ? item.sku.trim().toUpperCase() : '';
+          const itemVarNameUpper = item.variantName ? item.variantName.trim().toUpperCase() : '';
+
+          const targetVariant = p.variants.find(
+            (v) =>
+              (itemSkuUpper && v.sku && v.sku.trim().toUpperCase() === itemSkuUpper) ||
+              (itemVarNameUpper && v.name && v.name.trim().toUpperCase() === itemVarNameUpper) ||
+              (itemVarNameUpper && itemVarNameUpper.includes(v.name.trim().toUpperCase()))
+          );
+
+          if (targetVariant) {
+            targetVariant.stock = Math.max(0, (Number(targetVariant.stock) || 0) - item.quantity);
+            p.stock = p.variants.reduce((sum, v) => sum + (Number(v.stock) || 0), 0);
+            prodsChanged = true;
+          } else {
+            p.stock = Math.max(0, p.stock - item.quantity);
+            prodsChanged = true;
+          }
+        } else {
+          p.stock = Math.max(0, p.stock - item.quantity);
+          prodsChanged = true;
+        }
       }
     }
     if (prodsChanged) {
@@ -1622,8 +1821,29 @@ export const dbService = {
         for (const item of order.items) {
           const p = prods.find((prod) => prod.id === item.productId || prod.name === item.productName);
           if (p) {
-            p.stock += item.quantity;
-            prodsChanged = true;
+            if (Array.isArray(p.variants) && p.variants.length > 0) {
+              const itemSkuUpper = item.sku ? item.sku.trim().toUpperCase() : '';
+              const itemVarNameUpper = item.variantName ? item.variantName.trim().toUpperCase() : '';
+
+              const targetVariant = p.variants.find(
+                (v) =>
+                  (itemSkuUpper && v.sku && v.sku.trim().toUpperCase() === itemSkuUpper) ||
+                  (itemVarNameUpper && v.name && v.name.trim().toUpperCase() === itemVarNameUpper) ||
+                  (itemVarNameUpper && itemVarNameUpper.includes(v.name.trim().toUpperCase()))
+              );
+
+              if (targetVariant) {
+                targetVariant.stock = (Number(targetVariant.stock) || 0) + item.quantity;
+                p.stock = p.variants.reduce((sum, v) => sum + (Number(v.stock) || 0), 0);
+                prodsChanged = true;
+              } else {
+                p.stock += item.quantity;
+                prodsChanged = true;
+              }
+            } else {
+              p.stock += item.quantity;
+              prodsChanged = true;
+            }
           }
         }
         if (prodsChanged) {

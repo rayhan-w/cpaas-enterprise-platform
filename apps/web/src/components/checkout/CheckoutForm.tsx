@@ -211,11 +211,11 @@ export default function CheckoutForm() {
         items: items.map((i) => ({
           productId: i.productId,
           productName: i.product.name,
-          productImage: i.product.image,
-          sku: i.product.sku,
+          productImage: i.selectedVariant?.image || i.product.image,
+          sku: i.selectedVariant?.sku || i.product.sku,
           price: i.unitPrice,
           quantity: i.quantity,
-          variantName: i.selectedVariant ? `${i.selectedVariant.name}: ${i.selectedVariant.value}` : undefined,
+          variantName: i.selectedVariant?.name || (i.selectedVariant ? `${i.selectedVariant.name}: ${i.selectedVariant.value}` : undefined),
           total: i.totalPrice,
         })),
       };
@@ -978,7 +978,7 @@ export default function CheckoutForm() {
                 className="flex items-center gap-3 pt-3 first:pt-0"
               >
                 <img
-                  src={item.product.image}
+                  src={item.selectedVariant?.image || item.product.image}
                   alt={item.product.name}
                   className="w-12 h-12 rounded-xl object-cover bg-[#F8F7F5] border border-[#EDE5E1] shrink-0"
                 />
@@ -990,8 +990,8 @@ export default function CheckoutForm() {
                     {formatPrice(item.unitPrice)}
                   </p>
                   {item.selectedVariant && (
-                    <p className="text-[10px] text-[#9B8A86]">
-                      {item.selectedVariant.name}: {item.selectedVariant.value}
+                    <p className="text-[10px] text-[#fd6b03] font-semibold">
+                      Variant: {item.selectedVariant.name}{item.selectedVariant.sku ? ` (${item.selectedVariant.sku})` : ''}
                     </p>
                   )}
                 </div>

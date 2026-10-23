@@ -21,6 +21,7 @@ import {
 import { useCart } from '@/context/cart-context';
 import { formatPrice } from '@/lib/formatters';
 import { ProductItem, CategoryItem } from '@/lib/types';
+import { getProductPriceRange } from '@/lib/variant-helpers';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
 import CategoryNavbar from './CategoryNavbar';
 
@@ -166,38 +167,54 @@ export default function Header() {
                   <div className="p-3 text-xs font-bold text-[#526052] bg-[#FAFCF7]">
                     Matching Products ({searchResults.length})
                   </div>
-                  {searchResults.map((prod) => (
-                    <Link
-                      key={prod.id}
-                      href={`/products/${prod.slug}`}
-                      onClick={() => setShowSearchDropdown(false)}
-                      className="flex items-center gap-3 p-3 hover:bg-[#F1F8E8] transition-colors"
-                    >
-                      <div className="w-12 h-12 rounded-xl bg-[#FAFCF7] overflow-hidden shrink-0 border border-[#DFECCE]">
-                        <img
-                          src={prod.image}
-                          alt={prod.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs sm:text-sm font-bold text-[#0E140E] truncate">
-                          {prod.name}
-                        </p>
-                        <p className="text-[11px] text-[#526052]">{prod.categoryName || 'General'}</p>
-                      </div>
-                      <div className="text-right shrink-0">
-                        <span className="text-xs sm:text-sm font-bold text-[#6CAE14]">
-                          {formatPrice(prod.price)}
-                        </span>
-                        {prod.originalPrice && prod.originalPrice > prod.price && (
-                          <span className="text-[10px] text-[#879787] line-through block">
-                            {formatPrice(prod.originalPrice)}
+                  {searchResults.map((prod) => {
+                    const q = searchQuery.toLowerCase().trim();
+                    const matchedVariant = prod.variants?.find(
+                      (v) =>
+                        v.name.toLowerCase().includes(q) ||
+                        v.sku.toLowerCase().includes(q)
+                    );
+                    const href = matchedVariant
+                      ? `/products/${prod.slug}?variant=${encodeURIComponent(matchedVariant.sku)}`
+                      : `/products/${prod.slug}`;
+                    const displayImg = matchedVariant?.image || prod.image;
+                    const priceRange = getProductPriceRange(prod);
+
+                    return (
+                      <Link
+                        key={prod.id}
+                        href={href}
+                        onClick={() => setShowSearchDropdown(false)}
+                        className="flex items-center gap-3 p-3 hover:bg-[#F1F8E8] transition-colors"
+                      >
+                        <div className="w-12 h-12 rounded-xl bg-[#FAFCF7] overflow-hidden shrink-0 border border-[#DFECCE]">
+                          <img
+                            src={displayImg}
+                            alt={prod.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs sm:text-sm font-bold text-[#0E140E] truncate">
+                            {prod.name}
+                          </p>
+                          <div className="flex items-center gap-2">
+                            <span className="text-[11px] text-[#526052]">{prod.categoryName || 'General'}</span>
+                            {matchedVariant && (
+                              <span className="text-[10px] text-[#fd6b03] font-bold bg-orange-50 px-1.5 py-0.2 rounded border border-orange-200">
+                                Variant: {matchedVariant.name}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <span className="text-xs sm:text-sm font-bold text-[#6CAE14]">
+                            {priceRange.displayPrice}
                           </span>
-                        )}
-                      </div>
-                    </Link>
-                  ))}
+                        </div>
+                      </Link>
+                    );
+                  })}
                   <Link
                     href={`/category/all?search=${encodeURIComponent(searchQuery)}`}
                     onClick={() => setShowSearchDropdown(false)}

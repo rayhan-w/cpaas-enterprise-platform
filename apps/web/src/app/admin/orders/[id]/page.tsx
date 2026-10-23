@@ -274,7 +274,9 @@ export default function AdminOrderDetailPage() {
                           {formatPrice(item.price)} × {item.quantity}
                         </span>
                         {item.variantName && (
-                          <span className="text-neutral-500">({item.variantName})</span>
+                          <span className="px-1.5 py-0.5 bg-orange-50 text-[#fd6b03] border border-orange-200 rounded font-semibold text-[10px]">
+                            Variant: {item.variantName}
+                          </span>
                         )}
                       </div>
                     </div>

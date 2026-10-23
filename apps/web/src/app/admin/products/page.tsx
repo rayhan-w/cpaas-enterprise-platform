@@ -22,14 +22,18 @@ import {
   ChevronRight,
   Maximize2,
   Eye,
+  GitMerge,
 } from 'lucide-react';
-import { ProductItem, CategoryItem } from '@/lib/types';
+import { ProductItem, CategoryItem, ProductVariant } from '@/lib/types';
 import { formatPrice, parseRobustPrice } from '@/lib/formatters';
+import { getProductPriceRange, getProductTotalStock } from '@/lib/variant-helpers';
 import { INITIAL_CATEGORIES } from '@/lib/sample-data';
 import { useToast } from '@/context/toast-context';
 import ImageUploadPicker from '@/components/admin/ImageUploadPicker';
 import ProductImageGalleryPicker from '@/components/admin/ProductImageGalleryPicker';
 import ExportProductsModal from '@/components/admin/ExportProductsModal';
+import VariantEditorSection from '@/components/admin/VariantEditorSection';
+import MergeProductsModal from '@/components/admin/MergeProductsModal';
 
 export default function AdminProductsPage() {
   const { success, error } = useToast();
@@ -39,6 +43,12 @@ export default function AdminProductsPage() {
   const [search, setSearch] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
+  const [showMergeModal, setShowMergeModal] = useState(false);
+  const [selectedProductIds, setSelectedProductIds] = useState<string[]>([]);
+
+  // Variants state for Add and Edit
+  const [variants, setVariants] = useState<ProductVariant[]>([]);
+  const [editVariants, setEditVariants] = useState<ProductVariant[]>([]);
 
   // Multi-Category states
   const [editSelectedCategories, setEditSelectedCategories] = useState<string[]>([]);
@@ -172,6 +182,7 @@ export default function AdminProductsPage() {
       : [];
     setEditImages(initialImages);
     setEditDescription(prod.description || '');
+    setEditVariants(Array.isArray(prod.variants) ? JSON.parse(JSON.stringify(prod.variants)) : []);
 
     const initialCats = Array.isArray(prod.categories) && prod.categories.length > 0
       ? [...prod.categories]
@@ -264,6 +275,7 @@ export default function AdminProductsPage() {
           image: primaryImage,
           images: cleanImages.length > 0 ? cleanImages : undefined,
           description: editDescription.trim(),
+          variants: editVariants,
         }),
       });
 
@@ -385,6 +397,7 @@ export default function AdminProductsPage() {
           image: primaryImage,
           images: cleanImages.length > 0 ? cleanImages : primaryImage ? [primaryImage] : [],
           description: description.trim(),
+          variants: variants.length > 0 ? variants : undefined,
         }),
       });
 
@@ -403,6 +416,7 @@ export default function AdminProductsPage() {
       setDescription('');
       setImage('');
       setImages([]);
+      setVariants([]);
       fetchProducts();
     } catch (err: any) {
       error(err.message);
@@ -569,6 +583,7 @@ export default function AdminProductsPage() {
               const defaultCat = categories.find((c) => c.id === categoryId)?.name || categories[0]?.name || 'General';
               setSelectedCategories([defaultCat]);
               setCustomNewCategoryAdd('');
+              setVariants([]);
               setShowAddModal(true);
             }}
             className="flex items-center justify-center gap-2 bg-[#6CAE14] hover:bg-[#5B960E] text-white px-5 py-2.5 rounded-xl font-bold text-xs shadow-sm transition-all cursor-pointer"
@@ -749,6 +764,42 @@ export default function AdminProductsPage() {
         </div>
       </div>
 
+      {/* Floating / Sticky Merge Action Bar when 2+ products are selected */}
+      {selectedProductIds.length >= 2 && (
+        <div className="p-4 bg-gradient-to-r from-[#0D1F61] to-[#1E3A8A] text-white rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg animate-in fade-in">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-[#FD6B03] text-white flex items-center justify-center font-bold text-xs shrink-0">
+              {selectedProductIds.length}
+            </div>
+            <div>
+              <p className="font-bold text-xs">
+                {selectedProductIds.length}টি প্রোডাক্ট সিলেক্ট করা হয়েছে
+              </p>
+              <p className="text-[11px] text-white/80">
+                এগুলোকে একটি মূল প্রোডাক্টের ভ্যারিয়েন্ট হিসেবে মার্জ করতে পারেন।
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 self-end sm:self-auto">
+            <button
+              type="button"
+              onClick={() => setSelectedProductIds([])}
+              className="px-3 py-1.5 text-xs text-white/80 hover:text-white rounded-lg hover:bg-white/10 cursor-pointer"
+            >
+              Deselect All
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowMergeModal(true)}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#FD6B03] hover:bg-[#E05D00] text-white font-bold text-xs rounded-xl shadow-xs transition-all cursor-pointer"
+            >
+              <GitMerge className="w-4 h-4" />
+              <span>Merge into 1 Product (মার্জ করুন)</span>
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Product Table */}
       <div className="bg-white rounded-3xl border border-[#EDE5E1] overflow-hidden shadow-sm">
         {loading ? (
@@ -767,7 +818,25 @@ export default function AdminProductsPage() {
             <table className="w-full text-left border-collapse text-xs">
               <thead>
                 <tr className="border-b border-[#EDE5E1] bg-[#F8F7F5] text-[#6B5B58] font-bold">
-                  <th className="p-3 pl-4">Product</th>
+                  <th className="p-3 pl-4 w-8">
+                    <input
+                      type="checkbox"
+                      checked={
+                        filteredProducts.length > 0 &&
+                        selectedProductIds.length === filteredProducts.length
+                      }
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedProductIds(filteredProducts.map((p) => p.id));
+                        } else {
+                          setSelectedProductIds([]);
+                        }
+                      }}
+                      className="rounded text-[#6CAE14] focus:ring-[#6CAE14] cursor-pointer"
+                      title="Select all products"
+                    />
+                  </th>
+                  <th className="p-3">Product</th>
                   <th className="p-3">Department</th>
                   <th className="p-3">Price</th>
                   <th className="p-3">Stock</th>
@@ -781,6 +850,20 @@ export default function AdminProductsPage() {
                 {filteredProducts.map((prod) => (
                   <tr key={prod.id} className="hover:bg-[#F1F8E8]/40 transition-colors">
                     <td className="p-3 pl-4">
+                      <input
+                        type="checkbox"
+                        checked={selectedProductIds.includes(prod.id)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedProductIds((prev) => [...prev, prod.id]);
+                          } else {
+                            setSelectedProductIds((prev) => prev.filter((id) => id !== prod.id));
+                          }
+                        }}
+                        className="rounded text-[#6CAE14] focus:ring-[#6CAE14] cursor-pointer"
+                      />
+                    </td>
+                    <td className="p-3">
                       <div className="flex items-center gap-3">
                         <button
                           type="button"
@@ -835,85 +918,106 @@ export default function AdminProductsPage() {
                         <span className="text-[10px] text-[#9B8A86] block mt-0.5">↳ {prod.subCategoryName}</span>
                       )}
                     </td>
-                    <td className="p-3 font-bold text-[#1A1512]">
-                      <span>{formatPrice(prod.price)}</span>
-                      {Boolean(prod.originalPrice && prod.originalPrice > prod.price) && (
-                        <span className="text-[10px] text-[#9B8A86] line-through block">
-                          {formatPrice(prod.originalPrice)}
-                        </span>
-                      )}
-                    </td>
-                    <td className="p-3">
-                      <div className="flex flex-col gap-1.5 min-w-[135px]">
-                        <div className="flex items-center gap-1.5">
-                          <span
-                            className={`px-2 py-0.5 rounded-full text-[10px] font-bold inline-flex items-center gap-1 ${
-                              prod.stock > 10
-                                ? 'bg-[#EAF3E9] text-[#7A9C78]'
-                                : prod.stock > 0
-                                ? 'bg-amber-100 text-amber-800'
-                                : 'bg-[#FBDADA] text-[#D94040]'
-                            }`}
-                          >
-                            <span
-                              className={`w-1.5 h-1.5 rounded-full ${
-                                prod.stock > 10 ? 'bg-[#7A9C78]' : prod.stock > 0 ? 'bg-amber-500' : 'bg-[#D94040]'
-                              }`}
-                            />
-                            {prod.stock > 0 ? `${prod.stock} in stock` : 'Out of stock'}
-                          </span>
-                          {updatingStockId === prod.id && (
-                            <span className="animate-spin w-3 h-3 border-2 border-[#6CAE14] border-t-transparent rounded-full" />
-                          )}
-                        </div>
+                    {(() => {
+                      const priceRange = getProductPriceRange(prod);
+                      const totalStock = getProductTotalStock(prod);
+                      const hasVariants = Boolean(prod.variants && prod.variants.length > 0);
 
-                        {/* Quick Inline Stepper & Input */}
-                        <div className="flex items-center gap-1">
-                          <button
-                            type="button"
-                            disabled={prod.stock <= 0 || updatingStockId === prod.id}
-                            onClick={() => handleInlineStockChange(prod.id, Math.max(0, prod.stock - 1))}
-                            className="w-6 h-6 rounded bg-[#F8F7F5] hover:bg-[#EDE5E1] disabled:opacity-40 text-[#1A1512] font-bold text-xs flex items-center justify-center border border-[#EDE5E1] transition-all cursor-pointer"
-                            title="Decrease stock by 1"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            min="0"
-                            value={editingStockValues[prod.id] !== undefined ? editingStockValues[prod.id] : prod.stock}
-                            onChange={(e) => {
-                              const val = parseInt(e.target.value, 10);
-                              setEditingStockValues((prev) => ({
-                                ...prev,
-                                [prod.id]: isNaN(val) ? 0 : Math.max(0, val),
-                              }));
-                            }}
-                            onBlur={() => {
-                              if (editingStockValues[prod.id] !== undefined && editingStockValues[prod.id] !== prod.stock) {
-                                handleInlineStockChange(prod.id, editingStockValues[prod.id]);
-                              }
-                            }}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter') {
-                                e.currentTarget.blur();
-                              }
-                            }}
-                            className="w-14 px-1 py-0.5 text-center bg-white border border-[#EDE5E1] focus:border-[#6CAE14] rounded text-xs font-semibold text-[#1A1512] focus:outline-none transition-all"
-                            title="Edit stock directly, press Enter or click away to save"
-                          />
-                          <button
-                            type="button"
-                            disabled={updatingStockId === prod.id}
-                            onClick={() => handleInlineStockChange(prod.id, prod.stock + 1)}
-                            className="w-6 h-6 rounded bg-[#F8F7F5] hover:bg-[#EDE5E1] disabled:opacity-40 text-[#1A1512] font-bold text-xs flex items-center justify-center border border-[#EDE5E1] transition-all cursor-pointer"
-                            title="Increase stock by 1"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    </td>
+                      return (
+                        <>
+                          <td className="p-3 font-bold text-[#1A1512]">
+                            <span>{priceRange.displayPrice}</span>
+                            {Boolean(priceRange.maxRegularPrice && priceRange.maxRegularPrice > priceRange.minPrice) && (
+                              <span className="text-[10px] text-[#9B8A86] line-through block">
+                                {priceRange.minRegularPrice === priceRange.maxRegularPrice
+                                  ? formatPrice(priceRange.maxRegularPrice)
+                                  : `${formatPrice(priceRange.minRegularPrice)} – ${formatPrice(priceRange.maxRegularPrice)}`}
+                              </span>
+                            )}
+                          </td>
+                          <td className="p-3">
+                            <div className="flex flex-col gap-1.5 min-w-[135px]">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <span
+                                  className={`px-2 py-0.5 rounded-full text-[10px] font-bold inline-flex items-center gap-1 ${
+                                    totalStock > 10
+                                      ? 'bg-[#EAF3E9] text-[#7A9C78]'
+                                      : totalStock > 0
+                                      ? 'bg-amber-100 text-amber-800'
+                                      : 'bg-[#FBDADA] text-[#D94040]'
+                                  }`}
+                                >
+                                  <span
+                                    className={`w-1.5 h-1.5 rounded-full ${
+                                      totalStock > 10 ? 'bg-[#7A9C78]' : totalStock > 0 ? 'bg-amber-500' : 'bg-[#D94040]'
+                                    }`}
+                                  />
+                                  {totalStock > 0 ? `${totalStock} in stock` : 'Out of stock'}
+                                </span>
+                                {hasVariants && (
+                                  <span className="px-1.5 py-0.5 rounded-md bg-[#EEF2FF] text-[#4338CA] text-[10px] font-bold border border-[#C7D2FE]">
+                                    {prod.variants!.length} variants
+                                  </span>
+                                )}
+                                {updatingStockId === prod.id && (
+                                  <span className="animate-spin w-3 h-3 border-2 border-[#6CAE14] border-t-transparent rounded-full" />
+                                )}
+                              </div>
+
+                              {/* Quick Inline Stepper & Input (Only for non-variant products) */}
+                              {!hasVariants ? (
+                                <div className="flex items-center gap-1">
+                                  <button
+                                    type="button"
+                                    disabled={prod.stock <= 0 || updatingStockId === prod.id}
+                                    onClick={() => handleInlineStockChange(prod.id, Math.max(0, prod.stock - 1))}
+                                    className="w-6 h-6 rounded bg-[#F8F7F5] hover:bg-[#EDE5E1] disabled:opacity-40 text-[#1A1512] font-bold text-xs flex items-center justify-center border border-[#EDE5E1] transition-all cursor-pointer"
+                                    title="Decrease stock by 1"
+                                  >
+                                    -
+                                  </button>
+                                  <input
+                                    type="number"
+                                    min="0"
+                                    value={editingStockValues[prod.id] !== undefined ? editingStockValues[prod.id] : prod.stock}
+                                    onChange={(e) => {
+                                      const val = parseInt(e.target.value, 10);
+                                      setEditingStockValues((prev) => ({
+                                        ...prev,
+                                        [prod.id]: isNaN(val) ? 0 : Math.max(0, val),
+                                      }));
+                                    }}
+                                    onBlur={() => {
+                                      if (editingStockValues[prod.id] !== undefined && editingStockValues[prod.id] !== prod.stock) {
+                                        handleInlineStockChange(prod.id, editingStockValues[prod.id]);
+                                      }
+                                    }}
+                                    onKeyDown={(e) => {
+                                      if (e.key === 'Enter') {
+                                        e.currentTarget.blur();
+                                      }
+                                    }}
+                                    className="w-14 px-1 py-0.5 text-center bg-white border border-[#EDE5E1] focus:border-[#6CAE14] rounded text-xs font-semibold text-[#1A1512] focus:outline-none transition-all"
+                                    title="Edit stock directly, press Enter or click away to save"
+                                  />
+                                  <button
+                                    type="button"
+                                    disabled={updatingStockId === prod.id}
+                                    onClick={() => handleInlineStockChange(prod.id, prod.stock + 1)}
+                                    className="w-6 h-6 rounded bg-[#F8F7F5] hover:bg-[#EDE5E1] disabled:opacity-40 text-[#1A1512] font-bold text-xs flex items-center justify-center border border-[#EDE5E1] transition-all cursor-pointer"
+                                    title="Increase stock by 1"
+                                  >
+                                    +
+                                  </button>
+                                </div>
+                              ) : (
+                                <span className="text-[10px] text-[#9B8A86]">Variant stock</span>
+                              )}
+                            </div>
+                          </td>
+                        </>
+                      );
+                    })()}
                     <td className="p-3 font-mono text-[11px] text-[#6B5B58]">
                       {prod.sku || 'N/A'}
                     </td>
@@ -1182,6 +1286,12 @@ export default function AdminProductsPage() {
                 }}
               />
 
+              {/* Product Variants (Optional) */}
+              <VariantEditorSection
+                variants={editVariants}
+                onChange={setEditVariants}
+              />
+
               {/* Description */}
               <div>
                 <label className="block font-semibold text-[#1A1512] mb-1">Description</label>
@@ -1434,6 +1544,12 @@ export default function AdminProductsPage() {
                 }}
               />
 
+              {/* Product Variants (Optional) */}
+              <VariantEditorSection
+                variants={variants}
+                onChange={setVariants}
+              />
+
               <div>
                 <label className="block font-semibold text-[#1A1512] mb-1">Description</label>
                 <textarea
@@ -1643,6 +1759,17 @@ export default function AdminProductsPage() {
         onClose={() => setShowExportModal(false)}
         products={products}
         categories={categories}
+      />
+
+      {/* Merge Products Modal Wizard */}
+      <MergeProductsModal
+        isOpen={showMergeModal}
+        onClose={() => setShowMergeModal(false)}
+        selectedProducts={products.filter((p) => selectedProductIds.includes(p.id))}
+        onMergeSuccess={() => {
+          setSelectedProductIds([]);
+          fetchProducts();
+        }}
       />
     </div>
   );

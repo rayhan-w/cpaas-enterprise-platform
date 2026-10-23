@@ -33,7 +33,9 @@
     "isNew": false,
     "isActive": true,
     "rating": 5,
-    "reviewCount": 0
+    "reviewCount": 0,
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "prod_1792124061978",
@@ -70,7 +72,9 @@
     "isActive": true,
     "rating": 5,
     "reviewCount": 0,
-    "sku": "JM-MLK-PWD-01"
+    "sku": "JM-MLK-PWD-01",
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "prod_1792084842680",
@@ -109,7 +113,9 @@
     "isActive": true,
     "rating": 5,
     "reviewCount": 0,
-    "sku": "JM-TOY-LCD-01"
+    "sku": "JM-TOY-LCD-01",
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "prod_1792077973312",
@@ -151,7 +157,9 @@
     "sku": "JM-GAD-GPS-01",
     "subCategoryId": "sub-gps-tracker-tracking-device",
     "subCategoryName": "GPS Tracker/Tracking Device",
-    "subCategorySlug": "gps-tracker-tracking-device"
+    "subCategorySlug": "gps-tracker-tracking-device",
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-org-pure-cow-ghee",
@@ -190,7 +198,9 @@
     "categories": [
       "Organic Food",
       "Kitchen Items"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-org-mustard-oil-1l",
@@ -229,7 +239,9 @@
     "categories": [
       "Organic Food",
       "Kitchen Items"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-org-homemade-pickle",
@@ -267,7 +279,9 @@
     "reviewCount": 52,
     "categories": [
       "Organic Food"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bag-hellokitty-school",
@@ -304,7 +318,9 @@
     "reviewCount": 38,
     "categories": [
       "Bag"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bag-hellokitty-plush",
@@ -341,7 +357,9 @@
     "categories": [
       "Bag"
     ],
-    "originalPrice": 750
+    "originalPrice": 750,
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bag-primary-waterproof",
@@ -377,7 +395,9 @@
     "reviewCount": 52,
     "categories": [
       "Bag"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bag-ortho-jincaizi",
@@ -413,7 +433,9 @@
     "reviewCount": 19,
     "categories": [
       "Bag"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bag-korean-cute-school",
@@ -449,7 +471,9 @@
     "reviewCount": 42,
     "categories": [
       "Bag"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bag-cuvea-travel-duffel",
@@ -493,7 +517,9 @@
     "reviewCount": 67,
     "categories": [
       "Bag"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-toy-diecast-cars-pack",
@@ -530,7 +556,9 @@
     "reviewCount": 45,
     "categories": [
       "Kids Toys"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-toy-scale-figures-city",
@@ -568,7 +596,9 @@
     "reviewCount": 22,
     "categories": [
       "Kids Toys"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-toy-plush-bunny-trio",
@@ -604,7 +634,9 @@
     "reviewCount": 57,
     "categories": [
       "Kids Toys"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bdr-crochet-white-dress",
@@ -641,7 +673,9 @@
     "reviewCount": 64,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bdr-bunny-knit-romper",
@@ -677,7 +711,9 @@
     "reviewCount": 48,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bdr-crochet-pink-floral",
@@ -713,7 +749,9 @@
     "reviewCount": 29,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bdr-peach-organza-dress",
@@ -749,7 +787,9 @@
     "reviewCount": 33,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bdr-pink-hearts-frock",
@@ -785,7 +825,9 @@
     "reviewCount": 47,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bdr-magenta-flower-frock",
@@ -821,7 +863,9 @@
     "reviewCount": 26,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bdr-purple-bloomer-suit",
@@ -858,7 +902,9 @@
     "reviewCount": 51,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bdr-sage-green-suit",
@@ -893,7 +939,9 @@
     "reviewCount": 19,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bdr-red-cherry-romper",
@@ -929,7 +977,9 @@
     "reviewCount": 43,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bdr-pink-floral-romper",
@@ -964,7 +1014,9 @@
     "reviewCount": 27,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bdr-red-floral-frock",
@@ -999,7 +1051,9 @@
     "reviewCount": 39,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bdr-lavender-tutu-dress",
@@ -1034,7 +1088,9 @@
     "reviewCount": 55,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bdr-white-rosette-romper",
@@ -1069,7 +1125,9 @@
     "reviewCount": 21,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bdr-corgi-winter-onesie",
@@ -1105,7 +1163,9 @@
     "reviewCount": 62,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bdr-white-eyelet-romper",
@@ -1139,7 +1199,9 @@
     "reviewCount": 20,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bsh-white-heart-shoes",
@@ -1176,7 +1238,9 @@
     "reviewCount": 45,
     "categories": [
       "Baby Shoes"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bsh-fishnet-bow-socks",
@@ -1214,7 +1278,9 @@
     "reviewCount": 37,
     "categories": [
       "Baby Items"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-bsh-diamond-mesh-tights",
@@ -1250,7 +1316,9 @@
     "reviewCount": 22,
     "categories": [
       "Baby Items"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-ktc-degreaser-spray",
@@ -1288,7 +1356,9 @@
     "categories": [
       "Kitchen Items"
     ],
-    "originalPrice": 550
+    "originalPrice": 550,
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-ktc-bottle-brush-set",
@@ -1324,7 +1394,9 @@
     "reviewCount": 46,
     "categories": [
       "Kitchen Items"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-wnt-rabbit-earmuffs-airbag",
@@ -1369,7 +1441,9 @@
     "categories": [
       "Winter Items",
       "Baby Items"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-wnt-plush-round-earmuffs",
@@ -1409,7 +1483,9 @@
     "categories": [
       "Winter Items",
       "Baby Items"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-gft-sakura-umbrella",
@@ -1447,7 +1523,9 @@
     "reviewCount": 78,
     "categories": [
       "Weather & Umbrella"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-gft-capsule-mini-umbrella",
@@ -1483,7 +1561,9 @@
     "reviewCount": 52,
     "categories": [
       "Weather & Umbrella"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-gft-hellokitty-clear-umbrella",
@@ -1518,7 +1598,9 @@
     "reviewCount": 36,
     "categories": [
       "Weather & Umbrella"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-gft-fruit-folding-umbrella",
@@ -1553,7 +1635,9 @@
     "reviewCount": 18,
     "categories": [
       "Weather & Umbrella"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-drv-gft-mermaid-kids-raincoat",
@@ -1589,7 +1673,9 @@
     "reviewCount": 41,
     "categories": [
       "Weather & Umbrella"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-bag-school-ortho",
@@ -1626,7 +1712,9 @@
     "reviewCount": 154,
     "categories": [
       "Bag"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-bag-kids-dino",
@@ -1663,7 +1751,9 @@
     "reviewCount": 98,
     "categories": [
       "Bag"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-bag-ladies-tote",
@@ -1700,7 +1790,9 @@
     "reviewCount": 210,
     "categories": [
       "Bag"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-bag-travel-duffel",
@@ -1737,7 +1829,9 @@
     "reviewCount": 88,
     "categories": [
       "Bag"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-toy-rc-stunt-car",
@@ -1774,7 +1868,9 @@
     "reviewCount": 165,
     "categories": [
       "Kids Toys"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-toy-wooden-montessori",
@@ -1811,7 +1907,9 @@
     "reviewCount": 220,
     "categories": [
       "Kids Toys"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-dress-organic-romper-3pk",
@@ -1848,7 +1946,9 @@
     "reviewCount": 310,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-dress-newborn-set",
@@ -1885,7 +1985,9 @@
     "reviewCount": 140,
     "categories": [
       "Baby Dress"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-shoe-soft-booties",
@@ -1922,7 +2024,9 @@
     "reviewCount": 115,
     "categories": [
       "Baby Shoes"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-cosm-aveeno-wash",
@@ -1959,7 +2063,9 @@
     "reviewCount": 320,
     "categories": [
       "Cosmetics Items (Baby & Parents)"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-htex-curtain-luxury",
@@ -1996,7 +2102,9 @@
     "reviewCount": 94,
     "categories": [
       "Home Tex"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-bed-king-cotton",
@@ -2034,7 +2142,9 @@
     "reviewCount": 188,
     "categories": [
       "Bed Sheet"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-edu-quran-series",
@@ -2071,7 +2181,9 @@
     "reviewCount": 145,
     "categories": [
       "Educational Items"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-kitch-granite-set",
@@ -2108,7 +2220,9 @@
     "reviewCount": 75,
     "categories": [
       "Kitchen Items"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-ktc-waterpot-floral-tumbler",
@@ -2150,7 +2264,9 @@
     "categories": [
       "Kitchen Items",
       "Baby Items"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-hlth-vitc-serum",
@@ -2187,7 +2303,9 @@
     "reviewCount": 230,
     "categories": [
       "Health Care & Skin Care Items"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   },
   {
     "id": "p-isl-prayer-mat-velvet",
@@ -2224,6 +2342,8 @@
     "reviewCount": 312,
     "categories": [
       "Islamic Items"
-    ]
+    ],
+    "variants": [],
+    "mergedFromSlugs": []
   }
 ]

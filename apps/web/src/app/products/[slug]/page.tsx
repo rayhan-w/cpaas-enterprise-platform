@@ -1,5 +1,5 @@
 import React from 'react';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { dbService } from '@/lib/db-service';
 import ProductView from '@/components/product/ProductView';
@@ -35,6 +35,17 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   if (!product) {
     notFound();
+  }
+
+  // Redirect if this slug was merged into a parent product
+  if (product.slug !== slug) {
+    const matchedVariant = product.variants?.find(
+      (v) => (v as any).mergedFromSlug === slug || v.sku === slug
+    );
+    const redirectUrl = matchedVariant
+      ? `/products/${product.slug}?variant=${encodeURIComponent(matchedVariant.sku)}`
+      : `/products/${product.slug}`;
+    redirect(redirectUrl);
   }
 
   const relatedProducts = await dbService.getProducts({

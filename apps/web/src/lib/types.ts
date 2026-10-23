@@ -1,11 +1,16 @@
 export interface ProductVariant {
   id: string;
-  productId: string;
+  productId?: string;
   name: string;
-  value: string;
-  price?: number;
+  value?: string;
+  sku: string;
+  price: number;
+  regularPrice?: number | null;
   stock: number;
-  sku?: string;
+  image?: string;
+  images?: string[];
+  isActive: boolean;
+  order?: number;
 }
 
 export interface ReviewItem {
@@ -47,7 +52,8 @@ export interface ProductItem {
   isActive: boolean;
   rating: number;
   reviewCount: number;
-  variants?: any[];
+  variants?: ProductVariant[];
+  mergedFromSlugs?: string[];
   reviews?: any[];
 }
 

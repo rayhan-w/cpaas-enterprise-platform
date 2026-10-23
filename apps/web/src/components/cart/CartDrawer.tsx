@@ -141,7 +141,7 @@ export default function CartDrawer() {
                 {/* Product Thumbnail */}
                 <div className="w-18 h-18 rounded-xl bg-[#F8F7F5] overflow-hidden shrink-0 border border-[#EDE5E1]">
                   <img
-                    src={item.product.image}
+                    src={item.selectedVariant?.image || item.product.image}
                     alt={item.product.name}
                     className="w-full h-full object-cover"
                   />
@@ -152,7 +152,7 @@ export default function CartDrawer() {
                   <div>
                     <div className="flex items-start justify-between gap-2">
                       <Link
-                        href={`/products/${item.product.slug}`}
+                        href={`/products/${item.product.slug}${item.selectedVariant?.sku ? `?variant=${encodeURIComponent(item.selectedVariant.sku)}` : ''}`}
                         onClick={closeCart}
                         className="text-xs font-semibold text-[#1A1512] hover:text-[#6CAE14] transition-colors line-clamp-1"
                       >
@@ -167,8 +167,9 @@ export default function CartDrawer() {
                     </div>
 
                     {item.selectedVariant && (
-                      <p className="text-[10px] text-[#9B8A86] mt-0.5">
-                        {item.selectedVariant.name}: {item.selectedVariant.value}
+                      <p className="text-[10px] text-[#fd6b03] font-semibold mt-0.5">
+                        Variant: {item.selectedVariant.name}
+                        {item.selectedVariant.sku ? ` (${item.selectedVariant.sku})` : ''}
                       </p>
                     )}
                   </div>
