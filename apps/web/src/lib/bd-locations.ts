@@ -119,3 +119,16 @@ export const DHAKA_AREAS = [
   'Cantonment',
   'Khilkhet',
 ];
+
+export const ALL_BD_DISTRICTS: string[] = Array.from(
+  new Set(BD_DIVISIONS.flatMap((d) => d.districts))
+).sort((a, b) => {
+  if (a === 'Dhaka') return -1;
+  if (b === 'Dhaka') return 1;
+  return a.localeCompare(b);
+});
+
+export function getDivisionForDistrict(districtName: string): string {
+  const found = BD_DIVISIONS.find((d) => d.districts.includes(districtName));
+  return found?.name || 'Dhaka';
+}
