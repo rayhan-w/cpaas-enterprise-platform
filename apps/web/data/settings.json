@@ -29,5 +29,13 @@
   "ownerEmail": "support@jawatamart.com",
   "aboutStory": "Jawata Mart was established with a singular mission: to provide honest, transparent, and authentic online shopping for families across Bangladesh. We personally verify every item before dispatch to guarantee unmatched purity and satisfaction.",
   "aboutMission": "To deliver genuine products, transparent pricing, dedicated customer care, and swift doorstep delivery to every district in Bangladesh.",
-  "aboutVision": "To be Bangladesh's most trusted and beloved household shopping destination."
+  "aboutVision": "To be Bangladesh's most trusted and beloved household shopping destination.",
+  "districtZoneMapping": {
+    "Dhaka": "INSIDE_DHAKA",
+    "Narayanganj": "DHAKA_SUBURBS",
+    "Gazipur": "DHAKA_SUBURBS",
+    "Munshiganj": "DHAKA_SUBURBS",
+    "Manikganj": "DHAKA_SUBURBS",
+    "Narsingdi": "DHAKA_SUBURBS"
+  }
 }
