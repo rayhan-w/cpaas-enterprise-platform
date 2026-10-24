@@ -278,7 +278,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
 
             quantity: quantity,
 
-            image: selectedColor?.image || selectedVariant?.image || product.image,
+            image: selectedColor?.image || (selectedColor?.images && selectedColor.images[0]) || selectedVariant?.image || (selectedVariant?.images && selectedVariant.images[0]) || product.image,
 
           },
 
@@ -466,7 +466,7 @@ export default function QuickOrderModal({ product, isOpen, onClose }: QuickOrder
 
               <img
 
-                src={selectedColor?.image || selectedVariant?.image || product.image}
+                src={selectedColor?.image || (selectedColor?.images && selectedColor.images[0]) || selectedVariant?.image || (selectedVariant?.images && selectedVariant.images[0]) || product.image}
 
                 alt={product.name}
 

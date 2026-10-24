@@ -244,7 +244,7 @@ export default function CartDrawer() {
 
                   <img
 
-                    src={item.selectedColor?.image || item.selectedVariant?.image || item.product.image}
+                    src={item.selectedColor?.image || (item.selectedColor?.images && item.selectedColor.images[0]) || item.selectedVariant?.image || (item.selectedVariant?.images && item.selectedVariant.images[0]) || item.product.image}
 
                     alt={item.product.name}
 
