@@ -940,7 +940,7 @@ function normalizeProduct(p: any): ProductItem {
 
 
 
-const withTimeout = <T>(promise: Promise<T>, ms = 1200): Promise<T> =>
+const withTimeout = <T>(promise: Promise<T>, ms = 5000): Promise<T> =>
 
   Promise.race([
 
@@ -1098,7 +1098,7 @@ export const dbService = {
 
           }),
 
-          800
+          5000
 
         );
 
@@ -1336,28 +1336,27 @@ export const dbService = {
 
           }),
 
-          800
+          5000
 
         );
 
         if (item && isNotDeleted(item)) {
-
+          const fileProducts = loadProductsFromFile();
+          const fileFallback = fileProducts.find(
+            (p) => (p.slug === slug || p.id === item.id) && isNotDeleted(p)
+          );
           const res = patchOrganicProduct({
-
             ...item,
-
             images: item.images ? JSON.parse(item.images) : [item.image],
-
             specifications: item.specifications ? JSON.parse(item.specifications) : {},
-
             categoryName: item.category.name,
-
             categorySlug: item.category.slug,
-
             subCategoryName: item.subCategory?.name,
-
+            variants:
+              fileFallback?.variants && fileFallback.variants.length > 0
+                ? fileFallback.variants
+                : (item.variants && item.variants.length > 0 ? item.variants : undefined),
           });
-
           singleProductCache.set(slug, { data: res, time: Date.now() });
 
           return res;
@@ -1624,7 +1623,7 @@ export const dbService = {
 
           }),
 
-          800
+          5000
 
         );
 
@@ -1832,7 +1831,7 @@ export const dbService = {
 
           }),
 
-          800
+          5000
 
         );
 
@@ -2344,7 +2343,7 @@ export const dbService = {
 
           }),
 
-          800
+          5000
 
         );
 
@@ -2488,7 +2487,7 @@ export const dbService = {
 
           }),
 
-          800
+          5000
 
         );
 
@@ -2572,7 +2571,7 @@ export const dbService = {
 
           }),
 
-          800
+          5000
 
         );
 
@@ -2926,7 +2925,7 @@ export const dbService = {
 
           }),
 
-          800
+          5000
 
         );
 

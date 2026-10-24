@@ -12,7 +12,7 @@ export default function AnnouncementBar() {
         <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
           <div className="flex items-center gap-1.5 text-white/95 font-medium">
             <Truck className="w-3.5 h-3.5 text-[#fd6b03]" />
-            <span>Free delivery across Bangladesh on orders over <strong>৳2,000!</strong> 🎉</span>
+            <span>সমগ্র বাংলাদেশে বিশ্বস্ত হোম ডেলিভারি সুবিধা</span>
           </div>
           <span className="hidden md:inline text-white/30">|</span>
           <div className="hidden md:flex items-center gap-1.5 text-white/80">

@@ -4068,27 +4068,7 @@ export default function CheckoutForm() {
 
 
 
-                {deliveryCharge === 0 ? (
-
-
-
-                  <span className="text-[#7A9C78] font-bold">FREE</span>
-
-
-
-                ) : (
-
-
-
-                  formatPrice(deliveryCharge)
-
-
-
-                )}
-
-
-
-              </span>
+                {formatPrice(deliveryCharge)}</span>
 
 
 

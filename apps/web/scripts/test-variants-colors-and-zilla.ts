@@ -286,27 +286,28 @@ async function runAcceptanceTests() {
     );
 
     // -------------------------------------------------------------
-    // Test 5: Subtotal >= 2000 gets ৳0 FREE delivery for any district
+    // Test 5: Strict District Delivery Charge (Zero Free Delivery)
     // -------------------------------------------------------------
-    console.log('\nRunning Test 5: Free delivery on ৳2,000+ orders across any district...');
-    const freeDhaka = calculateDeliveryCharge({ subtotal: 2000, district: 'Dhaka', settings });
-    const freeRajshahi = calculateDeliveryCharge({ subtotal: 3500, district: 'Rajshahi', settings });
-    const freeNarayanganj = calculateDeliveryCharge({ subtotal: 2500, district: 'Narayanganj', settings });
+    console.log('\nRunning Test 5: Verify NO free delivery is applied (all orders pay district charge)...');
+    const orderDhaka = calculateDeliveryCharge({ subtotal: 2000, district: 'Dhaka', settings });
+    const orderRajshahi = calculateDeliveryCharge({ subtotal: 3500, district: 'Rajshahi', settings });
+    const orderNarayanganj = calculateDeliveryCharge({ subtotal: 2500, district: 'Narayanganj', settings });
 
     const test5Passed =
-      freeDhaka.fee === 0 &&
-      freeDhaka.isFree === true &&
-      freeRajshahi.fee === 0 &&
-      freeRajshahi.isFree === true &&
-      freeNarayanganj.fee === 0 &&
-      freeNarayanganj.isFree === true;
+      orderDhaka.fee === 70 &&
+      orderDhaka.isFree === false &&
+      orderRajshahi.fee === 130 &&
+      orderRajshahi.isFree === false &&
+      orderNarayanganj.fee === 100 &&
+      orderNarayanganj.isFree === false;
 
     recordResult(
       5,
-      'Subtotal ৳2,000+ automatically receives ৳0 Free Delivery regardless of district',
+      'No free delivery: All orders (including ৳2,000+) strictly pay district delivery charges',
       test5Passed,
-      `Dhaka (৳2000): ৳${freeDhaka.fee} [free=${freeDhaka.isFree}], Rajshahi (৳3500): ৳${freeRajshahi.fee} [free=${freeRajshahi.isFree}]`
+      `Dhaka (৳2000): ৳${orderDhaka.fee} [free=${orderDhaka.isFree}], Rajshahi (৳3500): ৳${orderRajshahi.fee} [free=${orderRajshahi.isFree}], Narayanganj: ৳${orderNarayanganj.fee}`
     );
+
 
     // -------------------------------------------------------------
     // Test 6: District validation prevents submission without district
@@ -382,15 +383,11 @@ async function runAcceptanceTests() {
     // -------------------------------------------------------------
     console.log('\nCleaning up TEST data...');
     try {
-      const orders = await dbService.getOrders();
-      const testOrders = orders.filter((o: any) => o.customerName?.startsWith('TEST'));
-      for (const tOrd of testOrders) {
-        try {
-          if (process.env.DATABASE_URL && prisma.orderItem) {
-            await prisma.orderItem.deleteMany({ where: { order: { orderNumber: tOrd.orderNumber } } });
-            await prisma.order.deleteMany({ where: { orderNumber: tOrd.orderNumber } });
-          }
-        } catch {}
+      if (process.env.DATABASE_URL && prisma.orderItem) {
+        await prisma.orderItem.deleteMany({ where: { order: { customerName: { startsWith: 'TEST' } } } }).catch(() => {});
+        await prisma.payment.deleteMany({ where: { order: { customerName: { startsWith: 'TEST' } } } }).catch(() => {});
+        await prisma.order.deleteMany({ where: { customerName: { startsWith: 'TEST' } } }).catch(() => {});
+        await prisma.product.deleteMany({ where: { name: { startsWith: 'TEST' } } }).catch(() => {});
       }
       const fs = await import('fs');
       const path = await import('path');
@@ -400,12 +397,16 @@ async function runAcceptanceTests() {
         const nonTestOrders = rawOrders.filter((o: any) => !o.customerName?.startsWith('TEST'));
         fs.writeFileSync(ordersFile, JSON.stringify(nonTestOrders, null, 2), 'utf8');
       }
+      const prodsFile = path.join(process.cwd(), 'apps', 'web', 'data', 'products.json');
+      if (fs.existsSync(prodsFile)) {
+        const rawProds = JSON.parse(fs.readFileSync(prodsFile, 'utf8'));
+        const nonTestProds = rawProds.filter((p: any) => !p.name?.startsWith('TEST'));
+        fs.writeFileSync(prodsFile, JSON.stringify(nonTestProds, null, 2), 'utf8');
+      }
+      console.log('Cleaned up TEST data cleanly.');
     } catch (cleanupErr) {
-      console.warn('Non-fatal test order cleanup warning:', cleanupErr);
+      console.warn('Non-fatal test cleanup warning:', cleanupErr);
     }
-
-    await dbService.deleteProduct(testProduct.id);
-    console.log('Cleaned up TEST product:', testProduct.id);
   } catch (err: any) {
     console.error('Test execution failed with error:', err);
   }
