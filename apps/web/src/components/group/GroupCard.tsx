@@ -70,12 +70,6 @@ export default function GroupCard({ group }: { group: ProductGroup }) {
               {group.name}
             </h3>
           </Link>
-
-          {group.description && (
-            <p className="text-[11px] text-[#6B5B58] line-clamp-2 mt-1 leading-relaxed">
-              {group.description}
-            </p>
-          )}
         </div>
 
         {/* Price & CTA */}
