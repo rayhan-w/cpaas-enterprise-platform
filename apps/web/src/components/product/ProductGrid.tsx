@@ -1,14 +1,16 @@
 import React from 'react';
-import { ProductItem } from '@/lib/types';
+import { ProductItem, ProductGroup } from '@/lib/types';
 import ProductCard from './ProductCard';
+import GroupCard from '@/components/group/GroupCard';
 import { PackageOpen } from 'lucide-react';
 
 interface ProductGridProps {
   products: ProductItem[];
+  groups?: ProductGroup[];
   loading?: boolean;
 }
 
-export default function ProductGrid({ products, loading }: ProductGridProps) {
+export default function ProductGrid({ products, groups = [], loading }: ProductGridProps) {
   if (loading) {
     return (
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -27,7 +29,13 @@ export default function ProductGrid({ products, loading }: ProductGridProps) {
     );
   }
 
-  if (products.length === 0) {
+  // Filter out products that are already represented by a GroupCard on this listing
+  const groupedIds = new Set(groups.flatMap((g) => g.productIds || []));
+  const standaloneProducts = groups.length > 0
+    ? products.filter((p) => !groupedIds.has(p.id) && !p.groupId)
+    : products;
+
+  if (standaloneProducts.length === 0 && groups.length === 0) {
     return (
       <div className="bg-white rounded-2xl border border-[#EDE5E1] p-12 text-center max-w-md mx-auto my-8">
         <div className="w-16 h-16 rounded-full bg-[#F1F8E8] flex items-center justify-center mx-auto mb-4 text-[#6CAE14]">
@@ -44,9 +52,13 @@ export default function ProductGrid({ products, loading }: ProductGridProps) {
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6">
-      {products.map((product) => (
+      {groups.map((group) => (
+        <GroupCard key={`group-${group.id}`} group={group} />
+      ))}
+      {standaloneProducts.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>
   );
 }
+

@@ -28,6 +28,8 @@ import {
 
   ProductVariant,
 
+  ProductGroup,
+
   OrderRecord,
 
   StoreSettings,
@@ -58,7 +60,9 @@ import {
 
 
 
-const DATA_DIR = path.join(process.cwd(), 'data');
+const DATA_DIR = fs.existsSync(path.join(process.cwd(), 'apps/web/data'))
+  ? path.join(process.cwd(), 'apps/web/data')
+  : path.join(process.cwd(), 'data');
 
 const DELETED_FILE = path.join(DATA_DIR, 'deleted-products.json');
 
@@ -69,6 +73,8 @@ const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
 const SETTINGS_FILE = path.join(DATA_DIR, 'settings.json');
 
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
+
+const GROUPS_FILE = path.join(DATA_DIR, 'groups.json');
 
 
 
@@ -469,6 +475,56 @@ function saveProductsToFile(prods: ProductItem[]) {
   } catch (err) {
 
     console.error('Error saving products file:', err);
+
+  }
+
+}
+
+
+
+let groupsCache: { data: ProductGroup[]; time: number } | null = null;
+
+
+
+function loadGroupsFromFile(): ProductGroup[] {
+
+  ensureDataDir();
+
+  try {
+
+    if (fs.existsSync(GROUPS_FILE)) {
+
+      const data = JSON.parse(fs.readFileSync(GROUPS_FILE, 'utf8'));
+
+      if (Array.isArray(data)) return data;
+
+    }
+
+  } catch (err) {
+
+    console.error('Error reading groups file:', err);
+
+  }
+
+  return [];
+
+}
+
+
+
+function saveGroupsToFile(groups: ProductGroup[]) {
+
+  ensureDataDir();
+
+  try {
+
+    fs.writeFileSync(GROUPS_FILE, JSON.stringify(groups, null, 2), 'utf8');
+
+    groupsCache = null;
+
+  } catch (err) {
+
+    console.error('Error saving groups file:', err);
 
   }
 
@@ -1140,7 +1196,25 @@ export const dbService = {
 
 
 
-          const result = mapped.filter(isNotDeleted);
+          const fileProducts = loadProductsFromFile().map(normalizeProduct).filter(isNotDeleted);
+          const mappedIds = new Set(mapped.map((p) => p.id));
+          const fileOnly = fileProducts.filter((p) => !mappedIds.has(p.id));
+
+          let result = [...mapped, ...fileOnly]
+            .filter(isNotDeleted)
+            .filter((p) => !p.isGroupPlaceholder);
+
+          if (params?.search) {
+            const s = params.search.toLowerCase();
+            result = result.filter(
+              (p) =>
+                p.name.toLowerCase().includes(s) ||
+                (p.description && p.description.toLowerCase().includes(s)) ||
+                (p.sku && p.sku.toLowerCase().includes(s)) ||
+                (p.brand && p.brand.toLowerCase().includes(s)) ||
+                (p.specifications && JSON.stringify(p.specifications).toLowerCase().includes(s))
+            );
+          }
 
           productCache.set(cacheKey, { data: result, time: Date.now() });
 
@@ -1160,7 +1234,10 @@ export const dbService = {
 
     // Disk File Store Filtering
 
-    let list = loadProductsFromFile().map(normalizeProduct).filter(isNotDeleted);
+    let list = loadProductsFromFile()
+      .map(normalizeProduct)
+      .filter(isNotDeleted)
+      .filter((p) => !p.isGroupPlaceholder);
 
     if (!params?.includeInactive) {
 
@@ -2273,6 +2350,260 @@ export const dbService = {
 
     return true;
 
+  },
+
+  async findProductBySku(sku: string): Promise<ProductItem | null> {
+    if (!sku) return null;
+    const cleanSku = sku.trim().toLowerCase();
+    const prods = loadProductsFromFile().map(normalizeProduct).filter(isNotDeleted);
+    
+    // Direct match on simple product SKU
+    const directMatch = prods.find((p) => p.sku && p.sku.toLowerCase() === cleanSku);
+    if (directMatch) return directMatch;
+
+    // Check oldVariantId or variant SKU
+    for (const p of prods) {
+      if (p.oldVariantId && p.oldVariantId.toLowerCase() === cleanSku) return p;
+      if (p.variants && p.variants.some((v) => v.sku && v.sku.toLowerCase() === cleanSku)) {
+        return p;
+      }
+    }
+    return null;
+  },
+
+  // GROUPS / COLLECTIONS
+  async getGroups(params?: {
+    categorySlug?: string;
+    categoryId?: string;
+    activeOnly?: boolean;
+    search?: string;
+  }): Promise<ProductGroup[]> {
+    let groups = loadGroupsFromFile();
+
+    if (params?.activeOnly) {
+      groups = groups.filter((g) => g.isActive !== false);
+    }
+
+    if (params?.categoryId) {
+      groups = groups.filter((g) => g.categoryId === params.categoryId);
+    }
+
+    if (params?.categorySlug) {
+      const slug = params.categorySlug.toLowerCase();
+      groups = groups.filter(
+        (g) =>
+          (g.categorySlug && g.categorySlug.toLowerCase() === slug) ||
+          (g.categories && g.categories.some((c) => c.toLowerCase() === slug))
+      );
+    }
+
+    if (params?.search) {
+      const term = params.search.toLowerCase();
+      groups = groups.filter(
+        (g) =>
+          g.name.toLowerCase().includes(term) ||
+          (g.description && g.description.toLowerCase().includes(term))
+      );
+    }
+
+    return groups.sort((a, b) => (a.order || 0) - (b.order || 0));
+  },
+
+  async getGroupById(id: string): Promise<ProductGroup | null> {
+    const groups = loadGroupsFromFile();
+    return groups.find((g) => g.id === id) || null;
+  },
+
+  async getGroupBySlug(slug: string): Promise<ProductGroup | null> {
+    if (!slug) return null;
+    const cleanSlug = slug.toLowerCase();
+    const groups = loadGroupsFromFile();
+    return groups.find((g) => g.slug.toLowerCase() === cleanSlug) || null;
+  },
+
+  async getGroupByMemberProductId(productId: string): Promise<ProductGroup | null> {
+    if (!productId) return null;
+    const groups = loadGroupsFromFile();
+    return groups.find((g) => g.productIds && g.productIds.includes(productId)) || null;
+  },
+
+  async getProductsByGroupId(groupId: string): Promise<ProductItem[]> {
+    if (!groupId) return [];
+    const group = await this.getGroupById(groupId);
+    const prods = loadProductsFromFile()
+      .map(normalizeProduct)
+      .filter(isNotDeleted)
+      .filter((p) => !p.isGroupPlaceholder);
+
+    if (group && group.productIds && group.productIds.length > 0) {
+      const idSet = new Set(group.productIds);
+      return prods.filter((p) => idSet.has(p.id));
+    }
+    return prods.filter((p) => p.groupId === groupId);
+  },
+
+  async addGroup(data: Partial<ProductGroup>): Promise<ProductGroup> {
+    const groups = loadGroupsFromFile();
+    const id = data.id || `grp_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const baseSlug = (data.slug || data.name || 'group')
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/[\s_-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+    
+    let slug = baseSlug;
+    let counter = 1;
+    while (groups.some((g) => g.slug === slug)) {
+      slug = `${baseSlug}-${counter++}`;
+    }
+
+    const prods = loadProductsFromFile();
+    const productIds = data.productIds || [];
+    const memberProds = prods.filter((p) => productIds.includes(p.id));
+
+    const prices = memberProds.map((p) => p.price).filter((p) => typeof p === 'number' && p > 0);
+    const regPrices = memberProds
+      .map((p) => p.originalPrice || 0)
+      .filter((p) => typeof p === 'number' && p > 0);
+
+    const minPrice = prices.length > 0 ? Math.min(...prices) : data.minPrice || 0;
+    const maxPrice = prices.length > 0 ? Math.max(...prices) : data.maxPrice || 0;
+    const minReg = regPrices.length > 0 ? Math.min(...regPrices) : null;
+    const maxReg = regPrices.length > 0 ? Math.max(...regPrices) : null;
+
+    const newGroup: ProductGroup = {
+      id,
+      name: data.name || 'Untitled Group',
+      slug,
+      description: data.description || '',
+      image: data.image || (memberProds[0]?.image || '/jawata-mart-logo.jpg'),
+      images: data.images || memberProds.map((p) => p.image).filter(Boolean),
+      categoryId: data.categoryId || memberProds[0]?.categoryId || '',
+      categoryName: data.categoryName || memberProds[0]?.categoryName || '',
+      categorySlug: data.categorySlug || memberProds[0]?.categorySlug || '',
+      categories: data.categories || memberProds[0]?.categories || [],
+      productIds,
+      minPrice,
+      maxPrice,
+      minRegularPrice: minReg,
+      maxRegularPrice: maxReg,
+      totalStyles: productIds.length,
+      isActive: data.isActive !== undefined ? data.isActive : true,
+      isFeatured: Boolean(data.isFeatured),
+      order: data.order || 0,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    groups.push(newGroup);
+    saveGroupsToFile(groups);
+
+    // Update member products with groupId & groupSlug
+    let prodsChanged = false;
+    for (const p of prods) {
+      if (productIds.includes(p.id)) {
+        p.groupId = newGroup.id;
+        p.groupSlug = newGroup.slug;
+        prodsChanged = true;
+      }
+    }
+    if (prodsChanged) {
+      saveProductsToFile(prods);
+      productCache.clear();
+      singleProductCache.clear();
+    }
+
+    return newGroup;
+  },
+
+  async updateGroup(id: string, data: Partial<ProductGroup>): Promise<ProductGroup | null> {
+    const groups = loadGroupsFromFile();
+    const index = groups.findIndex((g) => g.id === id);
+    if (index === -1) return null;
+
+    const existing = groups[index];
+    const productIds = data.productIds !== undefined ? data.productIds : existing.productIds;
+
+    const prods = loadProductsFromFile();
+    const memberProds = prods.filter((p) => productIds.includes(p.id));
+
+    const prices = memberProds.map((p) => p.price).filter((p) => typeof p === 'number' && p > 0);
+    const regPrices = memberProds
+      .map((p) => p.originalPrice || 0)
+      .filter((p) => typeof p === 'number' && p > 0);
+
+    const minPrice = prices.length > 0 ? Math.min(...prices) : data.minPrice !== undefined ? data.minPrice : existing.minPrice;
+    const maxPrice = prices.length > 0 ? Math.max(...prices) : data.maxPrice !== undefined ? data.maxPrice : existing.maxPrice;
+    const minReg = regPrices.length > 0 ? Math.min(...regPrices) : existing.minRegularPrice;
+    const maxReg = regPrices.length > 0 ? Math.max(...regPrices) : existing.maxRegularPrice;
+
+    const updatedGroup: ProductGroup = {
+      ...existing,
+      ...data,
+      id: existing.id,
+      productIds,
+      minPrice,
+      maxPrice,
+      minRegularPrice: minReg,
+      maxRegularPrice: maxReg,
+      totalStyles: productIds.length,
+      updatedAt: new Date().toISOString(),
+    };
+
+    groups[index] = updatedGroup;
+    saveGroupsToFile(groups);
+
+    // Update prods membership
+    let prodsChanged = false;
+    for (const p of prods) {
+      if (productIds.includes(p.id)) {
+        if (p.groupId !== updatedGroup.id || p.groupSlug !== updatedGroup.slug) {
+          p.groupId = updatedGroup.id;
+          p.groupSlug = updatedGroup.slug;
+          prodsChanged = true;
+        }
+      } else if (p.groupId === updatedGroup.id) {
+        // Unassign removed product
+        p.groupId = null;
+        p.groupSlug = null;
+        prodsChanged = true;
+      }
+    }
+    if (prodsChanged) {
+      saveProductsToFile(prods);
+      productCache.clear();
+      singleProductCache.clear();
+    }
+
+    return updatedGroup;
+  },
+
+  async deleteGroup(id: string): Promise<boolean> {
+    const groups = loadGroupsFromFile();
+    const index = groups.findIndex((g) => g.id === id);
+    if (index === -1) return false;
+
+    groups.splice(index, 1);
+    saveGroupsToFile(groups);
+
+    // Unassign all member products
+    const prods = loadProductsFromFile();
+    let prodsChanged = false;
+    for (const p of prods) {
+      if (p.groupId === id) {
+        p.groupId = null;
+        p.groupSlug = null;
+        prodsChanged = true;
+      }
+    }
+    if (prodsChanged) {
+      saveProductsToFile(prods);
+      productCache.clear();
+      singleProductCache.clear();
+    }
+
+    return true;
   },
 
 

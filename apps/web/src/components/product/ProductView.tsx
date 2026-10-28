@@ -719,7 +719,21 @@ export default function ProductView({
 
           </div>
 
-
+          {/* Group / Collection Badge */}
+          {product.groupSlug && (
+            <Link
+              href={`/group/${product.groupSlug}`}
+              className="flex items-center justify-between p-3 rounded-2xl bg-gradient-to-r from-orange-50 to-amber-50/60 border border-[#fd6b03]/30 text-xs font-bold text-[#0d1f61] hover:border-[#fd6b03] transition-all group"
+            >
+              <div className="flex items-center gap-2">
+                <Layers className="w-4 h-4 text-[#fd6b03]" />
+                <span>Part of a collection / গ্রুপ কালেকশন</span>
+              </div>
+              <span className="text-[#fd6b03] group-hover:underline flex items-center gap-1">
+                View all styles <ChevronRight className="w-3.5 h-3.5" />
+              </span>
+            </Link>
+          )}
 
           {/* Pricing Box */}
 

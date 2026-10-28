@@ -1,5 +1,99 @@
 [
   {
+    "id": "prod_1792605471898",
+    "name": "Ear Muff",
+    "slug": "ear-muff",
+    "categoryId": "cat-winter-items",
+    "categoryName": "Winter Items",
+    "categorySlug": "winter-items",
+    "categories": [
+      "Baby Items",
+      "Winter Items"
+    ],
+    "brand": "Brand",
+    "price": 599,
+    "originalPrice": 699,
+    "discount": 0,
+    "stock": 40,
+    "sku": "SKU-1792605471702",
+    "image": "/uploads/1793003441033-Hello_Kitty.jpeg.webp",
+    "images": [
+      "/uploads/1793003441033-Hello_Kitty.jpeg.webp",
+      "/uploads/1793003456643-Hello_Kitty...jpeg.webp",
+      "/uploads/1793003474311-Hello_Kitty....jpeg.webp"
+    ],
+    "description": "Ear Muff will be safed  from cool ofশীত আসছে, আর আপনার ছোট্ট সোনামণির শীতের সাজ হবে না একটু স্পেশাল?\nশীতের পোশাকের সঙ্গে যদি থাকে সুন্দর একটি Ear Muff, তাহলে কেমন হয়? আপনার বাচ্চার শীতের সাজে কিউটনেসের ছোঁয়া যোগ করতে নিয়ে এসেছে Jawata Mart-এর স্টাইলিশ Winter Ear Muff! \nনরম, ফ্লাফি আর আরামদায়ক ডিজাইনের এই Ear Muff শীতের ঠান্ডা বাতাসে বাচ্চার কান উষ্ণ রাখতে সাহায্য করবে। পাশাপাশি এর আকর্ষণীয় লুক আপনার সোনামণিকে করে তুলবে আরও কিউট ও স্টাইলিশ!\nস্কুলে যাওয়া, বিকেলে ঘুরতে বের হওয়া কিংবা পরিবারের সঙ্গে শীতের ভ্রমণ—সব সময়ই মানিয়ে যাবে এই সুন্দর Ear Muff।\nআর সবচেয়ে মজার বিষয় হলো, বেবি পিঙ্ক, রেড, ব্ল্যাক, ক্রিমসহ রয়েছে বিভিন্ন আকর্ষণীয় কালার। আপনার সোনামণির পছন্দ অনুযায়ী বেছে নিন সেরা রঙটি। \nতাহলে এই শীতে ছোট্ট সোনামণির জন্য পছন্দের Ear Muff-টি নিতে আর দেরি কেন?\nঅর্ডার করতে এখনই ইনবক্স করুন Jawata Mart-এ অথবা M: 01915210799.\nWebsite: www.jawatamart.com\nJawata Mart—ছোট্ট সোনামণির প্রতিটি মুহূর্ত হোক আরও সুন্দর ও রঙিন!  your cute baby",
+    "specifications": {
+      "_categories": [
+        "Baby Items",
+        "Winter Items"
+      ]
+    },
+    "badge": "",
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": false,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 0,
+    "subCategoryId": "sub-winter-caps-socks",
+    "subCategoryName": "Winter Caps & Socks",
+    "subCategorySlug": "winter-caps-socks",
+    "variants": [
+      {
+        "id": "var_1793003599975_syhw",
+        "name": "Variant 1",
+        "value": "Variant 1",
+        "sku": "JM-VAR-MVP04VY8-1",
+        "price": 599,
+        "regularPrice": 699,
+        "stock": 20,
+        "image": "/uploads/1793003683536-Hello_Kitty.jpeg.webp",
+        "images": [
+          "/uploads/1793003683536-Hello_Kitty.jpeg.webp"
+        ],
+        "isActive": true,
+        "order": 0,
+        "colors": [
+          {
+            "id": "col_1793003686266_yuz9",
+            "name": "Colour 1",
+            "swatch": "#1A1512",
+            "image": "/uploads/1793003703262-Hello_Kitty...jpeg.webp",
+            "images": [
+              "/uploads/1793003703262-Hello_Kitty...jpeg.webp"
+            ]
+          },
+          {
+            "id": "col_1793003706902_bg96",
+            "name": "Colour 2",
+            "swatch": "#1A1512",
+            "image": "/uploads/1793003738403-Hello_Kitty....jpeg.webp",
+            "images": [
+              "/uploads/1793003738403-Hello_Kitty....jpeg.webp"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "var_1793003780323_xpqy",
+        "name": "Variant 2",
+        "value": "Variant 2",
+        "sku": "JM-VAR-MVP06WG5-2",
+        "price": 499,
+        "regularPrice": 599,
+        "stock": 20,
+        "image": "/uploads/1793003792817-Kids_Ear_Muff...jpeg.webp",
+        "images": [
+          "/uploads/1793003792817-Kids_Ear_Muff...jpeg.webp"
+        ],
+        "isActive": true,
+        "order": 1
+      }
+    ],
+    "mergedFromSlugs": []
+  },
+  {
     "id": "prod_1792143103812",
     "name": "Hilsha Fish",
     "slug": "sea-fish",
@@ -119,7 +213,7 @@
   },
   {
     "id": "prod_1792077973312",
-    "name": "GPS Smart Tracker/ Smart Tracking Device",
+    "name": "GPS Smart Tracker/ Smart Tracking Device Location(android & iPhone)",
     "slug": "gps-tracker",
     "categoryId": "cat-Smart Device",
     "categoryName": "Gadget Items",
@@ -130,9 +224,9 @@
     ],
     "brand": "Brand",
     "price": 799,
-    "originalPrice": 1100,
+    "originalPrice": 999,
     "discount": 0,
-    "stock": 34,
+    "stock": 38,
     "image": "/uploads/1792077921362-Tracking_Device.jpeg.webp",
     "images": [
       "/uploads/1792077921362-Tracking_Device.jpeg.webp",
@@ -141,13 +235,13 @@
       "/uploads/1792077947056-GPS_Tacker...jpeg.webp",
       "/uploads/1792077952142-GPS_Tracker.jfif.webp"
     ],
-    "description": "",
+    "description": "android Price=799/-\niPhone Price= 950/-",
     "specifications": {
       "_categories": [
         "Gadget Items"
       ]
     },
-    "badge": "",
+    "badge": "android & iPhone",
     "isFeatured": false,
     "isBestSeller": false,
     "isNew": false,
@@ -639,45 +733,6 @@
     "mergedFromSlugs": []
   },
   {
-    "id": "p-drv-bdr-crochet-white-dress",
-    "name": "Handmade Crochet Baby Girl Layered White Dress with Straw Hat & Shoes",
-    "slug": "handmade-crochet-baby-girl-white-dress-set",
-    "categoryId": "cat-baby-dress",
-    "categoryName": "Baby Dress",
-    "categorySlug": "baby-dress",
-    "subCategoryId": "sub-baby-girls-dress",
-    "subCategoryName": "Baby Girls Dress",
-    "subCategorySlug": "baby-girls-dress",
-    "brand": "Jawata Mart",
-    "price": 500,
-    "discount": 0,
-    "stock": 30,
-    "sku": "JM-BDR-CR-01",
-    "image": "/uploads/clean/1789051393254.jpg",
-    "images": [
-      "/uploads/clean/1789051393254.jpg",
-      "/uploads/clean/1789051393352.jpg"
-    ],
-    "description": "Exquisite 3-piece handmade crochet outfit featuring ruffle skirt frock, floral accent sunhat, and matching booties. Ideal for baby photography and celebrations.",
-    "specifications": {
-      "Pieces": "Dress + Sunhat + Booties",
-      "Yarn": "100% Breathable Soft Cotton Yarn",
-      "Care": "Hand Wash Cold"
-    },
-    "badge": "Handmade",
-    "isFeatured": true,
-    "isBestSeller": true,
-    "isNew": true,
-    "isActive": true,
-    "rating": 5,
-    "reviewCount": 64,
-    "categories": [
-      "Baby Dress"
-    ],
-    "variants": [],
-    "mergedFromSlugs": []
-  },
-  {
     "id": "p-drv-bdr-bunny-knit-romper",
     "name": "Cozy Knitted Bunny Ear Hooded Romper Jumpsuit with Tail",
     "slug": "cozy-knitted-bunny-hooded-romper-jumpsuit",
@@ -709,44 +764,6 @@
     "isActive": true,
     "rating": 5,
     "reviewCount": 48,
-    "categories": [
-      "Baby Dress"
-    ],
-    "variants": [],
-    "mergedFromSlugs": []
-  },
-  {
-    "id": "p-drv-bdr-crochet-pink-floral",
-    "name": "Pink & White Hand-Knit Floral Baby Frock with Bow Headband & Booties",
-    "slug": "pink-white-hand-knit-floral-baby-frock",
-    "categoryId": "cat-baby-dress",
-    "categoryName": "Baby Dress",
-    "categorySlug": "baby-dress",
-    "subCategoryId": "sub-baby-girls-dress",
-    "subCategoryName": "Baby Girls Dress",
-    "subCategorySlug": "baby-girls-dress",
-    "brand": "Jawata Mart",
-    "price": 500,
-    "discount": 0,
-    "stock": 35,
-    "sku": "JM-BDR-CR-02",
-    "image": "/uploads/clean/1789051393299.jpg",
-    "images": [
-      "/uploads/clean/1789051393299.jpg"
-    ],
-    "description": "Delightful handcrafted crochet princess dress adorned with 3D handmade flowers at the waistline, coordinating bow headband, and matching baby socks.",
-    "specifications": {
-      "Items": "Frock + Headband + Baby Shoes",
-      "Yarn": "Pure Combed Cotton Yarn",
-      "Craft": "100% Artisanal Handmade"
-    },
-    "badge": "Artisanal",
-    "isFeatured": true,
-    "isBestSeller": false,
-    "isNew": true,
-    "isActive": true,
-    "rating": 4.9,
-    "reviewCount": 29,
     "categories": [
       "Baby Dress"
     ],
@@ -830,44 +847,6 @@
     "mergedFromSlugs": []
   },
   {
-    "id": "p-drv-bdr-magenta-flower-frock",
-    "name": "Magenta & White Lace Trim Handcrafted Baby Frock with Pearl Headband",
-    "slug": "magenta-white-lace-trim-handcrafted-baby-frock",
-    "categoryId": "cat-baby-dress",
-    "categoryName": "Baby Dress",
-    "categorySlug": "baby-dress",
-    "subCategoryId": "sub-baby-girls-dress",
-    "subCategoryName": "Baby Girls Dress",
-    "subCategorySlug": "baby-girls-dress",
-    "brand": "Jawata Mart",
-    "price": 500,
-    "discount": 0,
-    "stock": 30,
-    "sku": "JM-BDR-CR-04",
-    "image": "/uploads/clean/1789051393410.jpg",
-    "images": [
-      "/uploads/clean/1789051393410.jpg"
-    ],
-    "description": "Bright magenta floral lace design crochet frock featuring beaded flower brooch, hanging pompom tassel strings, and pearl floral shoes.",
-    "specifications": {
-      "Yarn": "Skin-friendly Milk Cotton",
-      "Details": "Tassel Pompoms & Pearl Center",
-      "Set Includes": "Frock, Headband, Booties"
-    },
-    "badge": "Artisan Choice",
-    "isFeatured": true,
-    "isBestSeller": false,
-    "isNew": true,
-    "isActive": true,
-    "rating": 4.8,
-    "reviewCount": 26,
-    "categories": [
-      "Baby Dress"
-    ],
-    "variants": [],
-    "mergedFromSlugs": []
-  },
-  {
     "id": "p-drv-bdr-purple-bloomer-suit",
     "name": "Royal Purple & White 4-Piece Crochet Frock, Bloomers, Bag & Booties",
     "slug": "royal-purple-crochet-frock-bloomers-bag-booties-set",
@@ -937,192 +916,6 @@
     "isActive": true,
     "rating": 4.8,
     "reviewCount": 19,
-    "categories": [
-      "Baby Dress"
-    ],
-    "variants": [],
-    "mergedFromSlugs": []
-  },
-  {
-    "id": "p-drv-bdr-red-cherry-romper",
-    "name": "Handmade Crochet Baby Romper with Hanging Cherries & Floral Shoes",
-    "slug": "handmade-crochet-baby-romper-hanging-cherries",
-    "categoryId": "cat-baby-dress",
-    "categoryName": "Baby Dress",
-    "categorySlug": "baby-dress",
-    "subCategoryId": "sub-rompers-sets",
-    "subCategoryName": "Rompers & Sets",
-    "subCategorySlug": "rompers-sets",
-    "brand": "Jawata Mart",
-    "price": 500,
-    "discount": 0,
-    "stock": 35,
-    "sku": "JM-BDR-ROMP-02",
-    "image": "/uploads/clean/1789051393506.jpg",
-    "images": [
-      "/uploads/clean/1789051393506.jpg"
-    ],
-    "description": "Adorable white open-knit baby romper with red cherry tassels, ruffled cap sleeves, wooden diaper buttons, and bow-knot headband.",
-    "specifications": {
-      "Design": "Polka Dots & 3D Cherries",
-      "Fasteners": "Wooden Bottom Snap Buttons",
-      "Material": "Breathable Cotton Yarn"
-    },
-    "badge": "Best Seller",
-    "isFeatured": true,
-    "isBestSeller": true,
-    "isNew": true,
-    "isActive": true,
-    "rating": 5,
-    "reviewCount": 43,
-    "categories": [
-      "Baby Dress"
-    ],
-    "variants": [],
-    "mergedFromSlugs": []
-  },
-  {
-    "id": "p-drv-bdr-pink-floral-romper",
-    "name": "Blush Pink Cherry Crochet Baby Onesie Romper with Floral Headband",
-    "slug": "blush-pink-cherry-crochet-baby-romper",
-    "categoryId": "cat-baby-dress",
-    "categoryName": "Baby Dress",
-    "categorySlug": "baby-dress",
-    "subCategoryId": "sub-rompers-sets",
-    "subCategoryName": "Rompers & Sets",
-    "subCategorySlug": "rompers-sets",
-    "brand": "Jawata Mart",
-    "price": 500,
-    "discount": 0,
-    "stock": 32,
-    "sku": "JM-BDR-ROMP-03",
-    "image": "/uploads/clean/1789051393541.jpg",
-    "images": [
-      "/uploads/clean/1789051393541.jpg"
-    ],
-    "description": "Tender blush pink and ivory white crochet romper with waist drawstring, dangling crocheted cherries, and flower applique booties.",
-    "specifications": {
-      "Details": "Adjustable Waist String with Tassels",
-      "Yarn": "Anti-Allergy Baby Cotton"
-    },
-    "badge": "Sweet Pastel",
-    "isFeatured": true,
-    "isBestSeller": false,
-    "isNew": true,
-    "isActive": true,
-    "rating": 4.9,
-    "reviewCount": 27,
-    "categories": [
-      "Baby Dress"
-    ],
-    "variants": [],
-    "mergedFromSlugs": []
-  },
-  {
-    "id": "p-drv-bdr-red-floral-frock",
-    "name": "Handcrafted Red Blossom Scallop Edge Baby Frock & Long Knit Booties",
-    "slug": "handcrafted-red-blossom-scallop-baby-frock",
-    "categoryId": "cat-baby-dress",
-    "categoryName": "Baby Dress",
-    "categorySlug": "baby-dress",
-    "subCategoryId": "sub-baby-girls-dress",
-    "subCategoryName": "Baby Girls Dress",
-    "subCategorySlug": "baby-girls-dress",
-    "brand": "Jawata Mart",
-    "price": 500,
-    "discount": 0,
-    "stock": 30,
-    "sku": "JM-BDR-CR-07",
-    "image": "/uploads/clean/1789051393573.jpg",
-    "images": [
-      "/uploads/clean/1789051393573.jpg"
-    ],
-    "description": "Festive red and snow white crochet baby frock bordered with scalloped lace, big ribbon bow at chest, and matching high knit socks.",
-    "specifications": {
-      "Skirt Details": "Scalloped Floral Hem",
-      "Warmth": "High Knit Baby Bootie Socks Included"
-    },
-    "badge": "Festive",
-    "isFeatured": true,
-    "isBestSeller": false,
-    "isNew": true,
-    "isActive": true,
-    "rating": 5,
-    "reviewCount": 39,
-    "categories": [
-      "Baby Dress"
-    ],
-    "variants": [],
-    "mergedFromSlugs": []
-  },
-  {
-    "id": "p-drv-bdr-lavender-tutu-dress",
-    "name": "Princess Lavender Organza Puffed Sleeve Tutu Dress with Ribbon Headband",
-    "slug": "princess-lavender-organza-tutu-baby-dress",
-    "categoryId": "cat-baby-dress",
-    "categoryName": "Baby Dress",
-    "categorySlug": "baby-dress",
-    "subCategoryId": "sub-baby-girls-dress",
-    "subCategoryName": "Baby Girls Dress",
-    "subCategorySlug": "baby-girls-dress",
-    "brand": "Jawata Mart",
-    "price": 500,
-    "discount": 0,
-    "stock": 35,
-    "sku": "JM-BDR-TUTU-01",
-    "image": "/uploads/clean/1789051393607.jpg",
-    "images": [
-      "/uploads/clean/1789051393607.jpg"
-    ],
-    "description": "Gorgeous lilac puffed sleeves organza dress with oversized front bow and knit lace tights. Ideal for newborn milestones and naming ceremonies.",
-    "specifications": {
-      "Sleeves": "Puffed Fairy Cap Sleeves",
-      "Accessories": "Stretch Floral Knot Headband"
-    },
-    "badge": "Princess",
-    "isFeatured": true,
-    "isBestSeller": true,
-    "isNew": true,
-    "isActive": true,
-    "rating": 5,
-    "reviewCount": 55,
-    "categories": [
-      "Baby Dress"
-    ],
-    "variants": [],
-    "mergedFromSlugs": []
-  },
-  {
-    "id": "p-drv-bdr-white-rosette-romper",
-    "name": "Pure White Spaghetti Strap Baby Romper with 3D Rosette Flower",
-    "slug": "pure-white-spaghetti-strap-baby-romper-with-rosette",
-    "categoryId": "cat-baby-dress",
-    "categoryName": "Baby Dress",
-    "categorySlug": "baby-dress",
-    "subCategoryId": "sub-rompers-sets",
-    "subCategoryName": "Rompers & Sets",
-    "subCategorySlug": "rompers-sets",
-    "brand": "Jawata Mart",
-    "price": 500,
-    "discount": 0,
-    "stock": 25,
-    "sku": "JM-BDR-ROMP-04",
-    "image": "/uploads/clean/1789051393654.jpg",
-    "images": [
-      "/uploads/clean/1789051393654.jpg"
-    ],
-    "description": "Clean minimalist summer baby romper with large sculpted 3D center rose, adjustable shoulder straps, and soft pink crib shoes.",
-    "specifications": {
-      "Fabric": "Featherweight Soft Lycra Cotton",
-      "Origin": "Imported"
-    },
-    "badge": "Summer Special",
-    "isFeatured": false,
-    "isBestSeller": false,
-    "isNew": true,
-    "isActive": true,
-    "rating": 4.8,
-    "reviewCount": 21,
     "categories": [
       "Baby Dress"
     ],
@@ -1244,7 +1037,7 @@
   },
   {
     "id": "p-drv-bsh-fishnet-bow-socks",
-    "name": "Baby & Toddler Bowtie Fishnet Ruffle Knee-High Socks (Black & White)",
+    "name": "Kids & Baby Stylist Socks",
     "slug": "baby-toddler-bowtie-fishnet-socks",
     "categoryId": "cat-baby-shoes",
     "categoryName": "Baby Shoes",
@@ -1253,15 +1046,21 @@
     "subCategoryName": "Toddler Sneakers & Sandals",
     "subCategorySlug": "toddler-sneakers",
     "brand": "Jawata Mart",
-    "price": 420,
+    "price": 399,
     "originalPrice": 550,
     "discount": 0,
-    "stock": 70,
+    "stock": 160,
     "sku": "JM-BSH-SCK-01",
     "image": "/uploads/clean/1789051394106.jpg",
     "images": [
       "/uploads/clean/1789051394106.jpg",
-      "/uploads/clean/1789051394076.jpg"
+      "/uploads/1792612440560-3._Socks.jpeg.webp",
+      "/uploads/1792612445790-4._Socks.jpeg.webp",
+      "/uploads/1792612450670-5._Long_Socks.jpeg.webp",
+      "/uploads/1792612463756-6._Long_Socks.jpeg.webp",
+      "/uploads/1792612699225-1._Long_Socks_Pant.jfif.webp",
+      "/uploads/1792612705515-2._Long_Socks.jpeg.webp",
+      "/uploads/1792612726470-6._Long_Socks__2_.jpeg.webp"
     ],
     "description": "Stylish breathable hollow fishnet mesh socks for girls decorated with large satin bow ties. Looks charming paired with frocks and party dresses.",
     "specifications": {
@@ -1277,9 +1076,131 @@
     "rating": 4.9,
     "reviewCount": 37,
     "categories": [
-      "Baby Items"
+      "Baby Items",
+      "Winter Items"
     ],
-    "variants": [],
+    "variants": [
+      {
+        "id": "var_1792777984398_hxeg",
+        "name": "Variant 1",
+        "value": "Variant 1",
+        "sku": "JM-VAR-MVL9R4G2-1",
+        "price": 399,
+        "regularPrice": 450,
+        "stock": 20,
+        "image": "/uploads/1792778000645-2._Long_Socks.jpeg.webp",
+        "images": [
+          "/uploads/1792778000645-2._Long_Socks.jpeg.webp"
+        ],
+        "isActive": true,
+        "order": 0
+      },
+      {
+        "id": "var_1792778048696_dvlr",
+        "name": "Variant 2",
+        "value": "Variant 2",
+        "sku": "JM-VAR-MVL9SCH7-2",
+        "price": 399,
+        "regularPrice": 450,
+        "stock": 20,
+        "image": "/uploads/1792778072987-3._Socks.jpeg.webp",
+        "images": [
+          "/uploads/1792778072987-3._Socks.jpeg.webp"
+        ],
+        "isActive": true,
+        "order": 1
+      },
+      {
+        "id": "var_1792778114057_iixk",
+        "name": "Variant 3",
+        "value": "Variant 3",
+        "sku": "JM-VAR-MVL9TQ8G-3",
+        "price": 399,
+        "regularPrice": 450,
+        "stock": 20,
+        "image": "/uploads/1792778142681-4._Long_Socks.jpeg.webp",
+        "images": [
+          "/uploads/1792778142681-4._Long_Socks.jpeg.webp"
+        ],
+        "isActive": true,
+        "order": 2
+      },
+      {
+        "id": "var_1792778184776_keo3",
+        "name": "Variant 4",
+        "value": "Variant 4",
+        "sku": "JM-VAR-MVL9UZR8-4",
+        "price": 399,
+        "regularPrice": 450,
+        "stock": 20,
+        "image": "/uploads/1792778200311-4._Socks.jpeg.webp",
+        "images": [
+          "/uploads/1792778200311-4._Socks.jpeg.webp"
+        ],
+        "isActive": true,
+        "order": 3
+      },
+      {
+        "id": "var_1792778231335_m09e",
+        "name": "Variant 5",
+        "value": "Variant 5",
+        "sku": "JM-VAR-MVL9VWAC-5",
+        "price": 399,
+        "regularPrice": 450,
+        "stock": 20,
+        "image": "/uploads/1792778244009-5._Long_Socks.jpeg.webp",
+        "images": [
+          "/uploads/1792778244009-5._Long_Socks.jpeg.webp"
+        ],
+        "isActive": true,
+        "order": 4
+      },
+      {
+        "id": "var_1792778273185_2cxu",
+        "name": "Variant 6",
+        "value": "Variant 6",
+        "sku": "JM-VAR-MVL9WSKF-6",
+        "price": 399,
+        "regularPrice": 450,
+        "stock": 20,
+        "image": "/uploads/1792778284356-6._Long_Socks__2_.jpeg.webp",
+        "images": [
+          "/uploads/1792778284356-6._Long_Socks__2_.jpeg.webp"
+        ],
+        "isActive": true,
+        "order": 5
+      },
+      {
+        "id": "var_1792778330145_v5kv",
+        "name": "Variant 7",
+        "value": "Variant 7",
+        "sku": "JM-VAR-MVL9XZCA-7",
+        "price": 399,
+        "regularPrice": 450,
+        "stock": 20,
+        "image": "/uploads/1792778341885-6._Long_Socks.jpeg.webp",
+        "images": [
+          "/uploads/1792778341885-6._Long_Socks.jpeg.webp"
+        ],
+        "isActive": true,
+        "order": 6
+      },
+      {
+        "id": "var_1792778527804_pg7q",
+        "name": "Variant 8",
+        "value": "Variant 8",
+        "sku": "JM-VAR-MVLABAMV-8",
+        "price": 399,
+        "regularPrice": 450,
+        "stock": 20,
+        "image": "/uploads/1792778962252-4._Long_Socks.jpeg.webp",
+        "images": [
+          "/uploads/1792778962252-4._Long_Socks.jpeg.webp"
+        ],
+        "isActive": true,
+        "order": 7
+      }
+    ],
     "mergedFromSlugs": []
   },
   {
@@ -1293,14 +1214,21 @@
     "subCategoryName": "Toddler Sneakers & Sandals",
     "subCategorySlug": "toddler-sneakers",
     "brand": "Jawata Mart",
-    "price": 650,
+    "price": 399,
     "originalPrice": 850,
     "discount": 0,
     "stock": 50,
     "sku": "JM-BSH-SCK-02",
     "image": "/uploads/clean/1789051394076.jpg",
     "images": [
-      "/uploads/clean/1789051394076.jpg"
+      "/uploads/clean/1789051394076.jpg",
+      "/uploads/1792605820386-Long_Socks_Pant.jfif.webp",
+      "/uploads/1792612602042-6._Long_Socks__2_.jpeg.webp",
+      "/uploads/1792612623220-3._Socks.jpeg.webp",
+      "/uploads/1792612638821-4._Long_Socks.jpeg.webp",
+      "/uploads/1792612643385-4._Socks.jpeg.webp",
+      "/uploads/1792612647969-5._Long_Socks.jpeg.webp",
+      "/uploads/1792612660828-6._Long_Socks.jpeg.webp"
     ],
     "description": "Elegant diamond mesh leggings with delicate woven butterfly motifs. Perfect match with Mary Jane shoes and party frocks.",
     "specifications": {
@@ -1315,7 +1243,8 @@
     "rating": 4.8,
     "reviewCount": 22,
     "categories": [
-      "Baby Items"
+      "Baby Items",
+      "Winter Items"
     ],
     "variants": [],
     "mergedFromSlugs": []
@@ -1409,23 +1338,16 @@
     "subCategoryName": "Winter Caps & Socks",
     "subCategorySlug": "winter-caps-socks",
     "brand": "Jawata Mart",
-    "price": 599,
+    "price": 650,
     "originalPrice": 750,
     "discount": 0,
-    "stock": 73,
+    "stock": 0,
     "sku": "JM-WNT-EAR-01",
-    "image": "/uploads/clean/1789051393898.jpg",
+    "image": "/uploads/1792771846978-3.jpeg.webp",
     "images": [
-      "/uploads/clean/1789051393898.jpg",
-      "/uploads/clean/1789051393932.jpg",
-      "/uploads/1792347301071-Hello_Kitty...jpeg.webp",
-      "/uploads/1792347322242-Hello_Kitty.jpeg.webp",
-      "/uploads/1792347354966-Kids_Ear_Muff...jpeg.webp",
-      "/uploads/1792347491922-1.jpeg.webp",
-      "/uploads/1792347501086-4.jpeg.webp",
-      "/uploads/1792347508347-Ear_Muff.jfif.webp"
+      "/uploads/1792771846978-3.jpeg.webp"
     ],
-    "description": "Super cute rabbit ear moving earmuffs! Press the soft hanging paws and the ears flap happily up and down. Keeps ears comfortably warm and protected from cold winds.",
+    "description": "শীত আসছে, আর আপনার ছোট্ট সোনামণির শীতের সাজ হবে না একটু স্পেশাল?\nশীতের পোশাকের সঙ্গে যদি থাকে সুন্দর একটি Ear Muff, তাহলে কেমন হয়? আপনার বাচ্চার শীতের সাজে কিউটনেসের ছোঁয়া যোগ করতে নিয়ে এসেছে Jawata Mart-এর স্টাইলিশ Winter Ear Muff! \nনরম, ফ্লাফি আর আরামদায়ক ডিজাইনের এই Ear Muff শীতের ঠান্ডা বাতাসে বাচ্চার কান উষ্ণ রাখতে সাহায্য করবে। পাশাপাশি এর আকর্ষণীয় লুক আপনার সোনামণিকে করে তুলবে আরও কিউট ও স্টাইলিশ!\nস্কুলে যাওয়া, বিকেলে ঘুরতে বের হওয়া কিংবা পরিবারের সঙ্গে শীতের ভ্রমণ—সব সময়ই মানিয়ে যাবে এই সুন্দর Ear Muff।\nআর সবচেয়ে মজার বিষয় হলো, বেবি পিঙ্ক, রেড, ব্ল্যাক, ক্রিমসহ রয়েছে বিভিন্ন আকর্ষণীয় কালার। আপনার সোনামণির পছন্দ অনুযায়ী বেছে নিন সেরা রঙটি। \nতাহলে এই শীতে ছোট্ট সোনামণির জন্য পছন্দের Ear Muff-টি নিতে আর দেরি কেন?\nঅর্ডার করতে এখনই ইনবক্স করুন Jawata Mart-এ অথবা M: 01915210799.\nWebsite: www.jawatamart.com\nJawata Mart—ছোট্ট সোনামণির প্রতিটি মুহূর্ত হোক আরও সুন্দর ও রঙিন!",
     "specifications": {
       "Feature": "Airbag Pump Flapping Ears",
       "Material": "Super Soft Faux Fur Fluff",
@@ -1443,7 +1365,10 @@
       "Baby Items"
     ],
     "variants": [],
-    "mergedFromSlugs": []
+    "mergedFromSlugs": [],
+    "isGroupPlaceholder": true,
+    "groupId": "group_p-drv-wnt-rabbit-earmuffs-airbag",
+    "groupSlug": "moving-airbag-rabbit-ears-plush-winter-earmuffs"
   },
   {
     "id": "p-drv-wnt-plush-round-earmuffs",
@@ -1467,7 +1392,7 @@
       "/uploads/1792083626662-4.jpeg.webp",
       "/uploads/1792348447824-Ear_Muff.jfif.webp"
     ],
-    "description": "Classic lightweight thermal ear muffs made of plush thick faux rabbit fur. Flexible headband suitable for teenagers, women, and kids.",
+    "description": "শীতে কানে ঠান্ডা বাতাস ঢুকে বাচ্চার কান ব্যাথা. এখন আর টুপির ঝামেলা নয়!\nJawata Mart নিয়ে এলো Super Soft Winter Ear Muffs \n ✅ নরম উলের ভিতরে - কান থাকবে গরম, আরামদায়ক\n✅ ফ্যাশনেবল ডিজাইন - বাচ্চা-বড় সবাই পরতে পারবে\n✅ ফোল্ডেবল - পকেটে নিয়ে যাওয়া যায়\n✅ কানে ব্যাথা করবে না, দীর্ঘক্ষন পরে থাকা যায়\nকালার: Pink, Grey, Black, Coffee.\nস্টক শেষ হওয়ার আগেই অর্ডার করুন!\n📞 Call: 01915210799",
     "specifications": {
       "Fit": "Flexible Adjustable Band",
       "Lining": "High Density Plush Fur",
@@ -2343,6 +2268,190 @@
     "categories": [
       "Islamic Items"
     ],
+    "variants": [],
+    "mergedFromSlugs": []
+  },
+  {
+    "id": "prod_split_var_1792865390008_vzxk",
+    "name": "Ear Muff — Kids Edition",
+    "slug": "ear-muff-kids-edition-jm-var-mvmps74z-3",
+    "categoryId": "cat-winter-items",
+    "categoryName": "Winter Items",
+    "categorySlug": "winter-items",
+    "categories": [
+      "Winter Items",
+      "Baby Items"
+    ],
+    "subCategoryId": "sub-winter-caps-socks",
+    "subCategoryName": "Winter Caps & Socks",
+    "subCategorySlug": "winter-caps-socks",
+    "brand": "Jawata Mart",
+    "price": 499,
+    "originalPrice": 599,
+    "discount": 17,
+    "stock": 20,
+    "sku": "JM-VAR-MVMPS74Z-3",
+    "image": "/uploads/1792865407066-Kids_Ear_Muff...jpeg.webp",
+    "images": [
+      "/uploads/1792865407066-Kids_Ear_Muff...jpeg.webp"
+    ],
+    "description": "শীত আসছে, আর আপনার ছোট্ট সোনামণির শীতের সাজ হবে না একটু স্পেশাল?\nশীতের পোশাকের সঙ্গে যদি থাকে সুন্দর একটি Ear Muff, তাহলে কেমন হয়? আপনার বাচ্চার শীতের সাজে কিউটনেসের ছোঁয়া যোগ করতে নিয়ে এসেছে Jawata Mart-এর স্টাইলিশ Winter Ear Muff! \nনরম, ফ্লাফি আর আরামদায়ক ডিজাইনের এই Ear Muff শীতের ঠান্ডা বাতাসে বাচ্চার কান উষ্ণ রাখতে সাহায্য করবে। পাশাপাশি এর আকর্ষণীয় লুক আপনার সোনামণিকে করে তুলবে আরও কিউট ও স্টাইলিশ!\nস্কুলে যাওয়া, বিকেলে ঘুরতে বের হওয়া কিংবা পরিবারের সঙ্গে শীতের ভ্রমণ—সব সময়ই মানিয়ে যাবে এই সুন্দর Ear Muff।\nআর সবচেয়ে মজার বিষয় হলো, বেবি পিঙ্ক, রেড, ব্ল্যাক, ক্রিমসহ রয়েছে বিভিন্ন আকর্ষণীয় কালার। আপনার সোনামণির পছন্দ অনুযায়ী বেছে নিন সেরা রঙটি। \nতাহলে এই শীতে ছোট্ট সোনামণির জন্য পছন্দের Ear Muff-টি নিতে আর দেরি কেন?\nঅর্ডার করতে এখনই ইনবক্স করুন Jawata Mart-এ অথবা M: 01915210799.\nWebsite: www.jawatamart.com\nJawata Mart—ছোট্ট সোনামণির প্রতিটি মুহূর্ত হোক আরও সুন্দর ও রঙিন!",
+    "specifications": {
+      "Feature": "Airbag Pump Flapping Ears",
+      "Material": "Super Soft Faux Fur Fluff",
+      "Colors": "Pink, Yellow, Lavender, White",
+      "Style": "Kids Edition"
+    },
+    "badge": "Viral Hit",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 94,
+    "groupId": null,
+    "groupSlug": null,
+    "oldVariantId": "var_1792865390008_vzxk",
+    "variants": [],
+    "mergedFromSlugs": []
+  },
+  {
+    "id": "prod_split_var_1792865430950_e4wz",
+    "name": "Ear Muff — Airbag Moving Ears",
+    "slug": "ear-muff-airbag-moving-ears-jm-var-mvmpty5o-4",
+    "categoryId": "cat-winter-items",
+    "categoryName": "Winter Items",
+    "categorySlug": "winter-items",
+    "categories": [
+      "Winter Items",
+      "Baby Items"
+    ],
+    "subCategoryId": "sub-winter-caps-socks",
+    "subCategoryName": "Winter Caps & Socks",
+    "subCategorySlug": "winter-caps-socks",
+    "brand": "Jawata Mart",
+    "price": 480,
+    "originalPrice": 580,
+    "discount": 17,
+    "stock": 20,
+    "sku": "JM-VAR-MVMPTY5O-4",
+    "image": "/uploads/1792865446574-1.jpeg.webp",
+    "images": [
+      "/uploads/1792865446574-1.jpeg.webp",
+      "/uploads/1792865476759-4.jpeg.webp",
+      "/uploads/1792865492870-Ear_Muff.jfif.webp",
+      "/uploads/1792869238551-1.jpeg.webp"
+    ],
+    "description": "শীত আসছে, আর আপনার ছোট্ট সোনামণির শীতের সাজ হবে না একটু স্পেশাল?\nশীতের পোশাকের সঙ্গে যদি থাকে সুন্দর একটি Ear Muff, তাহলে কেমন হয়? আপনার বাচ্চার শীতের সাজে কিউটনেসের ছোঁয়া যোগ করতে নিয়ে এসেছে Jawata Mart-এর স্টাইলিশ Winter Ear Muff! \nনরম, ফ্লাফি আর আরামদায়ক ডিজাইনের এই Ear Muff শীতের ঠান্ডা বাতাসে বাচ্চার কান উষ্ণ রাখতে সাহায্য করবে। পাশাপাশি এর আকর্ষণীয় লুক আপনার সোনামণিকে করে তুলবে আরও কিউট ও স্টাইলিশ!\nস্কুলে যাওয়া, বিকেলে ঘুরতে বের হওয়া কিংবা পরিবারের সঙ্গে শীতের ভ্রমণ—সব সময়ই মানিয়ে যাবে এই সুন্দর Ear Muff।\nআর সবচেয়ে মজার বিষয় হলো, বেবি পিঙ্ক, রেড, ব্ল্যাক, ক্রিমসহ রয়েছে বিভিন্ন আকর্ষণীয় কালার। আপনার সোনামণির পছন্দ অনুযায়ী বেছে নিন সেরা রঙটি। \nতাহলে এই শীতে ছোট্ট সোনামণির জন্য পছন্দের Ear Muff-টি নিতে আর দেরি কেন?\nঅর্ডার করতে এখনই ইনবক্স করুন Jawata Mart-এ অথবা M: 01915210799.\nWebsite: www.jawatamart.com\nJawata Mart—ছোট্ট সোনামণির প্রতিটি মুহূর্ত হোক আরও সুন্দর ও রঙিন!",
+    "specifications": {
+      "Feature": "Airbag Pump Flapping Ears",
+      "Material": "Super Soft Faux Fur Fluff",
+      "Colors": "Pink, Yellow, Lavender, White",
+      "Style": "Airbag Moving Ears"
+    },
+    "badge": "Viral Hit",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 94,
+    "groupId": null,
+    "groupSlug": null,
+    "oldVariantId": "var_1792865430950_e4wz",
+    "variants": [],
+    "mergedFromSlugs": []
+  },
+  {
+    "id": "prod_split_var_1792869458194_o8b6",
+    "name": "Ear Muff — Hello Kitty Edition",
+    "slug": "ear-muff-hello-kitty-edition-jm-var-mvms8ndi-3",
+    "categoryId": "cat-winter-items",
+    "categoryName": "Winter Items",
+    "categorySlug": "winter-items",
+    "categories": [
+      "Winter Items",
+      "Baby Items"
+    ],
+    "subCategoryId": "sub-winter-caps-socks",
+    "subCategoryName": "Winter Caps & Socks",
+    "subCategorySlug": "winter-caps-socks",
+    "brand": "Jawata Mart",
+    "price": 599,
+    "originalPrice": 699,
+    "discount": 14,
+    "stock": 20,
+    "sku": "JM-VAR-MVMS8NDI-3",
+    "image": "/uploads/1792869484790-Hello_Kitty....jpeg.webp",
+    "images": [
+      "/uploads/1792869484790-Hello_Kitty....jpeg.webp",
+      "/uploads/1792869526378-Hello_Kitty...jpeg.webp",
+      "/uploads/1792869543995-Hello_Kitty.jpeg.webp",
+      "/uploads/1792869831717-Hello_Kitty....jpeg.webp"
+    ],
+    "description": "শীত আসছে, আর আপনার ছোট্ট সোনামণির শীতের সাজ হবে না একটু স্পেশাল?\nশীতের পোশাকের সঙ্গে যদি থাকে সুন্দর একটি Ear Muff, তাহলে কেমন হয়? আপনার বাচ্চার শীতের সাজে কিউটনেসের ছোঁয়া যোগ করতে নিয়ে এসেছে Jawata Mart-এর স্টাইলিশ Winter Ear Muff! \nনরম, ফ্লাফি আর আরামদায়ক ডিজাইনের এই Ear Muff শীতের ঠান্ডা বাতাসে বাচ্চার কান উষ্ণ রাখতে সাহায্য করবে। পাশাপাশি এর আকর্ষণীয় লুক আপনার সোনামণিকে করে তুলবে আরও কিউট ও স্টাইলিশ!\nস্কুলে যাওয়া, বিকেলে ঘুরতে বের হওয়া কিংবা পরিবারের সঙ্গে শীতের ভ্রমণ—সব সময়ই মানিয়ে যাবে এই সুন্দর Ear Muff।\nআর সবচেয়ে মজার বিষয় হলো, বেবি পিঙ্ক, রেড, ব্ল্যাক, ক্রিমসহ রয়েছে বিভিন্ন আকর্ষণীয় কালার। আপনার সোনামণির পছন্দ অনুযায়ী বেছে নিন সেরা রঙটি। \nতাহলে এই শীতে ছোট্ট সোনামণির জন্য পছন্দের Ear Muff-টি নিতে আর দেরি কেন?\nঅর্ডার করতে এখনই ইনবক্স করুন Jawata Mart-এ অথবা M: 01915210799.\nWebsite: www.jawatamart.com\nJawata Mart—ছোট্ট সোনামণির প্রতিটি মুহূর্ত হোক আরও সুন্দর ও রঙিন!",
+    "specifications": {
+      "Feature": "Airbag Pump Flapping Ears",
+      "Material": "Super Soft Faux Fur Fluff",
+      "Colors": "Pink, Yellow, Lavender, White",
+      "Style": "Hello Kitty Edition"
+    },
+    "badge": "Viral Hit",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 94,
+    "groupId": "group_p-drv-wnt-rabbit-earmuffs-airbag",
+    "groupSlug": "moving-airbag-rabbit-ears-plush-winter-earmuffs",
+    "oldVariantId": "var_1792869458194_o8b6",
+    "variants": [],
+    "mergedFromSlugs": []
+  },
+  {
+    "id": "prod_split_var_1792869673651_d7k1",
+    "name": "Ear Muff — Velvet Warm Plush",
+    "slug": "ear-muff-velvet-warm-plush-jm-var-mvmsc3qr-4",
+    "categoryId": "cat-winter-items",
+    "categoryName": "Winter Items",
+    "categorySlug": "winter-items",
+    "categories": [
+      "Winter Items",
+      "Baby Items"
+    ],
+    "subCategoryId": "sub-winter-caps-socks",
+    "subCategoryName": "Winter Caps & Socks",
+    "subCategorySlug": "winter-caps-socks",
+    "brand": "Jawata Mart",
+    "price": 650,
+    "originalPrice": 750,
+    "discount": 13,
+    "stock": 20,
+    "sku": "JM-VAR-MVMSC3QR-4",
+    "image": "/uploads/1792869687460-3.jpeg.webp",
+    "images": [
+      "/uploads/1792869687460-3.jpeg.webp",
+      "/uploads/1792869699439-Ear_Muff.jpeg.webp",
+      "/uploads/1792869861885-3.jpeg.webp"
+    ],
+    "description": "শীত আসছে, আর আপনার ছোট্ট সোনামণির শীতের সাজ হবে না একটু স্পেশাল?\nশীতের পোশাকের সঙ্গে যদি থাকে সুন্দর একটি Ear Muff, তাহলে কেমন হয়? আপনার বাচ্চার শীতের সাজে কিউটনেসের ছোঁয়া যোগ করতে নিয়ে এসেছে Jawata Mart-এর স্টাইলিশ Winter Ear Muff! \nনরম, ফ্লাফি আর আরামদায়ক ডিজাইনের এই Ear Muff শীতের ঠান্ডা বাতাসে বাচ্চার কান উষ্ণ রাখতে সাহায্য করবে। পাশাপাশি এর আকর্ষণীয় লুক আপনার সোনামণিকে করে তুলবে আরও কিউট ও স্টাইলিশ!\nস্কুলে যাওয়া, বিকেলে ঘুরতে বের হওয়া কিংবা পরিবারের সঙ্গে শীতের ভ্রমণ—সব সময়ই মানিয়ে যাবে এই সুন্দর Ear Muff।\nআর সবচেয়ে মজার বিষয় হলো, বেবি পিঙ্ক, রেড, ব্ল্যাক, ক্রিমসহ রয়েছে বিভিন্ন আকর্ষণীয় কালার। আপনার সোনামণির পছন্দ অনুযায়ী বেছে নিন সেরা রঙটি। \nতাহলে এই শীতে ছোট্ট সোনামণির জন্য পছন্দের Ear Muff-টি নিতে আর দেরি কেন?\nঅর্ডার করতে এখনই ইনবক্স করুন Jawata Mart-এ অথবা M: 01915210799.\nWebsite: www.jawatamart.com\nJawata Mart—ছোট্ট সোনামণির প্রতিটি মুহূর্ত হোক আরও সুন্দর ও রঙিন!",
+    "specifications": {
+      "Feature": "Airbag Pump Flapping Ears",
+      "Material": "Super Soft Faux Fur Fluff",
+      "Colors": "Pink, Yellow, Lavender, White",
+      "Style": "Velvet Warm Plush"
+    },
+    "badge": "Viral Hit",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 94,
+    "groupId": "group_p-drv-wnt-rabbit-earmuffs-airbag",
+    "groupSlug": "moving-airbag-rabbit-ears-plush-winter-earmuffs",
+    "oldVariantId": "var_1792869673651_d7k1",
     "variants": [],
     "mergedFromSlugs": []
   }

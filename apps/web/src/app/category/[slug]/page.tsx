@@ -34,7 +34,13 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 
   const isAll = slug === 'all';
   const isOffer = offer === '1' || offer === 'true';
-  const categories = await dbService.getCategories();
+  const [categories, groups] = await Promise.all([
+    dbService.getCategories(),
+    dbService.getGroups({
+      categorySlug: isAll ? undefined : slug,
+      activeOnly: true,
+    }),
+  ]);
   const category = categories.find((c) => c.slug === slug || c.id === slug) || INITIAL_CATEGORIES.find((c) => c.slug === slug);
   const activeSub = category?.subCategories?.find((s) => s.slug === sub || s.id === sub || s.name.toLowerCase() === sub?.toLowerCase());
 
@@ -141,7 +147,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
       )}
 
       {/* Product Grid */}
-      <ProductGrid products={sortedProducts} />
+      <ProductGrid products={sortedProducts} groups={search ? [] : groups} />
     </div>
   );
 }

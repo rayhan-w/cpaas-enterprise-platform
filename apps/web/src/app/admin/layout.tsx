@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   ArrowLeft,
   Store,
+  Boxes,
 } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -50,6 +51,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: '/admin/payments', label: 'Payment Verification', icon: CreditCard },
     { href: '/admin/orders', label: 'Orders', icon: ShoppingBag },
     { href: '/admin/products', label: 'Products', icon: Package },
+    { href: '/admin/groups', label: 'Product Groups', icon: Boxes },
     { href: '/admin/categories', label: 'Categories', icon: Layers },
     { href: '/admin/customers', label: 'Customers', icon: Users },
     { href: '/admin/coupons', label: 'Coupons', icon: Tag },

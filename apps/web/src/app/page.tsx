@@ -16,9 +16,10 @@ export const revalidate = 60;
 
 
 export default async function HomePage() {
-  const [products, categories] = await Promise.all([
+  const [products, categories, groups] = await Promise.all([
     dbService.getProducts({ limit: 150 }),
     dbService.getCategories(),
+    dbService.getGroups({ activeOnly: true }),
   ]);
   const bestSellers = products.filter((p) => p.isBestSeller).slice(0, 8);
   const newArrivals = products.filter((p) => p.isNew).slice(0, 4);
@@ -85,7 +86,7 @@ export default async function HomePage() {
           </Link>
         </div>
 
-        <ProductGrid products={products.slice(0, 8)} />
+        <ProductGrid products={products.slice(0, 8)} groups={groups} />
       </section>
 
       {/* 6. Organic Food Showcase */}
