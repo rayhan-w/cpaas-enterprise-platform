@@ -14,7 +14,7 @@
     "price": 599,
     "originalPrice": 699,
     "discount": 0,
-    "stock": 40,
+    "stock": 0,
     "sku": "SKU-1792605471702",
     "image": "/uploads/1793003441033-Hello_Kitty.jpeg.webp",
     "images": [
@@ -39,59 +39,10 @@
     "subCategoryId": "sub-winter-caps-socks",
     "subCategoryName": "Winter Caps & Socks",
     "subCategorySlug": "winter-caps-socks",
-    "variants": [
-      {
-        "id": "var_1793003599975_syhw",
-        "name": "Variant 1",
-        "value": "Variant 1",
-        "sku": "JM-VAR-MVP04VY8-1",
-        "price": 599,
-        "regularPrice": 699,
-        "stock": 20,
-        "image": "/uploads/1793003683536-Hello_Kitty.jpeg.webp",
-        "images": [
-          "/uploads/1793003683536-Hello_Kitty.jpeg.webp"
-        ],
-        "isActive": true,
-        "order": 0,
-        "colors": [
-          {
-            "id": "col_1793003686266_yuz9",
-            "name": "Colour 1",
-            "swatch": "#1A1512",
-            "image": "/uploads/1793003703262-Hello_Kitty...jpeg.webp",
-            "images": [
-              "/uploads/1793003703262-Hello_Kitty...jpeg.webp"
-            ]
-          },
-          {
-            "id": "col_1793003706902_bg96",
-            "name": "Colour 2",
-            "swatch": "#1A1512",
-            "image": "/uploads/1793003738403-Hello_Kitty....jpeg.webp",
-            "images": [
-              "/uploads/1793003738403-Hello_Kitty....jpeg.webp"
-            ]
-          }
-        ]
-      },
-      {
-        "id": "var_1793003780323_xpqy",
-        "name": "Variant 2",
-        "value": "Variant 2",
-        "sku": "JM-VAR-MVP06WG5-2",
-        "price": 499,
-        "regularPrice": 599,
-        "stock": 20,
-        "image": "/uploads/1793003792817-Kids_Ear_Muff...jpeg.webp",
-        "images": [
-          "/uploads/1793003792817-Kids_Ear_Muff...jpeg.webp"
-        ],
-        "isActive": true,
-        "order": 1
-      }
-    ],
-    "mergedFromSlugs": []
+    "variants": [],
+    "mergedFromSlugs": [],
+    "isGroupPlaceholder": true,
+    "groupSlug": "moving-airbag-rabbit-ears-plush-winter-earmuffs"
   },
   {
     "id": "prod_1792143103812",
@@ -1049,7 +1000,7 @@
     "price": 399,
     "originalPrice": 550,
     "discount": 0,
-    "stock": 160,
+    "stock": 0,
     "sku": "JM-BSH-SCK-01",
     "image": "/uploads/clean/1789051394106.jpg",
     "images": [
@@ -1079,129 +1030,10 @@
       "Baby Items",
       "Winter Items"
     ],
-    "variants": [
-      {
-        "id": "var_1792777984398_hxeg",
-        "name": "Variant 1",
-        "value": "Variant 1",
-        "sku": "JM-VAR-MVL9R4G2-1",
-        "price": 399,
-        "regularPrice": 450,
-        "stock": 20,
-        "image": "/uploads/1792778000645-2._Long_Socks.jpeg.webp",
-        "images": [
-          "/uploads/1792778000645-2._Long_Socks.jpeg.webp"
-        ],
-        "isActive": true,
-        "order": 0
-      },
-      {
-        "id": "var_1792778048696_dvlr",
-        "name": "Variant 2",
-        "value": "Variant 2",
-        "sku": "JM-VAR-MVL9SCH7-2",
-        "price": 399,
-        "regularPrice": 450,
-        "stock": 20,
-        "image": "/uploads/1792778072987-3._Socks.jpeg.webp",
-        "images": [
-          "/uploads/1792778072987-3._Socks.jpeg.webp"
-        ],
-        "isActive": true,
-        "order": 1
-      },
-      {
-        "id": "var_1792778114057_iixk",
-        "name": "Variant 3",
-        "value": "Variant 3",
-        "sku": "JM-VAR-MVL9TQ8G-3",
-        "price": 399,
-        "regularPrice": 450,
-        "stock": 20,
-        "image": "/uploads/1792778142681-4._Long_Socks.jpeg.webp",
-        "images": [
-          "/uploads/1792778142681-4._Long_Socks.jpeg.webp"
-        ],
-        "isActive": true,
-        "order": 2
-      },
-      {
-        "id": "var_1792778184776_keo3",
-        "name": "Variant 4",
-        "value": "Variant 4",
-        "sku": "JM-VAR-MVL9UZR8-4",
-        "price": 399,
-        "regularPrice": 450,
-        "stock": 20,
-        "image": "/uploads/1792778200311-4._Socks.jpeg.webp",
-        "images": [
-          "/uploads/1792778200311-4._Socks.jpeg.webp"
-        ],
-        "isActive": true,
-        "order": 3
-      },
-      {
-        "id": "var_1792778231335_m09e",
-        "name": "Variant 5",
-        "value": "Variant 5",
-        "sku": "JM-VAR-MVL9VWAC-5",
-        "price": 399,
-        "regularPrice": 450,
-        "stock": 20,
-        "image": "/uploads/1792778244009-5._Long_Socks.jpeg.webp",
-        "images": [
-          "/uploads/1792778244009-5._Long_Socks.jpeg.webp"
-        ],
-        "isActive": true,
-        "order": 4
-      },
-      {
-        "id": "var_1792778273185_2cxu",
-        "name": "Variant 6",
-        "value": "Variant 6",
-        "sku": "JM-VAR-MVL9WSKF-6",
-        "price": 399,
-        "regularPrice": 450,
-        "stock": 20,
-        "image": "/uploads/1792778284356-6._Long_Socks__2_.jpeg.webp",
-        "images": [
-          "/uploads/1792778284356-6._Long_Socks__2_.jpeg.webp"
-        ],
-        "isActive": true,
-        "order": 5
-      },
-      {
-        "id": "var_1792778330145_v5kv",
-        "name": "Variant 7",
-        "value": "Variant 7",
-        "sku": "JM-VAR-MVL9XZCA-7",
-        "price": 399,
-        "regularPrice": 450,
-        "stock": 20,
-        "image": "/uploads/1792778341885-6._Long_Socks.jpeg.webp",
-        "images": [
-          "/uploads/1792778341885-6._Long_Socks.jpeg.webp"
-        ],
-        "isActive": true,
-        "order": 6
-      },
-      {
-        "id": "var_1792778527804_pg7q",
-        "name": "Variant 8",
-        "value": "Variant 8",
-        "sku": "JM-VAR-MVLABAMV-8",
-        "price": 399,
-        "regularPrice": 450,
-        "stock": 20,
-        "image": "/uploads/1792778962252-4._Long_Socks.jpeg.webp",
-        "images": [
-          "/uploads/1792778962252-4._Long_Socks.jpeg.webp"
-        ],
-        "isActive": true,
-        "order": 7
-      }
-    ],
-    "mergedFromSlugs": []
+    "variants": [],
+    "mergedFromSlugs": [],
+    "isGroupPlaceholder": true,
+    "groupSlug": "baby-toddler-bowtie-fishnet-socks"
   },
   {
     "id": "p-drv-bsh-diamond-mesh-tights",
@@ -2452,6 +2284,442 @@
     "groupId": "group_p-drv-wnt-rabbit-earmuffs-airbag",
     "groupSlug": "moving-airbag-rabbit-ears-plush-winter-earmuffs",
     "oldVariantId": "var_1792869673651_d7k1",
+    "variants": [],
+    "mergedFromSlugs": []
+  },
+  {
+    "id": "prod_split_var_1793003599975_syhw",
+    "name": "Ear Muff — Hello Kitty Sweetie",
+    "slug": "ear-muff-hello-kitty-sweetie-jm-var-mvp04vy8-1",
+    "categoryId": "cat-winter-items",
+    "categoryName": "Winter Items",
+    "categorySlug": "winter-items",
+    "categories": [
+      "Baby Items",
+      "Winter Items"
+    ],
+    "subCategoryId": "sub-winter-caps-socks",
+    "subCategoryName": "Winter Caps & Socks",
+    "subCategorySlug": "winter-caps-socks",
+    "brand": "Brand",
+    "price": 599,
+    "originalPrice": 699,
+    "discount": 14,
+    "stock": 20,
+    "sku": "JM-VAR-MVP04VY8-1",
+    "image": "/uploads/1793003683536-Hello_Kitty.jpeg.webp",
+    "images": [
+      "/uploads/1793003683536-Hello_Kitty.jpeg.webp",
+      "/uploads/1793003703262-Hello_Kitty...jpeg.webp",
+      "/uploads/1793003738403-Hello_Kitty....jpeg.webp"
+    ],
+    "description": "Ear Muff will be safed  from cool ofশীত আসছে, আর আপনার ছোট্ট সোনামণির শীতের সাজ হবে না একটু স্পেশাল?\nশীতের পোশাকের সঙ্গে যদি থাকে সুন্দর একটি Ear Muff, তাহলে কেমন হয়? আপনার বাচ্চার শীতের সাজে কিউটনেসের ছোঁয়া যোগ করতে নিয়ে এসেছে Jawata Mart-এর স্টাইলিশ Winter Ear Muff! \nনরম, ফ্লাফি আর আরামদায়ক ডিজাইনের এই Ear Muff শীতের ঠান্ডা বাতাসে বাচ্চার কান উষ্ণ রাখতে সাহায্য করবে। পাশাপাশি এর আকর্ষণীয় লুক আপনার সোনামণিকে করে তুলবে আরও কিউট ও স্টাইলিশ!\nস্কুলে যাওয়া, বিকেলে ঘুরতে বের হওয়া কিংবা পরিবারের সঙ্গে শীতের ভ্রমণ—সব সময়ই মানিয়ে যাবে এই সুন্দর Ear Muff।\nআর সবচেয়ে মজার বিষয় হলো, বেবি পিঙ্ক, রেড, ব্ল্যাক, ক্রিমসহ রয়েছে বিভিন্ন আকর্ষণীয় কালার। আপনার সোনামণির পছন্দ অনুযায়ী বেছে নিন সেরা রঙটি। \nতাহলে এই শীতে ছোট্ট সোনামণির জন্য পছন্দের Ear Muff-টি নিতে আর দেরি কেন?\nঅর্ডার করতে এখনই ইনবক্স করুন Jawata Mart-এ অথবা M: 01915210799.\nWebsite: www.jawatamart.com\nJawata Mart—ছোট্ট সোনামণির প্রতিটি মুহূর্ত হোক আরও সুন্দর ও রঙিন!  your cute baby",
+    "specifications": {
+      "_categories": [
+        "Baby Items",
+        "Winter Items"
+      ],
+      "Style": "Hello Kitty Sweetie"
+    },
+    "badge": null,
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": false,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 0,
+    "groupId": "group_p-drv-wnt-rabbit-earmuffs-airbag",
+    "groupSlug": "moving-airbag-rabbit-ears-plush-winter-earmuffs",
+    "oldVariantId": "var_1793003599975_syhw",
+    "variants": [],
+    "mergedFromSlugs": []
+  },
+  {
+    "id": "prod_split_var_1793003780323_xpqy",
+    "name": "Ear Muff — Winter Fluffy Ear Warmer",
+    "slug": "ear-muff-winter-fluffy-jm-var-mvp06wg5-2",
+    "categoryId": "cat-winter-items",
+    "categoryName": "Winter Items",
+    "categorySlug": "winter-items",
+    "categories": [
+      "Baby Items",
+      "Winter Items"
+    ],
+    "subCategoryId": "sub-winter-caps-socks",
+    "subCategoryName": "Winter Caps & Socks",
+    "subCategorySlug": "winter-caps-socks",
+    "brand": "Brand",
+    "price": 499,
+    "originalPrice": 599,
+    "discount": 17,
+    "stock": 20,
+    "sku": "JM-VAR-MVP06WG5-2",
+    "image": "/uploads/1793003792817-Kids_Ear_Muff...jpeg.webp",
+    "images": [
+      "/uploads/1793003792817-Kids_Ear_Muff...jpeg.webp"
+    ],
+    "description": "Ear Muff will be safed  from cool ofশীত আসছে, আর আপনার ছোট্ট সোনামণির শীতের সাজ হবে না একটু স্পেশাল?\nশীতের পোশাকের সঙ্গে যদি থাকে সুন্দর একটি Ear Muff, তাহলে কেমন হয়? আপনার বাচ্চার শীতের সাজে কিউটনেসের ছোঁয়া যোগ করতে নিয়ে এসেছে Jawata Mart-এর স্টাইলিশ Winter Ear Muff! \nনরম, ফ্লাফি আর আরামদায়ক ডিজাইনের এই Ear Muff শীতের ঠান্ডা বাতাসে বাচ্চার কান উষ্ণ রাখতে সাহায্য করবে। পাশাপাশি এর আকর্ষণীয় লুক আপনার সোনামণিকে করে তুলবে আরও কিউট ও স্টাইলিশ!\nস্কুলে যাওয়া, বিকেলে ঘুরতে বের হওয়া কিংবা পরিবারের সঙ্গে শীতের ভ্রমণ—সব সময়ই মানিয়ে যাবে এই সুন্দর Ear Muff।\nআর সবচেয়ে মজার বিষয় হলো, বেবি পিঙ্ক, রেড, ব্ল্যাক, ক্রিমসহ রয়েছে বিভিন্ন আকর্ষণীয় কালার। আপনার সোনামণির পছন্দ অনুযায়ী বেছে নিন সেরা রঙটি। \nতাহলে এই শীতে ছোট্ট সোনামণির জন্য পছন্দের Ear Muff-টি নিতে আর দেরি কেন?\nঅর্ডার করতে এখনই ইনবক্স করুন Jawata Mart-এ অথবা M: 01915210799.\nWebsite: www.jawatamart.com\nJawata Mart—ছোট্ট সোনামণির প্রতিটি মুহূর্ত হোক আরও সুন্দর ও রঙিন!  your cute baby",
+    "specifications": {
+      "_categories": [
+        "Baby Items",
+        "Winter Items"
+      ],
+      "Style": "Winter Fluffy Ear Warmer"
+    },
+    "badge": null,
+    "isFeatured": false,
+    "isBestSeller": false,
+    "isNew": false,
+    "isActive": true,
+    "rating": 5,
+    "reviewCount": 0,
+    "groupId": "group_p-drv-wnt-rabbit-earmuffs-airbag",
+    "groupSlug": "moving-airbag-rabbit-ears-plush-winter-earmuffs",
+    "oldVariantId": "var_1793003780323_xpqy",
+    "variants": [],
+    "mergedFromSlugs": []
+  },
+  {
+    "id": "prod_split_var_1792777984398_hxeg",
+    "name": "Kids & Baby Stylist Socks — Style 1",
+    "slug": "kids-baby-stylist-socks-style-1-jm-var-mvl9r4g2-1",
+    "categoryId": "cat-baby-shoes",
+    "categoryName": "Baby Shoes",
+    "categorySlug": "baby-shoes",
+    "categories": [
+      "Baby Items",
+      "Winter Items"
+    ],
+    "subCategoryId": "sub-toddler-sneakers",
+    "subCategoryName": "Toddler Sneakers & Sandals",
+    "subCategorySlug": "toddler-sneakers",
+    "brand": "Jawata Mart",
+    "price": 399,
+    "originalPrice": 450,
+    "discount": 11,
+    "stock": 20,
+    "sku": "JM-VAR-MVL9R4G2-1",
+    "image": "/uploads/1792778000645-2._Long_Socks.jpeg.webp",
+    "images": [
+      "/uploads/1792778000645-2._Long_Socks.jpeg.webp"
+    ],
+    "description": "Stylish breathable hollow fishnet mesh socks for girls decorated with large satin bow ties. Looks charming paired with frocks and party dresses.",
+    "specifications": {
+      "Style": "Style 1",
+      "Colors": "Black / White Pair",
+      "Elastic": "High Stretch Non-Pinch Band"
+    },
+    "badge": "Trending",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 37,
+    "groupId": "group_p-drv-bsh-fishnet-bow-socks",
+    "groupSlug": "baby-toddler-bowtie-fishnet-socks",
+    "oldVariantId": "var_1792777984398_hxeg",
+    "variants": [],
+    "mergedFromSlugs": []
+  },
+  {
+    "id": "prod_split_var_1792778048696_dvlr",
+    "name": "Kids & Baby Stylist Socks — Style 2",
+    "slug": "kids-baby-stylist-socks-style-2-jm-var-mvl9sch7-2",
+    "categoryId": "cat-baby-shoes",
+    "categoryName": "Baby Shoes",
+    "categorySlug": "baby-shoes",
+    "categories": [
+      "Baby Items",
+      "Winter Items"
+    ],
+    "subCategoryId": "sub-toddler-sneakers",
+    "subCategoryName": "Toddler Sneakers & Sandals",
+    "subCategorySlug": "toddler-sneakers",
+    "brand": "Jawata Mart",
+    "price": 399,
+    "originalPrice": 450,
+    "discount": 11,
+    "stock": 20,
+    "sku": "JM-VAR-MVL9SCH7-2",
+    "image": "/uploads/1792778072987-3._Socks.jpeg.webp",
+    "images": [
+      "/uploads/1792778072987-3._Socks.jpeg.webp"
+    ],
+    "description": "Stylish breathable hollow fishnet mesh socks for girls decorated with large satin bow ties. Looks charming paired with frocks and party dresses.",
+    "specifications": {
+      "Style": "Style 2",
+      "Colors": "Black / White Pair",
+      "Elastic": "High Stretch Non-Pinch Band"
+    },
+    "badge": "Trending",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 37,
+    "groupId": "group_p-drv-bsh-fishnet-bow-socks",
+    "groupSlug": "baby-toddler-bowtie-fishnet-socks",
+    "oldVariantId": "var_1792778048696_dvlr",
+    "variants": [],
+    "mergedFromSlugs": []
+  },
+  {
+    "id": "prod_split_var_1792778114057_iixk",
+    "name": "Kids & Baby Stylist Socks — Style 3",
+    "slug": "kids-baby-stylist-socks-style-3-jm-var-mvl9tq8g-3",
+    "categoryId": "cat-baby-shoes",
+    "categoryName": "Baby Shoes",
+    "categorySlug": "baby-shoes",
+    "categories": [
+      "Baby Items",
+      "Winter Items"
+    ],
+    "subCategoryId": "sub-toddler-sneakers",
+    "subCategoryName": "Toddler Sneakers & Sandals",
+    "subCategorySlug": "toddler-sneakers",
+    "brand": "Jawata Mart",
+    "price": 399,
+    "originalPrice": 450,
+    "discount": 11,
+    "stock": 20,
+    "sku": "JM-VAR-MVL9TQ8G-3",
+    "image": "/uploads/1792778142681-4._Long_Socks.jpeg.webp",
+    "images": [
+      "/uploads/1792778142681-4._Long_Socks.jpeg.webp"
+    ],
+    "description": "Stylish breathable hollow fishnet mesh socks for girls decorated with large satin bow ties. Looks charming paired with frocks and party dresses.",
+    "specifications": {
+      "Style": "Style 3",
+      "Colors": "Black / White Pair",
+      "Elastic": "High Stretch Non-Pinch Band"
+    },
+    "badge": "Trending",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 37,
+    "groupId": "group_p-drv-bsh-fishnet-bow-socks",
+    "groupSlug": "baby-toddler-bowtie-fishnet-socks",
+    "oldVariantId": "var_1792778114057_iixk",
+    "variants": [],
+    "mergedFromSlugs": []
+  },
+  {
+    "id": "prod_split_var_1792778184776_keo3",
+    "name": "Kids & Baby Stylist Socks — Style 4",
+    "slug": "kids-baby-stylist-socks-style-4-jm-var-mvl9uzr8-4",
+    "categoryId": "cat-baby-shoes",
+    "categoryName": "Baby Shoes",
+    "categorySlug": "baby-shoes",
+    "categories": [
+      "Baby Items",
+      "Winter Items"
+    ],
+    "subCategoryId": "sub-toddler-sneakers",
+    "subCategoryName": "Toddler Sneakers & Sandals",
+    "subCategorySlug": "toddler-sneakers",
+    "brand": "Jawata Mart",
+    "price": 399,
+    "originalPrice": 450,
+    "discount": 11,
+    "stock": 20,
+    "sku": "JM-VAR-MVL9UZR8-4",
+    "image": "/uploads/1792778200311-4._Socks.jpeg.webp",
+    "images": [
+      "/uploads/1792778200311-4._Socks.jpeg.webp"
+    ],
+    "description": "Stylish breathable hollow fishnet mesh socks for girls decorated with large satin bow ties. Looks charming paired with frocks and party dresses.",
+    "specifications": {
+      "Style": "Style 4",
+      "Colors": "Black / White Pair",
+      "Elastic": "High Stretch Non-Pinch Band"
+    },
+    "badge": "Trending",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 37,
+    "groupId": "group_p-drv-bsh-fishnet-bow-socks",
+    "groupSlug": "baby-toddler-bowtie-fishnet-socks",
+    "oldVariantId": "var_1792778184776_keo3",
+    "variants": [],
+    "mergedFromSlugs": []
+  },
+  {
+    "id": "prod_split_var_1792778231335_m09e",
+    "name": "Kids & Baby Stylist Socks — Style 5",
+    "slug": "kids-baby-stylist-socks-style-5-jm-var-mvl9vwac-5",
+    "categoryId": "cat-baby-shoes",
+    "categoryName": "Baby Shoes",
+    "categorySlug": "baby-shoes",
+    "categories": [
+      "Baby Items",
+      "Winter Items"
+    ],
+    "subCategoryId": "sub-toddler-sneakers",
+    "subCategoryName": "Toddler Sneakers & Sandals",
+    "subCategorySlug": "toddler-sneakers",
+    "brand": "Jawata Mart",
+    "price": 399,
+    "originalPrice": 450,
+    "discount": 11,
+    "stock": 20,
+    "sku": "JM-VAR-MVL9VWAC-5",
+    "image": "/uploads/1792778244009-5._Long_Socks.jpeg.webp",
+    "images": [
+      "/uploads/1792778244009-5._Long_Socks.jpeg.webp"
+    ],
+    "description": "Stylish breathable hollow fishnet mesh socks for girls decorated with large satin bow ties. Looks charming paired with frocks and party dresses.",
+    "specifications": {
+      "Style": "Style 5",
+      "Colors": "Black / White Pair",
+      "Elastic": "High Stretch Non-Pinch Band"
+    },
+    "badge": "Trending",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 37,
+    "groupId": "group_p-drv-bsh-fishnet-bow-socks",
+    "groupSlug": "baby-toddler-bowtie-fishnet-socks",
+    "oldVariantId": "var_1792778231335_m09e",
+    "variants": [],
+    "mergedFromSlugs": []
+  },
+  {
+    "id": "prod_split_var_1792778273185_2cxu",
+    "name": "Kids & Baby Stylist Socks — Style 6",
+    "slug": "kids-baby-stylist-socks-style-6-jm-var-mvl9wskf-6",
+    "categoryId": "cat-baby-shoes",
+    "categoryName": "Baby Shoes",
+    "categorySlug": "baby-shoes",
+    "categories": [
+      "Baby Items",
+      "Winter Items"
+    ],
+    "subCategoryId": "sub-toddler-sneakers",
+    "subCategoryName": "Toddler Sneakers & Sandals",
+    "subCategorySlug": "toddler-sneakers",
+    "brand": "Jawata Mart",
+    "price": 399,
+    "originalPrice": 450,
+    "discount": 11,
+    "stock": 20,
+    "sku": "JM-VAR-MVL9WSKF-6",
+    "image": "/uploads/1792778284356-6._Long_Socks__2_.jpeg.webp",
+    "images": [
+      "/uploads/1792778284356-6._Long_Socks__2_.jpeg.webp"
+    ],
+    "description": "Stylish breathable hollow fishnet mesh socks for girls decorated with large satin bow ties. Looks charming paired with frocks and party dresses.",
+    "specifications": {
+      "Style": "Style 6",
+      "Colors": "Black / White Pair",
+      "Elastic": "High Stretch Non-Pinch Band"
+    },
+    "badge": "Trending",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 37,
+    "groupId": "group_p-drv-bsh-fishnet-bow-socks",
+    "groupSlug": "baby-toddler-bowtie-fishnet-socks",
+    "oldVariantId": "var_1792778273185_2cxu",
+    "variants": [],
+    "mergedFromSlugs": []
+  },
+  {
+    "id": "prod_split_var_1792778330145_v5kv",
+    "name": "Kids & Baby Stylist Socks — Style 7",
+    "slug": "kids-baby-stylist-socks-style-7-jm-var-mvl9xzca-7",
+    "categoryId": "cat-baby-shoes",
+    "categoryName": "Baby Shoes",
+    "categorySlug": "baby-shoes",
+    "categories": [
+      "Baby Items",
+      "Winter Items"
+    ],
+    "subCategoryId": "sub-toddler-sneakers",
+    "subCategoryName": "Toddler Sneakers & Sandals",
+    "subCategorySlug": "toddler-sneakers",
+    "brand": "Jawata Mart",
+    "price": 399,
+    "originalPrice": 450,
+    "discount": 11,
+    "stock": 20,
+    "sku": "JM-VAR-MVL9XZCA-7",
+    "image": "/uploads/1792778341885-6._Long_Socks.jpeg.webp",
+    "images": [
+      "/uploads/1792778341885-6._Long_Socks.jpeg.webp"
+    ],
+    "description": "Stylish breathable hollow fishnet mesh socks for girls decorated with large satin bow ties. Looks charming paired with frocks and party dresses.",
+    "specifications": {
+      "Style": "Style 7",
+      "Colors": "Black / White Pair",
+      "Elastic": "High Stretch Non-Pinch Band"
+    },
+    "badge": "Trending",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 37,
+    "groupId": "group_p-drv-bsh-fishnet-bow-socks",
+    "groupSlug": "baby-toddler-bowtie-fishnet-socks",
+    "oldVariantId": "var_1792778330145_v5kv",
+    "variants": [],
+    "mergedFromSlugs": []
+  },
+  {
+    "id": "prod_split_var_1792778527804_pg7q",
+    "name": "Kids & Baby Stylist Socks — Style 8",
+    "slug": "kids-baby-stylist-socks-style-8-jm-var-mvlabamv-8",
+    "categoryId": "cat-baby-shoes",
+    "categoryName": "Baby Shoes",
+    "categorySlug": "baby-shoes",
+    "categories": [
+      "Baby Items",
+      "Winter Items"
+    ],
+    "subCategoryId": "sub-toddler-sneakers",
+    "subCategoryName": "Toddler Sneakers & Sandals",
+    "subCategorySlug": "toddler-sneakers",
+    "brand": "Jawata Mart",
+    "price": 399,
+    "originalPrice": 450,
+    "discount": 11,
+    "stock": 20,
+    "sku": "JM-VAR-MVLABAMV-8",
+    "image": "/uploads/1792778962252-4._Long_Socks.jpeg.webp",
+    "images": [
+      "/uploads/1792778962252-4._Long_Socks.jpeg.webp"
+    ],
+    "description": "Stylish breathable hollow fishnet mesh socks for girls decorated with large satin bow ties. Looks charming paired with frocks and party dresses.",
+    "specifications": {
+      "Style": "Style 8",
+      "Colors": "Black / White Pair",
+      "Elastic": "High Stretch Non-Pinch Band"
+    },
+    "badge": "Trending",
+    "isFeatured": true,
+    "isBestSeller": true,
+    "isNew": true,
+    "isActive": true,
+    "rating": 4.9,
+    "reviewCount": 37,
+    "groupId": "group_p-drv-bsh-fishnet-bow-socks",
+    "groupSlug": "baby-toddler-bowtie-fishnet-socks",
+    "oldVariantId": "var_1792778527804_pg7q",
     "variants": [],
     "mergedFromSlugs": []
   }

@@ -22,17 +22,63 @@
       "prod_split_var_1792865390008_vzxk",
       "prod_split_var_1792865430950_e4wz",
       "prod_split_var_1792869458194_o8b6",
-      "prod_split_var_1792869673651_d7k1"
+      "prod_split_var_1792869673651_d7k1",
+      "prod_split_var_1793003599975_syhw",
+      "prod_split_var_1793003780323_xpqy"
     ],
     "minPrice": 480,
     "maxPrice": 650,
     "minRegularPrice": 580,
     "maxRegularPrice": 750,
-    "totalStyles": 4,
+    "totalStyles": 6,
     "isActive": true,
     "isFeatured": true,
     "order": 1,
     "createdAt": "2026-10-28T11:38:15.944Z",
     "updatedAt": "2026-10-28T11:38:15.946Z"
+  },
+  {
+    "id": "group_p-drv-bsh-fishnet-bow-socks",
+    "name": "Kids & Baby Stylist Socks Collection",
+    "slug": "baby-toddler-bowtie-fishnet-socks",
+    "description": "Stylish breathable hollow fishnet mesh socks for girls decorated with large satin bow ties. Looks charming paired with frocks and party dresses.",
+    "image": "/uploads/clean/1789051394106.jpg",
+    "images": [
+      "/uploads/1792778000645-2._Long_Socks.jpeg.webp",
+      "/uploads/1792778072987-3._Socks.jpeg.webp",
+      "/uploads/1792778142681-4._Long_Socks.jpeg.webp",
+      "/uploads/1792778200311-4._Socks.jpeg.webp",
+      "/uploads/1792778244009-5._Long_Socks.jpeg.webp",
+      "/uploads/1792778284356-6._Long_Socks__2_.jpeg.webp",
+      "/uploads/1792778341885-6._Long_Socks.jpeg.webp",
+      "/uploads/1792778962252-4._Long_Socks.jpeg.webp"
+    ],
+    "categoryId": "cat-baby-shoes",
+    "categoryName": "Baby Shoes",
+    "categorySlug": "baby-shoes",
+    "categories": [
+      "Baby Items",
+      "Winter Items"
+    ],
+    "productIds": [
+      "prod_split_var_1792777984398_hxeg",
+      "prod_split_var_1792778048696_dvlr",
+      "prod_split_var_1792778114057_iixk",
+      "prod_split_var_1792778184776_keo3",
+      "prod_split_var_1792778231335_m09e",
+      "prod_split_var_1792778273185_2cxu",
+      "prod_split_var_1792778330145_v5kv",
+      "prod_split_var_1792778527804_pg7q"
+    ],
+    "minPrice": 399,
+    "maxPrice": 399,
+    "minRegularPrice": 450,
+    "maxRegularPrice": 450,
+    "totalStyles": 8,
+    "isActive": true,
+    "isFeatured": true,
+    "order": 2,
+    "createdAt": "2026-10-28T12:10:03.372Z",
+    "updatedAt": "2026-10-28T12:10:03.374Z"
   }
 ]

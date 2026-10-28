@@ -26,13 +26,13 @@ async function runAcceptanceTests() {
     const hasAllPrices = memberProducts.every((p) => typeof p.price === 'number' && p.price > 0);
     const hasAllSkus = memberProducts.every((p) => Boolean(p.sku && p.sku.length > 0));
 
-    if (memberProducts.length === 4 && hasAllImages && hasAllPrices && hasAllSkus) {
-      console.log('✔ Test ক: PASS — Group page-এ group-এর সব 4টি item card আকারে দেখা যাচ্ছে, প্রতিটার নিজের ছবি, SKU ও দামসহ।');
+    if (memberProducts.length === group.productIds.length && memberProducts.length >= 4 && hasAllImages && hasAllPrices && hasAllSkus) {
+      console.log(`✔ Test ক: PASS — Group page-এ group-এর সব ${memberProducts.length}টি item card আকারে দেখা যাচ্ছে, প্রতিটার নিজের ছবি, SKU ও দামসহ।`);
       memberProducts.forEach((p, i) => {
         console.log(`   Style ${i + 1}: "${p.name}" | ৳${p.price} | SKU: ${p.sku} | Img: ${p.image.slice(0, 35)}...`);
       });
     } else {
-      throw new Error(`Expected 4 member products with valid data, got ${memberProducts.length}`);
+      throw new Error(`Expected valid member products matching group styles (${group.productIds.length}), got ${memberProducts.length}`);
     }
   } catch (err: any) {
     allPassed = false;
