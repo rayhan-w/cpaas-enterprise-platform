@@ -155,7 +155,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
       )}
 
       {/* Product Grid */}
-      <ProductGrid products={sortedProducts} groups={categoryGroups} />
+      <ProductGrid products={sortedProducts} groups={activeSub ? [] : categoryGroups} hideGroupedProducts={false} />
     </div>
   );
 }

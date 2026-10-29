@@ -35,7 +35,7 @@
     "isFeatured": false,
     "isBestSeller": false,
     "isNew": false,
-    "isActive": true,
+    "isActive": false,
     "rating": 5,
     "reviewCount": 0,
     "subCategoryId": "sub-shallmaf",
@@ -1191,7 +1191,7 @@
     "isFeatured": true,
     "isBestSeller": true,
     "isNew": true,
-    "isActive": true,
+    "isActive": false,
     "rating": 5,
     "reviewCount": 94,
     "categories": [
@@ -1248,7 +1248,8 @@
       "shallmaf"
     ],
     "variants": [],
-    "mergedFromSlugs": []
+    "mergedFromSlugs": [],
+    "inStock": true
   },
   {
     "id": "p-drv-gft-sakura-umbrella",
@@ -2153,7 +2154,8 @@
     "groupSlug": null,
     "oldVariantId": "var_1792865390008_vzxk",
     "variants": [],
-    "mergedFromSlugs": []
+    "mergedFromSlugs": [],
+    "inStock": true
   },
   {
     "id": "prod_split_var_1792865430950_e4wz",
@@ -2202,7 +2204,8 @@
     "groupSlug": null,
     "oldVariantId": "var_1792865430950_e4wz",
     "variants": [],
-    "mergedFromSlugs": []
+    "mergedFromSlugs": [],
+    "inStock": true
   },
   {
     "id": "prod_split_var_1792869458194_o8b6",
@@ -2251,7 +2254,8 @@
     "groupSlug": "moving-airbag-rabbit-ears-plush-winter-earmuffs",
     "oldVariantId": "var_1792869458194_o8b6",
     "variants": [],
-    "mergedFromSlugs": []
+    "mergedFromSlugs": [],
+    "inStock": true
   },
   {
     "id": "prod_split_var_1792869673651_d7k1",
@@ -2299,7 +2303,8 @@
     "groupSlug": "moving-airbag-rabbit-ears-plush-winter-earmuffs",
     "oldVariantId": "var_1792869673651_d7k1",
     "variants": [],
-    "mergedFromSlugs": []
+    "mergedFromSlugs": [],
+    "inStock": true
   },
   {
     "id": "prod_split_var_1793003599975_syhw",
@@ -2348,7 +2353,8 @@
     "groupSlug": "moving-airbag-rabbit-ears-plush-winter-earmuffs",
     "oldVariantId": "var_1793003599975_syhw",
     "variants": [],
-    "mergedFromSlugs": []
+    "mergedFromSlugs": [],
+    "inStock": true
   },
   {
     "id": "prod_split_var_1793003780323_xpqy",
@@ -2395,7 +2401,8 @@
     "groupSlug": "moving-airbag-rabbit-ears-plush-winter-earmuffs",
     "oldVariantId": "var_1793003780323_xpqy",
     "variants": [],
-    "mergedFromSlugs": []
+    "mergedFromSlugs": [],
+    "inStock": true
   },
   {
     "id": "prod_split_var_1792777984398_hxeg",

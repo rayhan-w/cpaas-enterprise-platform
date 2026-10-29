@@ -8,9 +8,15 @@ interface ProductGridProps {
   products: ProductItem[];
   groups?: ProductGroup[];
   loading?: boolean;
+  hideGroupedProducts?: boolean;
 }
 
-export default function ProductGrid({ products, groups = [], loading }: ProductGridProps) {
+export default function ProductGrid({
+  products,
+  groups = [],
+  loading,
+  hideGroupedProducts = false,
+}: ProductGridProps) {
   if (loading) {
     return (
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -31,7 +37,7 @@ export default function ProductGrid({ products, groups = [], loading }: ProductG
 
   // Filter out products that are already represented by a GroupCard on this listing
   const groupedIds = new Set(groups.flatMap((g) => g.productIds || []));
-  const standaloneProducts = groups.length > 0
+  const standaloneProducts = hideGroupedProducts && groups.length > 0
     ? products.filter((p) => !groupedIds.has(p.id) && !p.groupId)
     : products;
 
