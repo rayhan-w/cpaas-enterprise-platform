@@ -291,9 +291,10 @@ export const INITIAL_CATEGORIES: CategoryItem[] = [
     isActive: true,
     subCategories: [
       { id: 'sub-baby-winter-sweaters', categoryId: 'cat-winter-items', name: 'Baby Winter Sweaters & Hoodies', slug: 'baby-winter-sweaters', order: 1 },
-      { id: 'sub-shawls-wraps', categoryId: 'cat-winter-items', name: 'Shawls & Wraps', slug: 'shawls-wraps', order: 2 },
-      { id: 'sub-quilts-blankets', categoryId: 'cat-winter-items', name: 'Blankets & Quilts', slug: 'quilts-blankets', order: 3 },
-      { id: 'sub-winter-caps-socks', categoryId: 'cat-winter-items', name: 'Winter Caps & Socks', slug: 'winter-caps-socks', order: 4 },
+      { id: 'sub-shallmaf', categoryId: 'cat-winter-items', name: 'Shall & Muffler (শাল ও মাফলার)', slug: 'shallmaf', order: 2 },
+      { id: 'sub-shawls-wraps', categoryId: 'cat-winter-items', name: 'Shawls & Wraps', slug: 'shawls-wraps', order: 3 },
+      { id: 'sub-quilts-blankets', categoryId: 'cat-winter-items', name: 'Blankets & Quilts', slug: 'quilts-blankets', order: 4 },
+      { id: 'sub-winter-caps-socks', categoryId: 'cat-winter-items', name: 'Winter Caps & Socks', slug: 'winter-caps-socks', order: 5 },
     ],
   },
   {

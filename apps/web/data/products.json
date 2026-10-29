@@ -8,7 +8,9 @@
     "categorySlug": "winter-items",
     "categories": [
       "Baby Items",
-      "Winter Items"
+      "Winter Items",
+      "Shall & Muffler (শাল ও মাফলার)",
+      "shallmaf"
     ],
     "brand": "Brand",
     "price": 599,
@@ -36,9 +38,9 @@
     "isActive": true,
     "rating": 5,
     "reviewCount": 0,
-    "subCategoryId": "sub-winter-caps-socks",
-    "subCategoryName": "Winter Caps & Socks",
-    "subCategorySlug": "winter-caps-socks",
+    "subCategoryId": "sub-shallmaf",
+    "subCategoryName": "Shall & Muffler (শাল ও মাফলার)",
+    "subCategorySlug": "shallmaf",
     "variants": [],
     "mergedFromSlugs": [],
     "isGroupPlaceholder": true,
@@ -1166,9 +1168,9 @@
     "categoryId": "cat-winter-items",
     "categoryName": "Winter Items",
     "categorySlug": "winter-items",
-    "subCategoryId": "sub-winter-caps-socks",
-    "subCategoryName": "Winter Caps & Socks",
-    "subCategorySlug": "winter-caps-socks",
+    "subCategoryId": "sub-shallmaf",
+    "subCategoryName": "Shall & Muffler (শাল ও মাফলার)",
+    "subCategorySlug": "shallmaf",
     "brand": "Jawata Mart",
     "price": 650,
     "originalPrice": 750,
@@ -1194,7 +1196,9 @@
     "reviewCount": 94,
     "categories": [
       "Winter Items",
-      "Baby Items"
+      "Baby Items",
+      "Shall & Muffler (শাল ও মাফলার)",
+      "shallmaf"
     ],
     "variants": [],
     "mergedFromSlugs": [],
@@ -1209,9 +1213,9 @@
     "categoryId": "cat-winter-items",
     "categoryName": "Winter Items",
     "categorySlug": "winter-items",
-    "subCategoryId": "sub-winter-caps-socks",
-    "subCategoryName": "Winter Caps & Socks",
-    "subCategorySlug": "winter-caps-socks",
+    "subCategoryId": "sub-shallmaf",
+    "subCategoryName": "Shall & Muffler (শাল ও মাফলার)",
+    "subCategorySlug": "shallmaf",
     "brand": "Jawata Mart",
     "price": 480,
     "originalPrice": 750,
@@ -1239,7 +1243,9 @@
     "reviewCount": 35,
     "categories": [
       "Winter Items",
-      "Baby Items"
+      "Baby Items",
+      "Shall & Muffler (শাল ও মাফলার)",
+      "shallmaf"
     ],
     "variants": [],
     "mergedFromSlugs": []
@@ -2112,11 +2118,13 @@
     "categorySlug": "winter-items",
     "categories": [
       "Winter Items",
-      "Baby Items"
+      "Baby Items",
+      "Shall & Muffler (শাল ও মাফলার)",
+      "shallmaf"
     ],
-    "subCategoryId": "sub-winter-caps-socks",
-    "subCategoryName": "Winter Caps & Socks",
-    "subCategorySlug": "winter-caps-socks",
+    "subCategoryId": "sub-shallmaf",
+    "subCategoryName": "Shall & Muffler (শাল ও মাফলার)",
+    "subCategorySlug": "shallmaf",
     "brand": "Jawata Mart",
     "price": 499,
     "originalPrice": 599,
@@ -2156,11 +2164,13 @@
     "categorySlug": "winter-items",
     "categories": [
       "Winter Items",
-      "Baby Items"
+      "Baby Items",
+      "Shall & Muffler (শাল ও মাফলার)",
+      "shallmaf"
     ],
-    "subCategoryId": "sub-winter-caps-socks",
-    "subCategoryName": "Winter Caps & Socks",
-    "subCategorySlug": "winter-caps-socks",
+    "subCategoryId": "sub-shallmaf",
+    "subCategoryName": "Shall & Muffler (শাল ও মাফলার)",
+    "subCategorySlug": "shallmaf",
     "brand": "Jawata Mart",
     "price": 480,
     "originalPrice": 580,
@@ -2203,11 +2213,13 @@
     "categorySlug": "winter-items",
     "categories": [
       "Winter Items",
-      "Baby Items"
+      "Baby Items",
+      "Shall & Muffler (শাল ও মাফলার)",
+      "shallmaf"
     ],
-    "subCategoryId": "sub-winter-caps-socks",
-    "subCategoryName": "Winter Caps & Socks",
-    "subCategorySlug": "winter-caps-socks",
+    "subCategoryId": "sub-shallmaf",
+    "subCategoryName": "Shall & Muffler (শাল ও মাফলার)",
+    "subCategorySlug": "shallmaf",
     "brand": "Jawata Mart",
     "price": 599,
     "originalPrice": 699,
@@ -2250,11 +2262,13 @@
     "categorySlug": "winter-items",
     "categories": [
       "Winter Items",
-      "Baby Items"
+      "Baby Items",
+      "Shall & Muffler (শাল ও মাফলার)",
+      "shallmaf"
     ],
-    "subCategoryId": "sub-winter-caps-socks",
-    "subCategoryName": "Winter Caps & Socks",
-    "subCategorySlug": "winter-caps-socks",
+    "subCategoryId": "sub-shallmaf",
+    "subCategoryName": "Shall & Muffler (শাল ও মাফলার)",
+    "subCategorySlug": "shallmaf",
     "brand": "Jawata Mart",
     "price": 650,
     "originalPrice": 750,
@@ -2296,11 +2310,13 @@
     "categorySlug": "winter-items",
     "categories": [
       "Baby Items",
-      "Winter Items"
+      "Winter Items",
+      "Shall & Muffler (শাল ও মাফলার)",
+      "shallmaf"
     ],
-    "subCategoryId": "sub-winter-caps-socks",
-    "subCategoryName": "Winter Caps & Socks",
-    "subCategorySlug": "winter-caps-socks",
+    "subCategoryId": "sub-shallmaf",
+    "subCategoryName": "Shall & Muffler (শাল ও মাফলার)",
+    "subCategorySlug": "shallmaf",
     "brand": "Brand",
     "price": 599,
     "originalPrice": 699,
@@ -2343,11 +2359,13 @@
     "categorySlug": "winter-items",
     "categories": [
       "Baby Items",
-      "Winter Items"
+      "Winter Items",
+      "Shall & Muffler (শাল ও মাফলার)",
+      "shallmaf"
     ],
-    "subCategoryId": "sub-winter-caps-socks",
-    "subCategoryName": "Winter Caps & Socks",
-    "subCategorySlug": "winter-caps-socks",
+    "subCategoryId": "sub-shallmaf",
+    "subCategoryName": "Shall & Muffler (শাল ও মাফলার)",
+    "subCategorySlug": "shallmaf",
     "brand": "Brand",
     "price": 499,
     "originalPrice": 599,

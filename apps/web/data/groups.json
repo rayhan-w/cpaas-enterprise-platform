@@ -16,7 +16,8 @@
     "categorySlug": "winter-items",
     "categories": [
       "Winter Items",
-      "Baby Items"
+      "Baby Items",
+      "Shall & Muffler (শাল ও মাফলার)"
     ],
     "productIds": [
       "prod_split_var_1792865390008_vzxk",
@@ -35,7 +36,10 @@
     "isFeatured": true,
     "order": 1,
     "createdAt": "2026-10-28T11:38:15.944Z",
-    "updatedAt": "2026-10-28T11:38:15.946Z"
+    "updatedAt": "2026-10-28T11:38:15.946Z",
+    "subCategoryId": "sub-shallmaf",
+    "subCategoryName": "Shall & Muffler (শাল ও মাফলার)",
+    "subCategorySlug": "shallmaf"
   },
   {
     "id": "group_p-drv-bsh-fishnet-bow-socks",

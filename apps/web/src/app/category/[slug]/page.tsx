@@ -64,6 +64,14 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
     sortedProducts.sort((a, b) => b.rating - a.rating);
   }
 
+  // Filter groups by active subcategory if one is selected
+  const categoryGroups = groups.filter((g) => {
+    if (search) return false;
+    if (!activeSub) return true;
+    if (g.subCategorySlug && (g.subCategorySlug === activeSub.slug || g.subCategorySlug === activeSub.id)) return true;
+    return products.some((p) => g.productIds.includes(p.id));
+  });
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 sm:py-10 space-y-8">
       {/* Back Button & Breadcrumbs */}
@@ -147,7 +155,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
       )}
 
       {/* Product Grid */}
-      <ProductGrid products={sortedProducts} groups={search ? [] : groups} />
+      <ProductGrid products={sortedProducts} groups={categoryGroups} />
     </div>
   );
 }

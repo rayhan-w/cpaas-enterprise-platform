@@ -34,6 +34,9 @@ export interface ProductGroup {
   categoryId?: string;
   categoryName?: string;
   categorySlug?: string;
+  subCategoryId?: string;
+  subCategoryName?: string;
+  subCategorySlug?: string;
   categories?: string[];
   productIds: string[];
   minPrice: number;
